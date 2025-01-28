@@ -7,8 +7,8 @@ AnimateHallOfFame:
 	call LoadTextBoxTilePatterns
 	call DisableLCD
 	ld hl, vBGMap0
-	ld bc, $800
-	ld a, " "
+	ld bc, 2 * BG_MAP_WIDTH * BG_MAP_HEIGHT
+	ld a, "　"
 	call FillMemory
 	call EnableLCD
 	ld hl, rLCDC
@@ -61,7 +61,7 @@ AnimateHallOfFame:
 	ld b, 3
 	ld c, 14
 	call TextBoxBorder
-	hlcoord 4, 15
+	hlcoord 3, 15
 	ld de, HallOfFameText
 	call PlaceString
 	ld c, 180
@@ -92,7 +92,7 @@ AnimateHallOfFame:
 	ret
 
 HallOfFameText:
-	db "HALL OF FAME@"
+	db "でんどう　いり　おめでとう！@"
 
 HoFShowMonOrPlayer:
 	call ClearScreen
@@ -157,30 +157,30 @@ HoFDisplayAndRecordMonInfo:
 	jp HoFRecordMonInfo
 
 HoFDisplayMonInfo:
-	hlcoord 0, 2
-	ld b, 9
-	ld c, 10
+	hlcoord 0, 3
+	ld b, 8
+	ld c, 9
 	call TextBoxBorder
-	hlcoord 2, 6
+	hlcoord 1, 7
 	ld de, HoFMonInfoText
 	call PlaceString
-	hlcoord 1, 4
+	hlcoord 2, 5
 	ld de, wNameBuffer
 	call PlaceString
 	ld a, [wHoFMonLevel]
-	hlcoord 8, 7
+	hlcoord 7, 7
 	call PrintLevelCommon
 	ld a, [wHoFMonSpecies]
 	ld [wCurSpecies], a
-	hlcoord 3, 9
+	hlcoord 6, 9
 	predef PrintMonType
 	ld a, [wHoFMonSpecies]
 	jp PlayCry
 
 HoFMonInfoText:
-	db   "LEVEL/"
-	next "TYPE1/"
-	next "TYPE2/@"
+	db   "　レベル／"
+	next "タイプ１／"
+	next "タイプ２／@"
 
 HoFLoadPlayerPics:
 	ld de, RedPicFront
@@ -215,7 +215,7 @@ HoFDisplayPlayerStats:
 	call TextBoxBorder
 	hlcoord 5, 0
 	ld b, 2
-	ld c, 9
+	ld c, 8
 	call TextBoxBorder
 	hlcoord 7, 2
 	ld de, wPlayerName
@@ -227,7 +227,7 @@ HoFDisplayPlayerStats:
 	ld de, wPlayTimeHours
 	lb bc, 1, 3
 	call PrintNumber
-	ld [hl], $6d
+	ld [hl], ":"
 	inc hl
 	ld de, wPlayTimeMinutes
 	lb bc, LEADING_ZEROES | 1, 2
@@ -237,8 +237,9 @@ HoFDisplayPlayerStats:
 	call PlaceString
 	hlcoord 4, 10
 	ld de, wPlayerMoney
-	ld c, $a3
+	ld c, 3 | LEADING_ZEROES
 	call PrintBCDNumber
+	ld [hl], "円"
 	ld hl, DexSeenOwnedText
 	call HoFPrintTextAndDelay
 	ld hl, DexRatingText
@@ -248,21 +249,34 @@ HoFDisplayPlayerStats:
 HoFPrintTextAndDelay:
 	call PrintText
 	ld c, 120
-	jp DelayFrames
+	call DelayFrames ; BUG: it should be jp
+; On return from DelayFrames, falls through and starts reading HoFPlayTimeText
+; as code. The resulting sequence is 8 bytes long:
+;		ld b, d
+;		and a
+;		add c
+;		inc l
+;		or [hl]
+;		sbc $50
+;		ret
 
 HoFPlayTimeText:
-	db "PLAY TIME@"
+	db "プレイじかん@"
 
 HoFMoneyText:
-	db "MONEY@"
+	db "のこった　おこづかい@"
 
 DexSeenOwnedText:
-	text_far _DexSeenOwnedText
+	text "#ずかん:みつけたかず@"
+	text_decimal wDexRatingNumMonsSeen, 1, 3
+	text_start
+	line "　　　　　　　つかまえたかず@"
+	text_decimal wDexRatingNumMonsOwned, 1, 3
 	text_end
 
 DexRatingText:
-	text_far _DexRatingText
-	text_end
+	text "#ずかん　ひょうか:"
+	done
 
 HoFRecordMonInfo:
 	ld hl, wHallOfFame

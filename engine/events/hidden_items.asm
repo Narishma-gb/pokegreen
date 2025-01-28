@@ -21,7 +21,10 @@ HiddenItems:
 INCLUDE "data/events/hidden_item_coords.asm"
 
 FoundHiddenItemText::
-	text_far _FoundHiddenItemText
+	text "<PLAYER>は"
+	line "@"
+	text_ram wNameBuffer
+	text "を　みつけた！@"
 	text_asm
 	ld a, [wHiddenObjectFunctionArgument] ; item ID
 	ld b, a
@@ -46,8 +49,9 @@ FoundHiddenItemText::
 	jp TextScriptEnd
 
 HiddenItemBagFullText::
-	text_far _HiddenItemBagFullText
-	text_end
+	text "しかし　<PLAYER>は"
+	line "どうぐを　もう　もてない！"
+	done
 
 HiddenCoins:
 	ld b, COIN_CASE
@@ -121,15 +125,24 @@ HiddenCoins:
 INCLUDE "data/events/hidden_coins.asm"
 
 FoundHiddenCoinsText::
-	text_far _FoundHiddenCoinsText
+	text "<PLAYER>は"
+	line "コインを　@"
+	text_bcd hCoins, 2 | LEADING_ZEROES | LEFT_ALIGN
+	text "まい　みつけた！@"
 	sound_get_item_2
 	text_end
 
 DroppedHiddenCoinsText::
-	text_far _FoundHiddenCoins2Text
+	text "<PLAYER>は"
+	line "コイン　を@"
+	text_bcd hCoins, 2 | LEADING_ZEROES | LEFT_ALIGN
+	text "まい　みつけた！@"
 	sound_get_item_2
-	text_far _DroppedHiddenCoinsText
-	text_end
+	text_start
+
+	para "しかし　<PLAYER>は"
+	line "なんまいか　おとしてしまった！"
+	done
 
 FindHiddenItemOrCoinsIndex:
 	ld a, [wHiddenObjectY]
@@ -138,9 +151,8 @@ FindHiddenItemOrCoinsIndex:
 	ld e, a
 	ld a, [wCurMap]
 	ld b, a
-	ld c, -1
+	ld c, 0
 .loop
-	inc c
 	ld a, [hli]
 	cp -1 ; end of the list?
 	ret z  ; if so, we're done here
@@ -158,4 +170,5 @@ FindHiddenItemOrCoinsIndex:
 	inc hl
 .next2
 	inc hl
+	inc c
 	jr .loop

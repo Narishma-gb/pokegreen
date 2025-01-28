@@ -19,17 +19,14 @@ ConversionEffect_:
 	inc de
 	ld a, [hl]
 	ld [de], a
-	ld hl, PlayCurrentMoveAnimation
-	call CallBankF
+	callfar PlayCurrentMoveAnimation
 	ld hl, ConvertedTypeText
 	jp PrintText
 
 ConvertedTypeText:
-	text_far _ConvertedTypeText
-	text_end
+	text "<TARGET>の　ぞくせいを"
+	line "じぶんに　はりつけた！"
+	prompt
 
 PrintButItFailedText:
-	ld hl, PrintButItFailedText_
-CallBankF:
-	ld b, BANK(PrintButItFailedText_)
-	jp Bankswitch
+	jpfar PrintButItFailedText_

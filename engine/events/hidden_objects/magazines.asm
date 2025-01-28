@@ -4,5 +4,9 @@ PrintMagazinesText:
 	ret
 
 MagazinesText::
-	text_far _MagazinesText
-	text_end
+	text "#　ざっしが　ならんでる！"
+
+	para "<⋯>#　てちょう"
+
+	para "<⋯>#　グラフ"
+	done

@@ -9,5 +9,10 @@ DiglettsCaveRoute11_TextPointers:
 	dw_const DiglettsCaveRoute11GamblerText, TEXT_DIGLETTSCAVEROUTE11_GAMBLER
 
 DiglettsCaveRoute11GamblerText:
-	text_far _DiglettsCaveRoute11GamblerText
-	text_end
+	text "たまげた　もんだ！"
+	line "この　ながーい　どうくつ！"
+	cont "ディグダが　ほったんだと！"
+
+	para "トキワ　シティまで"
+	line "つながっとる　そうだ！"
+	done

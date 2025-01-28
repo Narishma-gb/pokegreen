@@ -2,12 +2,13 @@
 	ret ; unused
 
 UnusedPredefText::
-	db "@"
+	text_end
 
 PrintBookcaseText:
 	call EnableAutoTextBoxDrawing
 	tx_pre_jump BookcaseText
 
 BookcaseText::
-	text_far _BookcaseText
-	text_end
+	text "ほんだなに　ならんでいるのは"
+	line "#の　ほん　ばかりだ"
+	done

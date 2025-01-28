@@ -1,4 +1,5 @@
 Colosseum_Script:
+	ASSERT TRADECENTER_OPPONENT == COLOSSEUM_OPPONENT
 	jp TradeCenter_Script
 
 Colosseum_TextPointers:
@@ -6,5 +7,5 @@ Colosseum_TextPointers:
 	dw_const ColosseumOpponentText, TEXT_COLOSSEUM_OPPONENT
 
 ColosseumOpponentText:
-	text_far _ColosseumOpponentText
-	text_end
+	text "！"
+	done

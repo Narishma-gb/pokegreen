@@ -15,6 +15,6 @@ ClearVariablesOnEnterMap::
 	ld [hli], a
 	ld [hl], a
 	ld hl, wWhichTrade
-	ld bc, wStandingOnWarpPadOrHole - wWhichTrade
+	ld bc, wMiscFlags - wWhichTrade
 	call FillMemory
 	ret

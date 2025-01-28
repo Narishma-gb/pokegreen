@@ -28,37 +28,58 @@ LavenderTownLittleGirlText:
 	jp TextScriptEnd
 
 .DoYouBelieveInGhostsText:
-	text_far _LavenderTownLittleGirlDoYouBelieveInGhostsText
-	text_end
+	text "あなた"
+	line "ゆうれいは　いると　おもう？"
+	done
 
 .SoThereAreBelieversText:
-	text_far _LavenderTownLittleGirlSoThereAreBelieversText
-	text_end
+	text "<⋯>ふーん"
+	line "しんじてる　ひとって　いるんだ"
+	done
 
 .HaHaGuessNotText:
-	text_far _LavenderTownLittleGirlHaHaGuessNotText
-	text_end
+	text "あはは　そうよね！"
+
+	para "あなたの　みぎかたに"
+	line "しろい　てが　おかれてる　なんて"
+	cont "<⋯>あたしの　みまちがいよね"
+	done
 
 LavenderTownCooltrainerMText:
-	text_far _LavenderTownCooltrainerMText
-	text_end
+	text "ここは　#の　おはかで"
+	line "ゆうめいな　タウンだ<⋯>"
+
+	para "かっていた　#が　しんだとき"
+	line "#　タワーに　もっていって"
+	cont "めいふくを　いのるのさ<⋯>"
+	done
 
 LavenderTownSuperNerdText:
-	text_far _LavenderTownSuperNerdText
-	text_end
+	text "さいきん　#　タワーに"
+	line "ゆうれいが　でる　らしいんだ<⋯>"
+
+	para "どうも　<ROCKET>に　ころされた"
+	line "#の　ゆうれい　らしい<⋯>"
+	done
 
 LavenderTownSignText:
-	text_far _LavenderTownSignText
-	text_end
+	text "ここは　シオン　タウン"
+	line "シオンは　むらさき　とうとい　いろ"
+	done
 
 LavenderTownSilphScopeSignText:
-	text_far _LavenderTownSilphScopeSignText
-	text_end
+	text "みえない　#も　よくみえる？"
+	line "しん　せいひん！　シルフスコープ！"
+
+	para "<⋯>　シルフ　カンパニー"
+	done
 
 LavenderTownPokemonHouseSignText:
-	text_far _LavenderTownPokemonHouseSignText
-	text_end
+	text "ここは　あいの　ボランティア"
+	line "#　ハウス"
+	done
 
 LavenderTownPokemonTowerSignText:
-	text_far _LavenderTownPokemonTowerSignText
-	text_end
+	text "ここは　#の　れいはい　とう"
+	line "#　タワー"
+	done

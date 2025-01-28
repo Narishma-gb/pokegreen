@@ -3,8 +3,9 @@ PrintTrashText:
 	tx_pre_jump VermilionGymTrashText
 
 VermilionGymTrashText::
-	text_far _VermilionGymTrashText
-	text_end
+	text "ガサゴソ<⋯>！"
+	line "なかは　ゴミ　ばっかり！"
+	done
 
 GymTrashScript:
 	call EnableAutoTextBoxDrawing
@@ -51,10 +52,12 @@ GymTrashScript:
 ; but if the mask and random number don't have any 1 bits in common, then
 ; the result of the AND will be 0. When 1 is subtracted from that, the value
 ; will become $ff. This will result in 255 being added to hl, which will cause
-; hl to point to one of the zero bytes that pad the end of the ROM bank.
-; Trash can 0 was intended to be able to have the second lock only when the
-; first lock was in trash can 1 or 3. However, due to this bug, trash can 0 can
-; have the second lock regardless of which trash can had the first lock.
+; hl to point to one of the bytes in VermilionGymTrashSuccessText3 or
+; VermilionGymTrashFailText. These are:
+; $51, $7F, $13, $DE, $CB, $50, $3E, $CD, $0F, $8E, $B6, $7F, $E7, $7F, $13.
+; In case of underflow, the 2nd lock will be in any of the cans 0, 1, 3, 6, 7,
+; 11, 13, 14 or 15, depending on where the first lock is located,
+; likely breaking the "rule" that it should be in an adjacent trash can.
 
 	ldh [hGymTrashCanRandNumMask], a
 	push hl
@@ -128,7 +131,13 @@ GymTrashCans:
 	db 2, 11, 13,  0,  0 ; 14
 
 VermilionGymTrashSuccessText1::
-	text_far _VermilionGymTrashSuccessText1
+	text "ガサゴソ<⋯>！"
+	line "おっと！　ゴミばこの　そこに"
+	cont "スイッチが　あった！"
+	cont "おして　みよう！　<⋯>　ポチッとな"
+
+	para "でんどうドアの"
+	line "だい１　ロックが　はずれた！@"
 	text_asm
 	call WaitForSoundToFinish
 	ld a, SFX_SWITCH
@@ -138,8 +147,11 @@ VermilionGymTrashSuccessText1::
 
 ; unused
 VermilionGymTrashSuccessText2::
-	text_far _VermilionGymTrashSuccessText2
-	text_end
+	text "ガサゴソ<⋯>！"
+	line "おっと！　ゴミばこの　そこに"
+	cont "また　スイッチが　あった！"
+	cont "おして　みよう！　<⋯>　ポチッとな"
+	prompt
 
 ; unused
 VermilionGymTrashSuccesPlaySfx:
@@ -151,7 +163,11 @@ VermilionGymTrashSuccesPlaySfx:
 	jp TextScriptEnd
 
 VermilionGymTrashSuccessText3::
-	text_far _VermilionGymTrashSuccessText3
+	text "でんどうドアの"
+	line "だい２　ロックが　はずれた！"
+
+	para "おおきな　でんどうドアが"
+	line "かんぜんに　ひらいた！@"
 	text_asm
 	call WaitForSoundToFinish
 	ld a, SFX_GO_INSIDE
@@ -160,7 +176,10 @@ VermilionGymTrashSuccessText3::
 	jp TextScriptEnd
 
 VermilionGymTrashFailText::
-	text_far _VermilionGymTrashFailText
+	text "ガサゴソ<⋯>！"
+	line "なかは　ゴミ　ばっかり！"
+	cont "あッ！　でんどうドアの"
+	cont "ロックが　もどって　しまった！@"
 	text_asm
 	call WaitForSoundToFinish
 	ld a, SFX_DENIED

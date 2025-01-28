@@ -10,7 +10,7 @@ DaycareGentlemanText:
 	call SaveScreenTilesToBuffer2
 	ld a, [wDayCareInUse]
 	and a
-	jp nz, .daycareInUse
+	jr nz, .daycareInUse
 	ld hl, .IntroText
 	call PrintText
 	call YesNoChoice
@@ -27,7 +27,6 @@ DaycareGentlemanText:
 	xor a
 	ld [wUpdateSpritesEnabled], a
 	ld [wPartyMenuTypeOrMessageID], a
-	ld [wMenuItemToSwap], a
 	call DisplayPartyMenu
 	push af
 	call GBPalWhiteOutWithDelay3
@@ -212,59 +211,91 @@ DaycareGentlemanText:
 	jp TextScriptEnd
 
 .IntroText:
-	text_far _DaycareGentlemanIntroText
-	text_end
+	text "わたしは　そだてやさん"
+	line "なにか　そだてて　みるかね？"
+	done
 
 .WhichMonText:
-	text_far _DaycareGentlemanWhichMonText
-	text_end
+	text "それでは"
+	line "なにを　そだてて　みるかね？"
+	prompt
 
 .WillLookAfterMonText:
-	text_far _DaycareGentlemanWillLookAfterMonText
-	text_end
+	text "わかった"
+	line "しばらく@"
+	text_ram wNameBuffer
+	text "を　あずかろう"
+	prompt
 
 .ComeSeeMeInAWhileText:
-	text_far _DaycareGentlemanComeSeeMeInAWhileText
-	text_end
+	text "てきとうに　じかんが　たったら"
+	line "また　きなさい"
+	done
 
 .MonHasGrownText:
-	text_far _DaycareGentlemanMonHasGrownText
-	text_end
+	text "おまえの　@"
+	text_ram wNameBuffer
+	text_start
+	line "ずいぶんと　せいちょうしたぞ"
+
+	para "そうだな　レベルで　いうと"
+	line "@"
+	text_decimal wDayCareNumLevelsGrown, 1, 3
+	text "くらい　そだってるな"
+
+	para "やっぱり　わたしは　てんさいだ！"
+	prompt
 
 .OweMoneyText:
-	text_far _DaycareGentlemanOweMoneyText
-	text_end
+	text "<⋯>で　#を　ひきとるなら"
+	line "りょうきんは　@"
+	text_bcd wDayCareTotalCost, 2 | LEADING_ZEROES | LEFT_ALIGN
+	text "円　だよ"
+	done
 
 .GotMonBackText:
-	text_far _DaycareGentlemanGotMonBackText
-	text_end
+	text "<PLAYER>は　そだてやさんから"
+	line "@"
+	text_ram wDayCareMonName
+	text "を　ひきとった！"
+	done
 
 .MonNeedsMoreTimeText:
-	text_far _DaycareGentlemanMonNeedsMoreTimeText
-	text_end
+	text "なんだ　もう　きたのか"
+	line "おまえの　@"
+	text_ram wNameBuffer
+	text "は<⋯>"
+
+	para "まだ　じかんが　かかるぞ"
+	prompt
 
 .AllRightThenText:
-	text_far _DaycareGentlemanAllRightThenText
+	text "そうか　それじゃ"
+	line "@"
 .ComeAgainText:
-	text_far _DaycareGentlemanComeAgainText
-	text_end
+	text "また　きなさいよ"
+	done
 
 .NoRoomForMonText:
-	text_far _DaycareGentlemanNoRoomForMonText
-	text_end
+	text "だけど　つれていくには"
+	line "#が　いっぱいのようだな"
+	done
 
 .OnlyHaveOneMonText:
-	text_far _DaycareGentlemanOnlyHaveOneMonText
-	text_end
+	text "おや？　#が"
+	line "１ぴきしか　いないようだな"
+	done
 
 .CantAcceptMonWithHMText:
-	text_far _DaycareGentlemanCantAcceptMonWithHMText
-	text_end
+	text "わるいけど　ひでんのわざを　もった"
+	line "#は　あずかれないなぁ"
+	done
 
 .HeresYourMonText:
-	text_far _DaycareGentlemanHeresYourMonText
-	text_end
+	text "ほい　たしかに！"
+	line "じゃ　#　つれて　いきなよ"
+	prompt
 
 .NotEnoughMoneyText:
-	text_far _DaycareGentlemanNotEnoughMoneyText
-	text_end
+	text "かねが　たらんな"
+	done

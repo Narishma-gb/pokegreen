@@ -112,11 +112,6 @@ ItemUseBall:
 	dec a
 	jp nz, ThrowBallAtTrainerMon
 
-; If this is for the old man battle, skip checking if the party & box are full.
-	ld a, [wBattleType]
-	dec a
-	jr z, .canUseBall
-
 	ld a, [wPartyCount] ; is party full?
 	cp PARTY_LENGTH
 	jr nz, .canUseBall
@@ -156,7 +151,7 @@ ItemUseBall:
 	dec a
 	jr nz, .notOldManBattle
 
-.oldManBattle
+; oldManBattle
 	ld hl, wGrassRate
 	ld de, wPlayerName
 	ld bc, NAME_LENGTH
@@ -587,44 +582,65 @@ ItemUseBall:
 ItemUseBallText00:
 ;"It dodged the thrown ball!"
 ;"This pokemon can't be caught"
-	text_far _ItemUseBallText00
-	text_end
+	text "よけられた！"
+	line "こいつは　つかまりそうにないぞ！"
+	prompt
+
 ItemUseBallText01:
 ;"You missed the pokemon!"
-	text_far _ItemUseBallText01
-	text_end
+	text "#に"
+	line "うまく　あたらなかった！"
+	prompt
+
 ItemUseBallText02:
 ;"Darn! The pokemon broke free!"
-	text_far _ItemUseBallText02
-	text_end
+	text "ざんねん！　#が"
+	line "ボールから　でてしまった！"
+	prompt
+
 ItemUseBallText03:
 ;"Aww! It appeared to be caught!"
-	text_far _ItemUseBallText03
-	text_end
+	text "ああ！"
+	line "つかまえたと　おもったのに！"
+	prompt
+
 ItemUseBallText04:
 ;"Shoot! It was so close too!"
-	text_far _ItemUseBallText04
-	text_end
+	text "おしい！"
+	line "あと　ちょっとの　ところだったのに！"
+	prompt
+
 ItemUseBallText05:
 ;"All right! {MonName} was caught!"
 ;play sound
-	text_far _ItemUseBallText05
+	text "やったー！"
+	line "@"
+	text_ram wEnemyMonNick
+	text "を　つかまえたぞ！@"
 	sound_caught_mon
 	text_promptbutton
 	text_end
+
 ItemUseBallText07:
 ;"X was transferred to Bill's PC"
-	text_far _ItemUseBallText07
-	text_end
+	text_ram wBoxMonNicks
+	text "は　マサキの　ところへ"
+	line "てんそうされた！"
+	prompt
+
 ItemUseBallText08:
 ;"X was transferred to someone's PC"
-	text_far _ItemUseBallText08
-	text_end
+	text_ram wBoxMonNicks
+	text "は　だれかの　<PC>に"
+	line "てんそうされた！"
+	prompt
 
 ItemUseBallText06:
 ;"New DEX data will be added..."
 ;play sound
-	text_far _ItemUseBallText06
+	text_ram wEnemyMonNick
+	text "の　データが　あたらしく"
+	line "#ずかんに　セーブされます！@"
 	sound_dex_page_added
 	text_promptbutton
 	text_end
@@ -645,7 +661,7 @@ ItemUseBicycle:
 	jp z, ItemUseNotTime
 	dec a ; is player already bicycling?
 	jr nz, .tryToGetOnBike
-.getOffBike
+; getOffBike
 	call ItemUseReloadOverworldData
 	xor a
 	ld [wWalkBikeSurfState], a ; change player state to walking
@@ -671,13 +687,10 @@ ItemUseSurfboard:
 	ld [wWalkBikeSurfStateCopy], a
 	cp 2 ; is the player already surfing?
 	jr z, .tryToStopSurfing
-.tryToSurf
+; tryToSurf
 	call IsNextTileShoreOrWater
 	jp c, SurfingAttemptFailed
-	ld hl, TilePairCollisionsWater
-	call CheckForTilePairCollisions
-	jp c, SurfingAttemptFailed
-.surf
+; surf
 	call .makePlayerMoveForward
 	ld hl, wStatusFlags5
 	set BIT_SCRIPTED_MOVEMENT_STATE, [hl]
@@ -695,9 +708,6 @@ ItemUseSurfboard:
 	ldh a, [hSpriteIndex]
 	and a ; is there a sprite in the way?
 	jr nz, .cannotStopSurfing
-	ld hl, TilePairCollisionsWater
-	call CheckForTilePairCollisions
-	jr c, .cannotStopSurfing
 	ld hl, wTilesetCollisionPtr ; pointer to list of passable tiles
 	ld a, [hli]
 	ld h, [hl]
@@ -746,12 +756,14 @@ ItemUseSurfboard:
 	ret
 
 SurfingGotOnText:
-	text_far _SurfingGotOnText
-	text_end
+	text "<PLAYER>は　@"
+	text_ram wNameBuffer
+	text "にのった！"
+	prompt
 
 SurfingNoPlaceToGetOffText:
-	text_far _SurfingNoPlaceToGetOffText
-	text_end
+	text "おりる　ばしょが　ない！"
+	prompt
 
 ItemUsePokedex:
 	predef_jump ShowPokedexMenu
@@ -803,9 +815,6 @@ ItemUseVitamin:
 	jp nz, ItemUseNotTime
 
 ItemUseMedicine:
-	ld a, [wPartyCount]
-	and a
-	jp z, .emptyParty
 	ld a, [wWhichPokemon]
 	push af
 	ld a, [wCurItem]
@@ -820,15 +829,6 @@ ItemUseMedicine:
 ; if using softboiled
 	call GoBackToPartyMenu
 	jr .getPartyMonDataAddress
-.emptyParty
-	ld hl, .emptyPartyText
-	xor a
-	ld [wActionResultOrTookBattleTurn], a ; item use failed
-	jp PrintText
-.emptyPartyText
-	text "You don't have"
-	line "any #MON!"
-	prompt
 .notUsingSoftboiled
 	call DisplayPartyMenu
 .getPartyMonDataAddress
@@ -915,13 +915,13 @@ ItemUseMedicine:
 	inc hl ; hl = address of current HP
 	ld a, [hli]
 	ld b, a
-	ld [wHPBarOldHP+1], a
+	ld [wHPBarOldHP + 1], a
 	ld a, [hl]
 	ld c, a
 	ld [wHPBarOldHP], a ; current HP stored at wHPBarOldHP (2 bytes, big-endian)
 	or b
 	jr nz, .notFainted
-.fainted
+; fainted
 	ld a, [wCurItem]
 	cp REVIVE
 	jr z, .updateInBattleFaintedData
@@ -973,7 +973,7 @@ ItemUseMedicine:
 .skipComparingLSB
 	pop hl
 	jr nz, .notFullHP
-.fullHP ; if the pokemon's current HP equals its max HP
+; if the pokemon's current HP equals its max HP
 	ld a, [wCurItem]
 	cp FULL_RESTORE
 	jp nz, .healingItemNoEffect
@@ -997,7 +997,7 @@ ItemUseMedicine:
 	ld bc, wPartyMon1MaxHP - (wPartyMon1HP + 1)
 	add hl, bc ; hl now points to max HP
 	ld a, [hli]
-	ld [wHPBarMaxHP+1], a
+	ld [wHPBarMaxHP + 1], a
 	ld a, [hl]
 	ld [wHPBarMaxHP], a ; max HP stored at wHPBarMaxHP (2 bytes, big-endian)
 	ld a, [wPseudoItemID]
@@ -1041,25 +1041,19 @@ ItemUseMedicine:
 	ldh a, [hQuotient + 2]
 	ld b, a
 	ld a, [hl]
-	ld [wHPBarOldHP+1], a
+	ld [wHPBarOldHP + 1], a
 	sbc b
 	ld [hl], a
-	ld [wHPBarNewHP+1], a
-	hlcoord 4, 1
+	ld [wHPBarNewHP + 1], a
+	hlcoord 11, 0
 	ld a, [wWhichPokemon]
 	ld bc, 2 * SCREEN_WIDTH
 	call AddNTimes ; calculate coordinates of HP bar of pokemon that used Softboiled
 	ld a, SFX_HEAL_HP
 	call PlaySoundWaitForCurrent
-	ldh a, [hUILayoutFlags]
-	set BIT_PARTY_MENU_HP_BAR, a
-	ldh [hUILayoutFlags], a
 	ld a, $02
 	ld [wHPBarType], a
 	predef UpdateHPBar2 ; animate HP bar decrease of pokemon that used Softboiled
-	ldh a, [hUILayoutFlags]
-	res BIT_PARTY_MENU_HP_BAR, a
-	ldh [hUILayoutFlags], a
 	pop af
 	ld b, a ; store heal amount (1/5 of max HP)
 	ld hl, wHPBarOldHP + 1
@@ -1096,7 +1090,7 @@ ItemUseMedicine:
 	ld [hld], a
 	ld [wHPBarNewHP], a
 	ld a, [hl]
-	ld [wHPBarNewHP+1], a
+	ld [wHPBarNewHP + 1], a
 	jr nc, .noCarry
 	inc [hl]
 	ld a, [hl]
@@ -1132,7 +1126,7 @@ ItemUseMedicine:
 	ld a, [hli]
 	srl a
 	ld [de], a
-	ld [wHPBarNewHP+1], a
+	ld [wHPBarNewHP + 1], a
 	ld a, [hl]
 	rr a
 	inc de
@@ -1143,7 +1137,7 @@ ItemUseMedicine:
 .setCurrentHPToMaxHp
 	ld a, [hli]
 	ld [de], a
-	ld [wHPBarNewHP+1], a
+	ld [wHPBarNewHP + 1], a
 	inc de
 	ld a, [hl]
 	ld [de], a
@@ -1175,7 +1169,7 @@ ItemUseMedicine:
 	xor a
 	ld [wBattleMonStatus], a ; remove the status ailment in the in-battle pokemon data
 .calculateHPBarCoords
-	hlcoord 4, -1
+	hlcoord 11, -2
 	ld bc, 2 * SCREEN_WIDTH
 	inc d
 .calculateHPBarCoordsLoop
@@ -1201,15 +1195,9 @@ ItemUseMedicine:
 	jr z, .playStatusAilmentCuringSound
 	ld a, SFX_HEAL_HP
 	call PlaySoundWaitForCurrent
-	ldh a, [hUILayoutFlags]
-	set BIT_PARTY_MENU_HP_BAR, a
-	ldh [hUILayoutFlags], a
 	ld a, $02
 	ld [wHPBarType], a
 	predef UpdateHPBar2 ; animate the HP bar lengthening
-	ldh a, [hUILayoutFlags]
-	res BIT_PARTY_MENU_HP_BAR, a
-	ldh [hUILayoutFlags], a
 	ld a, REVIVE_MSG
 	ld [wPartyMenuTypeOrMessageID], a
 	ld a, [wCurItem]
@@ -1225,13 +1213,13 @@ ItemUseMedicine:
 	call PlaySoundWaitForCurrent
 .showHealingItemMessage
 	xor a
-	ldh [hAutoBGTransferEnabled], a
+	ld [hAutoBGTransferEnabled], a
 	call ClearScreen
 	dec a
 	ld [wUpdateSpritesEnabled], a
 	call RedrawPartyMenu ; redraws the party menu and displays the message
 	ld a, 1
-	ldh [hAutoBGTransferEnabled], a
+	ld [hAutoBGTransferEnabled], a
 	ld c, 50
 	call DelayFrames
 	call WaitForTextScrollButtonPress
@@ -1418,12 +1406,16 @@ ItemUseMedicine:
 	jp RemoveUsedItem
 
 VitaminStatRoseText:
-	text_far _VitaminStatRoseText
-	text_end
+	text_ram wNameBuffer
+	text "の　@"
+	text_ram wStringBuffer
+	text "の"
+	line "きそ　ポイントが　あがった！"
+	prompt
 
 VitaminNoEffectText:
-	text_far _VitaminNoEffectText
-	text_end
+	text "つかっても　こうかが　ないよ"
+	prompt
 
 INCLUDE "data/battle/stat_names.asm"
 
@@ -1481,12 +1473,12 @@ BaitRockCommon:
 	jp DelayFrames
 
 ThrewBaitText:
-	text_far _ThrewBaitText
-	text_end
+	text "<PLAYER>は　エサを　なげた！"
+	done
 
 ThrewRockText:
-	text_far _ThrewRockText
-	text_end
+	text "<PLAYER>は　いしを　なげた！"
+	done
 
 ; indirectly used by DIG in StartMenu_Pokemon.dig
 ItemUseEscapeRope:
@@ -1753,8 +1745,8 @@ ItemUsePokeFlute:
 ; OUTPUT:
 ; [wWereAnyMonsAsleep]: set to 1 if any pokemon were asleep
 WakeUpEntireParty:
-	ld de, 44
-	ld c, 6
+	ld de, wPartyMon2 - wPartyMon1
+	ld c, PARTY_LENGTH
 .loop
 	ld a, [hl]
 	push af
@@ -1784,15 +1776,20 @@ Route16SnorlaxFluteCoords:
 	db -1 ; end
 
 PlayedFluteNoEffectText:
-	text_far _PlayedFluteNoEffectText
-	text_end
+	text "#のふえを　ふいた！"
+
+	para "うーん！"
+	line "すばらしい　ねいろだ！"
+	prompt
 
 FluteWokeUpText:
-	text_far _FluteWokeUpText
-	text_end
+	text "すべての　#が"
+	line "めを　さました！"
+	prompt
 
 PlayedFluteHadEffectText:
-	text_far _PlayedFluteHadEffectText
+	text "<PLAYER>は"
+	line "#のふえを　ふいてみた！@"
 	text_promptbutton
 	text_asm
 	ld a, [wIsInBattle]
@@ -1820,8 +1817,11 @@ ItemUseCoinCase:
 	jp PrintText
 
 CoinCaseNumCoinsText:
-	text_far _CoinCaseNumCoinsText
-	text_end
+	text "あなたの　コイン"
+	line "@"
+	text_bcd wPlayerCoins, 2 | LEADING_ZEROES | LEFT_ALIGN
+	text "まい"
+	prompt
 
 ItemUseOldRod:
 	call FishingInit
@@ -1939,12 +1939,15 @@ ItemUseItemfinder:
 	jp PrintText
 
 ItemfinderFoundItemText:
-	text_far _ItemfinderFoundItemText
-	text_end
+	text "おッ！"
+	line "マシンが　はんのう　してるぞ！"
+	cont "ちかくに　アイテムが　うまってる！"
+	prompt
 
 ItemfinderFoundNothingText:
-	text_far _ItemfinderFoundNothingText
-	text_end
+	text "<⋯>　<⋯>　ふう！"
+	line "<⋯>　なんにも　はんのう　しない"
+	prompt
 
 ItemUsePPUp:
 	ld a, [wIsInBattle]
@@ -1977,11 +1980,7 @@ ItemUsePPRestore:
 	ld hl, RestorePPWhichTechniqueText ; otherwise, print the restore PP message
 .printWhichTechniqueMessage
 	call PrintText
-	xor a
-	ld [wPlayerMoveListIndex], a
 	callfar MoveSelectionMenu ; move selection menu
-	ld a, 0
-	ld [wPlayerMoveListIndex], a
 	jr nz, .chooseMon
 	ld hl, wPartyMon1Moves
 	ld bc, wPartyMon2 - wPartyMon1
@@ -1995,7 +1994,7 @@ ItemUsePPRestore:
 	ld a, [wPPRestoreItem]
 	cp ETHER
 	jr nc, .useEther ; if Ether or Max Ether
-.usePPUp
+; usePPUp
 	ld bc, wPartyMon1PP - wPartyMon1Moves
 	add hl, bc
 	ld a, [hl] ; move PP
@@ -2128,24 +2127,31 @@ ItemUsePPRestore:
 	ret
 
 RaisePPWhichTechniqueText:
-	text_far _RaisePPWhichTechniqueText
-	text_end
+	text "どのわざの"
+	line "ポイントをふやす？"
+	done
 
 RestorePPWhichTechniqueText:
-	text_far _RestorePPWhichTechniqueText
-	text_end
+	text "どのわざを"
+	line "かいふくする？"
+	done
 
 PPMaxedOutText:
-	text_far _PPMaxedOutText
-	text_end
+	text_ram wStringBuffer
+	text "は　これいじょう"
+	line "ふやすことが　できません"
+	prompt
 
 PPIncreasedText:
-	text_far _PPIncreasedText
-	text_end
+	text_ram wStringBuffer
+	text "の"
+	line "わざポイントが　ふえた！"
+	prompt
 
 PPRestoredText:
-	text_far _PPRestoredText
-	text_end
+	text "わざポイントが"
+	line "かいふくした！"
+	prompt
 
 ; for items that can't be used from the Item menu
 UnusableItem:
@@ -2195,7 +2201,7 @@ ItemUseTMHM:
 .chooseMon
 	ld hl, wStringBuffer
 	ld de, wTempMoveNameBuffer
-	ld bc, 14
+	ld bc, 8
 	call CopyData ; save the move name because DisplayPartyMenu will overwrite it
 	ld a, $ff
 	ld [wUpdateSpritesEnabled], a
@@ -2205,7 +2211,7 @@ ItemUseTMHM:
 	push af
 	ld hl, wTempMoveNameBuffer
 	ld de, wStringBuffer
-	ld bc, 14
+	ld bc, 8
 	call CopyData
 	pop af
 	jr nc, .checkIfAbleToLearnMove
@@ -2249,20 +2255,36 @@ ItemUseTMHM:
 	jp RemoveUsedItem
 
 BootedUpTMText:
-	text_far _BootedUpTMText
-	text_end
+	text "<TM>を　きどうした！"
+	prompt
 
 BootedUpHMText:
-	text_far _BootedUpHMText
-	text_end
+	text "ひでんマシンを　きどうした！"
+	prompt
 
 TeachMachineMoveText:
-	text_far _TeachMachineMoveText
-	text_end
+	text "なかには　@"
+	text_ram wStringBuffer
+	text "が"
+	line "きろくされていた！"
+
+	para "@"
+	text_ram wStringBuffer
+	text "を"
+	line "#に　おぼえさせますか？"
+	done
 
 MonCannotLearnMachineMoveText:
-	text_far _MonCannotLearnMachineMoveText
-	text_end
+	text_ram wNameBuffer
+	text "と　@"
+	text_ram wStringBuffer
+	text "は"
+	line "あいしょうが　わるかった！"
+
+	para "@"
+	text_ram wStringBuffer
+	text "は　おぼえられない！"
+	prompt
 
 PrintItemUseTextAndRemoveItem:
 	ld hl, ItemUseText00
@@ -2319,54 +2341,65 @@ ItemUseFailed:
 	jp PrintText
 
 ItemUseNotTimeText:
-	text_far _ItemUseNotTimeText
-	text_end
+	text "オーキドの　ことば<⋯>"
+	line "<PLAYER>よ！　こういうものには"
+	cont "つかいどきが　あるのじゃ！"
+	prompt
 
 ItemUseNotYoursToUseText:
-	text_far _ItemUseNotYoursToUseText
-	text_end
+	text "たいせつな　あずかりものです！"
+	next "つかうことは　できません！"
+	prompt
 
 ItemUseNoEffectText:
-	text_far _ItemUseNoEffectText
-	text_end
+	text "つかっても　こうかがないよ"
+	prompt
 
 ThrowBallAtTrainerMonText1:
-	text_far _ThrowBallAtTrainerMonText1
-	text_end
+	text "<TRAINER>に　ボールを　はじかれた！"
+	prompt
 
 ThrowBallAtTrainerMonText2:
-	text_far _ThrowBallAtTrainerMonText2
-	text_end
+	text "ひとの　ものを　とったら　どろぼう！"
+	prompt
 
 NoCyclingAllowedHereText:
-	text_far _NoCyclingAllowedHereText
-	text_end
+	text "ここでは　じてんしゃに"
+	next "のることは　できません"
+	prompt
 
 NoSurfingHereText:
-	text_far _NoSurfingHereText
-	text_end
+	text "ここでは@"
+	text_ram wNameBuffer
+	text "に"
+	line "のることは　できません"
+	prompt
 
 BoxFullCannotThrowBallText:
-	text_far _BoxFullCannotThrowBallText
-	text_end
+	text "ボックスに　あずけている　#が"
+	line "いっぱいなので　つかえません！"
+	prompt
 
 ItemUseText00:
-	text_far _ItemUseText001
+	text "<PLAYER>は@"
 	text_low
-	text_far _ItemUseText002
-	text_end
+	text_ram wStringBuffer
+	text "を　つかった！"
+	done
 
 GotOnBicycleText:
-	text_far _GotOnBicycleText1
+	text "<PLAYER>は@"
 	text_low
-	text_far _GotOnBicycleText2
-	text_end
+	text_ram wStringBuffer
+	text "に　のった"
+	prompt
 
 GotOffBicycleText:
-	text_far _GotOffBicycleText1
+	text "<PLAYER>は@"
 	text_low
-	text_far _GotOffBicycleText2
-	text_end
+	text_ram wStringBuffer
+	text "から　おりた"
+	prompt
 
 ; restores bonus PP (from PP Ups) when healing at a pokemon center
 ; also, when a PP Up is used, it increases the current PP by one PP Up bonus
@@ -2512,7 +2545,7 @@ GetMaxPP:
 	and %11000000 ; get PP Up count
 	pop bc
 	or b ; place normal max PP in 6 lower bits of a
-	assert wMoveData + MOVE_PP + 1 == wPPUpCountAndMaxPP
+	ASSERT wMoveData + MOVE_PP + 1 == wPPUpCountAndMaxPP
 	ld h, d
 	ld l, e
 	inc hl ; hl = wPPUpCountAndMaxPP
@@ -2595,16 +2628,21 @@ TossItem_::
 	ret
 
 ThrewAwayItemText:
-	text_far _ThrewAwayItemText
-	text_end
+	text_ram wNameBuffer
+	text "を"
+	line "すてました！"
+	prompt
 
 IsItOKToTossItemText:
-	text_far _IsItOKToTossItemText
-	text_end
+	text_ram wStringBuffer
+	text "を　すてます"
+	line "ほんとに　よろしいですか？"
+	prompt
 
 TooImportantToTossText:
-	text_far _TooImportantToTossText
-	text_end
+	text "それは　とても　たいせつなモノです"
+	line "すてることは　できません！"
+	prompt
 
 ; checks if an item is a key item
 ; INPUT:

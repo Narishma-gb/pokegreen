@@ -1,5 +1,5 @@
 RecoilEffect_:
-	ldh a, [hWhoseTurn]
+	ld a, [hWhoseTurn]
 	and a
 	ld a, [wPlayerMoveNum]
 	ld hl, wBattleMonMaxHP
@@ -27,7 +27,7 @@ RecoilEffect_:
 .updateHP
 ; subtract HP from user due to the recoil damage
 	ld a, [hli]
-	ld [wHPBarMaxHP+1], a
+	ld [wHPBarMaxHP + 1], a
 	ld a, [hl]
 	ld [wHPBarMaxHP], a
 	push bc
@@ -40,10 +40,10 @@ RecoilEffect_:
 	ld [hld], a
 	ld [wHPBarNewHP], a
 	ld a, [hl]
-	ld [wHPBarOldHP+1], a
+	ld [wHPBarOldHP + 1], a
 	sbc b
 	ld [hl], a
-	ld [wHPBarNewHP+1], a
+	ld [wHPBarNewHP + 1], a
 	jr nc, .getHPBarCoords
 ; if recoil damage is higher than the Pokemon's HP, set its HP to 0
 	xor a
@@ -65,6 +65,8 @@ RecoilEffect_:
 	predef UpdateHPBar2
 	ld hl, HitWithRecoilText
 	jp PrintText
+
 HitWithRecoilText:
-	text_far _HitWithRecoilText
-	text_end
+	text "<USER>は　こうげきの"
+	line "はんどうを　うけた！"
+	prompt

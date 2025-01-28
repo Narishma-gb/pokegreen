@@ -24,17 +24,40 @@ CeruleanTrashedHouseFishingGuruText:
 	jp TextScriptEnd
 
 .TheyStoleATMText:
-	text_far _CeruleanTrashedHouseFishingGuruTheyStoleATMText
-	text_end
+	text "くう<⋯>！　<ROCKET>め！"
+
+	para "おれの　いえを"
+	line "こんなに　しちまいやがって！"
+
+	para "ぬすまれた　<TM>は"
+	line "マンキーや　サンドに"
+
+	para "じめんに　あなを　ほる　わざを"
+	line "おしえる　ものだ！"
+
+	para "あれは　たかかったのに"
+	done
 
 .WhatsLostIsLostText:
-	text_far _CeruleanTrashedHouseFishingGuruWhatsLostIsLostText
-	text_end
+	text "ぬすまれた　ものは"
+	line "もどって　こないと　あきらめて"
+
+	para "うちの　ディグダには"
+	line "きながに　そだてながら"
+
+	para "あなほりを"
+	line "おしえる　ことに　したよ"
+	done
 
 CeruleanTrashedHouseGirlText:
-	text_far _CeruleanTrashedHouseGirlText
-	text_end
+	text "<ROCKET><⋯>！"
+	line "#に　あなを　ほらせて"
+
+	para "きっと　また"
+	line "わるだくみを　かんがえてるのよ！"
+	done
 
 CeruleanTrashedHouseWallHoleText:
-	text_far _CeruleanTrashedHouseWallHoleText
-	text_end
+	text "かべに　あなが　あいてる！"
+	line "ここから　そとに　でられるぞ！"
+	done

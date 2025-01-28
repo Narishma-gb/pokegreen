@@ -28,7 +28,7 @@ LinkCableHelp::
 	set BIT_NO_TEXT_DELAY, [hl]
 	hlcoord 0, 0
 	ld b, 8
-	ld c, 13
+	ld c, 12
 	call TextBoxBorder
 	hlcoord 2, 2
 	ld de, HowToLinkText
@@ -60,18 +60,21 @@ LinkCableHelp::
 	jp TextScriptEnd
 
 LinkCableHelpText1:
-	text_far _LinkCableHelpText1
-	text_end
+	text "<⋯>　#　こうざ！"
+
+	para "つうしん　ケーブルを　つかった"
+	line "あそびかた　に　ついて"
+	prompt
 
 LinkCableHelpText2:
-	text_far _LinkCableHelpText2
-	text_end
+	text "どの　こうもくを　よみますか？"
+	done
 
 HowToLinkText:
-	db   "HOW TO LINK"
-	next "COLOSSEUM"
-	next "TRADE CENTER"
-	next "STOP READING@"
+	db   "ケーブルで　あそぶには"
+	next "コロシアム"
+	next "トレード　センター"
+	next "よむ　の　やめる@"
 
 LinkCableInfoTexts:
 	dw LinkCableInfoText1
@@ -79,16 +82,24 @@ LinkCableInfoTexts:
 	dw LinkCableInfoText3
 
 LinkCableInfoText1:
-	text_far _LinkCableInfoText1
-	text_end
+	text "ともだちの　ゲームボーイと"
+	line "ケーブルで　つないだら"
+	cont "#　センター　みぎがわの"
+	cont "カウンターの　おねえさんが"
+	cont "あんない　してくれます"
+	prompt
 
 LinkCableInfoText2:
-	text_far _LinkCableInfoText2
-	text_end
+	text "コロシアムは"
+	line "ともだちと　たいせん　するとき"
+	cont "はいる　へや　です"
+	prompt
 
 LinkCableInfoText3:
-	text_far _LinkCableInfoText3
-	text_end
+	text "トレードセンターは　ともだちと"
+	line "#を　こうかん　する　とき"
+	cont "はいる　へや　です"
+	prompt
 
 ViridianSchoolBlackboard::
 	text_asm
@@ -111,7 +122,7 @@ ViridianSchoolBlackboard::
 	ld hl, wStatusFlags5
 	set BIT_NO_TEXT_DELAY, [hl]
 	hlcoord 0, 0
-	lb bc, 6, 10
+	lb bc, 6, 9
 	call TextBoxBorder
 	hlcoord 1, 2
 	ld de, StatusAilmentText1
@@ -177,22 +188,25 @@ ViridianSchoolBlackboard::
 	jp TextScriptEnd
 
 ViridianSchoolBlackboardText1:
-	text_far _ViridianSchoolBlackboardText1
-	text_end
+	text "こくばんに"
+	line "#が　たたかってる　とき"
+	cont "おこる　たいちょうの"
+	cont "へんかに　ついて　かかれてる"
+	prompt
 
 ViridianSchoolBlackboardText2:
-	text_far _ViridianSchoolBlackboardText2
-	text_end
+	text "どの　こうもくを　みますか？"
+	done
 
 StatusAilmentText1:
-	db   " SLP"
-	next " PSN"
-	next " PAR@"
+	db   "　ねむり"
+	next "　どく"
+	next "　マヒ@"
 
 StatusAilmentText2:
-	db   " BRN"
-	next " FRZ"
-	next " QUIT@"
+	db   "　やけど"
+	next "　こおり"
+	next "　やめる@"
 
 	db "@" ; unused
 
@@ -204,21 +218,46 @@ ViridianBlackboardStatusPointers:
 	dw ViridianBlackboardFrozenText
 
 ViridianBlackboardSleepText:
-	text_far _ViridianBlackboardSleepText
-	text_end
+	text "ねてしまうと　その　あいだは"
+	line "こうげき　できません！"
+
+	para "たたかい　おわっても　ねたまま"
+	line "ねむけざましで　めが　さめます"
+	prompt
 
 ViridianBlackboardPoisonText:
-	text_far _ViridianBlackboardPoisonText
-	text_end
+	text "どくを　くらうと"
+	line "たいりょくが　へって　いきます"
+
+	para "たたかい　おわっても"
+	line "どくは　のこりますが"
+	cont "どくけしで　きえます！"
+	prompt
 
 ViridianBlackboardPrlzText:
-	text_far _ViridianBlackboardPrlzText
-	text_end
+	text "マヒすると　わざが"
+	line "ときどき　でなく　なります！"
+
+	para "たたかい　おわっても"
+	line "マヒは　のこります"
+	cont "また　マヒなおしで　なおります"
+	prompt
 
 ViridianBlackboardBurnText:
-	text_far _ViridianBlackboardBurnText
-	text_end
+	text "やけどは　たいりょくが　へって"
+	line "こうげきりょくと　すばやさも"
+	cont "さがって　しまいます！"
+
+	para "たたかい　おわっても"
+	line "やけどは　のこります"
+	cont "また　やけどなおしで　なおります"
+	prompt
 
 ViridianBlackboardFrozenText:
-	text_far _ViridianBlackboardFrozenText
-	text_end
+	text "こおって　しまうと"
+	line "まったく　うごけなく　なります！"
+
+	para "たたかい　おわっても　こおってます"
+	line "こおりなおしで　とかさないと"
+	cont "#が　かわいそう"
+	prompt

@@ -41,5 +41,5 @@ PayDayEffect_:
 	jp PrintText
 
 CoinsScatteredText:
-	text_far _CoinsScatteredText
-	text_end
+	text "こばんが　あたりに　ちらばった！"
+	prompt

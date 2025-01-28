@@ -8,9 +8,19 @@ CeruleanMart_TextPointers:
 	dw_const CeruleanMartCooltrainerFText, TEXT_CERULEANMART_COOLTRAINER_F
 
 CeruleanMartCooltrainerMText:
-	text_far _CeruleanMartCooltrainerMText
-	text_end
+	text "むしよけスプレーは"
+	line "むし　どころか"
+	cont "#も　よって　こないよ"
+
+	para "つよい　#を　いちばん"
+	line "うえに　おいて　おけば"
+	cont "こうかは　ばいぞう　だ！"
+	done
 
 CeruleanMartCooltrainerFText:
-	text_far _CeruleanMartCooltrainerFText
-	text_end
+	text "おみせでは　みた　こと　ないけど"
+	line "ふしぎなアメ　しってる？"
+
+	para "#が　いっきに　そだって"
+	line "レベルが　あがる　らしいの"
+	done

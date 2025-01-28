@@ -32,9 +32,11 @@ LeechSeedEffect_:
 	jp PrintText
 
 WasSeededText:
-	text_far _WasSeededText
-	text_end
+	text "<TARGET>に"
+	line "たねを　うえつけた！"
+	prompt
 
 EvadedAttackText:
-	text_far _EvadedAttackText
-	text_end
+	text "<TARGET>は"
+	line "こうげきを　かわした！"
+	prompt

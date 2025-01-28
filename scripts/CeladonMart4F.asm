@@ -9,13 +9,26 @@ CeladonMart4F_TextPointers:
 	dw_const CeladonMart4FCurrentFloorSignText, TEXT_CELADONMART4F_CURRENT_FLOOR_SIGN
 
 CeladonMart4FSuperNerdText:
-	text_far _CeladonMart4FSuperNerdText
-	text_end
+	text "かのじょに　プレゼントを　かうんだ"
+
+	para "やっぱり　ピッピにんぎょう　だな！"
+	line "にんき　あるんだよね！"
+	done
 
 CeladonMart4FYoungsterText:
-	text_far _CeladonMart4FYoungsterText
-	text_end
+	text "ちょっと　いい　はなし　きいたよ"
+
+	para "#が　とびだして　きた　とき"
+	line "ピッピにんぎょうを　なげると"
+	cont "#は　それに　きを　とられる"
+
+	para "つまり　にげれるって　ことだよ！"
+	done
 
 CeladonMart4FCurrentFloorSignText:
-	text_far _CeladonMart4FCurrentFloorSignText
-	text_end
+	text "４かい<⋯>まごころ　おくろう！"
+	line "　　ワイズマン·ギフト　ショップ！"
+
+	para "ただいま　#　しんかのいし"
+	line "とくべつ　はんばい　ちゅう！"
+	done

@@ -396,6 +396,51 @@ Route22Rival1Text:
 .text_script_end
 	jp TextScriptEnd
 
+Route22RivalBeforeBattleText1:
+	text "<RIVAL>『あーッ！　<PLAYER>！"
+
+	para "#　リーグに　いくのか？"
+	line "やめとけ！"
+
+	para "おまえ　どうせ"
+	line "バッジ　もってねーだろ？"
+
+	para "みはりの　おっさんが"
+	line "とおして　くれねーよ！"
+
+	para "<⋯>　それよりさあ！"
+	line "おまえの　#"
+	cont "すこしは　つよく　なったかよ？"
+	done
+
+Route22RivalAfterBattleText1:
+	text "どうやら　#　リーグには"
+	line "つよくて　すごい　<TRAINER>が"
+	cont "ウジャウジャ　いるらしいぜ"
+
+	para "どうにか"
+	line "あそこを　とおりぬける"
+	cont "ほうほうを　かんがえなきゃな！"
+
+	para "おまえも　いつまでも"
+	line "ここらに　いないで"
+	cont "とっとと　さきに　すすめよ！"
+	done
+
+Route22Rival1DefeatedText:
+	text "あーッ！"
+	line "こいつ　なめた　マネを！"
+	prompt
+
+Route22Rival1VictoryText:
+	text "<RIVAL>『なんだ？"
+	line "#　２ひきも"
+	cont "もってるの　なぜか　だって？"
+
+	para "おまえも"
+	line "つかまえれば　いい　じゃん！"
+	prompt
+
 Route22Rival2Text:
 	text_asm
 	CheckEvent EVENT_BEAT_ROUTE22_RIVAL_2ND_BATTLE
@@ -409,38 +454,57 @@ Route22Rival2Text:
 .text_script_end
 	jp TextScriptEnd
 
-Route22RivalBeforeBattleText1:
-	text_far _Route22RivalBeforeBattleText1
-	text_end
-
-Route22RivalAfterBattleText1:
-	text_far _Route22RivalAfterBattleText1
-	text_end
-
-Route22Rival1DefeatedText:
-	text_far _Route22Rival1DefeatedText
-	text_end
-
-Route22Rival1VictoryText:
-	text_far _Route22Rival1VictoryText
-	text_end
-
 Route22RivalBeforeBattleText2:
-	text_far _Route22RivalBeforeBattleText2
-	text_end
+	text "<RIVAL>『なんだ？　<PLAYER>！"
+	line "こんな　ところで　あうとは"
+	cont "またまた　ぐうぜんだ！"
+
+	para "じゃあ<⋯>　おまえも"
+	line "#　リーグに　いく　わけ？"
+
+	para "バッジも"
+	line "ぜんぶ　あつまったのか！"
+	cont "あ　そう<⋯>　やるじゃん！"
+
+	para "それじゃ　#　リーグ"
+	line "いくまえに　<PLAYER>で"
+	cont "ウォーミング　アップと　いくか！"
+
+	para "かかって　きな！"
+	done
 
 Route22RivalAfterBattleText2:
-	text_far _Route22RivalAfterBattleText2
-	text_end
+	text "からだも　ほぐれたし<⋯>！"
+	line "いよいよ　#　リーグ"
+	cont "せいはに　むかうと　するか！"
+
+	para "<PLAYER>は<⋯>"
+	line "もっと　れんしゅう　したほうが"
+	cont "いいんじゃないの！"
+
+	para "おっと！　おせっかい　だったか！"
+	line "とにかく<⋯>　おれは　さき　いくぜ"
+	cont "じゃあ！<⋯>　あーばよ！"
+	done
 
 Route22Rival2DefeatedText:
-	text_far _Route22Rival2DefeatedText
-	text_end
+	text "あ　こら！"
+
+	para "おれが　ちょっと"
+	line "ゆだん　した　すきに<⋯>　くそう！"
+	prompt
 
 Route22Rival2VictoryText:
-	text_far _Route22Rival2VictoryText
-	text_end
+	text "<RIVAL>『ひゃははッ　<PLAYER>ー！"
+	line "それで　がんばってるのかよ！"
+	cont "おれの　さいのうに　くらべりゃ"
+	cont "<PLAYER>は　まだまだ　だな！"
+
+	para "もっと　れんしゅう　こいよ！"
+	line "あははーッ！"
+	prompt
 
 Route22PokemonLeagueSignText:
-	text_far _Route22PokemonLeagueSignText
-	text_end
+	text "ここは　#　リーグ"
+	line "しょうめん　ゲート"
+	done

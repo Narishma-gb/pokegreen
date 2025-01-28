@@ -1,6 +1,6 @@
 Route6_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, Route6TrainerHeaders
+	ld hl, Route6_TrainerHeaders
 	ld de, Route6_ScriptPointers
 	ld a, [wRoute6CurScript]
 	call ExecuteCurMapScriptInTable
@@ -23,126 +23,140 @@ Route6_TextPointers:
 	dw_const Route6Youngster2Text,          TEXT_ROUTE6_YOUNGSTER2
 	dw_const Route6UndergroundPathSignText, TEXT_ROUTE6_UNDERGROUND_PATH_SIGN
 
-Route6TrainerHeaders:
-	def_trainers
-Route6TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_6_TRAINER_0, 0, Route6CooltrainerM1BattleText, Route6CooltrainerM1EndBattleText, Route6CooltrainerAfterBattleText
-Route6TrainerHeader1:
-	trainer EVENT_BEAT_ROUTE_6_TRAINER_1, 0, Route6CooltrainerF1BattleText, Route6CooltrainerF1EndBattleText, Route6CooltrainerAfterBattleText
-Route6TrainerHeader2:
-	trainer EVENT_BEAT_ROUTE_6_TRAINER_2, 4, Route6Youngster1BattleText, Route6Youngster1EndBattleText, Route6Youngster1AfterBattleText
-Route6TrainerHeader3:
-	trainer EVENT_BEAT_ROUTE_6_TRAINER_3, 3, Route6CooltrainerM2BattleText, Route6CooltrainerM2EndBattleText, Route6CooltrainerM2AfterBattleText
-Route6TrainerHeader4:
-	trainer EVENT_BEAT_ROUTE_6_TRAINER_4, 3, Route6CooltrainerF2BattleText, Route6CooltrainerF2EndBattleText, Route6CooltrainerF2AfterBattleText
-Route6TrainerHeader5:
-	trainer EVENT_BEAT_ROUTE_6_TRAINER_5, 3, Route6Youngster2BattleText, Route6Youngster2EndBattleText, Route6Youngster2AfterBattleText
+	def_trainers Route6
+	trainer EVENT_BEAT_ROUTE_6_TRAINER_0, 0, CooltrainerM1
+	trainer EVENT_BEAT_ROUTE_6_TRAINER_1, 0, CooltrainerF1
+	trainer EVENT_BEAT_ROUTE_6_TRAINER_2, 4, Youngster1
+	trainer EVENT_BEAT_ROUTE_6_TRAINER_3, 3, CooltrainerM2
+	trainer EVENT_BEAT_ROUTE_6_TRAINER_4, 3, CooltrainerF2
+	trainer EVENT_BEAT_ROUTE_6_TRAINER_5, 3, Youngster2
 	db -1 ; end
 
 Route6CooltrainerM1Text:
 	text_asm
-	ld hl, Route6TrainerHeader0
+	ld hl, Route6_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route6CooltrainerM1BattleText:
-	text_far _Route6CooltrainerM1BattleText
-	text_end
+	text "だれだ！"
+	line "ぼくらの　ひそひそ　ばなしを"
+	cont "ぬすみ　ぎき　してる　やつは！"
+	done
 
 Route6CooltrainerM1EndBattleText:
-	text_far _Route6CooltrainerM1EndBattleText
-	text_end
+	text "なぜか　かてないんだ"
+	prompt
 
-Route6CooltrainerAfterBattleText: ; used by both COOLTRAINER_M1 and COOLTRAINER_F1
-	text_far _Route6CooltrainerAfterBattleText
-	text_end
+Route6CooltrainerM1AfterBattleText: ; used by both COOLTRAINER_M1 and COOLTRAINER_F1
+Route6CooltrainerF1AfterBattleText:
+	text "<⋯>　<⋯>　ひそ　ひそ<⋯>"
+	done
 
 Route6CooltrainerF1Text:
 	text_asm
-	ld hl, Route6TrainerHeader1
+	ld hl, Route6_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route6CooltrainerF1BattleText:
-	text_far _Route6CooltrainerF1BattleText
-	text_end
+	text "ちょっと　そこの　きみ！"
+	line "ひとの　たち　ばなしを"
+	cont "ぬすみ　ぎき　するもんじゃないわ"
+	done
 
 Route6CooltrainerF1EndBattleText:
-	text_far _Route6CooltrainerF1EndBattleText
-	text_end
+	text "やん！"
+	line "やられる　なんて　なさけないわ"
+	prompt
 
 Route6Youngster1Text:
 	text_asm
-	ld hl, Route6TrainerHeader2
+	ld hl, Route6_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route6Youngster1BattleText:
-	text_far _Route6Youngster1BattleText
-	text_end
+	text "この　へんまで　くると"
+	line "あんまり　むしも　いないんだ"
+	done
 
 Route6Youngster1EndBattleText:
-	text_far _Route6Youngster1EndBattleText
-	text_end
+	text "そんな　バカなあー"
+	prompt
 
 Route6Youngster1AfterBattleText:
-	text_far _Route6Youngster1AfterBattleText
-	text_end
+	text "ぼく　やっぱり"
+	line "むし　#　すきだし"
+	cont "トキワの　もりに　かえろうかな"
+	done
 
 Route6CooltrainerM2Text:
 	text_asm
-	ld hl, Route6TrainerHeader3
+	ld hl, Route6_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route6CooltrainerM2BattleText:
-	text_far _Route6CooltrainerM2BattleText
-	text_end
+	text "なんだい"
+	line "おれに　なんか　よう？"
+	done
 
 Route6CooltrainerM2EndBattleText:
-	text_far _Route6CooltrainerM2EndBattleText
-	text_end
+	text "なさけない"
+	line "うられた　ケンカに　まけた"
+	prompt
 
 Route6CooltrainerM2AfterBattleText:
-	text_far _Route6CooltrainerM2AfterBattleText
-	text_end
+	text "もっと　たくさん"
+	line "#　もって　あるいてた"
+	cont "ほうが　あんしんだな"
+	done
 
 Route6CooltrainerF2Text:
 	text_asm
-	ld hl, Route6TrainerHeader4
+	ld hl, Route6_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route6CooltrainerF2BattleText:
-	text_far _Route6CooltrainerF2BattleText
-	text_end
+	text "わたし？"
+	line "<⋯>　<⋯>　<⋯>　うーん"
+	cont "つきあっても　いいかな"
+	done
 
 Route6CooltrainerF2EndBattleText:
-	text_far _Route6CooltrainerF2EndBattleText
-	text_end
+	text "<⋯>　どうも"
+	line "うまく　いかないわ"
+	prompt
 
 Route6CooltrainerF2AfterBattleText:
-	text_far _Route6CooltrainerF2AfterBattleText
-	text_end
+	text "あたしも　つよく　なりたいの"
+	line "コツを　おしえて　くれない　かしら"
+	done
 
 Route6Youngster2Text:
 	text_asm
-	ld hl, Route6TrainerHeader5
+	ld hl, Route6_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route6Youngster2BattleText:
-	text_far _Route6Youngster2BattleText
-	text_end
+	text "おや？　みかけない　かお　だ！"
+	line "つよいのかな？"
+	done
 
 Route6Youngster2EndBattleText:
-	text_far _Route6Youngster2EndBattleText
-	text_end
+	text "そりゃ　ないよ"
+	prompt
 
 Route6Youngster2AfterBattleText:
-	text_far _Route6Youngster2AfterBattleText
-	text_end
+	text "#が　よわいのか"
+	line "ぼくの　うでが　わるいのか<⋯>"
+	cont "どっちだと　おもう？"
+	done
 
 Route6UndergroundPathSignText:
-	text_far _Route6UndergroundPathSignText
-	text_end
+	text "ここから　ちかつうろ"
+	line "ハナダ　シティ　<⋯>　クチバ　シティ"
+	done

@@ -1,15 +1,55 @@
-MACRO channel_count
-	ASSERT 0 < (\1) && (\1) <= NUM_MUSIC_CHANS, \
-		"channel_count must be 1-{d:NUM_MUSIC_CHANS}"
-	DEF _num_channels = \1 - 1
+MACRO audio_def
+	ASSERT (\1) > 0 && (\1) <= NUM_AUDIO_ENG, \
+		"audio_def must be 1-{d:NUM_AUDIO_ENG}"
+	DEF audio_engine = \1
 ENDM
 
-MACRO channel
-	ASSERT 0 < (\1) && (\1) <= NUM_CHANNELS, \
+; \1 Label
+; \2, \3 ... (optional) channels
+MACRO audio_header
+	REDEF _audio_label EQUS "\1"
+	{_audio_label}::
+	IF _NARG > 1
+		ASSERT _NARG <=  NUM_MUSIC_CHANS + 1, \
+			"Exceeded maximum channel number."
+		DEF _num_channels = _NARG - 2
+		REPT _NARG - 1
+			ASSERT 0 < (\2) && (\2) <= NUM_CHANNELS, \
+				"channel id must be 1-{d:NUM_CHANNELS}"
+			dn (_num_channels << 2), \2 - 1 ; channel id
+			dw {_audio_label}_Ch\2 ; address
+			DEF _num_channels = 0
+			SHIFT
+		ENDR
+	ENDC
+ENDM
+
+; \1 Label
+; \2, \3 ... (optional) channels
+MACRO audio_header_eng
+	REDEF _audio_label EQUS "\1"
+	{_audio_label}_{d:audio_engine}::
+	IF _NARG > 1
+		ASSERT _NARG <=  NUM_MUSIC_CHANS + 1, \
+			"Exceeded maximum channel number {d:NUM_MUSIC_CHANS}"
+		DEF _num_channels = _NARG - 2
+		REPT _NARG - 1
+			ASSERT 0 < (\2) && (\2) <= NUM_CHANNELS, \
+				"channel id must be 1-{d:NUM_CHANNELS}"
+			dn (_num_channels << 2), \2 - 1 ; channel id
+			dw {_audio_label}_{d:audio_engine}_Ch\2 ; address
+			DEF _num_channels = 0
+			SHIFT
+		ENDR
+	ENDC
+ENDM
+
+; \1 SFX Label
+; \2 Channel
+MACRO audio_eng_channel
+	ASSERT 0 < (\2) && (\2) <= NUM_CHANNELS, \
 		"channel id must be 1-{d:NUM_CHANNELS}"
-	dn (_num_channels << 2), \1 - 1 ; channel id
-	dw \2 ; address
-	DEF _num_channels = 0
+	\1_{d:audio_engine}_Ch\2:
 ENDM
 
 	const_def $10
@@ -180,10 +220,10 @@ MACRO stereo_panning
 ENDM
 
 	const unknownmusic0xef_cmd ; $ef
-MACRO unknownmusic0xef
-	db unknownmusic0xef_cmd
-	db \1
-ENDM
+;MACRO unknownmusic0xef
+;	db unknownmusic0xef_cmd
+;	db \1
+;ENDM
 
 ; arguments: left master volume [0, 7], right master volume [0, 7]
 	const volume_cmd ; $f0

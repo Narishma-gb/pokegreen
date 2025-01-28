@@ -28,26 +28,47 @@ Route1Youngster1Text:
 	jp TextScriptEnd
 
 .MartSampleText:
-	text_far _Route1Youngster1MartSampleText
-	text_end
+	text "わたし　フレンドリィ　ショップの"
+	line "てんいん　です"
+
+	para "べんりな　どうぐや　ですから"
+	line "トキワ　シティで"
+	cont "ぜひ　よって　くださいね！"
+
+	para "そうだ！"
+	line "みほんを　さしあげましょう"
+	cont "<⋯>　どうぞ！"
+	prompt
 
 .GotPotionText:
-	text_far _Route1Youngster1GotPotionText
+	text "<PLAYER>は"
+	line "「@"
+	text_ram wStringBuffer
+	text "」を　もらった！@"
 	sound_get_item_1
 	text_end
 
 .AlsoGotPokeballsText:
-	text_far _Route1Youngster1AlsoGotPokeballsText
-	text_end
+	text "#を　つかまえる"
+	line "モンスターボール　かう　ときも"
+	cont "ショップへ　いらして　ください！"
+	done
 
 .NoRoomText:
-	text_far _Route1Youngster1NoRoomText
-	text_end
+	text "にもつが　いっぱいだ！"
+	done
 
 Route1Youngster2Text:
-	text_far _Route1Youngster2Text
-	text_end
+	text "みちに　だんさが　あるだろ！"
+
+	para "とび　おりるのは"
+	line "ちょっと　こわいけど<⋯>"
+
+	para "マサラ　タウンに　かえる　ときは"
+	line "はやく　かえれて　いいよ"
+	done
 
 Route1SignText:
-	text_far _Route1SignText
-	text_end
+	text "ここは　１ばん　どうろ"
+	line "マサラ　タウン　<⋯>　トキワ　シティ"
+	done

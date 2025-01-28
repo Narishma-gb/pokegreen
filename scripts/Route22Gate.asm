@@ -77,7 +77,12 @@ Route22GateGuardText:
 	jp TextScriptEnd
 
 Route22GateGuardNoBoulderbadgeText:
-	text_far _Route22GateGuardNoBoulderbadgeText
+	text "ここから　さきは"
+	line "ほんとうに　つよい"
+	cont "#<TRAINER>だけ　とおれます"
+
+	para "あなたは　まだ"
+	line "グレーバッジを　もって　ませんね！@"
 	text_asm
 	ld a, SFX_DENIED
 	call PlaySoundWaitForCurrent
@@ -86,10 +91,15 @@ Route22GateGuardNoBoulderbadgeText:
 	ret
 
 Route22GateGuardICantLetYouPassText:
-	text_far _Route22GateGuardICantLetYouPassText
-	text_end
+	text_start
+
+	para "きまり　ですから"
+	line "とおす　わけには　いきません！"
+	done
 
 Route22GateGuardGoRightAheadText:
-	text_far _Route22GateGuardGoRightAheadText
+	text "おおーッ！"
+	line "それは　たしかに　グレーバッジ！"
+	cont "どうぞ　とおって　ください！@"
 	sound_get_item_1
 	text_end

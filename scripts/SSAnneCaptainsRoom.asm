@@ -33,8 +33,6 @@ SSAnneCaptainsRoomCaptainText:
 .bag_full
 	ld hl, SSAnneCaptainsRoomCaptainHM01NoRoomText
 	call PrintText
-	ld hl, wStatusFlags3
-	set BIT_NO_NPC_FACE_PLAYER, [hl]
 	jr .done
 .got_item
 	ld hl, SSAnneCaptainsRoomCaptainNotSickAnymoreText
@@ -43,7 +41,15 @@ SSAnneCaptainsRoomCaptainText:
 	jp TextScriptEnd
 
 SSAnneCaptainsRoomRubCaptainsBackText:
-	text_far _SSAnneCaptainsRoomRubCaptainsBackText
+	text "せんちょう『おえー<⋯>！"
+	line "ふなよいで<⋯>　すっかり　ダウンだ"
+	cont "くるしい<⋯>　<⋯>　うえ！"
+
+	para "<PLAYER>は　せんちょうの"
+	line "せなかを　さすって　あげた！"
+
+	para "すりすり<⋯>　すりすり<⋯>"
+	line "すりすり<⋯>　すりすり<⋯>@"
 	text_asm
 	ld a, [wAudioROMBank]
 	cp BANK("Audio Engine 3")
@@ -69,26 +75,57 @@ SSAnneCaptainsRoomRubCaptainsBackText:
 	jp TextScriptEnd
 
 SSAnneCaptainsRoomCaptainIFeelMuchBetterText:
-	text_far _SSAnneCaptainsRoomCaptainIFeelMuchBetterText
-	text_end
+	text "せんちょう『ふう<⋯>　ありがとう"
+	line "だいぶ　ラクに　なった　みたいだ"
+
+	para "<⋯>なになに　なんだ"
+	line "ひでんの　わざを　みに　きたのか"
+
+	para "げんきな　ときなら　じまんの"
+	line "いあいぎりを　みせるんだがなあ<⋯>"
+
+	para "そうだ！"
+	line "かわりに　これを　あげよう！"
+
+	para "これを　きみの　"
+	line "#に　おしえれば"
+	cont "いつでも　いあいぎりが　みれる！"
+	prompt
 
 SSAnneCaptainsRoomCaptainReceivedHM01Text:
-	text_far _SSAnneCaptainsRoomCaptainReceivedHM01Text
+	text "<PLAYER>は　せんちょう　から"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_key_item
 	text_end
 
 SSAnneCaptainsRoomCaptainNotSickAnymoreText:
-	text_far _SSAnneCaptainsRoomCaptainNotSickAnymoreText
-	text_end
+	text "せんちょう『<⋯>ふう！"
+
+	para "らくに　なったし<⋯>"
+	line "そろそろ　じかんだ！"
+
+	para "もうすぐ　サント·アンヌは"
+	line "しゅっぱつ　するよ！"
+
+	para "また　クチバに　くる　ときまで"
+	line "ごきげんよう！"
+	done
 
 SSAnneCaptainsRoomCaptainHM01NoRoomText:
-	text_far _SSAnneCaptainsRoomCaptainHM01NoRoomText
-	text_end
+	text "なんとー！"
+	line "にもつが　いっぱいだ！"
+	done
 
 SSAnneCaptainsRoomTrashText:
-	text_far _SSAnneCaptainsRoomTrashText
-	text_end
+	text "あんまり　みないほうが"
+	line "いい　みたいだ<⋯>"
+	done
 
 SSAnneCaptainsRoomSeasickBookText:
-	text_far _SSAnneCaptainsRoomSeasickBookText
-	text_end
+	text "ふなよい　しない"
+	line "ふなのり　にゅうもん<⋯>"
+	cont "<⋯>これは"
+	cont "せんちょうが　よんでいる　ほんだ！"
+	done

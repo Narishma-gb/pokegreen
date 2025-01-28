@@ -8,7 +8,7 @@ LavenderCuboneHouse_TextPointers:
 	dw_const LavenderCuboneHouseBrunetteGirlText, TEXT_LAVENDERCUBONEHOUSE_BRUNETTE_GIRL
 
 LavenderCuboneHouseCuboneText:
-	text_far _LavenderCuboneHouseCuboneText
+	text "カラカラ『きゃるぐうーっ@"
 	text_asm
 	ld a, CUBONE
 	call PlayCry
@@ -28,9 +28,21 @@ LavenderCuboneHouseBrunetteGirlText:
 	jp TextScriptEnd
 
 .PoorCubonesMotherText:
-	text_far _LavenderCuboneHouseBrunetteGirlPoorCubonesMotherText
-	text_end
+	text "わたし<⋯>！"
+	line "<ROCKET>を　ゆるさないわ！"
+
+	para "あそこに　いる　カラカラの"
+	line "おかあさんが<⋯>"
+
+	para "<ROCKET>に　つかまって"
+	line "にげる　とちゅう"
+	cont "ころされ　ちゃったの"
+	done
 
 .TheGhostIsGoneText:
-	text_far _LavenderCuboneHouseBrunetteGirlGhostIsGoneText
-	text_end
+	text "#　タワーの"
+	line "ゆうれい　でなく　なったって！"
+
+	para "だれかが　まよえる　たましいを"
+	line "しずめて　くれたのね"
+	done

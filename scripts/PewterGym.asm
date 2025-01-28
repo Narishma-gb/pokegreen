@@ -4,7 +4,7 @@ PewterGym_Script:
 	res BIT_CUR_MAP_LOADED_2, [hl]
 	call nz, .LoadNames
 	call EnableAutoTextBoxDrawing
-	ld hl, PewterGymTrainerHeaders
+	ld hl, PewterGym_TrainerHeaders
 	ld de, PewterGym_ScriptPointers
 	ld a, [wPewterGymCurScript]
 	call ExecuteCurMapScriptInTable
@@ -17,13 +17,13 @@ PewterGym_Script:
 	jp LoadGymLeaderAndCityName
 
 .CityName:
-	db "PEWTER CITY@"
+	db "ニビ@"
 
 .LeaderName:
-	db "BROCK@"
+	db "タケシ@"
 
 PewterGymResetScripts:
-	xor a
+	xor a ; SCRIPT_PEWTERGYM_DEFAULT
 	ld [wJoyIgnore], a
 	ld [wPewterGymCurScript], a
 	ld [wCurMapScript], a
@@ -89,10 +89,8 @@ PewterGym_TextPointers:
 	dw_const PewterGymReceivedTM34Text,      TEXT_PEWTERGYM_RECEIVED_TM34
 	dw_const PewterGymTM34NoRoomText,        TEXT_PEWTERGYM_TM34_NO_ROOM
 
-PewterGymTrainerHeaders:
-	def_trainers 2
-PewterGymTrainerHeader0:
-	trainer EVENT_BEAT_PEWTER_GYM_TRAINER_0, 5, PewterGymCooltrainerMBattleText, PewterGymCooltrainerMEndBattleText, PewterGymCooltrainerMAfterBattleText
+	def_trainers PewterGym, 2
+	trainer EVENT_BEAT_PEWTER_GYM_TRAINER_0, 5, CooltrainerM
 	db -1 ; end
 
 PewterGymBrockText:
@@ -132,50 +130,118 @@ PewterGymBrockText:
 	jp TextScriptEnd
 
 .PreBattleText:
-	text_far _PewterGymBrockPreBattleText
-	text_end
+	text "きたな！"
+	line "おれは　ニビ　#　ジム"
+	cont "リーダーの　タケシ！"
+
+	para "おれの　かたい　いしは"
+	line "おれの　#にも　あらわれる！"
+	cont "かたくて　がまん　づよい！"
+
+	para "そう！　つかうのは"
+	line "いわ　タイプ　ばっかりだ！"
+
+	para "ふはは！"
+	line "まけると　わかってて　たたかうか！"
+	cont "#　<TRAINER>の　さがだな"
+	cont "いいだろう！"
+	cont "かかって　こい！"
+	done
 
 .PostBattleAdviceText:
-	text_far _PewterGymBrockPostBattleAdviceText
-	text_end
+	text "この　ひろい　せかいでは"
+	line "いろんな　やつが　#で"
+	cont "たたかいを　くりひろげてる！"
+
+	para "きみには"
+	line "#　<TRAINER>の"
+	cont "さいのうが　ある　ようだ！"
+
+	para "ハナダ　シティの　ジムにも　いき"
+	line "きみの　ちからを"
+	cont "ためして　みると　いい"
+	done
 
 PewterGymBrockWaitTakeThisText:
-	text_far _PewterGymBrockWaitTakeThisText
-	text_end
+	text "あと<⋯>　そうだ！"
+	line "これを　きみに　あげよう！"
+	done
 
 PewterGymReceivedTM34Text:
-	text_far _PewterGymReceivedTM34Text
+	text "<PLAYER>は　タケシから"
+	line "<TM>３４を　もらった！@"
 	sound_get_item_1
-	text_far _TM34ExplanationText
-	text_end
+	text_start
+
+	para "<TM>を　つかうと　#は"
+	line "すぐ　その　わざを　おぼえる！"
+	cont "ただし　マシンは　つかい　すてだ！"
+	cont "どの　#に　おぼえさせるか"
+	cont "よく　かんがえた　ほうが　いい"
+
+	para "ところで<⋯>"
+	line "<TM>３４には"
+	cont "がまん　が　はいっている！"
+
+	para "こうげき　されてる　とき"
+	line "じっと　たえて<⋯>　あとで"
+	cont "いっきに　２ばいにして　かえす！"
+	cont "おもしろい　わざだ！"
+	done
 
 PewterGymTM34NoRoomText:
-	text_far _PewterGymTM34NoRoomText
-	text_end
+	text "もちものが　いっぱいだ"
+	done
 
 PewterGymBrockReceivedBoulderBadgeText:
-	text_far _PewterGymBrockReceivedBoulderBadgeText
+	text "きみを"
+	line "みくびって　いた　ようだ"
+
+	para "ぼくに　かった　あかしに"
+	line "#　リーグ　こうにん"
+	cont "グレー　バッジを　さずけよう！"
+
+	para "<PLAYER>は　タケシから"
+	line "グレー　バッジを　もらった！@"
 	sound_level_up ; probably supposed to play SFX_GET_ITEM_1 but the wrong music bank is loaded
-	text_far _PewterGymBrockBoulderBadgeInfoText ; Text to tell that the flash technique can be used
-	text_end
+	text_start
+
+	para "グレー　バッジを　つけてると"
+	line "それだけで"
+	cont "きみの　#は　つよくなる！"
+
+	para "フラッシュ　という　わざを"
+	line "もっている　#は"
+	cont "たたかって　なくても　フラッシュを"
+	cont "つかえる　ように　なる！"
+	prompt
 
 PewterGymCooltrainerMText:
 	text_asm
-	ld hl, PewterGymTrainerHeader0
+	ld hl, PewterGym_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 PewterGymCooltrainerMBattleText:
-	text_far _PewterGymCooltrainerMBattleText
-	text_end
+	text "まちなー！"
+
+	para "こどもが　なんの　ようだ！"
+	line "タケシさんに　ちょうせん　なんて"
+	cont "１００００こうねん　はやいんだよ！"
+	done
 
 PewterGymCooltrainerMEndBattleText:
-	text_far _PewterGymCooltrainerMEndBattleText
-	text_end
+	text "しまった！"
+
+	para "１００００こうねんは<⋯>　<⋯>"
+	line "じかん　じゃない！"
+	cont "<⋯>　<⋯>　きょり　だ！"
+	prompt
 
 PewterGymCooltrainerMAfterBattleText:
-	text_far _PewterGymCooltrainerMAfterBattleText
-	text_end
+	text "おまえ　なかなか　やるな！"
+	line "タケシさん　ほどじゃ　ないけどな"
+	done
 
 PewterGymGuideText:
 	text_asm
@@ -205,21 +271,41 @@ PewterGymGuideText:
 	jp TextScriptEnd
 
 PewterGymGuidePreAdviceText:
-	text_far _PewterGymGuidePreAdviceText
-	text_end
+	text "おっす！"
+	line "#　チャンピオンを"
+	cont "めざして　みないか？"
+
+	para "おれは　<TRAINER>　じゃない"
+	line "しかし　かつ　ために　ばっちり"
+	cont "アドバイス　できるぜ！"
+
+	para "な<⋯>！　いっしょに"
+	line "#　チャンピオン　めざそうぜ"
+	done
 
 PewterGymGuideBeginAdviceText:
-	text_far _PewterGymGuideBeginAdviceText
-	text_end
+	text "よっしゃーッ！"
+	line "じゃ　さっそく<⋯>！"
+	prompt
 
 PewterGymGuideAdviceText:
-	text_far _PewterGymGuideAdviceText
-	text_end
+	text "しょうぶの　さいしょに　とびだす"
+	line "#は<⋯>"
+	cont "#　リストの"
+	cont "いちばん　うえの　やつだ！"
+
+	para "リストの　じゅんばんを　かえれば"
+	line "ゆうりに　なることも　ある！"
+	cont "ためして　みなよ！"
+	done
 
 PewterGymGuideFreeServiceText:
-	text_far _PewterGymGuideFreeServiceText
-	text_end
+	text "えんりょは　いらんぜ！"
+	line "じゃ　さっそく<⋯>！"
+	prompt
 
 PewterGymGuidePostBattleText:
-	text_far _PewterGymGuidePostBattleText
-	text_end
+	text "さすがだな！"
+	line "この　ちょうしで　めざせ！"
+	cont "#　チャンピオン！"
+	done

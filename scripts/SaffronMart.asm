@@ -8,9 +8,14 @@ SaffronMart_TextPointers:
 	dw_const SaffronMartCooltrainerFText, TEXT_SAFFRONMART_COOLTRAINER_F
 
 SaffronMartSuperNerdText:
-	text_far _SaffronMartSuperNerdText
-	text_end
+	text "ゴールドスプレーは"
+	line "よわい　#を　よせ　つけない"
+	cont "シルバースプレー　より"
+	cont "ながもち　するって"
+	done
 
 SaffronMartCooltrainerFText:
-	text_far _SaffronMartCooltrainerFText
-	text_end
+	text "げんきのかけら　たかい　けど"
+	line "せんとうふのうの　#が"
+	cont "げんきに　なるの　すごいわ！"
+	done

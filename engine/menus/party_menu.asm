@@ -11,7 +11,7 @@ RedrawPartyMenu_::
 	jp z, .printMessage
 	call ErasePartyMenuCursors
 	farcall InitPartyMenuBlkPacket
-	hlcoord 3, 0
+	hlcoord 3, 1
 	ld de, wPartySpecies
 	xor a
 	ld c, a
@@ -62,21 +62,15 @@ RedrawPartyMenu_::
 	cp EVO_STONE_PARTY_MENU
 	jr z, .evolutionStoneMenu
 	push hl
-	ld bc, 14 ; 14 columns to the right
+	ld bc, 5 - SCREEN_WIDTH ; 1 line up and 5 columns to the right
 	add hl, bc
 	ld de, wLoadedMonStatus
 	call PrintStatusCondition
 	pop hl
 	push hl
-	ld bc, SCREEN_WIDTH + 1 ; down 1 row and right 1 column
-	ldh a, [hUILayoutFlags]
-	set BIT_PARTY_MENU_HP_BAR, a
-	ldh [hUILayoutFlags], a
+	ld bc, 8 - SCREEN_WIDTH ; 1 line up and 8 columns to the right
 	add hl, bc
 	predef DrawHP2 ; draw HP bar and prints current / max HP
-	ldh a, [hUILayoutFlags]
-	res BIT_PARTY_MENU_HP_BAR, a
-	ldh [hUILayoutFlags], a
 	call SetPartyMenuHPBarColor ; color the HP bar (on SGB)
 	pop hl
 	jr .printLevel
@@ -90,27 +84,27 @@ RedrawPartyMenu_::
 	jr nz, .placeMoveLearnabilityString
 	ld de, .notAbleToLearnMoveText
 .placeMoveLearnabilityString
-	ld bc, 20 + 9 ; down 1 row and right 9 columns
 	push hl
+	ld bc, 9 ; 9 columns to the right
 	add hl, bc
 	call PlaceString
 	pop hl
 .printLevel
-	ld bc, 10 ; move 10 columns to the right
+	ld bc, 5 ; 5 columns to the right
 	add hl, bc
 	call PrintLevel
 	pop hl
 	pop de
 	inc de
-	ld bc, 2 * 20
+	ld bc, 2 * SCREEN_WIDTH
 	add hl, bc
 	pop bc
 	inc c
 	jp .loop
 .ableToLearnMoveText
-	db "ABLE@"
+	db "おぼえられる@"
 .notAbleToLearnMoveText
-	db "NOT ABLE@"
+	db "おぼえられない@"
 .evolutionStoneMenu
 	push hl
 	ld hl, EvosMovesPointerTable
@@ -157,17 +151,17 @@ RedrawPartyMenu_::
 ; if it does match
 	ld de, .ableToEvolveText
 .placeEvolutionStoneString
-	ld bc, 20 + 9 ; down 1 row and right 9 columns
 	pop hl
 	push hl
+	ld bc, 9 ; 9 columns to the right
 	add hl, bc
 	call PlaceString
 	pop hl
 	jr .printLevel
 .ableToEvolveText
-	db "ABLE@"
+	db "つかえる@"
 .notAbleToEvolveText
-	db "NOT ABLE@"
+	db "つかえない@"
 .afterDrawingMonEntries
 	ld b, SET_PAL_PARTY_MENU
 	call RunPaletteCommand
@@ -235,59 +229,80 @@ PartyMenuMessagePointers:
 	dw PartyMenuItemUseText
 
 PartyMenuNormalText:
-	text_far _PartyMenuNormalText
-	text_end
+	text "#を　えらんで　ください"
+	done
 
 PartyMenuItemUseText:
-	text_far _PartyMenuItemUseText
-	text_end
+	text "どの#に　つかいますか？"
+	done
 
 PartyMenuBattleText:
-	text_far _PartyMenuBattleText
-	text_end
+	text "どの#を　だしますか？"
+	done
 
 PartyMenuUseTMText:
-	text_far _PartyMenuUseTMText
-	text_end
+	text "どの#に　おしえますか？"
+	done
 
 PartyMenuSwapMonText:
-	text_far _PartyMenuSwapMonText
-	text_end
+	text "どこに　いどうしますか？"
+	done
 
 PotionText:
-	text_far _PotionText
-	text_end
+	text_ram wNameBuffer
+	text "の　たいりょくが"
+	line "@"
+	text_decimal wHPBarHPDifference, 2, 3
+	text "　かいふくした"
+	done
 
 AntidoteText:
-	text_far _AntidoteText
-	text_end
+	text_ram wNameBuffer
+	text "の　どくは"
+	line "きれい　さっぱり　なくなった！"
+	done
 
 ParlyzHealText:
-	text_far _ParlyzHealText
-	text_end
+	text_ram wNameBuffer
+	text "の　からだの"
+	line "しびれが　とれた"
+	done
 
 BurnHealText:
-	text_far _BurnHealText
-	text_end
+	text_ram wNameBuffer
+	text "の"
+	line "やけどが　なおった"
+	done
 
 IceHealText:
-	text_far _IceHealText
-	text_end
+	text_ram wNameBuffer
+	text "の　からだの"
+	line "こおりが　とけた"
+	done
 
 AwakeningText:
-	text_far _AwakeningText
-	text_end
+	text_ram wNameBuffer
+	text "は"
+	line "めを　さました"
+	done
 
 FullHealText:
-	text_far _FullHealText
-	text_end
+	text_ram wNameBuffer
+	text "は"
+	line "けんこうになった！"
+	done
 
 ReviveText:
-	text_far _ReviveText
-	text_end
+	text_ram wNameBuffer
+	text "は"
+	line "げんきを　とりもどした！"
+	done
 
 RareCandyText:
-	text_far _RareCandyText
+	text_ram wNameBuffer
+	text "の　レベルが@"
+	text_decimal wCurEnemyLevel, 1, 3
+	text "になった@"
 	sound_get_item_1 ; probably supposed to play SFX_LEVEL_UP but the wrong music bank is loaded
 	text_promptbutton
 	text_end

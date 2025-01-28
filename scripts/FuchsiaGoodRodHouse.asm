@@ -36,11 +36,25 @@ FuchsiaGoodRodHouseFishingGuruText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _FuchsiaGoodRodHouseFishingGuruText
-	text_end
+	text "わしは　つりおやじの　あに　じゃ！"
+
+	para "もう　しぬほど"
+	line "つりが　すき　なんだが"
+
+	para "きみは　つり　すき　かな？"
+	done
 
 .ReceivedGoodRodText:
-	text_far _FuchsiaGoodRodHouseFishingGuruReceivedGoodRodText
+	text "そうか！"
+	line "きみとは　きが　あいそうだ！"
+
+	para "これ　あげるから"
+	line "きみも　つり　まくりなさいよ！"
+
+	para "<PLAYER>は　つりおやじから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
 	text_end
 
@@ -55,13 +69,18 @@ FuchsiaGoodRodHouseFishingGuruText:
 	done
 
 .ThatsSoDisappointingText:
-	text_far _FuchsiaGoodRodHouseFishingGuruThatsSoDisappointingText
-	text_end
+	text "なんじゃ<⋯>　がっかりだ"
+	done
 
 .HowAreTheFishText:
-	text_far _FuchsiaGoodRodHouseFishingGuruHowAreTheFishText
-	text_end
+	text "やー　<PLAYER>くん！"
+
+	para "つり　まくっとる　かね！"
+	done
 
 .NoRoomText:
-	text_far _FuchsiaGoodRodHouseFishingGuruNoRoomText
-	text_end
+	text "ありゃー！"
+
+	para "いいもの　あげようと　したのに"
+	line "にもつが　いっぱいじゃ！"
+	done

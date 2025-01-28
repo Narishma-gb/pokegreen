@@ -12,29 +12,45 @@ Museum2F_TextPointers:
 	dw_const Museum2FMoonStoneSignText,    TEXT_MUSEUM2F_MOON_STONE_SIGN
 
 Museum2FYoungsterText:
-	text_far _Museum2FYoungsterText
-	text_end
+	text "つきの　いしね<⋯>"
+
+	para "そこらへんの　いしころと"
+	line "どこが　ちがうんだろう？"
+	done
 
 Museum2FGrampsText:
-	text_far _Museum2FGrampsText
-	text_end
+	text "１９６９ねん　７がつ　２０か！"
+
+	para "じんるい"
+	line "はじめて　つきに　たつ！"
+
+	para "わしは　あの　ニュースが　みたくて"
+	line "カラーテレビを　かったんじゃ！"
+	done
 
 Museum2FScientistText:
-	text_far _Museum2FScientistText
-	text_end
+	text "こんげつは"
+	line "うちゅう　はくらんかいを　やってます"
+	done
 
 Museum2FBrunetteGirlText:
-	text_far _Museum2FBrunetteGirlText
-	text_end
+	text "わたしね　わたしね"
+	line "かわいいから　ピカチュウ　ほしい！"
+
+	para "おとうさんに　とってきてね　って"
+	line "おねがい　してるの"
+	done
 
 Museum2FHikerText:
-	text_far _Museum2FHikerText
-	text_end
+	text "はい　はい！"
+	line "ピカチュウだな！　こんどな！"
+	done
 
 Museum2FSpaceShuttleSignText:
-	text_far _Museum2FSpaceShuttleSignText
-	text_end
+	text "スペース　シャトル　コロンビアごう"
+	done
 
 Museum2FMoonStoneSignText:
-	text_far _Museum2FMoonStoneSignText
-	text_end
+	text "オツキミやまに　らっかした　ぶったい"
+	line "たぶん<⋯>　つきの　いし"
+	done

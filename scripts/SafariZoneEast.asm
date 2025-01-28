@@ -12,13 +12,17 @@ SafariZoneEast_TextPointers:
 	dw_const SafariZoneEastSignText,          TEXT_SAFARIZONEEAST_SIGN
 
 SafariZoneEastRestHouseSignText:
-	text_far _SafariZoneEastRestHouseSignText
-	text_end
+	text "きゅうけい　ハウス　<⋯>　いこい"
+	done
 
 SafariZoneEastTrainerTipsText:
-	text_far _SafariZoneEastTrainerTipsText
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "のこり　じかんは"
+	line "あるく　ごとに　へって　いく！"
+	done
 
 SafariZoneEastSignText:
-	text_far _SafariZoneEastSignText
-	text_end
+	text "ここは　ちゅうおう　ひろば"
+	line "きた　<⋯>　だい２　エリア"
+	done

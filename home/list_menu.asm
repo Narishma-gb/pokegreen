@@ -5,7 +5,7 @@ DisplayListMenuID::
 	xor a
 	ldh [hAutoBGTransferEnabled], a ; disable auto-transfer
 	ld a, 1
-	ldh [hJoy7], a ; joypad state update flag
+	ld [hJoy7], a ; joypad state update flag
 	ld a, [wBattleType]
 	and a ; is it the Old Man battle?
 	jr nz, .specialBattleType
@@ -65,7 +65,7 @@ DisplayListMenuIDLoop::
 	ld a, [wBattleType]
 	and a ; is it the Old Man battle?
 	jr z, .notOldManBattle
-.oldManBattle
+; oldManBattle
 	ld a, "▶"
 	ldcoord_a 5, 4 ; place menu cursor in front of first menu entry
 	ld c, 80
@@ -129,7 +129,7 @@ DisplayListMenuIDLoop::
 	and a ; PCPOKEMONLISTMENU?
 	jr z, .pokemonList
 ; if it's an item menu
-	assert wCurListMenuItem == wCurItem
+	ASSERT wCurListMenuItem == wCurItem
 	push hl
 	call GetItemPrice
 	pop hl
@@ -147,7 +147,7 @@ DisplayListMenuIDLoop::
 	call GetName
 	jr .storeChosenEntry
 .pokemonList
-	assert wCurListMenuItem == wCurPartySpecies
+	ASSERT wCurListMenuItem == wCurPartySpecies
 	ld hl, wPartyCount
 	ld a, [wListPointer]
 	cp l ; is it a list of party pokemon or box pokemon?
@@ -165,7 +165,7 @@ DisplayListMenuIDLoop::
 	ld a, [wCurrentMenuItem]
 	ld [wChosenMenuItem], a
 	xor a
-	ldh [hJoy7], a ; joypad state update flag
+	ld [hJoy7], a ; joypad state update flag
 	ld hl, wStatusFlags5
 	res BIT_NO_TEXT_DELAY, [hl]
 	jp BankswitchBack
@@ -178,7 +178,7 @@ DisplayListMenuIDLoop::
 	bit BIT_D_DOWN, b
 	ld hl, wListScrollOffset
 	jr z, .upPressed
-.downPressed
+; downPressed
 	ld a, [hl]
 	add 3
 	ld b, a
@@ -212,6 +212,8 @@ DisplayChooseQuantityMenu::
 	ld a, [wListMenuID]
 	cp PRICEDITEMLISTMENU
 	jr nz, .printInitialQuantity
+	ld a, "円"
+	ldcoord_a 18, 10
 	hlcoord 8, 10
 .printInitialQuantity
 	ld de, InitialQuantityText
@@ -295,7 +297,7 @@ DisplayChooseQuantityMenu::
 	ld de, SpacesBetweenQuantityAndPriceText
 	call PlaceString
 	ld de, hMoney ; total price
-	ld c, $a3
+	ld c, 3 | LEADING_ZEROES
 	call PrintBCDNumber
 	hlcoord 9, 10
 .printQuantity
@@ -305,19 +307,16 @@ DisplayChooseQuantityMenu::
 	jp .waitForKeyPressLoop
 .buttonAPressed ; the player chose to make the transaction
 	xor a
-	ld [wMenuItemToSwap], a ; 0 means no item is currently being swapped
 	ret
 .buttonBPressed ; the player chose to cancel the transaction
-	xor a
-	ld [wMenuItemToSwap], a ; 0 means no item is currently being swapped
 	ld a, $ff
 	ret
 
 InitialQuantityText::
-	db "×01@"
+	db "×０１@"
 
 SpacesBetweenQuantityAndPriceText::
-	db "      @"
+	db "　　　　　　@"
 
 ExitListMenu::
 	ld a, [wCurrentMenuItem]
@@ -326,12 +325,10 @@ ExitListMenu::
 	ld [wMenuExitMethod], a
 	ld [wMenuWatchMovingOutOfBounds], a
 	xor a
-	ldh [hJoy7], a
+	ld [hJoy7], a
 	ld hl, wStatusFlags5
 	res BIT_NO_TEXT_DELAY, [hl]
 	call BankswitchBack
-	xor a
-	ld [wMenuItemToSwap], a ; 0 means no item is currently being swapped
 	scf
 	ret
 
@@ -380,7 +377,7 @@ PrintListMenuEntries::
 	jr z, .pokemonPCMenu
 	cp MOVESLISTMENU
 	jr z, .movesMenu
-.itemMenu
+; itemMenu
 	call GetItemName
 	jr .placeNameString
 .pokemonPCMenu
@@ -411,22 +408,23 @@ PrintListMenuEntries::
 	ld a, [wPrintItemPrices]
 	and a ; should prices be printed?
 	jr z, .skipPrintingItemPrice
-.printItemPrice
+; printItemPrice
 	push hl
 	ld a, [de]
 	ld de, ItemPrices
 	ld [wCurItem], a
 	call GetItemPrice
 	pop hl
-	ld bc, SCREEN_WIDTH + 5 ; 1 row down and 5 columns right
+	ld bc, 6 ; 6 columns right
 	add hl, bc
-	ld c, $a3 ; no leading zeroes, right-aligned, print currency symbol, 3 bytes
+	ld c, 3 | LEADING_ZEROES
 	call PrintBCDNumber
+	ld [hl], "円"
 .skipPrintingItemPrice
 	ld a, [wListMenuID]
 	and a ; PCPOKEMONLISTMENU?
 	jr nz, .skipPrintingPokemonLevel
-.printPokemonLevel
+; printPokemonLevel
 	ld a, [wNamedObjectIndex]
 	push af
 	push hl
@@ -451,12 +449,12 @@ PrintListMenuEntries::
 	ld a, [wMonDataLocation]
 	and a ; is it a list of party pokemon or box pokemon?
 	jr z, .skipCopyingLevel
-.copyLevel
+; copyLevel
 	ld a, [wLoadedMonBoxLevel]
 	ld [wLoadedMonLevel], a
 .skipCopyingLevel
 	pop hl
-	ld bc, $1c
+	ld bc, 6 ; 6 columns right
 	add hl, bc
 	call PrintLevel
 	pop af
@@ -468,7 +466,7 @@ PrintListMenuEntries::
 	ld a, [wListMenuID]
 	cp ITEMLISTMENU
 	jr nz, .nextListEntry
-.printItemQuantity
+; printItemQuantity
 	ld a, [wNamedObjectIndex]
 	ld [wCurItem], a
 	call IsKeyItem ; check if item is unsellable
@@ -476,7 +474,7 @@ PrintListMenuEntries::
 	and a ; is the item unsellable?
 	jr nz, .skipPrintingItemQuantity ; if so, don't print the quantity
 	push hl
-	ld bc, SCREEN_WIDTH + 8 ; 1 row down and 8 columns right
+	ld bc, 9 ; 9 columns right
 	add hl, bc
 	ld a, "×"
 	ld [hli], a
@@ -525,4 +523,4 @@ PrintListMenuEntries::
 	jp PlaceString
 
 ListMenuCancelText::
-	db "CANCEL@"
+	db "やめる@"

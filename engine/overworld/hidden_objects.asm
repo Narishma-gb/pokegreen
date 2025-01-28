@@ -44,9 +44,9 @@ CheckForHiddenObject::
 	push hl
 	ld hl, wHiddenObjectFunctionArgument
 	xor a
-	ld [hli], a
-	ld [hli], a
-	ld [hl], a
+	ld [hli], a ; [wHiddenObjectFunctionArgument]
+	ld [hli], a ; [wHiddenObjectFunctionRomBank]
+	ld [hl], a  ; [wHiddenObjectIndex]
 	pop hl
 .hiddenObjectLoop
 	ld a, [hli]

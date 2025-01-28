@@ -6,5 +6,9 @@ Route15Gate1F_TextPointers:
 	dw_const Route15Gate1FGuardText, TEXT_ROUTE15GATE1F_GUARD
 
 Route15Gate1FGuardText:
-	text_far _Route15Gate1FGuardText
-	text_end
+	text "#ずかん"
+	line "つくってる　こ　って　きみ？"
+
+	para "オーキドはかせの　じょしゅの"
+	line "かたが　きてたよ"
+	done

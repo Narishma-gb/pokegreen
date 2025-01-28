@@ -1,6 +1,6 @@
 Route16_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, Route16TrainerHeaders
+	ld hl, Route16_TrainerHeaders
 	ld de, Route16_ScriptPointers
 	ld a, [wRoute16CurScript]
 	call ExecuteCurMapScriptInTable
@@ -76,146 +76,165 @@ Route16_TextPointers:
 	dw_const Route16SnorlaxWokeUpText,              TEXT_ROUTE16_SNORLAX_WOKE_UP
 	dw_const Route16SnorlaxReturnedToMountainsText, TEXT_ROUTE16_SNORLAX_RETURNED_TO_MOUNTAINS
 
-Route16TrainerHeaders:
-	def_trainers
-Route16TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_16_TRAINER_0, 3, Route16Biker1BattleText, Route16Biker1EndBattleText, Route16Biker1AfterBattleText
-Route16TrainerHeader1:
-	trainer EVENT_BEAT_ROUTE_16_TRAINER_1, 2, Route16Biker2BattleText, Route16Biker2EndBattleText, Route16Biker2AfterBattleText
-Route16TrainerHeader2:
-	trainer EVENT_BEAT_ROUTE_16_TRAINER_2, 2, Route16Biker3BattleText, Route16Biker3EndBattleText, Route16Biker3AfterBattleText
-Route16TrainerHeader3:
-	trainer EVENT_BEAT_ROUTE_16_TRAINER_3, 2, Route16biker4BattleText, Route16Biker4EndBattleText, Route16Biker4AfterBattleText
-Route16TrainerHeader4:
-	trainer EVENT_BEAT_ROUTE_16_TRAINER_4, 2, Route16Biker5BattleText, Route16Biker5EndBattleText, Route16Biker5AfterBattleText
-Route16TrainerHeader5:
-	trainer EVENT_BEAT_ROUTE_16_TRAINER_5, 4, Route16Biker6BattleText, Route16Biker6EndBattleText, Route16Biker6AfterBattleText
+	def_trainers Route16
+	trainer EVENT_BEAT_ROUTE_16_TRAINER_0, 3, Biker1
+	trainer EVENT_BEAT_ROUTE_16_TRAINER_1, 2, Biker2
+	trainer EVENT_BEAT_ROUTE_16_TRAINER_2, 2, Biker3
+	trainer EVENT_BEAT_ROUTE_16_TRAINER_3, 2, Biker4
+	trainer EVENT_BEAT_ROUTE_16_TRAINER_4, 2, Biker5
+	trainer EVENT_BEAT_ROUTE_16_TRAINER_5, 4, Biker6
 	db -1 ; end
 
 Route16Biker1Text:
 	text_asm
-	ld hl, Route16TrainerHeader0
+	ld hl, Route16_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route16Biker1BattleText:
-	text_far _Route16Biker1BattleText
-	text_end
+	text "っだと　こらあ！"
+	done
 
 Route16Biker1EndBattleText:
-	text_far _Route16Biker1EndBattleText
-	text_end
+	text "ってんじゃねえぞ！"
+	prompt
 
 Route16Biker1AfterBattleText:
-	text_far _Route16Biker1AfterBattleText
-	text_end
+	text "っせーな！"
+	line "おれたちゃ　はしる　より"
+	cont "ここで　だらだら　してる　ほうが"
+	cont "たのしいんだよ！"
+	done
 
 Route16Biker2Text:
 	text_asm
-	ld hl, Route16TrainerHeader1
+	ld hl, Route16_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route16Biker2BattleText:
-	text_far _Route16Biker2BattleText
-	text_end
+	text "おう　おうッ！"
+	line "その　じてんしゃ　おれに　くれ！"
+	done
 
 Route16Biker2EndBattleText:
-	text_far _Route16Biker2EndBattleText
-	text_end
+	text "ノック　アウト！"
+	prompt
 
 Route16Biker2AfterBattleText:
-	text_far _Route16Biker2AfterBattleText
-	text_end
+	text "もう　いい！"
+	line "じてんしゃは　いらねえ！"
+	done
 
 Route16Biker3Text:
 	text_asm
-	ld hl, Route16TrainerHeader2
+	ld hl, Route16_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route16Biker3BattleText:
-	text_far _Route16Biker3BattleText
-	text_end
+	text "かわいがって　やろう！"
+	done
 
 Route16Biker3EndBattleText:
-	text_far _Route16Biker3EndBattleText
-	text_end
+	text "この　やろう！"
+	prompt
 
 Route16Biker3AfterBattleText:
-	text_far _Route16Biker3AfterBattleText
-	text_end
+	text "よくも　やって　くれたな！"
+	line "おれは　まけるのが"
+	cont "だい　きらい　なんだ！"
+	done
 
 Route16Biker4Text:
 	text_asm
-	ld hl, Route16TrainerHeader3
+	ld hl, Route16_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
-Route16biker4BattleText:
-	text_far _Route16biker4BattleText
-	text_end
+Route16Biker4BattleText:
+	text "こら　まて！"
+	line "ぶつかって　おいて　にげるな！"
+	done
 
 Route16Biker4EndBattleText:
-	text_far _Route16Biker4EndBattleText
-	text_end
+	text "ボンバー！"
+	prompt
 
 Route16Biker4AfterBattleText:
-	text_far _Route16Biker4AfterBattleText
-	text_end
+	text "おれたち　いつも　ここに　いるぜ！"
+	line "こわかったら　クチバ　から"
+	cont "うみぞい　まわって"
+	cont "セキチクへ　いくんだな！"
+	done
 
 Route16Biker5Text:
 	text_asm
-	ld hl, Route16TrainerHeader4
+	ld hl, Route16_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route16Biker5BattleText:
-	text_far _Route16Biker5BattleText
-	text_end
+	text "おれは　いま　きげんが　わるい！"
+	line "ウサ　ばらしが　してえ！"
+	done
 
 Route16Biker5EndBattleText:
-	text_far _Route16Biker5EndBattleText
-	text_end
+	text "なまいきな　こぞうだ！"
+	prompt
 
 Route16Biker5AfterBattleText:
-	text_far _Route16Biker5AfterBattleText
-	text_end
+	text "どうせ　#　やるなら"
+	line "きょうぼうな　やつが　ほしいぜ！"
+	cont "それで　あいてを"
+	cont "ボロボロに　してやる！"
+	done
 
 Route16Biker6Text:
 	text_asm
-	ld hl, Route16TrainerHeader5
+	ld hl, Route16_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route16Biker6BattleText:
-	text_far _Route16Biker6BattleText
-	text_end
+	text "ひょひょーッ！"
+	line "すこし　あそんでって　やるぜ！"
+	done
 
 Route16Biker6EndBattleText:
-	text_far _Route16Biker6EndBattleText
-	text_end
+	text "おれを　おこらすなよ！"
+	prompt
 
 Route16Biker6AfterBattleText:
-	text_far _Route16Biker6AfterBattleText
-	text_end
+	text "おう　おうッ！"
+	line "#で　おどかしたり"
+	cont "かみつかせたり　いたずら　したり"
+	cont "するのが　すきだぜ！"
+	done
 
 Route16SnorlaxText:
-	text_far _Route16Text7
-	text_end
+	text "#が　とても"
+	line "きもちよさそうに　ねています"
+	done
 
 Route16SnorlaxWokeUpText:
-	text_far _Route16SnorlaxWokeUpText
-	text_end
+	text "カビゴンは　めを　さました！"
+
+	para "ねぼけた　カビゴンが"
+	line "おそってきた！"
+	done
 
 Route16SnorlaxReturnedToMountainsText:
-	text_far _Route16SnorlaxReturnedToMountainsText
-	text_end
+	text "カビゴンは　おおきな　あくびをして"
+	line "やまのおくへ　さっていった<⋯>"
+	done
 
 Route16CyclingRoadSignText:
-	text_far _Route16CyclingRoadSignText
-	text_end
+	text "さかみちを　たのしもう！"
+	line "サイクリング　ロード！"
+	done
 
 Route16SignText:
-	text_far _Route16SignText
-	text_end
+	text "ここは　１６ばん　どうろ"
+	line "タマムシ　<⋯>　セキチク"
+	done

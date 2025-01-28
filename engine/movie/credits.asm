@@ -1,5 +1,5 @@
 HallOfFamePC:
-	farcall AnimateHallOfFame
+	call AnimateHallOfFame
 	call ClearScreen
 	ld c, 100
 	call DelayFrames
@@ -29,9 +29,16 @@ HallOfFamePC:
 	ld c, 128
 	call DelayFrames
 	xor a
-	ld [wUnusedCreditsByte], a ; not read
+	ld [wCreditsScreenIndex], a
 	ld [wNumCreditsMonsDisplayed], a
-	jp Credits
+	ld c, NUM_CRED_SCREENS
+.loop
+	push bc
+	call Credits
+	pop bc
+	dec c
+	jr nz, .loop
+	ret
 
 FadeInCreditsText:
 	ld hl, HoFGBPalettes
@@ -164,22 +171,33 @@ FillFourRowsWithBlack:
 FillMiddleOfScreenWithWhite:
 	hlcoord 0, 4
 	ld bc, SCREEN_WIDTH * 10
-	ld a, " "
+	ld a, "　"
 	jp FillMemory
 
+CreditsDelay:
+	ld c, 168
+	jp DelayFrames
+
 Credits:
-	ld de, CreditsOrder
-	push de
-.nextCreditsScreen
-	pop de
+	ld hl, wCreditsScreenIndex
+	ld e, [hl]
+	inc [hl]
+	ld d, 0
+	ld hl, CreditsRollPointers
+	add hl, de
+	add hl, de
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
 	hlcoord 9, 6
 	push hl
+	push de
 	call FillMiddleOfScreenWithWhite
+	pop de
 	pop hl
 .nextCreditsCommand
 	ld a, [de]
 	inc de
-	push de
 	cp CRED_TEXT_FADE_MON
 	jr z, .fadeInTextAndShowMon
 	cp CRED_TEXT_MON
@@ -192,8 +210,10 @@ Credits:
 	jr z, .showCopyrightText
 	cp CRED_THE_END
 	jr z, .showTheEnd
+	push de
 	push hl
 	push hl
+	push af
 	ld hl, CreditsTextPointers
 	add a
 	ld c, a
@@ -202,9 +222,12 @@ Credits:
 	ld e, [hl]
 	inc hl
 	ld d, [hl]
-	ld a, [de]
-	inc de
+	pop af
+	ld hl, CreditsTextOffsets
 	ld c, a
+	ld b, 0
+	add hl, bc
+	ld c, [hl]
 	ld b, -1
 	pop hl
 	add hl, bc
@@ -216,50 +239,39 @@ Credits:
 	jr .nextCreditsCommand
 .fadeInTextAndShowMon
 	call FadeInCreditsText
-	ld c, 90
-	jr .next1
 .showTextAndShowMon
-	ld c, 110
-.next1
-	call DelayFrames
-	call DisplayCreditsMon
-	jr .nextCreditsScreen
+	call CreditsDelay
+	jp DisplayCreditsMon
 .fadeInText
 	call FadeInCreditsText
-	ld c, 120
-	jr .next2
 .showText
-	ld c, 140
-.next2
-	call DelayFrames
-	jr .nextCreditsScreen
+	jp CreditsDelay
 .showCopyrightText
 	push de
 	farcall LoadCopyrightTiles
-	pop de
 	pop de
 	jr .nextCreditsCommand
 .showTheEnd
 	ld c, 16
 	call DelayFrames
 	call FillMiddleOfScreenWithWhite
-	pop de
 	ld de, TheEndGfx
 	ld hl, vChars2 tile $60
 	lb bc, BANK(TheEndGfx), (TheEndGfxEnd - TheEndGfx) / $10
 	call CopyVideoData
 	hlcoord 4, 8
-	ld de, TheEndTextString
+	ld de, TheEndUpperTextString
 	call PlaceString
 	hlcoord 4, 9
-	inc de
+	ld de, TheEndLowerTextString
 	call PlaceString
 	jp FadeInCreditsText
 
-TheEndTextString:
+TheEndUpperTextString:
 ; "T H E  E N D"
-	db $60," ",$62," ",$64,"  ",$64," ",$66," ",$68,"@"
-	db $61," ",$63," ",$65,"  ",$65," ",$67," ",$69,"@"
+	db $60, "　", $62, "　", $64, "　　", $64, "　", $66, "　", $68, "@"
+TheEndLowerTextString:
+	db $61, "　", $63, "　", $65, "　　", $65, "　", $67, "　", $69, "@"
 
 INCLUDE "data/credits/credits_order.asm"
 

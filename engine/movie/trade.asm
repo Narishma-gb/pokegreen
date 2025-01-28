@@ -150,7 +150,7 @@ Trade_Delay80:
 Trade_ClearTileMap:
 	hlcoord 0, 0
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
-	ld a, " "
+	ld a, "　"
 	jp FillMemory
 
 LoadTradingGFXAndMonNames:
@@ -168,7 +168,7 @@ LoadTradingGFXAndMonNames:
 	call FarCopyData2
 	ld hl, vBGMap0
 	ld bc, $800
-	ld a, " "
+	ld a, "　"
 	call FillMemory
 	call ClearSprites
 	ld a, $ff
@@ -227,14 +227,14 @@ Trade_ShowPlayerMon:
 	ldh [rLCDC], a
 	ld a, $50
 	ldh [hWY], a
-	ld a, $86
+	ld a, $7e
 	ldh [rWX], a
 	ldh [hSCX], a
 	xor a
 	ldh [hAutoBGTransferEnabled], a
-	hlcoord 4, 0
+	hlcoord 5, 0
 	ld b, 6
-	ld c, 10
+	ld c, 9
 	call TextBoxBorder
 	call Trade_PrintPlayerMonInfoText
 	ld b, HIGH(vBGMap0)
@@ -355,9 +355,9 @@ Trade_ShowEnemyMon:
 	ld a, TRADE_BALL_TILT_ANIM
 	call Trade_ShowAnimation
 	call Trade_ShowClearedWindow
-	hlcoord 4, 10
+	hlcoord 5, 10
 	ld b, 6
-	ld c, 10
+	ld c, 9
 	call TextBoxBorder
 	call Trade_PrintEnemyMonInfoText
 	call Trade_CopyTileMapToVRAM
@@ -372,8 +372,8 @@ Trade_ShowEnemyMon:
 	ld a, [wTradedEnemyMonSpecies]
 	call PlayCry
 	call Trade_Delay100
-	hlcoord 4, 10
-	lb bc, 8, 12
+	hlcoord 5, 10
+	lb bc, 7, 11
 	call ClearScreenArea
 	jp PrintTradeTakeCareText
 
@@ -480,11 +480,11 @@ Trade_DrawLeftGameboy:
 	call CopyTileIDsFromList_ZeroBaseTileID
 
 ; draw text box with player name below gameboy pic
-	hlcoord 4, 12
+	hlcoord 12, 7
 	ld b, 2
-	ld c, 7
+	ld c, 5
 	call TextBoxBorder
-	hlcoord 5, 14
+	hlcoord 13, 9
 	ld de, wPlayerName
 	call PlaceString
 
@@ -527,11 +527,11 @@ Trade_DrawRightGameboy:
 	call CopyTileIDsFromList_ZeroBaseTileID
 
 ; draw text box with enemy name above link cable
-	hlcoord 6, 0
+	hlcoord 0, 10
 	ld b, 2
-	ld c, 7
+	ld c, 5
 	call TextBoxBorder
-	hlcoord 7, 2
+	hlcoord 1, 12
 	ld de, wLinkEnemyTrainerName
 	call PlaceString
 
@@ -797,8 +797,12 @@ PrintTradeWentToText:
 	jp Trade_SlideTextBoxOffScreen
 
 TradeWentToText:
-	text_far _TradeWentToText
-	text_end
+	text_ram wStringBuffer
+	text "は　ぶじ"
+	line "@"
+	text_ram wLinkEnemyTrainerName
+	text "に　ひきとられました"
+	done
 
 PrintTradeForSendsText:
 	ld hl, TradeForText
@@ -809,12 +813,19 @@ PrintTradeForSendsText:
 	jp Trade_Delay80
 
 TradeForText:
-	text_far _TradeForText
-	text_end
+	text "<PLAYER>が"
+	line "@"
+	text_ram wStringBuffer
+	text "を　おくったかわりに"
+	done
 
 TradeSendsText:
-	text_far _TradeSendsText
-	text_end
+	text_ram wLinkEnemyTrainerName
+	text "は"
+	line "@"
+	text_ram wNameBuffer
+	text "を　くれます"
+	done
 
 PrintTradeFarewellText:
 	ld hl, TradeWavesFarewellText
@@ -826,12 +837,16 @@ PrintTradeFarewellText:
 	jp Trade_SlideTextBoxOffScreen
 
 TradeWavesFarewellText:
-	text_far _TradeWavesFarewellText
-	text_end
+	text_ram wLinkEnemyTrainerName
+	text "が"
+	line "なごりを　おしみながら"
+	done
 
 TradeTransferredText:
-	text_far _TradeTransferredText
-	text_end
+	text_ram wNameBuffer
+	text "を"
+	line "おくってきます"
+	done
 
 PrintTradeTakeCareText:
 	ld hl, TradeTakeCareText
@@ -839,8 +854,10 @@ PrintTradeTakeCareText:
 	jp Trade_Delay80
 
 TradeTakeCareText:
-	text_far _TradeTakeCareText
-	text_end
+	text_ram wNameBuffer
+	text "を"
+	line "かわいがってやってください"
+	done
 
 PrintTradeWillTradeText:
 	ld hl, TradeWillTradeText
@@ -851,12 +868,20 @@ PrintTradeWillTradeText:
 	jp Trade_Delay80
 
 TradeWillTradeText:
-	text_far _TradeWillTradeText
-	text_end
+	text "これから"
+	line "@"
+	text_ram wLinkEnemyTrainerName
+	text "の@"
+	text_ram wNameBuffer
+	text "と"
+	done
 
 TradeforText:
-	text_far _TradeforText
-	text_end
+	text "<PLAYER>の@"
+	text_ram wStringBuffer
+	text "を"
+	line "こうかんします！"
+	done
 
 Trade_ShowAnimation:
 	ld [wAnimationID], a

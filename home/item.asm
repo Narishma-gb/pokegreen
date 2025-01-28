@@ -1,3 +1,9 @@
+; causes the text box to close without waiting for a button press after displaying text
+DisableWaitingAfterTextDisplay::
+	ld a, $01
+	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
+	ret
+
 ; uses an item
 ; UseItem is used with dummy items to perform certain other functions as well
 ; INPUT:

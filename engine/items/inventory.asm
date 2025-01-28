@@ -118,7 +118,7 @@ RemoveItemFromInventory_::
 	jr nz, .skipMovingUpSlots
 ; if the remaining quantity is 0,
 ; remove the emptied item slot and move up all the following item slots
-.moveSlotsUp
+; moveSlotsUp
 	ld e, l
 	ld d, h
 	inc de
@@ -134,7 +134,6 @@ RemoveItemFromInventory_::
 	ld [wListScrollOffset], a
 	ld [wCurrentMenuItem], a
 	ld [wBagSavedMenuItem], a
-	ld [wSavedListScrollOffset], a
 	pop hl
 	ld a, [hl] ; a = number of items in inventory
 	dec a ; decrement the number of items

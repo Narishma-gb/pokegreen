@@ -31,9 +31,19 @@ GymStatues:
 INCLUDE "data/maps/badge_maps.asm"
 
 GymStatueText1::
-	text_far _GymStatueText1
-	text_end
+	text_ram wGymCityName
+	text "　#　ジム"
+	line "@"
+	text_ram wGymLeaderName
+	text "　にんてい　<TRAINER>！"
+	cont "<RIVAL>"
+	done
 
 GymStatueText2::
-	text_far _GymStatueText2
-	text_end
+	text_ram wGymCityName
+	text "　#　ジム"
+	line "@"
+	text_ram wGymLeaderName
+	text "　にんてい　<TRAINER>！"
+	cont "<RIVAL>　<PLAYER>"
+	done

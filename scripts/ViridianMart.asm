@@ -16,7 +16,7 @@ ViridianMartCheckParcelDeliveredScript:
 	ld a, l
 	ld [wCurMapTextPtr], a
 	ld a, h
-	ld [wCurMapTextPtr+1], a
+	ld [wCurMapTextPtr + 1], a
 	ret
 
 ViridianMart_ScriptPointers:
@@ -78,22 +78,32 @@ ViridianMart_TextPointers2:
 	dw_const ViridianMartCooltrainerMText, TEXT_VIRIDIANMART_COOLTRAINER_M
 
 ViridianMartClerkSayHiToOakText:
-	text_far _ViridianMartClerkSayHiToOakText
-	text_end
+	text "じゃ！"
+	line "オーキド　はかせに　よろしく！"
+	done
 
 ViridianMartClerkYouCameFromPalletTownText:
-	text_far _ViridianMartClerkYouCameFromPalletTownText
-	text_end
+	text "お！　きみは"
+	line "マサラ　タウンから　きたんだね？"
+	done
 
 ViridianMartClerkParcelQuestText:
-	text_far _ViridianMartClerkParcelQuestText
+	text "オーキド　はかせを　しってるね？"
+
+	para "これ　たのまれてるんだけど"
+	line "わたして　くれるかい！"
+
+	para "<PLAYER>は　ショップから"
+	line "とどけものを　あずかった！@"
 	sound_get_key_item
 	text_end
 
 ViridianMartYoungsterText:
-	text_far _ViridianMartYoungsterText
-	text_end
+	text "ねえ　この　みせの　うれすじは"
+	line "どくけし　なんだって！"
+	done
 
 ViridianMartCooltrainerMText:
-	text_far _ViridianMartCooltrainerMText
-	text_end
+	text "ないなー　キズぐすり<⋯>"
+	line "ここでは　うりきれてる　みたい"
+	done

@@ -9,7 +9,7 @@ CeruleanCaveB1FWildMons:
 IF DEF(_RED)
 	db 57, ARBOK
 ENDC
-IF DEF(_BLUE)
+IF DEF(_GREEN)
 	db 57, SANDSLASH
 ENDC
 	db 65, DITTO

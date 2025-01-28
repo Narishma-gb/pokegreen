@@ -9,20 +9,31 @@ SaffronPidgeyHouse_TextPointers:
 	dw_const SaffronPidgeyHousePaperText,        TEXT_SAFFRONPIDGEYHOUSE_PAPER
 
 SaffronPidgeyHouseBrunetteGirlText:
-	text_far _SaffronPidgeyHouseBrunetteGirlText
-	text_end
+	text "<⋯>　おてがみ　ありがとう！"
+	line "はやく　あなたに　あいたいな<⋯>"
+
+	para "いやーん！"
+	line "てがみ　かいてんだから　みないで！"
+	done
 
 SaffronPidgeyHousePidgeyText:
-	text_far _SaffronPidgeyHousePidgeyText
+	text "ポッポ『クルックー@"
 	text_asm
 	ld a, PIDGEY
 	call PlayCry
 	jp TextScriptEnd
 
 SaffronPidgeyHouseYoungsterText:
-	text_far _SaffronPidgeyHouseYoungsterText
-	text_end
+	text "ものまね　むすめって　かわいい！"
+	line "かのじょに　ピッピにんぎょう"
+	cont "プレゼント　するんだ！"
+	done
 
 SaffronPidgeyHousePaperText:
-	text_far _SaffronPidgeyHousePaperText
-	text_end
+	text "<⋯>　この　あいだ"
+	line "ポイント　アップ　もらったの"
+
+	para "すごく　つよい　わざって"
+	line "パワー　ポイント　すくないけど"
+	cont "これで　ふやせば　いいのね<⋯>？"
+	done

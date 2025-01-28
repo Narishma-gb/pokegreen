@@ -19,7 +19,7 @@ GiveFossilToCinnabarLab::
 	call AddNTimes
 	dec l
 	ld b, l
-	ld c, $d
+	ld c, 8
 	hlcoord 0, 0
 	call TextBoxBorder
 	call UpdateSprites
@@ -73,20 +73,43 @@ GiveFossilToCinnabarLab::
 	ret
 
 .ScientistSeesFossilText:
-	text_far _CinnabarLabFossilRoomScientist1SeesFossilText
-	text_end
+	text "おお！"
+	line "それは　@"
+	text_ram wNameBuffer
+	text "！"
+
+	para "おお　むかしの　#"
+	line "@"
+	text_ram wStringBuffer
+	text "　いう　カセキね！"
+
+	para "わたしの　つくった"
+	line "カセキ　さいせい　マシンで"
+
+	para "これ！"
+	line "いきかえらせて　みせるね！"
+	done
 
 .ScientistTakesFossilText:
-	text_far _CinnabarLabFossilRoomScientist1TakesFossilText
-	text_end
+	text "はいー！　じゃ　それ"
+	line "はやく　こっちに　よこす　よろし！"
+
+	para "<PLAYER>は　へんな　はかせに"
+	line "@"
+	text_ram wNameBuffer
+	text "を　あずけた！"
+	prompt
 
 .GoForAWalkText:
-	text_far _CinnabarLabFossilRoomScientist1GoForAWalkText2
-	text_end
+	text "ちょっと　じかん　かかるよ！"
+
+	para "そこらへんを　すこし　"
+	line "ブラブラ　してくると　よろしー！"
+	done
 
 .ComeAgainText:
-	text_far _CinnabarLabFossilRoomScientist1ComeAgainText
-	text_end
+	text "じゃー！　また　くる　よろし！"
+	done
 
 PrintFossilsInBag:
 ; Prints each fossil in the player's bag on a separate line in the menu.

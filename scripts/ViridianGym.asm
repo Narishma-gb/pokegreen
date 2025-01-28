@@ -3,7 +3,7 @@ ViridianGym_Script:
 	ld de, .LeaderName
 	call LoadGymLeaderAndCityName
 	call EnableAutoTextBoxDrawing
-	ld hl, ViridianGymTrainerHeaders
+	ld hl, ViridianGym_TrainerHeaders
 	ld de, ViridianGym_ScriptPointers
 	ld a, [wViridianGymCurScript]
 	call ExecuteCurMapScriptInTable
@@ -11,10 +11,10 @@ ViridianGym_Script:
 	ret
 
 .CityName:
-	db "VIRIDIAN CITY@"
+	db "トキワ@"
 
 .LeaderName:
-	db "GIOVANNI@"
+	db "サカキ@"
 
 ViridianGymResetScripts:
 	xor a
@@ -184,24 +184,15 @@ ViridianGym_TextPointers:
 	dw_const ViridianGymGiovanniReceivedTM27Text,   TEXT_VIRIDIANGYM_GIOVANNI_RECEIVED_TM27
 	dw_const ViridianGymGiovanniTM27NoRoomText,     TEXT_VIRIDIANGYM_GIOVANNI_TM27_NO_ROOM
 
-ViridianGymTrainerHeaders:
-	def_trainers 2
-ViridianGymTrainerHeader0:
-	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_0, 4, ViridianGymCooltrainerM1BattleText, ViridianGymCooltrainerM1EndBattleText, ViridianGymCooltrainerM1AfterBattleText
-ViridianGymTrainerHeader1:
-	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_1, 4, ViridianGymHiker1BattleText, ViridianGymHiker1EndBattleText, ViridianGymHiker1AfterBattleText
-ViridianGymTrainerHeader2:
-	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_2, 4, ViridianGymRocker1BattleText, ViridianGymRocker1EndBattleText, ViridianGymRocker1AfterBattleText
-ViridianGymTrainerHeader3:
-	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_3, 2, ViridianGymHiker2BattleText, ViridianGymHiker2EndBattleText, ViridianGymHiker2AfterBattleText
-ViridianGymTrainerHeader4:
-	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_4, 3, ViridianGymCooltrainerM2BattleText, ViridianGymCooltrainerM2EndBattleText, ViridianGymCooltrainerM2AfterBattleText
-ViridianGymTrainerHeader5:
-	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_5, 4, ViridianGymHiker3BattleText, ViridianGymHiker3EndBattleText, ViridianGymHiker3AfterBattleText
-ViridianGymTrainerHeader6:
-	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_6, 3, ViridianGymRocker2BattleText, ViridianGymRocker2EndBattleText, ViridianGymRocker2AfterBattleText
-ViridianGymTrainerHeader7:
-	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_7, 4, ViridianGymCooltrainerM3BattleText, ViridianGymCooltrainerM3EndBattleText, ViridianGymCooltrainerM3AfterBattleText
+	def_trainers ViridianGym, 2
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_0, 4, CooltrainerM1
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_1, 4, Hiker1
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_2, 4, Rocker1
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_3, 2, Hiker2
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_4, 3, CooltrainerM2
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_5, 4, Hiker3
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_6, 3, Rocker2
+	trainer EVENT_BEAT_VIRIDIAN_GYM_TRAINER_7, 4, CooltrainerM3
 	db -1 ; end
 
 ViridianGymGiovanniText:
@@ -247,178 +238,256 @@ ViridianGymGiovanniText:
 	jp TextScriptEnd
 
 .PreBattleText:
-	text_far _ViridianGymGiovanniPreBattleText
-	text_end
+	text "ははははーッ！"
+	line "ここは　おれの　かくれが　だ！"
+
+	para "<ROCKET>　ふっかつの　ひ　まで"
+	line "この　ジムで"
+	cont "たいせいを　たてなおすのだ！"
+
+	para "しかし<⋯>　きみに"
+	line "みつかって　しまっては"
+	cont "しょうがない！"
+	cont "こんどは　てかげん　なしだ！"
+	cont "では<⋯>"
+
+	para "いま　いちど！"
+	line "さいきょうの　<TRAINER>"
+	cont "サカキの　うでまえを　みよ！"
+	done
 
 .ReceivedEarthBadgeText:
-	text_far _ViridianGymGiovanniReceivedEarthBadgeText
+	text "はー　はーッ！"
+	line "はげしい　たたかい　だった！"
+	cont "きみの　かちだ！"
+	cont "いま<⋯>"
+	cont "その　あかしに"
+	cont "グリーン　バッジを　わたそう！@"
 	sound_level_up ; probably supposed to play SFX_GET_ITEM_1 but the wrong music bank is loaded
 	text_end
 
 .PostBattleAdviceText:
-	text_far _ViridianGymGiovanniPostBattleAdviceText
+	text "このような　まけかたを　しては"
+	line "ぶかたちに　しめしが　つかない！"
+	cont "<ROCKET>は<⋯>"
+	cont "ほんじつを　もって　かいさんする！"
+
+	para "わたしは"
+	line "#の　しゅぎょうを"
+	cont "いちから　しなおす　つもりだ！"
+
+	para "いつの　ひか<⋯>"
+	line "また　あおう！"
+	cont "<⋯>　さらばだ！@"
 	text_waitbutton
 	text_end
 
 ViridianGymGiovanniEarthBadgeInfoText:
-	text_far _ViridianGymGiovanniEarthBadgeInfoText
-	text_end
+	text "グリーンバッジさえ　あれば"
+	line "どんなに　レベルの　たかい"
+	cont "#も　いうことを　きく！"
+
+	para "きみが　いちにんまえの"
+	line "<TRAINER>に　なった　あかしだ！"
+
+	para "これで　#リーグに"
+	line "いどむ　ことが　できるだろう"
+
+	para "この　<TM>は<⋯>！"
+	line "#リーグへ　いどむ"
+	cont "きみへ　せんべつだ！"
+	done
 
 ViridianGymGiovanniReceivedTM27Text:
-	text_far _ViridianGymGiovanniReceivedTM27Text
+	text "<PLAYER>は　サカキから"
+	line "<TM>２７を　もらった！@"
 	sound_get_item_1
+	text_start
 
-ViridianGymGiovanniTM27ExplanationText:
-	text_far _ViridianGymGiovanniTM27ExplanationText
-	text_end
+	para "<TM>２７は　じわれ　だ！"
+	line "じわれに　さそいこまれた　てきは"
+	cont "いちげきで　ダウン　する！"
+	cont "さいきょうの　わざだ！"
+
+	para "おれが　むかし<⋯>　ここで"
+	line "#　ジムを　やってる　とき"
+	cont "つくった　ものだ<⋯>"
+	done
 
 ViridianGymGiovanniTM27NoRoomText:
-	text_far _ViridianGymGiovanniTM27NoRoomText
-	text_end
+	text "にもつが　いっぱいだ！"
+	done
 
 ViridianGymCooltrainerM1Text:
 	text_asm
-	ld hl, ViridianGymTrainerHeader0
+	ld hl, ViridianGym_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymCooltrainerM1BattleText:
-	text_far _ViridianGymCooltrainerM1BattleText
-	text_end
+	text "<⋯>　さて！"
+	line "そろそろ<⋯>"
+	cont "バテて　きたんじゃないか"
+	done
 
 ViridianGymCooltrainerM1EndBattleText:
-	text_far _ViridianGymCooltrainerM1EndBattleText
-	text_end
+	text "<⋯>　ちから　つきた"
+	prompt
 
 ViridianGymCooltrainerM1AfterBattleText:
-	text_far _ViridianGymCooltrainerM1AfterBattleText
-	text_end
+	text "たいりょくが　ないと"
+	line "とても　リーダーには　かてないぜ！"
+	done
 
 ViridianGymHiker1Text:
 	text_asm
-	ld hl, ViridianGymTrainerHeader1
+	ld hl, ViridianGym_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymHiker1BattleText:
-	text_far _ViridianGymHiker1BattleText
-	text_end
+	text "うおーッ！"
+	line "おれの　イカリは"
+	cont "さいこうちょう　だあッ！"
+	done
 
 ViridianGymHiker1EndBattleText:
-	text_far _ViridianGymHiker1EndBattleText
-	text_end
+	text "ぬうおーッ！"
+	prompt
 
 ViridianGymHiker1AfterBattleText:
-	text_far _ViridianGymHiker1AfterBattleText
-	text_end
+	text "ウオースッ！"
+	line "まだまだ　れんしゅう　たりないッス"
+	done
 
 ViridianGymRocker1Text:
 	text_asm
-	ld hl, ViridianGymTrainerHeader2
+	ld hl, ViridianGym_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymRocker1BattleText:
-	text_far _ViridianGymRocker1BattleText
-	text_end
+	text "おれと　#の"
+	line "コンビネーション！"
+	cont "バツグン　だぜ！"
+	done
 
 ViridianGymRocker1EndBattleText:
-	text_far _ViridianGymRocker1EndBattleText
-	text_end
+	text "<⋯>　おまえと"
+	line "#も　いきが　あってるな"
+	prompt
 
 ViridianGymRocker1AfterBattleText:
-	text_far _ViridianGymRocker1AfterBattleText
-	text_end
+	text "おまえは　ここの　リーダーが"
+	line "だれか　しって　いるのか<⋯>？"
+	done
 
 ViridianGymHiker2Text:
 	text_asm
-	ld hl, ViridianGymTrainerHeader3
+	ld hl, ViridianGym_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymHiker2BattleText:
-	text_far _ViridianGymHiker2BattleText
-	text_end
+	text "カラテ　こそ！"
+	line "せかい　さいきょうの　かくとうぎ！"
+	done
 
 ViridianGymHiker2EndBattleText:
-	text_far _ViridianGymHiker2EndBattleText
-	text_end
+	text "チェーストー！"
+	prompt
 
 ViridianGymHiker2AfterBattleText:
-	text_far _ViridianGymHiker2AfterBattleText
-	text_end
+	text "ウィオッス！"
+	line "#が　おれ　くらい"
+	cont "カラテ　できれば　いいんだが<⋯>"
+	done
 
 ViridianGymCooltrainerM2Text:
 	text_asm
-	ld hl, ViridianGymTrainerHeader4
+	ld hl, ViridianGym_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymCooltrainerM2BattleText:
-	text_far _ViridianGymCooltrainerM2BattleText
-	text_end
+	text "しんに　つよい　<TRAINER>は"
+	line "かちかたも　うつくしい　ものだ！"
+	done
 
 ViridianGymCooltrainerM2EndBattleText:
-	text_far _ViridianGymCooltrainerM2EndBattleText
-	text_end
+	text "てが　すべった<⋯>！"
+	prompt
 
 ViridianGymCooltrainerM2AfterBattleText:
-	text_far _ViridianGymCooltrainerM2AfterBattleText
-	text_end
+	text "こんな　まけかた　したら<⋯>"
+	line "<⋯>　リーダーに　おこられる！"
+	done
 
 ViridianGymHiker3Text:
 	text_asm
-	ld hl, ViridianGymTrainerHeader5
+	ld hl, ViridianGym_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymHiker3BattleText:
-	text_far _ViridianGymHiker3BattleText
-	text_end
+	text "キング　オブ　カラテ！"
+	cont "ここから　さきへは"
+	cont "いかせないぜ！"
+	done
 
 ViridianGymHiker3EndBattleText:
-	text_far _ViridianGymHiker3EndBattleText
-	text_end
+	text "ドッセーッ！"
+	prompt
 
 ViridianGymHiker3AfterBattleText:
-	text_far _ViridianGymHiker3AfterBattleText
-	text_end
+	text "ウィース！"
+	line "#　リーグ　めざしてるのか！"
+	cont "ませた　こどもだ！"
+	done
 
 ViridianGymRocker2Text:
 	text_asm
-	ld hl, ViridianGymTrainerHeader6
+	ld hl, ViridianGym_TrainerHeader6
 	call TalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymRocker2BattleText:
-	text_far _ViridianGymRocker2BattleText
-	text_end
+	text "ピシ　ピシッ！"
+	line "ほら！"
+	cont "ビビってるんじゃないよ！"
+	done
 
 ViridianGymRocker2EndBattleText:
-	text_far _ViridianGymRocker2EndBattleText
-	text_end
+	text "<⋯>　い　いてて！"
+	prompt
 
 ViridianGymRocker2AfterBattleText:
-	text_far _ViridianGymRocker2AfterBattleText
-	text_end
+	text "まあ　まて！"
+	line "ゆだん　した　だけだ！"
+	done
 
 ViridianGymCooltrainerM3Text:
 	text_asm
-	ld hl, ViridianGymTrainerHeader7
+	ld hl, ViridianGym_TrainerHeader7
 	call TalkToTrainer
 	jp TextScriptEnd
 
 ViridianGymCooltrainerM3BattleText:
-	text_far _ViridianGymCooltrainerM3BattleText
-	text_end
+	text "トキワ　ジムは"
+	line "ずっと　へいさ　していたが"
+	cont "リーダーが　かえってきて"
+	cont "きょうから　ふっかつだ！"
+	done
 
 ViridianGymCooltrainerM3EndBattleText:
-	text_far _ViridianGymCooltrainerM3EndBattleText
-	text_end
+	text "<⋯>　さすがだ！"
+	prompt
 
 ViridianGymCooltrainerM3AfterBattleText:
-	text_far _ViridianGymCooltrainerM3AfterBattleText
-	text_end
+	text "きみが<⋯>"
+	line "トキワ　リーダーに　かてれば"
+	cont "#リーグに　すすめる　だろう"
+	done
 
 ViridianGymGymGuideText:
 	text_asm
@@ -434,9 +503,24 @@ ViridianGymGymGuideText:
 	jp TextScriptEnd
 
 ViridianGymGuidePreBattleText:
-	text_far _ViridianGymGuidePreBattleText
-	text_end
+	text "おーす！"
+	line "みらいの　チャンピオン！"
+
+	para "トキワ　リーダーの　しょうたいは"
+	line "おれにも　わからん！"
+
+	para "たしかなのは"
+	line "いままでの　リーダーの"
+	cont "だれよりも　つよいって　ことだ！"
+
+	para "それと<⋯>"
+	line "どうも　この　ジムには"
+	cont "じめん　タイプ　#の"
+	cont "つかいてが　あつまってる　らしいぜ"
+	done
 
 ViridianGymGuidePostBattleText:
-	text_far _ViridianGymGuidePostBattleText
-	text_end
+	text "たまげたぜ！"
+	line "トキワの　リーダーが"
+	cont "サカキ　だったとは！"
+	done

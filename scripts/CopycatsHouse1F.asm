@@ -8,15 +8,22 @@ CopycatsHouse1F_TextPointers:
 	dw_const CopycatsHouse1FChanseyText,         TEXT_COPYCATSHOUSE1F_CHANSEY
 
 CopycatsHouse1FMiddleAgedWomanText:
-	text_far _CopycatsHouse1FMiddleAgedWomanText
-	text_end
+	text "たくの　むすめは"
+	line "ほんと　わがままに　そだって<⋯>"
+	cont "おともだちも　あまり　おりませんの"
+	done
 
 CopycatsHouse1FMiddleAgedManText:
-	text_far _CopycatsHouse1FMiddleAgedManText
-	text_end
+	text "<⋯>　こまった　ことに　むすめは"
+	line "ひとの　まねが　すきでな！"
+
+	para "しょっちゅう　ひとを　からかう　ので"
+	line "きんじょ　じゃ"
+	cont "モノマネ　むすめと　よばれとる！"
+	done
 
 CopycatsHouse1FChanseyText:
-	text_far _CopycatsHouse1FChanseyText
+	text "ラッキー『ラッ　きぃ！@"
 	text_asm
 	ld a, CHANSEY
 	call PlayCry

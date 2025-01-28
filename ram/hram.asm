@@ -382,21 +382,4 @@ ENDU
 
 hWhoseTurn:: db ; 0 on player's turn, 1 on enemy's turn
 
-hClearLetterPrintingDelayFlags:: db
-
-	ds 1
-
-; bit 0: draw HP fraction to the right of bar instead of below (for party menu)
-; bit 1: menu is double spaced
-; bit 2: text is single spaced
-hUILayoutFlags:: db
-
-hFieldMoveMonMenuTopMenuItemX:: db
-
-hJoyInput:: db
-
-hDisableJoypadPolling:: db
-
-	ds 5
-
 ENDSECTION

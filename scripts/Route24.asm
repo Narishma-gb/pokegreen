@@ -1,6 +1,6 @@
 Route24_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, Route24TrainerHeaders
+	ld hl, Route24_TrainerHeaders
 	ld de, Route24_ScriptPointers
 	ld a, [wRoute24CurScript]
 	call ExecuteCurMapScriptInTable
@@ -88,20 +88,13 @@ Route24_TextPointers:
 	dw_const Route24Youngster2Text,    TEXT_ROUTE24_YOUNGSTER2
 	dw_const PickUpItemText,           TEXT_ROUTE24_TM_THUNDER_WAVE
 
-Route24TrainerHeaders:
-	def_trainers 2
-Route24TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_24_TRAINER_0, 4, Route24CooltrainerM2BattleText, Route24CooltrainerM2EndBattleText, Route24CooltrainerM2AfterBattleText
-Route24TrainerHeader1:
-	trainer EVENT_BEAT_ROUTE_24_TRAINER_1, 1, Route24CooltrainerM3BattleText, Route24CooltrainerM3EndBattleText, Route24CooltrainerM3AfterBattleText
-Route24TrainerHeader2:
-	trainer EVENT_BEAT_ROUTE_24_TRAINER_2, 1, Route24CooltrainerF1BattleText, Route24CooltrainerF1EndBattleText, Route24CooltrainerF1AfterBattleText
-Route24TrainerHeader3:
-	trainer EVENT_BEAT_ROUTE_24_TRAINER_3, 1, Route24Youngster1BattleText, Route24Youngster1EndBattleText, Route24Youngster1AfterBattleText
-Route24TrainerHeader4:
-	trainer EVENT_BEAT_ROUTE_24_TRAINER_4, 1, Route24CooltrainerF2BattleText, Route24CooltrainerF2EndBattleText, Route24CooltrainerF2AfterBattleText
-Route24TrainerHeader5:
-	trainer EVENT_BEAT_ROUTE_24_TRAINER_5, 1, Route24Youngster2BattleText, Route24Youngster2EndBattleText, Route24Youngster2AfterBattleText
+	def_trainers Route24, 2
+	trainer EVENT_BEAT_ROUTE_24_TRAINER_0, 4, CooltrainerM2
+	trainer EVENT_BEAT_ROUTE_24_TRAINER_1, 1, CooltrainerM3
+	trainer EVENT_BEAT_ROUTE_24_TRAINER_2, 1, CooltrainerF1
+	trainer EVENT_BEAT_ROUTE_24_TRAINER_3, 1, Youngster1
+	trainer EVENT_BEAT_ROUTE_24_TRAINER_4, 1, CooltrainerF2
+	trainer EVENT_BEAT_ROUTE_24_TRAINER_5, 1, Youngster2
 	db -1 ; end
 
 Route24CooltrainerM1Text:
@@ -146,137 +139,185 @@ Route24CooltrainerM1Text:
 	jp TextScriptEnd
 
 .YouBeatOurContestText:
-	text_far _Route24CooltrainerM1YouBeatOurContestText
+	text "おみごとーッ！"
+	line "５にんぬき　おめでとう！@"
 	sound_get_item_1
-	text_far _Route24CooltrainerM1YouJustEarnedAPrizeText
-	text_end
+	text_start
+
+	para "しょうひんに"
+	line "これを　プレゼント　しよう！"
+	prompt
 
 .ReceivedNuggetText:
-	text_far _Route24CooltrainerM1ReceivedNuggetText
+	text "<PLAYER>は　なぞの<TRAINER>から"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
 	text_promptbutton
 	text_end
 
 .NoRoomText:
-	text_far _Route24CooltrainerM1NoRoomText
-	text_end
+	text "もちものが　いっぱいだ"
+	done
 
 .JoinTeamRocketText:
-	text_far _Route24CooltrainerM1JoinTeamRocketText
-	text_end
+	text "ところで<⋯>　ここだけの　はなし"
+	line "<ROCKET>に　はいらない？"
+
+	para "おれたちは"
+	line "#を　わるいことに"
+	cont "つかおうっていう　グループだ！"
+
+	para "はいりなよ"
+
+	para "はいらないの？"
+
+	para "はいってよ！"
+
+	para "はいれよ！"
+
+	para "<⋯>　ことわるって　かお　してんな"
+
+	para "それなら<⋯>！"
+	line "むりやり　いれて　やる！"
+	cont "うりゃーッ！"
+	done
 
 .DefeatedText:
-	text_far _Route24CooltrainerM1DefeatedText
-	text_end
+	text "こぞう<⋯>！"
+	line "ホント　つええな！"
+	prompt
 
 .YouCouldBecomeATopLeaderText:
-	text_far _Route24CooltrainerM1YouCouldBecomeATopLeaderText
-	text_end
+	text "それだけの　うでが　あれば"
+	line "<ROCKET>　でも"
+	cont "えらく　なれるのに　もったいないぜ！"
+	done
 
 Route24CooltrainerM2Text:
 	text_asm
-	ld hl, Route24TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route24CooltrainerM3Text:
-	text_asm
-	ld hl, Route24TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route24CooltrainerF1Text:
-	text_asm
-	ld hl, Route24TrainerHeader2
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route24Youngster1Text:
-	text_asm
-	ld hl, Route24TrainerHeader3
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route24CooltrainerF2Text:
-	text_asm
-	ld hl, Route24TrainerHeader4
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route24Youngster2Text:
-	text_asm
-	ld hl, Route24TrainerHeader5
+	ld hl, Route24_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route24CooltrainerM2BattleText:
-	text_far _Route24CooltrainerM2BattleText
-	text_end
+	text "ふふ<⋯>ッ！　くさむらから"
+	line "きみの　かつやくを　みてたよ"
+	done
 
 Route24CooltrainerM2EndBattleText:
-	text_far _Route24CooltrainerM2EndBattleText
-	text_end
+	text "<⋯>　やっぱり　だめだ"
+	prompt
 
 Route24CooltrainerM2AfterBattleText:
-	text_far _Route24CooltrainerM2AfterBattleText
-	text_end
+	text "<⋯>　はしを　わたるのが　こわくて"
+	line "ずっと　ここに　かくれてたんだ"
+	done
+
+Route24CooltrainerM3Text:
+	text_asm
+	ld hl, Route24_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route24CooltrainerM3BattleText:
-	text_far _Route24CooltrainerM3BattleText
-	text_end
+	text "きえーいッ！　５にんめ！"
+	line "おれが　あいてだあ！"
+	done
 
 Route24CooltrainerM3EndBattleText:
-	text_far _Route24CooltrainerM3EndBattleText
-	text_end
+	text "たいした　もんだ！"
+	prompt
 
 Route24CooltrainerM3AfterBattleText:
-	text_far _Route24CooltrainerM3AfterBattleText
-	text_end
+	text "ベストを　つくしたんだ"
+	line "くいは　ない！"
+	done
+
+Route24CooltrainerF1Text:
+	text_asm
+	ld hl, Route24_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route24CooltrainerF1BattleText:
-	text_far _Route24CooltrainerF1BattleText
-	text_end
+	text "４にんめは　わたしよ！"
+	line "そろそろ　ばてて"
+	cont "きたんじゃない？"
+	done
 
 Route24CooltrainerF1EndBattleText:
-	text_far _Route24CooltrainerF1EndBattleText
-	text_end
+	text "わたしも　まけたのね"
+	prompt
 
 Route24CooltrainerF1AfterBattleText:
-	text_far _Route24CooltrainerF1AfterBattleText
-	text_end
+	text "ベストを　つくしたんだから"
+	line "くいは　ないわ！"
+	done
+
+Route24Youngster1Text:
+	text_asm
+	ld hl, Route24_TrainerHeader3
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route24Youngster1BattleText:
-	text_far _Route24Youngster1BattleText
-	text_end
+	text "３にんめ　とうじょう！"
+	line "そう　かんたんには　いかないぜ！"
+	done
 
 Route24Youngster1EndBattleText:
-	text_far _Route24Youngster1EndBattleText
-	text_end
+	text "へろへろ　もう　ダメ"
+	prompt
 
 Route24Youngster1AfterBattleText:
-	text_far _Route24Youngster1AfterBattleText
-	text_end
+	text "ベストを　つくしたんだ"
+	line "くいは　ない！"
+	done
+
+Route24CooltrainerF2Text:
+	text_asm
+	ld hl, Route24_TrainerHeader4
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route24CooltrainerF2BattleText:
-	text_far _Route24CooltrainerF2BattleText
-	text_end
+	text "ふたりめは　わたし！"
+	line "これからが　ほんばん　よ！"
+	done
 
 Route24CooltrainerF2EndBattleText:
-	text_far _Route24CooltrainerF2EndBattleText
-	text_end
+	text "しんじらんなーい"
+	prompt
 
 Route24CooltrainerF2AfterBattleText:
-	text_far _Route24CooltrainerF2AfterBattleText
-	text_end
+	text "ベストを　つくしたんだから"
+	line "くいは　ないわ！"
+	done
+
+Route24Youngster2Text:
+	text_asm
+	ld hl, Route24_TrainerHeader5
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route24Youngster2BattleText:
-	text_far _Route24Youngster2BattleText
-	text_end
+	text "この　はしは　ひと　よんで"
+	line "ゴールデンボール　ブリッジ！"
+
+	para "５にん　かちぬけば"
+	line "ごうかな　しょうひんが　もらえる！"
+
+	para "さて！"
+	line "おまえに　ぬけられるかな？"
+	done
 
 Route24Youngster2EndBattleText:
-	text_far _Route24Youngster2EndBattleText
-	text_end
+	text "なかなか　やるじゃん"
+	prompt
 
 Route24Youngster2AfterBattleText:
-	text_far _Route24Youngster2AfterBattleText
-	text_end
+	text "ベストを　つくしたんだ"
+	line "くいは　ない！"
+	done

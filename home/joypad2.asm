@@ -15,7 +15,7 @@
 ;    ([hJoy7] == 1, [hJoy6] == 0)
 JoypadLowSensitivity::
 	call Joypad
-	ldh a, [hJoy7] ; flag
+	ld a, [hJoy7] ; flag
 	and a ; get all currently pressed buttons or only newly pressed buttons?
 	ldh a, [hJoyPressed] ; newly pressed buttons
 	jr z, .storeButtonState
@@ -25,7 +25,7 @@ JoypadLowSensitivity::
 	ldh a, [hJoyPressed] ; newly pressed buttons
 	and a ; have any buttons been newly pressed since last check?
 	jr z, .noNewlyPressedButtons
-.newlyPressedButtons
+; newlyPressedButtons
 	ld a, 30 ; half a second delay
 	ldh [hFrameCounter], a
 	ret
@@ -33,7 +33,7 @@ JoypadLowSensitivity::
 	ldh a, [hFrameCounter]
 	and a ; is the delay over?
 	jr z, .delayOver
-.delayNotOver
+; delayNotOver
 	xor a
 	ldh [hJoy5], a ; report no buttons as pressed
 	ret

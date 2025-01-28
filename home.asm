@@ -4,24 +4,13 @@ NULL::
 INCLUDE "home/header.asm"
 
 
-SECTION "High Home", ROM0
-
-INCLUDE "home/lcd.asm"
-INCLUDE "home/clear_sprites.asm"
-INCLUDE "home/copy.asm"
-
-
 SECTION "Home", ROM0
 
 INCLUDE "home/start.asm"
 INCLUDE "home/joypad.asm"
-
-INCLUDE "data/maps/map_header_pointers.asm"
-
-INCLUDE "home/overworld.asm"
-INCLUDE "home/pokemon.asm"
-INCLUDE "home/print_bcd.asm"
-INCLUDE "home/pics.asm"
+INCLUDE "home/lcd.asm"
+INCLUDE "home/clear_sprites.asm"
+INCLUDE "home/copy.asm"
 
 INCLUDE "data/tilesets/collision_tile_ids.asm"
 
@@ -49,6 +38,13 @@ INCLUDE "home/inventory.asm"
 INCLUDE "home/list_menu.asm"
 INCLUDE "home/names.asm"
 INCLUDE "home/reload_tiles.asm"
+
+INCLUDE "data/maps/map_header_pointers.asm"
+
+INCLUDE "home/overworld.asm"
+INCLUDE "home/pokemon.asm"
+INCLUDE "home/print_bcd.asm"
+INCLUDE "home/pics.asm"
 INCLUDE "home/item.asm"
 INCLUDE "home/textbox.asm"
 INCLUDE "home/npc_movement.asm"

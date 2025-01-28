@@ -10,7 +10,7 @@ ShowPokedexMenu:
 	ld [wLastMenuItem], a
 	inc a
 	ld [wPokedexNum], a
-	ldh [hJoy7], a
+	ld [hJoy7], a
 .setUpGraphics
 	ld b, SET_PAL_GENERIC
 	call RunPaletteCommand
@@ -35,7 +35,7 @@ ShowPokedexMenu:
 	ld [wMenuWatchMovingOutOfBounds], a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
-	ldh [hJoy7], a
+	ld [hJoy7], a
 	ld [wUnusedOverrideSimulatedJoypadStatesIndex], a
 	ld [wOverrideSimulatedJoypadStatesMask], a
 	pop af
@@ -81,7 +81,7 @@ HandlePokedexSideMenu:
 	ld hl, wTopMenuItemY
 	ld a, 10
 	ld [hli], a ; top menu item Y
-	ld a, 15
+	ld a, 12
 	ld [hli], a ; top menu item X
 	xor a
 	ld [hli], a ; current menu item ID
@@ -97,7 +97,7 @@ HandlePokedexSideMenu:
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	ld b, 2
-	jr nz, .buttonBPressed
+	jr nz, .exitSideMenu
 	ld a, [wCurrentMenuItem]
 	and a
 	jr z, .choseData
@@ -105,7 +105,7 @@ HandlePokedexSideMenu:
 	jr z, .choseCry
 	dec a
 	jr z, .choseArea
-.choseQuit
+; choseQuit
 	ld b, 1
 .exitSideMenu
 	pop af
@@ -121,19 +121,10 @@ HandlePokedexSideMenu:
 	push bc
 	hlcoord 0, 3
 	ld de, 20
-	lb bc, " ", 13
+	lb bc, "　", 13
 	call DrawTileLine ; cover up the menu cursor in the pokemon list
 	pop bc
 	ret
-
-.buttonBPressed
-	push bc
-	hlcoord 15, 10
-	ld de, 20
-	lb bc, " ", 7
-	call DrawTileLine ; cover up the menu cursor in the side menu
-	pop bc
-	jr .exitSideMenu
 
 .choseData
 	call ShowPokedexDataInternal
@@ -157,19 +148,15 @@ HandlePokedexSideMenu:
 HandlePokedexListMenu:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
-; draw the horizontal line separating the seen and owned amounts from the menu
-	hlcoord 15, 8
-	ld a, "─"
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	ld [hli], a
-	hlcoord 14, 0
+	hlcoord 11, 8
+	ld b, 8
+	ld c, 7
+	call TextBoxBorder
+	hlcoord 10, 0
 	ld [hl], $71 ; vertical line tile
-	hlcoord 14, 1
+	hlcoord 10, 1
 	call DrawPokedexVerticalLine
-	hlcoord 14, 9
+	hlcoord 10, 9
 	call DrawPokedexVerticalLine
 	ld hl, wPokedexSeen
 	ld b, wPokedexSeenEnd - wPokedexSeen
@@ -185,16 +172,16 @@ HandlePokedexListMenu:
 	hlcoord 16, 6
 	lb bc, 1, 3
 	call PrintNumber ; print number of owned pokemon
-	hlcoord 16, 2
+	hlcoord 12, 2
 	ld de, PokedexSeenText
 	call PlaceString
-	hlcoord 16, 5
+	hlcoord 12, 5
 	ld de, PokedexOwnText
 	call PlaceString
 	hlcoord 1, 1
 	ld de, PokedexContentsText
 	call PlaceString
-	hlcoord 16, 10
+	hlcoord 13, 10
 	ld de, PokedexMenuItemsText
 	call PlaceString
 ; find the highest pokedex number among the pokemon the player has seen
@@ -217,8 +204,8 @@ HandlePokedexListMenu:
 .loop
 	xor a
 	ldh [hAutoBGTransferEnabled], a
-	hlcoord 4, 2
-	lb bc, 14, 10
+	hlcoord 5, 2
+	lb bc, 14, 5
 	call ClearScreenArea
 	hlcoord 1, 3
 	ld a, [wListScrollOffset]
@@ -239,19 +226,14 @@ HandlePokedexListMenu:
 	push af
 	push de
 	push hl
-	ld de, -SCREEN_WIDTH
-	add hl, de
 	ld de, wPokedexNum
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber
-	ld de, SCREEN_WIDTH
-	add hl, de
-	dec hl
 	push hl
 	ld hl, wPokedexOwned
 	call IsPokemonBitSet
 	pop hl
-	ld a, " "
+	ld a, "　"
 	jr z, .writeTile
 	ld a, $72 ; pokeball tile
 .writeTile
@@ -263,7 +245,7 @@ HandlePokedexListMenu:
 	ld de, .dashedLine ; print a dashed line in place of the name if the player hasn't seen the pokemon
 	jr .skipGettingName
 .dashedLine ; for unseen pokemon in the list
-	db "----------@"
+	db "ーーーーー@"
 .getPokemonName
 	call PokedexToIndex
 	call GetMonName
@@ -279,14 +261,14 @@ HandlePokedexListMenu:
 	ld [wPokedexNum], a
 	dec d
 	jr nz, .printPokemonLoop
-	ld a, 01
+	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	call Delay3
 	call GBPalNormal
 	call HandleMenuInput
 	bit BIT_B_BUTTON, a
 	jp nz, .buttonBPressed
-.checkIfUpPressed
+; checkIfUpPressed
 	bit BIT_D_UP, a
 	jr z, .checkIfDownPressed
 .upPressed ; scroll up one row
@@ -299,7 +281,7 @@ HandlePokedexListMenu:
 .checkIfDownPressed
 	bit BIT_D_DOWN, a
 	jr z, .checkIfRightPressed
-.downPressed ; scroll down one row
+; downPressed, scroll down one row
 	ld a, [wDexMaxSeenMon]
 	cp 7
 	jp c, .loop ; can't if the list is shorter than 7
@@ -314,7 +296,7 @@ HandlePokedexListMenu:
 .checkIfRightPressed
 	bit BIT_D_RIGHT, a
 	jr z, .checkIfLeftPressed
-.rightPressed ; scroll down 7 rows
+; rightPressed, scroll down 7 rows
 	ld a, [wDexMaxSeenMon]
 	cp 7
 	jp c, .loop ; can't if the list is shorter than 7
@@ -332,7 +314,7 @@ HandlePokedexListMenu:
 .checkIfLeftPressed ; scroll up 7 rows
 	bit BIT_D_LEFT, a
 	jr z, .buttonAPressed
-.leftPressed
+; leftPressed
 	ld a, [wListScrollOffset]
 	sub 7
 	ld [wListScrollOffset], a
@@ -360,19 +342,19 @@ DrawPokedexVerticalLine:
 	ret
 
 PokedexSeenText:
-	db "SEEN@"
+	db "みつけたかず@"
 
 PokedexOwnText:
-	db "OWN@"
+	db "つかまえたかず@"
 
 PokedexContentsText:
-	db "CONTENTS@"
+	db "もくじ@"
 
 PokedexMenuItemsText:
-	db   "DATA"
-	next "CRY"
-	next "AREA"
-	next "QUIT@"
+	db   "データをみる"
+	next "なきごえ"
+	next "ぶんぷをみる"
+	next "やめる@"
 
 ; tests if a pokemon's bit is set in the seen or owned pokemon bit fields
 ; INPUT:
@@ -471,6 +453,8 @@ ShowPokedexDataInternal:
 	ld h, b
 	ld l, c
 	push de
+	ld de, PokeText
+	call PlaceString ; print "ポケモン"
 	ld a, [wPokedexNum]
 	push af
 	call IndexToPokedex
@@ -478,7 +462,7 @@ ShowPokedexDataInternal:
 	hlcoord 2, 8
 	ld a, "№"
 	ld [hli], a
-	ld a, "<DOT>"
+	ld a, "．"
 	ld [hli], a
 	ld de, wPokedexNum
 	lb bc, LEADING_ZEROES | 1, 3
@@ -492,42 +476,27 @@ ShowPokedexDataInternal:
 	ld [wCurSpecies], a
 	pop de
 
-	push af
-	push bc
-	push de
-	push hl
-
-	call Delay3
-	call GBPalNormal
-	call GetMonHeader ; load pokemon picture location
-	hlcoord 1, 1
-	call LoadFlippedFrontSpriteByMonIndex ; draw pokemon picture
-	ld a, [wCurPartySpecies]
-	call PlayCry
-
-	pop hl
-	pop de
-	pop bc
-	pop af
-
 	ld a, c
 	and a
-	jp z, .waitForButtonPress ; if the pokemon has not been owned, don't print the height, weight, or description
-	inc de ; de = address of feet (height)
-	ld a, [de] ; reads feet, but a is overwritten without being used
-	hlcoord 12, 6
-	lb bc, 1, 2
-	call PrintNumber ; print feet (height)
-	ld a, "′"
-	ld [hl], a
-	inc de
-	inc de ; de = address of inches (height)
-	hlcoord 15, 6
-	lb bc, LEADING_ZEROES | 1, 2
-	call PrintNumber ; print inches (height)
-	ld a, "″"
-	ld [hl], a
-; now print the weight (note that weight is stored in tenths of pounds internally)
+	jp z, .displaySprite ; if the pokemon has not been owned, don't print the height, weight, or description
+	inc de ; de = address of height
+	ld a, [de] ; reads height (height is stored in tenths of meters internally)
+	push af
+	hlcoord 13, 6
+	lb bc, 1, 3
+	call PrintNumber ; print height
+	hlcoord 14, 6
+	pop af
+	cp 10
+	jr nc, .skipZero
+	ld [hl], "０" ; if the height is less than 1 m, put a 0 before the decimal point
+.skipZero
+	inc hl
+	ld a, [hli]
+	ld [hld], a ; make space for the decimal point by moving the last digit forward one tile
+	ld [hl], "．"
+	
+; now print the weight (weight is stored in tenths of kg internally, 2-byte long)
 	inc de
 	inc de
 	inc de ; de = address of upper byte of weight
@@ -544,8 +513,8 @@ ShowPokedexDataInternal:
 	ld a, [de] ; a = lower byte of weight
 	ld [hl], a ; store lower byte of weight in [hDexWeight + 1]
 	ld de, hDexWeight
-	hlcoord 11, 8
-	lb bc, 2, 5 ; 2 bytes, 5 digits
+	hlcoord 12, 8
+	lb bc, 2, 4	
 	call PrintNumber ; print weight
 	hlcoord 14, 8
 	ldh a, [hDexWeight + 1]
@@ -553,27 +522,32 @@ ShowPokedexDataInternal:
 	ldh a, [hDexWeight]
 	sbc 0
 	jr nc, .next
-	ld [hl], "0" ; if the weight is less than 10, put a 0 before the decimal point
+	ld [hl], "０" ; if the weight is less than 1 kg, put a 0 before the decimal point
 .next
 	inc hl
 	ld a, [hli]
 	ld [hld], a ; make space for the decimal point by moving the last digit forward one tile
-	ld [hl], "<DOT>" ; decimal point tile
+	ld [hl], "．" ; decimal point tile
 	pop af
 	ldh [hDexWeight + 1], a ; restore original value of [hDexWeight + 1]
 	pop af
 	ldh [hDexWeight], a ; restore original value of [hDexWeight]
-	pop hl
-	inc hl ; hl = address of pokedex description text
-	bccoord 1, 11
-	ld a, %10
-	ldh [hClearLetterPrintingDelayFlags], a
-	call TextCommandProcessor ; print pokedex description text
-	xor a
-	ldh [hClearLetterPrintingDelayFlags], a
+	pop de
+	inc de ; de = address of pokedex description text
+	hlcoord 1, 11
+	call PlaceString ; print pokedex description text
+
+.displaySprite
+	call Delay3
+	call GBPalNormal
+	call GetMonHeader ; load pokemon picture location
+	hlcoord 1, 1
+	call LoadFlippedFrontSpriteByMonIndex ; draw pokemon picture
+	ld a, [wCurPartySpecies]
+	call PlayCry
 .waitForButtonPress
 	call JoypadLowSensitivity
-	ldh a, [hJoy5]
+	ld a, [hJoy5]
 	and A_BUTTON | B_BUTTON
 	jr z, .waitForButtonPress
 	pop af
@@ -590,10 +564,9 @@ ShowPokedexDataInternal:
 	ret
 
 HeightWeightText:
-	db   "HT  ?′??″"
-	next "WT   ???lb@"
+	db   "たかさ　　？？？m"
+	next "おもさ　　？？？kg@"
 
-; XXX does anything point to this?
 PokeText:
 	db "#@"
 

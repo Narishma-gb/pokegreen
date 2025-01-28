@@ -9,13 +9,28 @@ FuchsiaBillsGrandpasHouse_TextPointers:
 	dw_const FuchsiaBillsGrandpasHouseYoungsterText,       TEXT_FUCHSIABILLSGRANDPASHOUSE_YOUNGSTER
 
 FuchsiaBillsGrandpasHouseMiddleAgedWomanText:
-	text_far _FuchsiaBillsGrandpasHouseMiddleAgedWomanText
-	text_end
+	text "サファリ　ゾーンの　えんちょう"
+	line "おとし　なのに　すごく　げんきよ"
+
+	para "でも<⋯>「は」は"
+	line "ぜんぶ　いれば　らしい　けど"
+	done
 
 FuchsiaBillsGrandpasHouseBillsGrandpaText:
-	text_far _FuchsiaBillsGrandpasHouseBillsGrandpaText
-	text_end
+	text "おや？　あんた"
+	line "マサキの　ことを　しっとるのかね？"
+
+	para "マサキは　わしの　まごじゃ！"
+
+	para "ちいさい　ころから"
+	line "ものを　あつめるのが　すきな"
+	cont "こども　じゃった！"
+	done
 
 FuchsiaBillsGrandpasHouseYoungsterText:
-	text_far _FuchsiaBillsGrandpasHouseYoungsterText
-	text_end
+	text "マサキ　にいちゃん"
+	line "じぶんで　あつめた　#も"
+	cont "<PC>の　データに　してるよ！"
+
+	para "みせて　もらった？"
+	done

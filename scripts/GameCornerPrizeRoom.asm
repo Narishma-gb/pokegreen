@@ -11,12 +11,17 @@ GameCornerPrizeRoom_TextPointers:
 	EXPORT TEXT_GAMECORNERPRIZEROOM_PRIZE_VENDOR_1 ; used by engine/events/prize_menu.asm
 
 GameCornerPrizeRoomBaldingGuyText:
-	text_far _GameCornerPrizeRoomBaldingGuyText
-	text_end
+	text "うーん<⋯>！　どうにか　して"
+	line "あの　ポリゴンが　ほしいなあ！"
+
+	para "しかし　スロット　ゲームで"
+	line "かつ　のは　たいへんだ！"
+	done
 
 GameCornerPrizeRoomGamblerText:
-	text_far _GameCornerPrizeRoomGamblerText
-	text_end
+	text "がはは！　もうけた　もうけた<⋯>！"
+	line "まいにち　こんな　だと　いいわい"
+	done
 
 GameCornerPRizeRoomPrizeVendorText:
 	script_prize_vendor

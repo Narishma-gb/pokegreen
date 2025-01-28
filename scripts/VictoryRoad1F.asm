@@ -4,7 +4,7 @@ VictoryRoad1F_Script:
 	res BIT_CUR_MAP_LOADED_1, [hl]
 	call nz, .next
 	call EnableAutoTextBoxDrawing
-	ld hl, VictoryRoad1TrainerHeaders
+	ld hl, VictoryRoad1F_TrainerHeaders
 	ld de, VictoryRoad1F_ScriptPointers
 	ld a, [wVictoryRoad1FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -49,46 +49,47 @@ VictoryRoad1F_TextPointers:
 	dw_const BoulderText,                   TEXT_VICTORYROAD1F_BOULDER2
 	dw_const BoulderText,                   TEXT_VICTORYROAD1F_BOULDER3
 
-VictoryRoad1TrainerHeaders:
-	def_trainers
-VictoryRoad1TrainerHeader0:
-	trainer EVENT_BEAT_VICTORY_ROAD_1_TRAINER_0, 2, VictoryRoad1FCooltrainerFBattleText, VictoryRoad1FCooltrainerFEndBattleText, VictoryRoad1FCooltrainerFAfterBattleText
-VictoryRoad1TrainerHeader1:
-	trainer EVENT_BEAT_VICTORY_ROAD_1_TRAINER_1, 2, VictoryRoad1FCooltrainerMBattleText, VictoryRoad1FCooltrainerMEndBattleText, VictoryRoad1FCooltrainerMAfterBattleText
+	def_trainers VictoryRoad1F
+	trainer EVENT_BEAT_VICTORY_ROAD_1_TRAINER_0, 2, CooltrainerF
+	trainer EVENT_BEAT_VICTORY_ROAD_1_TRAINER_1, 2, CooltrainerM
 	db -1 ; end
 
 VictoryRoad1FCooltrainerFText:
 	text_asm
-	ld hl, VictoryRoad1TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-VictoryRoad1FCooltrainerMText:
-	text_asm
-	ld hl, VictoryRoad1TrainerHeader1
+	ld hl, VictoryRoad1F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 VictoryRoad1FCooltrainerFBattleText:
-	text_far _VictoryRoad1FCooltrainerFBattleText
-	text_end
+	text "ふふ　あたし　じしん　あるわよ"
+	line "あなたの　てに　おえるかな？"
+	done
 
 VictoryRoad1FCooltrainerFEndBattleText:
-	text_far _VictoryRoad1FCooltrainerFEndBattleText
-	text_end
+	text "まけたわ<⋯>"
+	prompt
 
 VictoryRoad1FCooltrainerFAfterBattleText:
-	text_far _VictoryRoad1FCooltrainerFAfterBattleText
-	text_end
+	text "おとこに　まけるの　だけは"
+	line "いや　だったのに！"
+	done
+
+VictoryRoad1FCooltrainerMText:
+	text_asm
+	ld hl, VictoryRoad1F_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 VictoryRoad1FCooltrainerMBattleText:
-	text_far _VictoryRoad1FCooltrainerMBattleText
-	text_end
+	text "なかなか　やりての　ようだな"
+	line "おて　あわせ　ねがおうか！"
+	done
 
 VictoryRoad1FCooltrainerMEndBattleText:
-	text_far _VictoryRoad1FCooltrainerMEndBattleText
-	text_end
+	text "じしん　あったんだが"
+	prompt
 
 VictoryRoad1FCooltrainerMAfterBattleText:
-	text_far _VictoryRoad1FCooltrainerMAfterBattleText
-	text_end
+	text "ちっ！　うえには"
+	line "うえが　いたって　ことか<⋯>"
+	done

@@ -101,9 +101,9 @@ DEF rLCDC_DEFAULT EQU (1 << rLCDC_ENABLE) | (1 << rLCDC_WINDOW_TILEMAP) | (1 << 
 	ld [wAudioROMBank], a
 	ld [wAudioSavedROMBank], a
 	ld a, $9c
-	ldh [hAutoBGTransferDest + 1], a
+	ld [hAutoBGTransferDest + 1], a
 	xor a
-	ldh [hAutoBGTransferDest], a
+	ld [hAutoBGTransferDest], a
 	dec a
 	ld [wUpdateSpritesEnabled], a
 

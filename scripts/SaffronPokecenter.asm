@@ -13,12 +13,17 @@ SaffronPokecenterNurseText:
 	script_pokecenter_nurse
 
 SaffronPokecenterBeautyText:
-	text_far _SaffronPokecenterBeautyText
-	text_end
+	text "#は　しゅるいに　よって"
+	line "せいちょうする　テンポが"
+	cont "ちがう　らしいわ"
+	done
 
 SaffronPokecenterGentlemanText:
-	text_far _SaffronPokecenterGentlemanText
-	text_end
+	text "だれもが　みんな　しってる"
+	line "シルフ　カンパニー　だが"
+	cont "ゆうめい　だと　それだけ"
+	cont "ねらわれる　きけんも　あるのだ"
+	done
 
 SaffronPokecenterLinkReceptionistText:
 	script_cable_club_receptionist

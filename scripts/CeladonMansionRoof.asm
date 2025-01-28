@@ -6,5 +6,5 @@ CeladonMansionRoof_TextPointers:
 	dw_const CeladonMansionRoofHouseSignText, TEXT_CELADONMANSIONROOF_HOUSE_SIGN
 
 CeladonMansionRoofHouseSignText:
-	text_far _CeladonMansionRoofHouseSignText
-	text_end
+	text "わしは　なんでも　おみとおし！"
+	done

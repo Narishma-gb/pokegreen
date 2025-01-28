@@ -1,6 +1,6 @@
 Route4_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, Route4TrainerHeaders
+	ld hl, Route4_TrainerHeaders
 	ld de, Route4_ScriptPointers
 	ld a, [wRoute4CurScript]
 	call ExecuteCurMapScriptInTable
@@ -22,38 +22,45 @@ Route4_TextPointers:
 	dw_const Route4MtMoonSignText,    TEXT_ROUTE4_MT_MOON_SIGN
 	dw_const Route4SignText,          TEXT_ROUTE4_SIGN
 
-Route4TrainerHeaders:
-	def_trainers 2
-Route4TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_4_TRAINER_0, 3, Route4CooltrainerF2BattleText, Route4CooltrainerF2EndBattleText, Route4CooltrainerF2AfterBattleText
+	def_trainers Route4, 2
+	trainer EVENT_BEAT_ROUTE_4_TRAINER_0, 3, CooltrainerF2
 	db -1 ; end
 
 Route4CooltrainerF1Text:
-	text_far _Route4CooltrainerF1Text
-	text_end
+	text "いたッ！"
+	line "つまづいて　ころんじゃった"
+	cont "#の　イシツブテだわ！"
+	done
 
 Route4CooltrainerF2Text:
 	text_asm
-	ld hl, Route4TrainerHeader0
+	ld hl, Route4_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route4CooltrainerF2BattleText:
-	text_far _Route4CooltrainerF2BattleText
-	text_end
+	text "わたし　オツキミやまに"
+	line "キノコの　#　とりに　きたの！"
+	done
 
 Route4CooltrainerF2EndBattleText:
-	text_far _Route4CooltrainerF2EndBattleText
-	text_end
+	text "せっかく　とったのに！"
+	prompt
 
 Route4CooltrainerF2AfterBattleText:
-	text_far _Route4CooltrainerF2AfterBattleText
-	text_end
+	text "このあたりは"
+	line "もう　キノコ　みつかんないかも"
+
+	para "だって　あたしが"
+	line "ぜんぶ　とっちゃったもん"
+	done
 
 Route4MtMoonSignText:
-	text_far _Route4MtMoonSignText
-	text_end
+	text "ここは　オツキミやま"
+	line "<⋯>　どうくつ　いりぐち"
+	done
 
 Route4SignText:
-	text_far _Route4SignText
-	text_end
+	text "ここは　４ばん　どうろ"
+	line "オツキミやま　<⋯>　ハナダ　シティ"
+	done

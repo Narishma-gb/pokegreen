@@ -8,9 +8,12 @@ CinnabarMart_TextPointers:
 	dw_const CinnabarMartScientistText,    TEXT_CINNABARMART_SCIENTIST
 
 CinnabarMartSilphWorkerFText:
-	text_far _CinnabarMartSilphWorkerFText
-	text_end
+	text "プラスパワーは　ないのかしら"
+	line "#の　こうげきりょくを"
+	cont "たかめるから　すきなのに"
+	done
 
 CinnabarMartScientistText:
-	text_far _CinnabarMartScientistText
-	text_end
+	text "いざ　という　ときの　ために"
+	line "どうぐは　おおめに　かうべきだね"
+	done

@@ -15,10 +15,10 @@ WriteDMACodeToHRAM::
 DMARoutine:
 LOAD "OAM DMA", HRAM
 hDMARoutine::
-	; initiate DMA
+; initiate DMA
 	ld a, HIGH(wShadowOAM)
 	ldh [rDMA], a
-	; wait for DMA to finish
+; wait for DMA to finish
 	ld a, $28
 .wait
 	dec a

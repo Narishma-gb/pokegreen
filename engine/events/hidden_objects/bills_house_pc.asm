@@ -45,11 +45,13 @@ BillsHousePC:
 	ret
 
 BillsHouseMonitorText::
-	text_far _BillsHouseMonitorText
-	text_end
+	text "<PC>の　がめんに"
+	line "てんそうマシンと　でてます！"
+	done
 
 BillsHouseInitiatedText::
-	text_far _BillsHouseInitiatedText
+	text "<PLAYER>は　てんそうマシンの"
+	line "ぶんり　プログラムを　きどう　した！@"
 	text_promptbutton
 	text_asm
 	ld a, SFX_STOP_ALL_MUSIC
@@ -119,16 +121,17 @@ BillsHousePokemonList::
 	jp TextScriptEnd
 
 BillsHousePokemonListText1:
-	text_far _BillsHousePokemonListText1
-	text_end
+	text "マサキくんの"
+	line "おきにいり　#　リスト！"
+	prompt
 
 BillsMonListText:
-	db   "EEVEE"
-	next "FLAREON"
-	next "JOLTEON"
-	next "VAPOREON"
-	next "CANCEL@"
+	db   "イーブイ"
+	next "ブースター"
+	next "サンダース"
+	next "シャワーズ"
+	next "みるのを　やめる@"
 
 BillsHousePokemonListText2:
-	text_far _BillsHousePokemonListText2
-	text_end
+	text "どれを　みせて　もらい　ますか？"
+	done

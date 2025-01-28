@@ -46,26 +46,81 @@ OaksAideScript:
 	ret
 
 OaksAideHiText:
-	text_far _OaksAideHiText
-	text_end
+	text "ぼく　おぼえてます？"
+	line "ほら<⋯>！"
+	cont "オーキド　はかせの　じょしゅ　です"
+
+	para "#ずかんが　@"
+	text_decimal hOaksAideRequirement, 1, 3
+	text "しゅるい"
+	line "あつまってる　ようなら"
+	cont "@"
+	text_ram wOaksAideRewardItemName
+	text "を　わたす　よう"
+	cont "はかせに　いわれ　ました"
+
+	para "<⋯>　それでは　さっそく"
+	line "<PLAYER>くん！"
+	cont "つかまえた　#は"
+	cont "@"
+	text_decimal hOaksAideRequirement, 1, 3
+	text "しゅるい　より　おおい　かな？"
+	done
 
 OaksAideUhOhText:
-	text_far _OaksAideUhOhText
-	text_end
+	text "<⋯>　<⋯>　えーと！"
+	line "つかまえた　#は<⋯>"
+	cont "あれれー？"
+	cont "まだ　@"
+	text_decimal hOaksAideNumMonsOwned, 1, 3
+	text "しゅるい　ですよ！"
+
+	para "@"
+	text_decimal hOaksAideRequirement, 1, 3
+	text "しゅるいに　たりない　なら"
+	line "@"
+	text_ram wOaksAideRewardItemName
+	text "は"
+	cont "また　こんど　ですね"
+	done
 
 OaksAideComeBackText:
-	text_far _OaksAideComeBackText
-	text_end
+	text "<⋯>　<⋯>　そう　ですか"
+
+	para "@"
+	text_decimal hOaksAideRequirement, 1, 3
+	text "しゅるいに　たりない　なら"
+	line "@"
+	text_ram wOaksAideRewardItemName
+	text "は"
+	cont "また　こんど　ですね"
+	done
 
 OaksAideHereYouGoText:
-	text_far _OaksAideHereYouGoText
-	text_end
+	text "<⋯>　<⋯>　なるほど！"
+	line "つかまえた　#は<⋯>"
+	cont "@"
+	text_decimal hOaksAideNumMonsOwned, 1, 3
+	text "しゅるい　ですね！"
+	cont "おめでとう！"
+
+	para "それでは"
+	line "これを　おわたし　します！"
+	prompt
 
 OaksAideGotItemText:
-	text_far _OaksAideGotItemText
+	text "<PLAYER>は　じょしゅ　から"
+	line "@"
+	text_ram wOaksAideRewardItemName
+	text "を　もらった！@"
 	sound_get_item_1
 	text_end
 
 OaksAideNoRoomText:
-	text_far _OaksAideNoRoomText
-	text_end
+	text "<⋯>　<⋯>　と　おもった　けど"
+	line "にもつが　いっぱい　だから"
+	cont "@"
+	text_ram wOaksAideRewardItemName
+	text "は"
+	cont "また　こんど　ですね"
+	done

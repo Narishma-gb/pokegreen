@@ -1,7 +1,7 @@
 SilphCo5F_Script:
 	call SilphCo5FGateCallbackScript
 	call EnableAutoTextBoxDrawing
-	ld hl, SilphCo5TrainerHeaders
+	ld hl, SilphCo5F_TrainerHeaders
 	ld de, SilphCo5F_ScriptPointers
 	ld a, [wSilphCo5FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -85,16 +85,11 @@ SilphCo5F_TextPointers:
 	dw_const SilphCo5FPokemonReport2Text, TEXT_SILPHCO5F_POKEMON_REPORT2
 	dw_const SilphCo5FPokemonReport3Text, TEXT_SILPHCO5F_POKEMON_REPORT3
 
-SilphCo5TrainerHeaders:
-	def_trainers 2
-SilphCo5TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_5F_TRAINER_0, 1, SilphCo5FRocket1BattleText, SilphCo5FRocket1EndBattleText, SilphCo5FRocket1AfterBattleText
-SilphCo5TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_5F_TRAINER_1, 2, SilphCo5FScientistBattleText, SilphCo5FScientistEndBattleText, SilphCo5FScientistAfterBattleText
-SilphCo5TrainerHeader2:
-	trainer EVENT_BEAT_SILPH_CO_5F_TRAINER_2, 4, SilphCo5FRockerBattleText, SilphCo5FRockerEndBattleText, SilphCo5FRockerAfterBattleText
-SilphCo5TrainerHeader3:
-	trainer EVENT_BEAT_SILPH_CO_5F_TRAINER_3, 3, SilphCo5FRocket2BattleText, SilphCo5FRocket2EndBattleText, SilphCo5FRocket2AfterBattleText
+	def_trainers SilphCo5F, 2
+	trainer EVENT_BEAT_SILPH_CO_5F_TRAINER_0, 1, Rocket1
+	trainer EVENT_BEAT_SILPH_CO_5F_TRAINER_1, 2, Scientist
+	trainer EVENT_BEAT_SILPH_CO_5F_TRAINER_2, 4, Rocker
+	trainer EVENT_BEAT_SILPH_CO_5F_TRAINER_3, 3, Rocket2
 	db -1 ; end
 
 SilphCo5FSilphWorkerMText:
@@ -105,93 +100,126 @@ SilphCo5FSilphWorkerMText:
 	jp TextScriptEnd
 
 .ThatsYouRightText:
-	text_far _SilphCo5FSilphWorkerMThatsYouRightText
-	text_end
+	text "だれか　ビルに　しのび　こんだと"
+	line "<ROCKET>が　さわいでる"
+	cont "<⋯>　きみの　こと　らしいね"
+	done
 
 .YoureOurHeroText:
-	text_far _SilphCo5FSilphWorkerMYoureOurHeroText
-	text_end
+	text "<ROCKET>は　にげたよ！"
+	line "きみが　おっぱらったのかい"
+	cont "<⋯>　ありがとう！"
+	done
 
 SilphCo5FRocket1Text:
 	text_asm
-	ld hl, SilphCo5TrainerHeader0
+	ld hl, SilphCo5F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo5FRocket1BattleText:
-	text_far _SilphCo5FRocket1BattleText
-	text_end
+	text "こどもが　うろついてると"
+	line "さっき　れんらくが　あったぜ！"
+	done
 
 SilphCo5FRocket1EndBattleText:
-	text_far _SilphCo5FRocket1EndBattleText
-	text_end
+	text "ばったり<⋯>"
+	prompt
 
 SilphCo5FRocket1AfterBattleText:
-	text_far _SilphCo5FRocket1AfterBattleText
-	text_end
+	text "<ROCKET>に"
+	line "たてつかない　ほうが"
+	cont "みのため　だぜ"
+	done
 
 SilphCo5FScientistText:
 	text_asm
-	ld hl, SilphCo5TrainerHeader1
+	ld hl, SilphCo5F_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo5FScientistBattleText:
-	text_far _SilphCo5FScientistBattleText
-	text_end
+	text "この　フロアは"
+	line "モンスターボールの"
+	cont "けんきゅう　セクションだ！"
+	done
 
 SilphCo5FScientistEndBattleText:
-	text_far _SilphCo5FScientistEndBattleText
-	text_end
+	text "ちくしょう！"
+	prompt
 
 SilphCo5FScientistAfterBattleText:
-	text_far _SilphCo5FScientistAfterBattleText
-	text_end
+	text "ここでは<⋯>"
+	line "でんせつの　#さえ　とれる"
+	cont "きゅうきょくの　モンスターボールを"
+	cont "けんきゅう　してたのだ"
+	done
 
 SilphCo5FRockerText:
 	text_asm
-	ld hl, SilphCo5TrainerHeader2
+	ld hl, SilphCo5F_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo5FRockerBattleText:
-	text_far _SilphCo5FRockerBattleText
-	text_end
+	text "おかしいな？"
+	line "こどもが　はいって　これる"
+	cont "わけが　ないんだが"
+	done
 
 SilphCo5FRockerEndBattleText:
-	text_far _SilphCo5FRockerEndBattleText
-	text_end
+	text "こりゃ　いかん"
+	prompt
 
 SilphCo5FRockerAfterBattleText:
-	text_far _SilphCo5FRockerAfterBattleText
-	text_end
+	text "ここは　５かい<⋯>"
+	line "ボスの　いる　ところ　まで"
+	cont "まだまだ　あるぜ！"
+	done
 
 SilphCo5FRocket2Text:
 	text_asm
-	ld hl, SilphCo5TrainerHeader3
+	ld hl, SilphCo5F_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo5FRocket2BattleText:
-	text_far _SilphCo5FRocket2BattleText
-	text_end
+	text "<ROCKET>　あいてに"
+	line "なめた　まねして　くれるぜ"
+	done
 
 SilphCo5FRocket2EndBattleText:
-	text_far _SilphCo5FRocket2EndBattleText
-	text_end
+	text "ふん　たまたまだ！"
+	prompt
 
 SilphCo5FRocket2AfterBattleText:
-	text_far _SilphCo5FRocket2AfterBattleText
-	text_end
+	text "たまたま<⋯>　おもいだした！"
+
+	para "タマタマは"
+	line "ナッシーに　しんか　するぞ"
+	done
 
 SilphCo5FPokemonReport1Text:
-	text_far _SilphCo5FPokemonReport1Text
-	text_end
+	text "<⋯>　#　レポートだ！"
+
+	para "#　けんきゅうじょ　では"
+	line "じんこうの　#"
+	cont "ポリゴンを　つくる　ことに"
+	cont "せいこう　した<⋯>　<⋯>"
+	done
 
 SilphCo5FPokemonReport2Text:
-	text_far _SilphCo5FPokemonReport2Text
-	text_end
+	text "<⋯>　#　レポートだ！"
+
+	para "#が　つかう　わざは"
+	line "げんざい　わかって　いるだけで"
+	cont "１６０しゅるい　いじょうある"
+	done
 
 SilphCo5FPokemonReport3Text:
-	text_far _SilphCo5FPokemonReport3Text
-	text_end
+	text "<⋯>　#　レポートだ！"
+
+	para "こうかん　ケーブルを　とおすと"
+	line "しんかする　#が"
+	cont "４しゅるい　かくにん　された"
+	done

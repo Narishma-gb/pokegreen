@@ -18,7 +18,7 @@ LoadPartyPokeballGfx:
 
 SetupOwnPartyPokeballs:
 	call PlacePlayerHUDTiles
-	ld hl, wPartyMon1
+	ld hl, wPartyMons
 	ld de, wPartyCount
 	call SetupPokeballs
 	ld a, $60
@@ -182,7 +182,7 @@ SetupPlayerAndEnemyPokeballs:
 	ld hl, wBaseCoordX
 	ld a, $50
 	ld [hli], a
-	ld [hl], $68
+	ld [hl], $60
 	ld hl, wShadowOAMSprite06
 	jp WritePokeballOAMData
 

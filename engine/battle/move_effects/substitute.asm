@@ -37,9 +37,9 @@ SubstituteEffect_:
 	sbc 0
 	pop bc
 	jr c, .notEnoughHP ; underflow means user would be left with negative health
-                           ; bug: since it only branches on carry, it will possibly leave user with 0 HP
-.userHasZeroOrMoreHP
-	ldi [hl], a ; save resulting HP after subtraction into current HP
+                       ; bug: since it only branches on carry, it will possibly leave user with 0 HP
+; userHasZeroOrMoreHP
+	ld [hli], a ; save resulting HP after subtraction into current HP
 	ld [hl], d
 	ld h, b
 	ld l, c
@@ -65,13 +65,16 @@ SubstituteEffect_:
 	jp PrintText
 
 SubstituteText:
-	text_far _SubstituteText
-	text_end
+	text "<USER>の"
+	line "ぶんしんが　あらわれた"
+	prompt
 
 HasSubstituteText:
-	text_far _HasSubstituteText
-	text_end
+	text "しかし　<USER>の"
+	line "みがわりは　すでに　でていた！"
+	prompt
 
 TooWeakSubstituteText:
-	text_far _TooWeakSubstituteText
-	text_end
+	text "しかし　ぶんしんを　だすには"
+	line "たいりょくが　たりなかった！"
+	prompt

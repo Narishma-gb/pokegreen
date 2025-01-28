@@ -3,7 +3,6 @@ DrawBadges:
 ; badges if they are owned. Used in the player status screen.
 
 ; In Japanese versions, names are displayed above faces.
-; Instead of removing relevant code, the name graphics were erased.
 
 ; Tile ids for face/badge graphics.
 	ld de, wBadgeOrFaceTiles
@@ -39,7 +38,7 @@ DrawBadges:
 
 ; Draw two rows of badges.
 	ld hl, wBadgeNumberTile
-	ld a, $d8 ; [1]
+	ld a, $e8
 	ld [hli], a
 	ld [hl], $60 ; First name
 

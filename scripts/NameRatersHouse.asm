@@ -53,7 +53,6 @@ NameRatersHouseNameRaterText:
 	xor a
 	ld [wPartyMenuTypeOrMessageID], a
 	ld [wUpdateSpritesEnabled], a
-	ld [wMenuItemToSwap], a
 	call DisplayPartyMenu
 	push af
 	call GBPalWhiteOutWithDelay3
@@ -81,29 +80,62 @@ NameRatersHouseNameRaterText:
 	jr .done
 
 .WantMeToRateText:
-	text_far _NameRatersHouseNameRaterWantMeToRateText
-	text_end
+	text "はい　はい！"
+	line "わたしは　せいめい　はんだんし"
+	cont "いうなれば　なまえの　うらないです"
+
+	para "はい　あなたの　#の"
+	line "ニックネーム　うらなって　あげるよ"
+	done
 
 .WhichPokemonText:
-	text_far _NameRatersHouseNameRaterWhichPokemonText
-	text_end
+	text "どの　#の"
+	line "ニックネームを　うらなうかね？"
+	prompt
 
 .GiveItANiceNameText:
-	text_far _NameRatersHouseNameRaterGiveItANiceNameText
-	text_end
+	text "うーむ　@"
+	text_ram wNameBuffer
+	text "か<⋯>"
+	line "なかなか"
+	cont "いい　ニックネームを　つけたね"
+
+	para "でもねー"
+	line "もう　すこしだけ　いい　なまえ"
+
+	para "わたしが　つけて　あげようか？"
+	line "どうかな？"
+	done
 
 .WhatShouldWeNameItText:
-	text_far _NameRatersHouseNameRaterWhatShouldWeNameItText
-	text_end
+	text "そうか　では"
+	line "どんな　ニックネームに　しようかな"
+	prompt
 
 .PokemonHasBeenRenamedText:
-	text_far _NameRatersHouseNameRaterPokemonHasBeenRenamedText
-	text_end
+	text "よし　これから"
+	line "この　#は　@"
+	text_ram wBuffer
+	text "だ！"
+
+	para "まえより　いい　なまえ　じゃないか"
+	line "よかったな！"
+	done
 
 .ComeAnyTimeYouLikeText:
-	text_far _NameRatersHouseNameRaterComeAnyTimeYouLikeText
-	text_end
+	text "そうか"
+	line "わかった　また　きなさいよ"
+	done
 
 .ATrulyImpeccableNameText:
-	text_far _NameRatersHouseNameRaterATrulyImpeccableNameText
-	text_end
+	text "うむ　@"
+	text_ram wNameBuffer
+	text "か！"
+	line "これは　すばらしい　ニックネームだ"
+	cont "けちの　つけようもない！"
+
+	para "これからも　@"
+	text_ram wNameBuffer
+	text "を"
+	line "かわいがって　あげなさいよ！"
+	done

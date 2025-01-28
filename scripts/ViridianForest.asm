@@ -1,6 +1,6 @@
 ViridianForest_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, ViridianForestTrainerHeaders
+	ld hl, ViridianForest_TrainerHeaders
 	ld de, ViridianForest_ScriptPointers
 	ld a, [wViridianForestCurScript]
 	call ExecuteCurMapScriptInTable
@@ -30,98 +30,138 @@ ViridianForest_TextPointers:
 	dw_const ViridianForestTrainerTips4Text,    TEXT_VIRIDIANFOREST_TRAINER_TIPS4
 	dw_const ViridianForestLeavingSignText,     TEXT_VIRIDIANFOREST_LEAVING_SIGN
 
-ViridianForestTrainerHeaders:
-	def_trainers 2
-ViridianForestTrainerHeader0:
-	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_0, 4, ViridianForestYoungster2BattleText, ViridianForestYoungster2EndBattleText, ViridianForestYoungster2AfterBattleText
-ViridianForestTrainerHeader1:
-	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_1, 4, ViridianForestYoungster3BattleText, ViridianForestYoungster3EndBattleText, ViridianForestYoungster3AfterBattleText
-ViridianForestTrainerHeader2:
-	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_2, 1, ViridianForestYoungster4BattleText, ViridianForestYoungster4EndBattleText, ViridianForestYoungster4AfterBattleText
+	def_trainers ViridianForest, 2
+	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_0, 4, Youngster2
+	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_1, 4, Youngster3
+	trainer EVENT_BEAT_VIRIDIAN_FOREST_TRAINER_2, 1, Youngster4
 	db -1 ; end
 
 ViridianForestYoungster1Text:
-	text_far _ViridianForestYoungster1Text
-	text_end
+	text "ともだちと　むし　#"
+	line "とりに　きてるんだ！"
+
+	para "#　しょうぶ　したくて"
+	line "みんな　ウズウズ　してるよ！"
+	done
 
 ViridianForestYoungster2Text:
 	text_asm
-	ld hl, ViridianForestTrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-ViridianForestYoungster3Text:
-	text_asm
-	ld hl, ViridianForestTrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-ViridianForestYoungster4Text:
-	text_asm
-	ld hl, ViridianForestTrainerHeader2
+	ld hl, ViridianForest_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 ViridianForestYoungster2BattleText:
-	text_far _ViridianForestYoungster2BattleText
-	text_end
+	text "よーしッ！"
+	line "きみは　#　もってるな？"
+	cont "しょうぶ　しようぜ！"
+	done
 
 ViridianForestYoungster2EndBattleText:
-	text_far _ViridianForestYoungster2EndBattleText
-	text_end
+	text "まけたあ！"
+	line "キャタピー　なんか　じゃ　ダメか"
+	prompt
 
 ViridianForestYoungster2AfterBattleText:
-	text_far _ViridianForestYoungster2AfterBattleText
-	text_end
+	text "しッ<⋯>！"
+	line "むしが　にげる　から　またな！"
+	done
+
+ViridianForestYoungster3Text:
+	text_asm
+	ld hl, ViridianForest_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 ViridianForestYoungster3BattleText:
-	text_far _ViridianForestYoungster3BattleText
-	text_end
+	text "おーいッ！"
+	line "#　<TRAINER>なら"
+	cont "しょうぶは　ことわれ　ないぜ！"
+	done
 
 ViridianForestYoungster3EndBattleText:
-	text_far _ViridianForestYoungster3EndBattleText
-	text_end
+	text "あれ？"
+	line "もう　#が　ないや"
+	prompt
 
 ViridianForestYoungster3AfterBattleText:
-	text_far _ViridianForestYoungster3AfterBattleText
-	text_end
+	text "くやしいな！"
+	line "つよいのを　つかまえて　こよう！"
+	done
+
+ViridianForestYoungster4Text:
+	text_asm
+	ld hl, ViridianForest_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 ViridianForestYoungster4BattleText:
-	text_far _ViridianForestYoungster4BattleText
-	text_end
+	text "ちょっと　まったあ！"
+	line "そんな　いそいで　どこに　いく？"
+	done
 
 ViridianForestYoungster4EndBattleText:
-	text_far _ViridianForestYoungster4EndBattleText
-	text_end
+	text "まいった！"
+	line "きみは　つよいな！"
+	prompt
 
 ViridianForestYoungster4AfterBattleText:
-	text_far _ViridianForestYoungster4AfterBattleText
-	text_end
+	text "みえない　ところ　でも　ホントは"
+	line "なにか　おちてたり　する！"
+
+	para "さっき　おとしもの　したんだ"
+	line "きみも　さがして　みて　くれる？"
+	done
 
 ViridianForestYoungster5Text:
-	text_far _ViridianForestYoungster5Text
-	text_end
+	text "#　とろうとして"
+	line "モンスター　ボール　なげてたら"
+	cont "すぐ　なくなっちゃった"
+
+	para "きみも　おおめに"
+	line "かって　おくと　いいよ"
+	done
 
 ViridianForestTrainerTips1Text:
-	text_far _ViridianForestTrainerTips1Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "もってる　#が　よわって　きて"
+	line "たたかわせたく　ない　ときは"
+	cont "くさむらを　よけて　かえろう！"
+	done
 
 ViridianForestUseAntidoteSignText:
-	text_far _ViridianForestUseAntidoteSignText
-	text_end
+	text "どくを　くらったら　どくけし！"
+	line "フレンドリィ　ショップで！"
+	done
 
 ViridianForestTrainerTips2Text:
-	text_far _ViridianForestTrainerTips2Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "#ずかんは"
+	line "<PC>つうしんで"
+	cont "オーキドはかせに　みてもらえる！"
+	done
 
 ViridianForestTrainerTips3Text:
-	text_far _ViridianForestTrainerTips3Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "ひとの　#は　ひとの　もの！"
+	line "やせいの　#に　だけ"
+	cont "モンスターボールを　なげて"
+	cont "つかまえよう！"
+	done
 
 ViridianForestTrainerTips4Text:
-	text_far _ViridianForestTrainerTips4Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "#を　つかまえる　ときは"
+	line "なるべく　よわらせてから！"
+
+	para "#が　げんきだと"
+	line "にげるかも　しれないよ！"
+	done
 
 ViridianForestLeavingSignText:
-	text_far _ViridianForestLeavingSignText
-	text_end
+	text "トキワの　もり　<⋯>　でぐち"
+	line "このさき　ニビ　シティ"
+	done

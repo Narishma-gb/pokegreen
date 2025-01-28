@@ -32,7 +32,7 @@ RocketHideoutElevatorStoreWarpEntriesScript:
 	ret
 
 RocketHideoutElevatorScript:
-	ld hl, RocketHideoutElavatorFloors
+	ld hl, RocketHideoutElevatorFloors
 	call LoadItemList
 	ld hl, RocketHideoutElevatorWarpMaps
 	ld de, wElevatorWarpMaps
@@ -40,7 +40,7 @@ RocketHideoutElevatorScript:
 	call CopyData
 	ret
 
-RocketHideoutElavatorFloors:
+RocketHideoutElevatorFloors:
 	db 3 ; #
 	db FLOOR_B1F
 	db FLOOR_B2F
@@ -80,6 +80,6 @@ RocketHideoutElevatorText:
 	jp TextScriptEnd
 
 .AppearsToNeedKeyText:
-	text_far _RocketHideoutElevatorAppearsToNeedKeyText
+	text "カギが　ひつよう　みたいだな@"
 	text_waitbutton
 	text_end

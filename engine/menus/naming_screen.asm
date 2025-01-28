@@ -4,9 +4,9 @@ AskName:
 	push hl
 	ld a, [wIsInBattle]
 	dec a
-	hlcoord 0, 0
+	hlcoord 1, 0
 	ld b, 4
-	ld c, 11
+	ld c, 10
 	call z, ClearScreenArea ; only if in wild battle
 	ld a, [wCurPartySpecies]
 	ld [wNamedObjectIndex], a
@@ -50,8 +50,10 @@ AskName:
 	jp CopyData
 
 DoYouWantToNicknameText:
-	text_far _DoYouWantToNicknameText
-	text_end
+	text_ram wNameBuffer
+	text "に"
+	line "ニックネームを　つけますか？"
+	done
 
 DisplayNameRaterScreen::
 	ld hl, wBuffer
@@ -94,7 +96,7 @@ DisplayNamingScreen:
 	call LoadEDTile
 	farcall LoadMonPartySpriteGfx
 	hlcoord 0, 4
-	ld b, 9
+	ld b, 11
 	ld c, 18
 	call TextBoxBorder
 	call PrintNamingText
@@ -106,7 +108,7 @@ DisplayNamingScreen:
 	ld [wCurrentMenuItem], a
 	ld a, $ff
 	ld [wMenuWatchedKeys], a
-	ld a, 7
+	ld a, 8
 	ld [wMaxMenuItem], a
 	ld a, "@"
 	ld [wStringBuffer], a
@@ -209,19 +211,19 @@ DisplayNamingScreen:
 
 .pressedA
 	ld a, [wCurrentMenuItem]
-	cp $5 ; "ED" row
+	cp 6 ; "ED" row
 	jr nz, .didNotPressED
 	ld a, [wTopMenuItemX]
 	cp $11 ; "ED" column
 	jr z, .pressedStart
 .didNotPressED
 	ld a, [wCurrentMenuItem]
-	cp $6 ; case switch row
-	jr nz, .didNotPressCaseSwtich
+	cp $7 ; case switch row
+	jr nz, .didNotPressCaseSwitch
 	ld a, [wTopMenuItemX]
 	cp $1 ; case switch column
 	jr z, .pressedA_changedCase
-.didNotPressCaseSwtich
+.didNotPressCaseSwitch
 	ld hl, wMenuCursorLocation
 	ld a, [hli]
 	ld h, [hl]
@@ -231,22 +233,14 @@ DisplayNamingScreen:
 	ld [wNamingScreenLetter], a
 	call CalcStringLength
 	ld a, [wNamingScreenLetter]
-	cp "ﾞ"
+	cp "゛"
 	ld de, Dakutens
 	jr z, .dakutensAndHandakutens
-	cp "ﾟ"
+	cp "゜"
 	ld de, Handakutens
 	jr z, .dakutensAndHandakutens
-	ld a, [wNamingScreenType]
-	cp NAME_MON_SCREEN
-	jr nc, .checkMonNameLength
 	ld a, [wNamingScreenNameLength]
-	cp $7 ; max length of player/rival names
-	jr .checkNameLength
-.checkMonNameLength
-	ld a, [wNamingScreenNameLength]
-	cp $a ; max length of pokemon nicknames
-.checkNameLength
+	cp NAME_LENGTH - 1
 	jr c, .addLetter
 	ret
 
@@ -273,7 +267,7 @@ DisplayNamingScreen:
 	ret
 .pressedRight
 	ld a, [wCurrentMenuItem]
-	cp $6
+	cp $7
 	ret z ; can't scroll right on bottom row
 	ld a, [wTopMenuItemX]
 	cp $11 ; max
@@ -286,7 +280,7 @@ DisplayNamingScreen:
 	jr .done
 .pressedLeft
 	ld a, [wCurrentMenuItem]
-	cp $6
+	cp $7
 	ret z ; can't scroll right on bottom row
 	ld a, [wTopMenuItemX]
 	dec a
@@ -302,7 +296,7 @@ DisplayNamingScreen:
 	ld [wCurrentMenuItem], a
 	and a
 	ret nz
-	ld a, $6 ; wrap to bottom row
+	ld a, $7 ; wrap to bottom row
 	ld [wCurrentMenuItem], a
 	ld a, $1 ; force left column
 	jr .done
@@ -310,13 +304,13 @@ DisplayNamingScreen:
 	ld a, [wCurrentMenuItem]
 	inc a
 	ld [wCurrentMenuItem], a
-	cp $7
+	cp $8
 	jr nz, .wrapToTopRow
 	ld a, $1
 	ld [wCurrentMenuItem], a
 	jr .done
 .wrapToTopRow
-	cp $6
+	cp $7
 	ret nz
 	ld a, $1
 .done
@@ -326,7 +320,8 @@ DisplayNamingScreen:
 LoadEDTile:
 	ld de, ED_Tile
 	ld hl, vFont tile $70
-	; BUG: BANK("Home") should be BANK(ED_Tile), although it coincidentally works as-is
+; BUG: BANK("Home") should be BANK(ED_Tile), although it coincidentally works as-is,
+; due to MBC behaviour when writing $0 to MBC1RomBank
 	lb bc, BANK("Home"), (ED_TileEnd - ED_Tile) / $8
 	jp CopyVideoDataDouble
 
@@ -339,12 +334,12 @@ PrintAlphabet:
 	ldh [hAutoBGTransferEnabled], a
 	ld a, [wAlphabetCase]
 	and a
-	ld de, LowerCaseAlphabet
+	ld de, HiraganaCharacters
 	jr nz, .lowercase
-	ld de, UpperCaseAlphabet
+	ld de, KatakanaCharacters
 .lowercase
 	hlcoord 2, 5
-	lb bc, 5, 9 ; 5 rows, 9 columns
+	lb bc, 6, 9 ; 6 rows, 9 columns
 .outerLoop
 	push bc
 .innerLoop
@@ -360,63 +355,46 @@ PrintAlphabet:
 	dec b
 	jr nz, .outerLoop
 	call PlaceString
+	hlcoord 5, 17
+	ld de, KanaInputText
+	call PlaceString
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	jp Delay3
 
-INCLUDE "data/text/alphabets.asm"
+INCLUDE "data/text/kana.asm"
 
 PrintNicknameAndUnderscores:
 	call CalcStringLength
 	ld a, c
 	ld [wNamingScreenNameLength], a
-	hlcoord 10, 2
-	lb bc, 1, 10
+	hlcoord 13, 1
+	lb bc, 2, 5
 	call ClearScreenArea
-	hlcoord 10, 2
+	hlcoord 13, 2
 	ld de, wStringBuffer
 	call PlaceString
-	hlcoord 10, 3
-	ld a, [wNamingScreenType]
-	cp NAME_MON_SCREEN
-	jr nc, .pokemon1
-	ld b, 7 ; player or rival max name length
-	jr .playerOrRival1
-.pokemon1
-	ld b, 10 ; pokemon max name length
-.playerOrRival1
+	hlcoord 13, 3
 	ld a, $76 ; underscore tile id
+	ld b, 5
 .placeUnderscoreLoop
 	ld [hli], a
 	dec b
 	jr nz, .placeUnderscoreLoop
-	ld a, [wNamingScreenType]
-	cp NAME_MON_SCREEN
 	ld a, [wNamingScreenNameLength]
-	jr nc, .pokemon2
-	cp 7 ; player or rival max name length
-	jr .playerOrRival2
-.pokemon2
-	cp 10 ; pokemon max name length
-.playerOrRival2
+	cp NAME_LENGTH - 1
 	jr nz, .emptySpacesRemaining
-	; when all spaces are filled, force the cursor onto the ED tile
+; when all spaces are filled, force the cursor onto the ED tile
 	call EraseMenuCursor
 	ld a, $11 ; "ED" x coord
 	ld [wTopMenuItemX], a
-	ld a, $5 ; "ED" y coord
+	ld a, $6 ; "ED" y coord
 	ld [wCurrentMenuItem], a
-	ld a, [wNamingScreenType]
-	cp NAME_MON_SCREEN
-	ld a, 9 ; keep the last underscore raised
-	jr nc, .pokemon3
-	ld a, 6 ; keep the last underscore raised
-.pokemon3
+	ld a, 4 ; keep the last underscore raised
 .emptySpacesRemaining
-	ld c, a
-	ld b, $0
-	hlcoord 10, 3
-	add hl, bc
+	hlcoord 13, 3
+	add l
+	ld l, a
 	ld [hl], $77 ; raised underscore tile id
 	ret
 
@@ -449,7 +427,7 @@ CalcStringLength:
 	jr .loop
 
 PrintNamingText:
-	hlcoord 0, 1
+	hlcoord 1, 2
 	ld a, [wNamingScreenType]
 	ld de, YourTextString
 	and a
@@ -468,8 +446,8 @@ PrintNamingText:
 	call PlaceString
 	ld hl, $1
 	add hl, bc
-	ld [hl], "の" ; leftover from Japanese version; blank tile $c9 in English
-	hlcoord 1, 3
+	ld [hl], "の"
+	hlcoord 4, 3
 	ld de, NicknameTextString
 	jr .placeString
 .notNickname
@@ -481,13 +459,13 @@ PrintNamingText:
 	jp PlaceString
 
 YourTextString:
-	db "YOUR @"
+	db "あなた@"
 
 RivalsTextString:
-	db "RIVAL's @"
+	db "ライバル@"
 
 NameTextString:
-	db "NAME?@"
+	db "のなまえは？@"
 
 NicknameTextString:
-	db "NICKNAME?@"
+	db "ニックネームは？@"

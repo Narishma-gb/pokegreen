@@ -10,13 +10,20 @@ CeladonMart2F_TextPointers:
 	dw_const CeladonMart2FCurrentFloorSignText, TEXT_CELADONMART2F_CURRENT_FLOOR_SIGN
 
 CeladonMart2FMiddleAgedManText:
-	text_far _CeladonMart2FMiddleAgedManText
-	text_end
+	text "シルバースプレーは　よわい"
+	line "#が　とびでて　こなくなる"
+
+	para "ほう！　むしよけスプレーの"
+	line "きょうりょくな　やつだな"
+	done
 
 CeladonMart2FGirlText:
-	text_far _CeladonMart2FGirlText
-	text_end
+	text "とおで　するなら"
+	line "げんきのかけらは"
+	cont "かっといた　ほうが　いいわ"
+	done
 
 CeladonMart2FCurrentFloorSignText:
-	text_far _CeladonMart2FCurrentFloorSignText
-	text_end
+	text "<TRAINER>グッズが　いっぱい！"
+	line "２かい<⋯><TRAINER>ズ·マーケット"
+	done

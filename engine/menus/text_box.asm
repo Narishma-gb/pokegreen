@@ -40,7 +40,7 @@ DisplayTextBoxID_::
 	ld a, [wStatusFlags5]
 	push af
 	ld a, [wStatusFlags5]
-	set BIT_NO_TEXT_DELAY, a
+	set BIT_NO_TEXT_DELAY, a ; no pauses between printing each letter
 	ld [wStatusFlags5], a
 	call PlaceString
 	pop af
@@ -138,15 +138,18 @@ DisplayMoneyBox:
 	ld c, 6
 	call ClearScreenArea
 	hlcoord 12, 1
+	ld de, CurrencyString
+	call PlaceString
+	hlcoord 12, 1
 	ld de, wPlayerMoney
-	ld c, $a3
+	ld c, 3 | LEADING_ZEROES
 	call PrintBCDNumber
 	ld hl, wStatusFlags5
 	res BIT_NO_TEXT_DELAY, [hl]
 	ret
 
 CurrencyString:
-	db "      ¥@"
+	db "　　　　　　円@"
 
 DoBuySellQuitMenu:
 	ld a, [wStatusFlags5]
@@ -277,36 +280,10 @@ DisplayTwoOptionMenu:
 	pop hl
 	add hl, bc
 	call PlaceString
+	xor a
+	ld [wTwoOptionMenuID], a
 	ld hl, wStatusFlags5
 	res BIT_NO_TEXT_DELAY, [hl]
-	ld a, [wTwoOptionMenuID]
-	cp NO_YES_MENU
-	jr nz, .notNoYesMenu
-; No/Yes menu
-; this menu type ignores the B button
-; it only seems to be used when confirming the deletion of a save file
-	xor a
-	ld [wTwoOptionMenuID], a
-	ld a, [wMiscFlags]
-	push af
-	push hl
-	ld hl, wMiscFlags
-	bit BIT_NO_MENU_BUTTON_SOUND, [hl]
-	set BIT_NO_MENU_BUTTON_SOUND, [hl]
-	pop hl
-.noYesMenuInputLoop
-	call HandleMenuInput
-	bit BIT_B_BUTTON, a
-	jr nz, .noYesMenuInputLoop ; try again if B was not pressed
-	pop af
-	pop hl
-	ld [wMiscFlags], a
-	ld a, SFX_PRESS_AB
-	call PlaySound
-	jr .pressedAButton
-.notNoYesMenu
-	xor a
-	ld [wTwoOptionMenuID], a
 	call HandleMenuInput
 	pop hl
 	bit BIT_B_BUTTON, a
@@ -386,8 +363,7 @@ DisplayFieldMoveMonMenu:
 	ld [hli], a ; wFieldMoves + 1
 	ld [hli], a ; wFieldMoves + 2
 	ld [hli], a ; wFieldMoves + 3
-	ld [hli], a ; wNumFieldMoves
-	ld [hl], 12 ; wFieldMovesLeftmostXCoord
+	ld [hl], a ; wNumFieldMoves
 	call GetMonFieldMoves
 	ld a, [wNumFieldMoves]
 	and a
@@ -399,31 +375,14 @@ DisplayFieldMoveMonMenu:
 	ld c, 7
 	call TextBoxBorder
 	call UpdateSprites
-	ld a, 12
-	ldh [hFieldMoveMonMenuTopMenuItemX], a
-	hlcoord 13, 12
-	ld de, PokemonMenuEntries
-	jp PlaceString
+	jr .printMonMenuEntries
 
 .fieldMovesExist
-	push af
-
-; Calculate the text box position and dimensions based on the leftmost X coord
-; of the field move names before adjusting for the number of field moves.
-	hlcoord 0, 11
-	ld a, [wFieldMovesLeftmostXCoord]
-	dec a
-	ld e, a
-	ld d, 0
-	add hl, de
-	ld b, 5
-	ld a, 18
-	sub e
-	ld c, a
-	pop af
-
 ; For each field move, move the top of the text box up 2 rows while the leaving
 ; the bottom of the text box at the bottom of the screen.
+	hlcoord 11, 11
+	ld b, 5
+	ld c, 7
 	ld de, -SCREEN_WIDTH * 2
 .textBoxHeightLoop
 	add hl, de
@@ -441,12 +400,7 @@ DisplayFieldMoveMonMenu:
 	call UpdateSprites
 
 ; Calculate the position of the first field move name to print.
-	hlcoord 0, 12
-	ld a, [wFieldMovesLeftmostXCoord]
-	inc a
-	ld e, a
-	ld d, 0
-	add hl, de
+	hlcoord 13, 12
 	ld de, -SCREEN_WIDTH * 2
 	ld a, [wNumFieldMoves]
 .calcFirstFieldMoveYLoop
@@ -488,23 +442,18 @@ DisplayFieldMoveMonMenu:
 
 .donePrintingNames
 	pop hl
-	ld a, [wFieldMovesLeftmostXCoord]
-	ldh [hFieldMoveMonMenuTopMenuItemX], a
-	hlcoord 0, 12
-	ld a, [wFieldMovesLeftmostXCoord]
-	inc a
-	ld e, a
-	ld d, 0
-	add hl, de
+
+.printMonMenuEntries
+	hlcoord 13, 12
 	ld de, PokemonMenuEntries
 	jp PlaceString
 
 INCLUDE "data/moves/field_move_names.asm"
 
 PokemonMenuEntries:
-	db   "STATS"
-	next "SWITCH"
-	next "CANCEL@"
+	db   "つよさをみる"
+	next "ならびかえ"
+	next "キャンセル@"
 
 GetMonFieldMoves:
 	ld a, [wWhichPokemon]
@@ -533,26 +482,14 @@ GetMonFieldMoves:
 	cp b
 	jr z, .foundFieldMove
 	inc hl
-	inc hl
 	jr .fieldMoveLoop
 .foundFieldMove
-	ld a, b
-	ld [wLastFieldMoveID], a
-	ld a, [hli] ; field move name index
-	ld b, [hl] ; field move leftmost X coordinate
+	ld a, [hl]
 	pop hl
 	ld [hli], a ; store name index in wFieldMoves
 	ld a, [wNumFieldMoves]
 	inc a
 	ld [wNumFieldMoves], a
-	ld a, [wFieldMovesLeftmostXCoord]
-	cp b
-	jr c, .skipUpdatingLeftmostXCoord
-	ld a, b
-	ld [wFieldMovesLeftmostXCoord], a
-.skipUpdatingLeftmostXCoord
-	ld a, [wLastFieldMoveID]
-	ld b, a
 	jr .loop
 .done
 	pop hl

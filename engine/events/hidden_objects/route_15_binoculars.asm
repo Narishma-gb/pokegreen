@@ -10,5 +10,9 @@ Route15GateLeftBinoculars:
 	jp DisplayMonFrontSpriteInBox
 
 Route15UpstairsBinocularsText::
-	text_far _Route15UpstairsBinocularsText
-	text_end
+	text "ぼうえんきょうを　のぞいた<⋯>"
+
+	para "おおきな　とりが"
+	line "キラキラ　ひかりながら"
+	cont "うみの　ほうへ　とんでいく<⋯>"
+	done

@@ -8,7 +8,6 @@ PrintCardKeyText:
 	ret z
 	cp b
 	jr nz, .silphCoMapListLoop
-	predef GetTileAndCoordsInFrontOfPlayer
 	ld a, [wTileInFrontOfPlayer]
 	cp $18
 	jr z, .cardKeyDoorInFrontOfPlayer
@@ -25,12 +24,10 @@ PrintCardKeyText:
 	ld b, CARD_KEY
 	call IsItemInBag
 	jr z, .noCardKey
-	call GetCoordsInFrontOfPlayer
-	push de
 	tx_pre_id CardKeySuccessText
 	ldh [hTextID], a
 	call PrintPredefTextID
-	pop de
+	call GetCoordsInFrontOfPlayer
 	srl d
 	ld a, d
 	ld b, a
@@ -61,14 +58,16 @@ PrintCardKeyText:
 INCLUDE "data/events/card_key_maps.asm"
 
 CardKeySuccessText::
-	text_far _CardKeySuccessText1
+	text "<⋯>ピンポーン！@"
 	sound_get_item_1
-	text_far _CardKeySuccessText2
-	text_end
+	text_start
+	line "カードキーで　ロック　をはずした！"
+	done
 
 CardKeyFailText::
-	text_far _CardKeyFailText
-	text_end
+	text "<⋯>だめだ！"
+	line "カードキーが　ないと　あかない！"
+	done
 
 ; d = Y
 ; e = X

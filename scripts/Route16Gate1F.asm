@@ -107,17 +107,22 @@ Route16Gate1FGuardText:
 	jp TextScriptEnd
 
 .NoPedestriansAllowedText:
-	text_far _Route16Gate1FGuardNoPedestriansAllowedText
-	text_end
+	text "サイクリング　ロードは"
+	line "あるいて　すすむと　キケンです！"
+	cont "じてんしゃに　のって　きてね"
+	done
 
 .CyclingRoadExplanationText:
-	text_far _Route16Gate1FGuardCyclingRoadExplanationText
-	text_end
+	text "サイクリング　ロードは"
+	line "うみを　いく　さかみち！"
+	cont "かけおりると　きもち　いいよ！"
+	done
 
 Route16Gate1FGuardWaitUpText:
-	text_far _Route16Gate1FGuardWaitUpText
-	text_end
+	text "ちょっと　きみ　きみ！"
+	done
 
 Route16Gate1FGamblerText:
-	text_far _Route16Gate1FGamblerText
-	text_end
+	text "こんな　とこ　よく　きた！"
+	line "ごくろうな　こっちゃ！"
+	done

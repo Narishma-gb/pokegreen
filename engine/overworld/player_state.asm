@@ -64,6 +64,7 @@ CheckForceBikeOrSurf::
 	ld a, SCRIPT_SEAFOAMISLANDSB4F_MOVE_OBJECT
 	ld [wSeafoamIslandsB4FCurScript], a
 	jr z, .forceSurfing
+; force bike riding
 	ld hl, wStatusFlags6
 	set BIT_ALWAYS_ON_BIKE, [hl]
 	ld a, $1
@@ -236,23 +237,16 @@ PrintSafariZoneSteps::
 	hlcoord 1, 3
 	ld de, SafariBallText
 	call PlaceString
-	ld a, [wNumSafariBalls]
-	cp 10
-	jr nc, .tenOrMore
 	hlcoord 5, 3
-	ld a, " "
-	ld [hl], a
-.tenOrMore
-	hlcoord 6, 3
 	ld de, wNumSafariBalls
 	lb bc, 1, 2
 	jp PrintNumber
 
 SafariSteps:
-	db "/500@"
+	db "／５００@"
 
 SafariBallText:
-	db "BALL×× @"
+	db "ボール　　　こ@"
 
 GetTileAndCoordsInFrontOfPlayer:
 	call GetPredefRegisters
@@ -362,7 +356,7 @@ CheckForCollisionWhenPushingBoulder:
 	cp c
 	jr nz, .loop
 	ld hl, TilePairCollisionsLand
-	call CheckForTilePairCollisions2
+	call CheckForTilePairCollisions
 	ld a, $ff
 	jr c, .done ; if there is an elevation difference between the current tile and the one two steps ahead
 	ld a, [wTileInFrontOfBoulderAndBoulderCollisionResult]
@@ -403,7 +397,7 @@ CheckForBoulderCollisionWithSprites:
 	ld a, [hli]
 	ld b, a
 	ldh a, [hPlayerFacing]
-	assert BIT_FACING_DOWN == 0
+	ASSERT BIT_FACING_DOWN == 0
 	rrca
 	jr c, .pushingDown
 ; pushing up

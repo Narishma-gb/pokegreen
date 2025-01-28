@@ -74,10 +74,6 @@ VBlank::
 
 	farcall TrackPlayTime ; keep track of time played
 
-	ldh a, [hDisableJoypadPolling]
-	and a
-	call z, ReadJoypad
-
 	ld a, [wVBlankSavedROMBank]
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a

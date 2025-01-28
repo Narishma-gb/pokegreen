@@ -1,7 +1,7 @@
 SilphCo2F_Script:
 	call SilphCo2FGateCallbackScript
 	call EnableAutoTextBoxDrawing
-	ld hl, SilphCo2TrainerHeaders
+	ld hl, SilphCo2F_TrainerHeaders
 	ld de, SilphCo2F_ScriptPointers
 	ld a, [wSilphCo2FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -100,16 +100,11 @@ SilphCo2F_TextPointers:
 	dw_const SilphCo2FRocket1Text,      TEXT_SILPHCO2F_ROCKET1
 	dw_const SilphCo2FRocket2Text,      TEXT_SILPHCO2F_ROCKET2
 
-SilphCo2TrainerHeaders:
-	def_trainers 2
-SilphCo2TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_2F_TRAINER_0, 3, SilphCo2FScientist1BattleText, SilphCo2FScientist1EndBattleText, SilphCo2FScientist1AfterBattleText
-SilphCo2TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_2F_TRAINER_1, 4, SilphCo2FScientist2BattleText, SilphCo2FScientist2EndBattleText, SilphCo2FScientist2AfterBattleText
-SilphCo2TrainerHeader2:
-	trainer EVENT_BEAT_SILPH_CO_2F_TRAINER_2, 3, SilphCo2FRocket1BattleText, SilphCo2FRocket1EndBattleText, SilphCo2FRocket1AfterBattleText
-SilphCo2TrainerHeader3:
-	trainer EVENT_BEAT_SILPH_CO_2F_TRAINER_3, 3, SilphCo2FRocket2BattleText, SilphCo2FRocket2EndBattleText, SilphCo2FRocket2AfterBattleText
+	def_trainers SilphCo2F, 2
+	trainer EVENT_BEAT_SILPH_CO_2F_TRAINER_0, 3, Scientist1
+	trainer EVENT_BEAT_SILPH_CO_2F_TRAINER_1, 4, Scientist2
+	trainer EVENT_BEAT_SILPH_CO_2F_TRAINER_2, 3, Rocket1
+	trainer EVENT_BEAT_SILPH_CO_2F_TRAINER_3, 3, Rocket2
 	db -1 ; end
 
 SilphCo2FSilphWorkerFText:
@@ -132,90 +127,120 @@ SilphCo2FSilphWorkerFText:
 	jp TextScriptEnd
 
 .PleaseTakeThisText:
-	text_far SilphCo2FSilphWorkerFPleaseTakeThisText
-	text_end
+	text "きゃあ！"
+	line "だめよ　たすけてー！"
+
+	para "<⋯>　あら？"
+	line "<ROCKET>　じゃない"
+	cont "ごめんなさい"
+	cont "あたし　てっきり<⋯>"
+	cont "これ　うちの　せいひん　なの"
+	cont "あげる　から　ゆるしてね"
+	prompt
 
 .ReceivedTM36Text:
-	text_far _SilphCo2FSilphWorkerFReceivedTM36Text
+	text "<PLAYER>は　おねえさんから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
 	text_end
 
 .TM36ExplanationText:
-	text_far _SilphCo2FSilphWorkerFTM36ExplanationText
-	text_end
+	text "<TM>３６は　じばく！"
+
+	para "この　わざは　きょうりょく　だけど"
+	line "#は　わざの　あと"
+
+	para "ひんしじょうたいに　なるわ"
+	line "きを　つけて　つかって"
+	done
 
 .TM36NoRoomText:
-	text_far _SilphCo2FSilphWorkerFTM36NoRoomText
-	text_end
+	text "いっぱいで　もてないわ"
+	done
 
 SilphCo2FScientist1Text:
 	text_asm
-	ld hl, SilphCo2TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-SilphCo2FScientist2Text:
-	text_asm
-	ld hl, SilphCo2TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-SilphCo2FRocket1Text:
-	text_asm
-	ld hl, SilphCo2TrainerHeader2
-	call TalkToTrainer
-	jp TextScriptEnd
-
-SilphCo2FRocket2Text:
-	text_asm
-	ld hl, SilphCo2TrainerHeader3
+	ld hl, SilphCo2F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo2FScientist1BattleText:
-	text_far _SilphCo2FScientist1BattleText
-	text_end
+	text "た　たすけて！"
+	line "わたしは　シルフ　しゃいん　です"
+	done
 
 SilphCo2FScientist1EndBattleText:
-	text_far _SilphCo2FScientist1EndBattleText
-	text_end
+	text "く！　ばれたか"
+	prompt
 
 SilphCo2FScientist1AfterBattleText:
-	text_far _SilphCo2FScientist1AfterBattleText
-	text_end
+	text "わたしは　シルフの　しゃいん"
+	line "であると　どうじに"
+	cont "<ROCKET>いん　でも　あるのさ"
+	done
+
+SilphCo2FScientist2Text:
+	text_asm
+	ld hl, SilphCo2F_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 SilphCo2FScientist2BattleText:
-	text_far _SilphCo2FScientist2BattleText
-	text_end
+	text "ここは　たちいり　きんしだ"
+	line "かえりなさい！"
+	done
 
 SilphCo2FScientist2EndBattleText:
-	text_far _SilphCo2FScientist2EndBattleText
-	text_end
+	text "なかなか<⋯>"
+	prompt
 
 SilphCo2FScientist2AfterBattleText:
-	text_far _SilphCo2FScientist2AfterBattleText
-	text_end
+	text "ビルの　なかは　ふくざつだぞ"
+	line "きみに　こうりゃく　できるかな？"
+	done
+
+SilphCo2FRocket1Text:
+	text_asm
+	ld hl, SilphCo2F_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 SilphCo2FRocket1BattleText:
-	text_far _SilphCo2FRocket1BattleText
-	text_end
+	text "ここは　こどもの"
+	line "くる　ところ　じゃない！"
+	done
 
 SilphCo2FRocket1EndBattleText:
-	text_far _SilphCo2FRocket1EndBattleText
-	text_end
+	text "つよい！"
+	prompt
 
 SilphCo2FRocket1AfterBattleText:
-	text_far _SilphCo2FRocket1AfterBattleText
-	text_end
+	text "ひしがた　デザインの　ゆかは"
+	line "テレポート　ブロックだ！"
+
+	para "ハイテクな　ビルの　なかでの"
+	line "いどう　しゅだんだぜ"
+	done
+
+SilphCo2FRocket2Text:
+	text_asm
+	ld hl, SilphCo2F_TrainerHeader3
+	call TalkToTrainer
+	jp TextScriptEnd
 
 SilphCo2FRocket2BattleText:
-	text_far _SilphCo2FRocket2BattleText
-	text_end
+	text "そこの　こども！"
+	line "うろうろ　するんじゃない！"
+	done
 
 SilphCo2FRocket2EndBattleText:
-	text_far _SilphCo2FRocket2EndBattleText
-	text_end
+	text "ぐ！　しくじった"
+	prompt
 
 SilphCo2FRocket2AfterBattleText:
-	text_far _SilphCo2FRocket2AfterBattleText
-	text_end
+	text "<ROCKET>は"
+	line "シルフ　カンパニーと"
+	cont "ていけい　するのだ！"
+	done

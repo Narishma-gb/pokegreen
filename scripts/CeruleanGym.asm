@@ -4,7 +4,7 @@ CeruleanGym_Script:
 	res BIT_CUR_MAP_LOADED_2, [hl]
 	call nz, .LoadNames
 	call EnableAutoTextBoxDrawing
-	ld hl, CeruleanGymTrainerHeaders
+	ld hl, CeruleanGym_TrainerHeaders
 	ld de, CeruleanGym_ScriptPointers
 	ld a, [wCeruleanGymCurScript]
 	call ExecuteCurMapScriptInTable
@@ -17,10 +17,10 @@ CeruleanGym_Script:
 	jp LoadGymLeaderAndCityName
 
 .CityName:
-	db "CERULEAN CITY@"
+	db "ハナダ@"
 
 .LeaderName:
-	db "MISTY@"
+	db "カスミ@"
 
 CeruleanGymResetScripts:
 	xor a ; SCRIPT_CERULEANGYM_DEFAULT
@@ -81,12 +81,9 @@ CeruleanGym_TextPointers:
 	dw_const CeruleanGymMistyReceivedTM11Text,     TEXT_CERULEANGYM_MISTY_RECEIVED_TM11
 	dw_const CeruleanGymMistyTM11NoRoomText,       TEXT_CERULEANGYM_MISTY_TM11_NO_ROOM
 
-CeruleanGymTrainerHeaders:
-	def_trainers 2
-CeruleanGymTrainerHeader0:
-	trainer EVENT_BEAT_CERULEAN_GYM_TRAINER_0, 3, CeruleanGymBattleText1, CeruleanGymEndBattleText1, CeruleanGymAfterBattleText1
-CeruleanGymTrainerHeader1:
-	trainer EVENT_BEAT_CERULEAN_GYM_TRAINER_1, 3, CeruleanGymBattleText2, CeruleanGymEndBattleText2, CeruleanGymAfterBattleText2
+	def_trainers CeruleanGym, 2
+	trainer EVENT_BEAT_CERULEAN_GYM_TRAINER_0, 3, CooltrainerF
+	trainer EVENT_BEAT_CERULEAN_GYM_TRAINER_1, 3, Swimmer
 	db -1 ; end
 
 CeruleanGymMistyText:
@@ -125,67 +122,117 @@ CeruleanGymMistyText:
 	jp TextScriptEnd
 
 .PreBattleText:
-	text_far _CeruleanGymMistyPreBattleText
-	text_end
+	text "あのね　きみ！"
+
+	para "#　そだてる　にも"
+	line "ポリシーが　ある　やつ　だけが"
+	cont "プロに　なれるの！"
+
+	para "あなたは　#　つかまえて"
+	line "そだてる　とき"
+	cont "なにを　かんがえてる？"
+
+	para "わたしの　ポリシーはね<⋯>"
+
+	para "みず　タイプ　#で　せめて"
+	line "せめて　<⋯>せめまくる　ことよ！"
+	done
 
 .TM11ExplanationText:
-	text_far _CeruleanGymMistyTM11ExplanationText
-	text_end
+	text "<TM>１１は　バブルこうせんを"
+	line "#に　おしえるの"
+
+	para "みずに　すむ　#に"
+	line "つかって　あげて！"
+	done
 
 CeruleanGymMistyCascadeBadgeInfoText:
-	text_far _CeruleanGymMistyCascadeBadgeInfoText
-	text_end
+	text "ブルー　バッジが　あれば"
+	line "レベル３０までの　#は"
+	cont "おとなしく　いうこと　きくわ！"
+
+	para "それが　たとえ"
+	line "ひとから　もらった　#でもね"
+
+	para "それと　たたかって　なくても"
+	line "いあいぎりが　つかえるわ"
+
+	para "ほそい　きを　きりたおして"
+	line "とおれる　ように　なるの"
+
+	para "<⋯>　あと　これは　わたしの"
+	line "じまんの　<TM>よ！"
+	done
 
 CeruleanGymMistyReceivedTM11Text:
-	text_far _CeruleanGymMistyReceivedTM11Text
+	text "<PLAYER>は　カスミから"
+	line "<TM>１１を　もらった！@"
 	sound_get_item_1
 	text_end
 
 CeruleanGymMistyTM11NoRoomText:
-	text_far _CeruleanGymMistyTM11NoRoomText
-	text_end
+	text "にもつ　いっぱいね"
+	done
 
 CeruleanGymMistyReceivedCascadeBadgeText:
-	text_far _CeruleanGymMistyReceivedCascadeBadgeText
+	text "うーん<⋯>！"
+	line "わたしの　まけね"
+
+	para "しょうが　ない！"
+
+	para "わたしに　かった　しょうこに"
+	line "ブルー　バッジを　あげる！@"
 	sound_get_key_item ; actually plays the second channel of SFX_BALL_POOF due to the wrong music bank being loaded
 	text_promptbutton
 	text_end
 
 CeruleanGymCooltrainerFText:
 	text_asm
-	ld hl, CeruleanGymTrainerHeader0
+	ld hl, CeruleanGym_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
-CeruleanGymBattleText1:
-	text_far _CeruleanGymBattleText1
-	text_end
+CeruleanGymCooltrainerFBattleText:
+	text "きみ　なんて"
+	line "あたしで　じゅうぶん！"
 
-CeruleanGymEndBattleText1:
-	text_far _CeruleanGymEndBattleText1
-	text_end
+	para "カスミが　でる　まく　じゃないわ"
+	done
 
-CeruleanGymAfterBattleText1:
-	text_far _CeruleanGymAfterBattleText1
-	text_end
+CeruleanGymCooltrainerFEndBattleText:
+	text "まいったわ！"
+	prompt
+
+CeruleanGymCooltrainerFAfterBattleText:
+	text "いろんな　#　<TRAINER>と"
+	line "たたかって　みないと"
+	cont "じぶんの　つよさ　わからない　ものね"
+	done
 
 CeruleanGymSwimmerText:
 	text_asm
-	ld hl, CeruleanGymTrainerHeader1
+	ld hl, CeruleanGym_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
-CeruleanGymBattleText2:
-	text_far _CeruleanGymBattleText2
-	text_end
+CeruleanGymSwimmerBattleText:
+	text "おわっぷ！"
 
-CeruleanGymEndBattleText2:
-	text_far _CeruleanGymEndBattleText2
-	text_end
+	para "まずは　おれが　あいてだ！"
+	line "かかって　こい！"
+	done
 
-CeruleanGymAfterBattleText2:
-	text_far _CeruleanGymAfterBattleText2
-	text_end
+CeruleanGymSwimmerEndBattleText:
+	text "こんな　はずは　ない"
+	prompt
+
+CeruleanGymSwimmerAfterBattleText:
+	text "カスミは　これから　まだまだ"
+	line "つよくなる　<TRAINER>だ！"
+
+	para "おまえ　なんかにゃ"
+	line "まけたり　しないよ"
+	done
 
 CeruleanGymGymGuideText:
 	text_asm
@@ -201,9 +248,26 @@ CeruleanGymGymGuideText:
 	jp TextScriptEnd
 
 .ChampInMakingText:
-	text_far _CeruleanGymGymGuideChampInMakingText
-	text_end
+	text "おーす！"
+	line "みらいの　チャンピオン！"
+
+	para "アドバイス　しよう！"
+
+	para "ここの　リーダー　カスミは"
+	line "みずに　すむ　#を　つかう"
+	cont "プロフェッショナルだ！"
+
+	para "こんな　ときは　しょくぶつ　タイプで"
+	line "みずを　すいとる　さくせんだ"
+
+	para "<⋯>　それか　でんき　タイプで"
+	line "しびれ　させるのも　いいぜ"
+	done
 
 .BeatMistyText:
-	text_far _CeruleanGymGymGuideBeatMistyText
-	text_end
+	text "カスミに　かったな！"
+	line "おれの　いった　とおり　だったろ？"
+
+	para "おまえも　すごいが"
+	line "おれも　すごいだろ？"
+	done

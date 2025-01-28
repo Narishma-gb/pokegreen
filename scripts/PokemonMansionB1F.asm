@@ -1,7 +1,7 @@
 PokemonMansionB1F_Script:
 	call MansionB1FCheckReplaceSwitchDoorBlocks
 	call EnableAutoTextBoxDrawing
-	ld hl, Mansion4TrainerHeaders
+	ld hl, PokemonMansionB1F_TrainerHeaders
 	ld de, PokemonMansionB1F_ScriptPointers
 	ld a, [wPokemonMansionB1FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -16,30 +16,30 @@ MansionB1FCheckReplaceSwitchDoorBlocks:
 	CheckEvent EVENT_MANSION_SWITCH_ON
 	jr nz, .switchTurnedOn
 	ld a, $e
-	ld bc, $80d
+	lb bc, 8, 13
 	call Mansion2ReplaceBlock
 	ld a, $e
-	ld bc, $b06
+	lb bc, 11, 6
 	call Mansion2ReplaceBlock
 	ld a, $5f
-	ld bc, $304
+	lb bc, 3, 4
 	call Mansion2ReplaceBlock
 	ld a, $54
-	ld bc, $808
+	lb bc, 8, 8
 	call Mansion2ReplaceBlock
 	ret
 .switchTurnedOn
 	ld a, $2d
-	ld bc, $80d
+	lb bc, 8, 13
 	call Mansion2ReplaceBlock
 	ld a, $5f
-	ld bc, $b06
+	lb bc, 11, 6
 	call Mansion2ReplaceBlock
 	ld a, $e
-	ld bc, $304
+	lb bc, 3, 4
 	call Mansion2ReplaceBlock
 	ld a, $e
-	ld bc, $808
+	lb bc, 8, 8
 	call Mansion2ReplaceBlock
 	ret
 
@@ -71,50 +71,56 @@ PokemonMansionB1F_TextPointers:
 	dw_const PickUpItemText,                 TEXT_POKEMONMANSIONB1F_SECRET_KEY
 	dw_const PokemonMansion2FSwitchText,     TEXT_POKEMONMANSIONB1F_SWITCH ; This switch uses the text script from the 2F.
 
-Mansion4TrainerHeaders:
-	def_trainers
-Mansion4TrainerHeader0:
-	trainer EVENT_BEAT_MANSION_4_TRAINER_0, 0, PokemonMansionB1FBurglarBattleText, PokemonMansionB1FBurglarEndBattleText, PokemonMansionB1FBurglarAfterBattleText
-Mansion4TrainerHeader1:
-	trainer EVENT_BEAT_MANSION_4_TRAINER_1, 3, PokemonMansionB1FScientistBattleText, PokemonMansionB1FScientistEndBattleText, PokemonMansionB1FScientistAfterBattleText
+	def_trainers PokemonMansionB1F
+	trainer EVENT_BEAT_MANSION_4_TRAINER_0, 0, Burglar
+	trainer EVENT_BEAT_MANSION_4_TRAINER_1, 3, Scientist
 	db -1 ; end
 
 PokemonMansionB1FBurglarText:
 	text_asm
-	ld hl, Mansion4TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-PokemonMansionB1FScientistText:
-	text_asm
-	ld hl, Mansion4TrainerHeader1
+	ld hl, PokemonMansionB1F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 PokemonMansionB1FBurglarBattleText:
-	text_far _PokemonMansionB1FBurglarBattleText
-	text_end
+	text "<⋯>　ありゃ　こまった"
+	line "みちに　まよったぞ"
+	done
 
 PokemonMansionB1FBurglarEndBattleText:
-	text_far _PokemonMansionB1FBurglarEndBattleText
-	text_end
+	text "ひゅー　どろどろ"
+	prompt
 
 PokemonMansionB1FBurglarAfterBattleText:
-	text_far _PokemonMansionB1FBurglarAfterBattleText
-	text_end
+	text "まえに　すんでた　ひとの"
+	line "どうぐが　けっこう　おちてるぜ"
+	done
+
+PokemonMansionB1FScientistText:
+	text_asm
+	ld hl, PokemonMansionB1F_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 PokemonMansionB1FScientistBattleText:
-	text_far _PokemonMansionB1FScientistBattleText
-	text_end
+	text "ここは　ひろくて"
+	line "けんきゅうするには　いい　ばしょだ"
+	done
 
 PokemonMansionB1FScientistEndBattleText:
-	text_far _PokemonMansionB1FScientistEndBattleText
-	text_end
+	text "なにを　するのかね"
+	prompt
 
 PokemonMansionB1FScientistAfterBattleText:
-	text_far _PokemonMansionB1FScientistAfterBattleText
-	text_end
+	text "きに　いったよ！"
+	line "ここに　すめば"
+	cont "けんきゅうも　はかどるな<⋯>"
+	done
 
 PokemonMansionB1FDiaryText:
-	text_far _PokemonMansionB1FDiaryText
-	text_end
+	text "にっき　９がつ１にち"
+	line "#　ミュウツーは　つよすぎる"
+
+	para "ダメだ<⋯>"
+	line "わたしの　てには　おえない！"
+	done

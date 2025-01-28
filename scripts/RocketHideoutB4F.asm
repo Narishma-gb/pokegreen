@@ -1,7 +1,7 @@
 RocketHideoutB4F_Script:
 	call RocketHideoutB4FDoorCallbackScript
 	call EnableAutoTextBoxDrawing
-	ld hl, RocketHideout4TrainerHeaders
+	ld hl, RocketHideoutB4F_TrainerHeaders
 	ld de, RocketHideoutB4F_ScriptPointers
 	ld a, [wRocketHideoutB4FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -86,14 +86,10 @@ RocketHideoutB4F_TextPointers:
 	dw_const PickUpItemText,                              TEXT_ROCKETHIDEOUTB4F_LIFT_KEY
 	dw_const RocketHideoutB4FGiovanniHopeWeMeetAgainText, TEXT_ROCKETHIDEOUTB4F_GIOVANNI_HOPE_WE_MEET_AGAIN
 
-RocketHideout4TrainerHeaders:
-	def_trainers 2
-RocketHideout4TrainerHeader0:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_0, 0, RocketHideoutB4FGiovanniBattleText, RocketHideoutB4FGiovanniEndBattleText, RocketHideoutB4FGiovanniAfterBattleText
-RocketHideout4TrainerHeader1:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_1, 0, RocketHideoutB4FRocket1BattleText, RocketHideoutB4FRocket1EndBattleText, RocketHideoutB4FRocket1AfterBattleText
-RocketHideout4TrainerHeader2:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_2, 1, RocketHideoutB4FRocket2BattleText, RocketHideoutB4FRocket2EndBattleText, RocketHideoutB4FRocket2AfterBattleText
+	def_trainers RocketHideoutB4F, 2
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_0, 0, Rocket1
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_1, 0, Rocket2
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_4_TRAINER_2, 1, Rocket3
 	db -1 ; end
 
 RocketHideoutB4FGiovanniText:
@@ -125,68 +121,98 @@ RocketHideoutB4FGiovanniText:
 	jp TextScriptEnd
 
 .ImpressedYouGotHereText:
-	text_far _RocketHideoutB4FGiovanniImpressedYouGotHereText
-	text_end
+	text "ほほうッ！"
+	line "こんな　ところ　まで　よくきた"
+
+	para "せかい　じゅうの　#を"
+	line "わるだくみに　つかい　まくって"
+	cont "かねもうけ　する　<ROCKET>！"
+
+	para "わたしが"
+	line "その　リーダー　サカキだ！"
+
+	para "わたしに　はむかう　なら"
+	line "いたい　めに　あって　もらう！"
+	done
 
 .WhatCannotBeText:
-	text_far _RocketHideoutB4FGiovanniWhatCannotBeText
-	text_end
+	text "ぐ　ぐーッ！"
+	line "そんな　ばかなーッ！"
+	prompt
 
 RocketHideoutB4FGiovanniHopeWeMeetAgainText:
-	text_far _RocketHideoutB4FGiovanniHopeWeMeetAgainText
-	text_end
+	text "<⋯>　きみは　とても　だいじに"
+	line "#を　そだてて　いるな"
+
+	para "そんな　こどもに"
+	line "わたしの　かんがえは"
+	cont "とても　りかい　できないだろう"
+
+	para "　<⋯>！"
+	line "ここは　いちど　みを　ひこう！"
+
+	para "きみとは　また　どこかで"
+	line "たたかいたい　ものだ<⋯>！"
+	done
 
 RocketHideoutB4FRocket1Text:
 	text_asm
-	ld hl, RocketHideout4TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-RocketHideoutB4FGiovanniBattleText:
-	text_far _RocketHideoutB4FGiovanniBattleText
-	text_end
-
-RocketHideoutB4FGiovanniEndBattleText:
-	text_far _RocketHideoutB4FGiovanniEndBattleText
-	text_end
-
-RocketHideoutB4FGiovanniAfterBattleText:
-	text_far _RocketHideoutB4FGiovanniAfterBattleText
-	text_end
-
-RocketHideoutB4FRocket2Text:
-	text_asm
-	ld hl, RocketHideout4TrainerHeader1
+	ld hl, RocketHideoutB4F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 RocketHideoutB4FRocket1BattleText:
-	text_far _RocketHideoutB4FRocket1BattleText
-	text_end
+	text "あーッ　おまえ！"
+	line "オツキミやまで　カセキ　さがしの"
+	cont "じゃま　した　やつだ！"
+	done
 
 RocketHideoutB4FRocket1EndBattleText:
-	text_far _RocketHideoutB4FRocket1EndBattleText
-	text_end
+	text "くやしいが　やられた！"
+	prompt
 
 RocketHideoutB4FRocket1AfterBattleText:
-	text_far _RocketHideoutB4FRocket1AfterBattleText
-	text_end
+	text "<ROCKET>の"
+	line "じゃま　ばかり　しやがって<⋯>！"
+	done
 
-RocketHideoutB4FRocket3Text:
+RocketHideoutB4FRocket2Text:
 	text_asm
-	ld hl, RocketHideout4TrainerHeader2
+	ld hl, RocketHideoutB4F_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 RocketHideoutB4FRocket2BattleText:
-	text_far _RocketHideoutB4FRocket2BattleText
-	text_end
+	text "<ROCKET>の　あくじの"
+	line "すばらしさが　わからん　こどもめ！"
+	done
 
 RocketHideoutB4FRocket2EndBattleText:
-	text_far _RocketHideoutB4FRocket2EndBattleText
-	text_end
+	text "あぎゃぎゃ！"
+	prompt
 
 RocketHideoutB4FRocket2AfterBattleText:
+	text "ボス<⋯>！"
+	line "ちから　および　ません　でした"
+	done
+
+RocketHideoutB4FRocket3Text:
+	text_asm
+	ld hl, RocketHideoutB4F_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
+
+RocketHideoutB4FRocket3BattleText:
+	text "はははーッ！"
+	line "エレベータが　つかえないって？"
+	cont "カギは　だれが　もってるのかなー？"
+	done
+
+RocketHideoutB4FRocket3EndBattleText:
+	text "そんな<⋯>！"
+	prompt
+
+RocketHideoutB4FRocket3AfterBattleText:
 	text_asm
 	ld hl, .Text
 	call PrintText
@@ -199,5 +225,7 @@ RocketHideoutB4FRocket2AfterBattleText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _RocketHideoutB4FRocket2AfterBattleText
-	text_end
+	text "しまった<⋯>！"
+	line "せっかく　かくして　おいた"
+	cont "エレベータの　カギが<⋯>！"
+	done

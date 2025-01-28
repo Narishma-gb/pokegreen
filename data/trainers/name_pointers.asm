@@ -1,7 +1,6 @@
 TrainerNamePointers:
-; These are only used for trainers' defeat speeches.
-; They were originally shortened variants of the trainer class names
-; in the Japanese versions, but are now redundant with TrainerNames.
+; These are shortened variants of some trainer class names, used for trainers' defeat speeches.
+; If no short name exists, points to the full opponent's name stored in wTrainerName.
 	table_width 2
 	dw .YoungsterName
 	dw .BugCatcherName
@@ -52,24 +51,24 @@ TrainerNamePointers:
 	dw wTrainerName
 	assert_table_length NUM_TRAINERS
 
-.YoungsterName:     db "YOUNGSTER@"
-.BugCatcherName:    db "BUG CATCHER@"
-.LassName:          db "LASS@"
-.JrTrainerMName:    db "JR.TRAINER♂@"
-.JrTrainerFName:    db "JR.TRAINER♀@"
-.PokemaniacName:    db "POKéMANIAC@"
-.SuperNerdName:     db "SUPER NERD@"
-.BurglarName:       db "BURGLAR@"
-.EngineerName:      db "ENGINEER@"
-.UnusedJugglerName: db "JUGGLER@"
-.SwimmerName:       db "SWIMMER@"
-.BeautyName:        db "BEAUTY@"
-.RockerName:        db "ROCKER@"
-.JugglerName:       db "JUGGLER@"
-.BlackbeltName:     db "BLACKBELT@"
-.ProfOakName:       db "PROF.OAK@"
-.ChiefName:         db "CHIEF@"
-.ScientistName:     db "SCIENTIST@"
-.RocketName:        db "ROCKET@"
-.CooltrainerMName:  db "COOLTRAINER♂@"
-.CooltrainerFName:  db "COOLTRAINER♀@"
+.YoungsterName:     db "たんパン@"
+.BugCatcherName:    db "むしとり@"
+.LassName:          db "ミニスカ@"
+.JrTrainerMName:    db "ボーイ@"
+.JrTrainerFName:    db "ガール@"
+.PokemaniacName:    db "マニア@"
+.SuperNerdName:     db "りかけい@"
+.BurglarName:       db "どろぼう@"
+.EngineerName:      db "オヤジ@"
+.UnusedJugglerName: db "ジャック@"
+.SwimmerName:       db "かいパン@"
+.BeautyName:        db "おねえさん@"
+.RockerName:        db "グループ@"
+.JugglerName:       db "ジャグラー@"
+.BlackbeltName:     db "からて@"
+.ProfOakName:       db "オーキド@"
+.ChiefName:         db "チーフ@"
+.ScientistName:     db "けんきゅういん@"
+.RocketName:        db "だんいん@"
+.CooltrainerMName:  db "エリート♂@"
+.CooltrainerFName:  db "エリート♀@"

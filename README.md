@@ -1,31 +1,17 @@
-# Pokémon Red and Blue [![Build Status][ci-badge]][ci]
+# Japanese Pokémon Red and Green
 
-This is a disassembly of Pokémon Red and Blue.
+This is a disassembly of Pokémon Red and Green, based on pret [**pokered**](https://github.com/pret/pokered) full decompilation.
 
 It builds the following ROMs:
 
-- Pokemon Red (UE) [S][!].gb `sha1: ea9bcae617fdf159b045185467ae58b2e4a48b9a`
-- Pokemon Blue (UE) [S][!].gb `sha1: d7037c83e1ae5b39bde3c30787637ba1d4c48ce2`
-- BLUEMONS.GB (debug build) `sha1: 5b1456177671b79b263c614ea0e7cc9ac542e9c4`
-- dmgapae0.e69.patch `sha1: 0fb5f743696adfe1dbb2e062111f08f9bc5a293a`
-- dmgapee0.e68.patch `sha1: ed4be94dc29c64271942c87f2157bca9ca1019c7`
+- Pocket Monsters - Red Version (J) (V1.0) [S].gb `sha1: 0623ad12f48c259447980d68bd85ddbf8204b2cd`
+- Pocket Monsters Midori (J) (V1.0) [S][!].gb `sha1: 82c0eef40a5e2423699d9fd8ba15dfaa8b51d196`
+- Pocket Monsters - Red Version (J) (V1.1) [S].gb `sha1: ef74c79cded14204ac79e77f4964d9cb25003120`
+- Pocket Monsters Midori (J) (V1.1) [S][!].gb `sha1: 4b97cd44aa3f0dd290bfe7b3ac17b7bd8270897b`
 
 To set up the repository, see [**INSTALL.md**](INSTALL.md).
 
 
 ## See also
 
-- [**Wiki**][wiki] (includes [tutorials][tutorials])
-- [**Symbols**][symbols]
-- [**Tools**][tools]
-
-You can find us on [Discord (pret, #pokered)](https://discord.gg/d5dubZ3).
-
-For other pret projects, see [pret.github.io](https://pret.github.io/).
-
-[wiki]: https://github.com/pret/pokered/wiki
-[tutorials]: https://github.com/pret/pokered/wiki/Tutorials
-[symbols]: https://github.com/pret/pokered/tree/symbols
-[tools]: https://github.com/pret/gb-asm-tools
-[ci]: https://github.com/pret/pokered/actions
-[ci-badge]: https://github.com/pret/pokered/actions/workflows/main.yml/badge.svg
+- **Wiki** (WIP)

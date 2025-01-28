@@ -1,6 +1,6 @@
 Route14_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, Route14TrainerHeaders
+	ld hl, Route14_TrainerHeaders
 	ld de, Route14_ScriptPointers
 	ld a, [wRoute14CurScript]
 	call ExecuteCurMapScriptInTable
@@ -27,210 +27,237 @@ Route14_TextPointers:
 	dw_const Route14Biker4Text,        TEXT_ROUTE14_BIKER4
 	dw_const Route14SignText,          TEXT_ROUTE14_SIGN
 
-Route14TrainerHeaders:
-	def_trainers
-Route14TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_0, 2, Route14CooltrainerM1BattleText, Route14CooltrainerM1EndBattleText, Route14CooltrainerM1AfterBattleText
-Route14TrainerHeader1:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_1, 2, Route14CooltrainerM2BattleText, Route14CooltrainerM2EndBattleText, Route14CooltrainerM2AfterBattleText
-Route14TrainerHeader2:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_2, 4, Route14CooltrainerM3BattleText, Route14CooltrainerM3EndBattleText, Route14CooltrainerM3AfterBattleText
-Route14TrainerHeader3:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_3, 3, Route14CooltrainerM4BattleText, Route14CooltrainerM4EndBattleText, Route14CooltrainerM4AfterBattleText
-Route14TrainerHeader4:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_4, 3, Route14CooltrainerM5BattleText, Route14CooltrainerM5EndBattleText, Route14CooltrainerM5AfterBattleText
-Route14TrainerHeader5:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_5, 4, Route14CooltrainerM6BattleText, Route14CooltrainerM6EndBattleText, Route14CooltrainerM6AfterBattleText
-Route14TrainerHeader6:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_6, 4, Route14Biker1BattleText, Route14Biker1EndBattleText, Route14Biker1AfterBattleText
-Route14TrainerHeader7:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_7, 4, Route14Biker2BattleText, Route14Biker2EndBattleText, Route14Biker2AfterBattleText
-Route14TrainerHeader8:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_8, 3, Route14Biker3BattleText, Route14Biker3EndBattleText, Route14Biker3AfterBattleText
-Route14TrainerHeader9:
-	trainer EVENT_BEAT_ROUTE_14_TRAINER_9, 4, Route14Biker4BattleText, Route14Biker4EndBattleText, Route14Biker4AfterBattleText
+	def_trainers Route14
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_0, 2, CooltrainerM1
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_1, 2, CooltrainerM2
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_2, 4, CooltrainerM3
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_3, 3, CooltrainerM4
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_4, 3, CooltrainerM5
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_5, 4, CooltrainerM6
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_6, 4, Biker1
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_7, 4, Biker2
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_8, 3, Biker3
+	trainer EVENT_BEAT_ROUTE_14_TRAINER_9, 4, Biker4
 	db -1 ; end
 
 Route14CooltrainerM1Text:
 	text_asm
-	ld hl, Route14TrainerHeader0
+	ld hl, Route14_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14CooltrainerM1BattleText:
-	text_far _Route14CooltrainerM1BattleText
-	text_end
+	text "つよい　#に　するなら"
+	line "やっぱり　<TM>で"
+	cont "いい　わざを　おしえないとね！"
+	done
 
 Route14CooltrainerM1EndBattleText:
-	text_far _Route14CooltrainerM1EndBattleText
-	text_end
+	text "まだまだって　かんじだ"
+	prompt
 
 Route14CooltrainerM1AfterBattleText:
-	text_far _Route14CooltrainerM1AfterBattleText
-	text_end
+	text "きみ　ひでんマシンも　もってるね"
+	line "あれで　おぼえた　わざは"
+	cont "#は　２どと　わすれないよ"
+	done
 
 Route14CooltrainerM2Text:
 	text_asm
-	ld hl, Route14TrainerHeader1
+	ld hl, Route14_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14CooltrainerM2BattleText:
-	text_far _Route14CooltrainerM2BattleText
-	text_end
+	text "ぼくの　とり　#"
+	line "そろそろ<⋯>"
+	cont "たたかわせて　みようか！"
+	done
 
 Route14CooltrainerM2EndBattleText:
-	text_far _Route14CooltrainerM2EndBattleText
-	text_end
+	text "まだ　はやかった"
+	prompt
 
 Route14CooltrainerM2AfterBattleText:
-	text_far _Route14CooltrainerM2AfterBattleText
-	text_end
+	text "もっと　つよい　わざ"
+	line "おしえて　から　たたかわせよう"
+	done
 
 Route14CooltrainerM3Text:
 	text_asm
-	ld hl, Route14TrainerHeader2
+	ld hl, Route14_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14CooltrainerM3BattleText:
-	text_far _Route14CooltrainerM3BattleText
-	text_end
+	text "<TM>は"
+	line "タマムシ　デパート　でも　かえる！"
+	cont "でも　ひでんマシン　もってる"
+	cont "ひとは　すくないね"
+	done
 
 Route14CooltrainerM3EndBattleText:
-	text_far _Route14CooltrainerM3EndBattleText
-	text_end
+	text "もう　ダサダサ"
+	prompt
 
 Route14CooltrainerM3AfterBattleText:
-	text_far _Route14CooltrainerM3AfterBattleText
-	text_end
+	text "#の　タイプと　おなじ"
+	line "タイプの　わざを　おしえると"
+	cont "わざの　いりょくが"
+	cont "おおきくなる　らしいよ"
+	done
 
 Route14CooltrainerM4Text:
 	text_asm
-	ld hl, Route14TrainerHeader3
+	ld hl, Route14_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14CooltrainerM4BattleText:
-	text_far _Route14CooltrainerM4BattleText
-	text_end
+	text "きみの　とり　#は"
+	line "きみを　のせて　そらを　とぶ"
+	cont "わざは　おぼえたかい？"
+	done
 
 Route14CooltrainerM4EndBattleText:
-	text_far _Route14CooltrainerM4EndBattleText
-	text_end
+	text "ぼろまけ！"
+	prompt
 
 Route14CooltrainerM4AfterBattleText:
-	text_far _Route14CooltrainerM4AfterBattleText
-	text_end
+	text "ぼくらは　とり#が"
+	line "だいすき　だから<⋯>"
+	cont "それしか　そだてたく　ないよ"
+	done
 
 Route14CooltrainerM5Text:
 	text_asm
-	ld hl, Route14TrainerHeader4
+	ld hl, Route14_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14CooltrainerM5BattleText:
-	text_far _Route14CooltrainerM5BattleText
-	text_end
+	text "でんせつの　#　という"
+	line "はなし　きいた　こと　ある？"
+	done
 
 Route14CooltrainerM5EndBattleText:
-	text_far _Route14CooltrainerM5EndBattleText
-	text_end
+	text "どうして　まけたかな"
+	prompt
 
 Route14CooltrainerM5AfterBattleText:
-	text_far _Route14CooltrainerM5AfterBattleText
-	text_end
+	text "でんせつの　#は"
+	line "３しゅるい　いて"
+	cont "すべて　とり　#だ！"
+	done
 
 Route14CooltrainerM6Text:
 	text_asm
-	ld hl, Route14TrainerHeader5
+	ld hl, Route14_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14CooltrainerM6BattleText:
-	text_far _Route14CooltrainerM6BattleText
-	text_end
+	text "きが　のらない　けど<⋯>"
+	line "しょうが　ない！　やるか！"
+	done
 
 Route14CooltrainerM6EndBattleText:
-	text_far _Route14CooltrainerM6EndBattleText
-	text_end
+	text "ああ<⋯>　やっぱりな"
+	prompt
 
 Route14CooltrainerM6AfterBattleText:
-	text_far _Route14CooltrainerM6AfterBattleText
-	text_end
+	text "そらの　ひろさに　くらべたら"
+	line "かち　まけ　なんて"
+	cont "どうって　こと　ないのさ！"
+	done
 
 Route14Biker1Text:
 	text_asm
-	ld hl, Route14TrainerHeader6
+	ld hl, Route14_TrainerHeader6
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14Biker1BattleText:
-	text_far _Route14Biker1BattleText
-	text_end
+	text "おれ　おれは　せっかちだ！"
+	line "はやく　はやく　はやく　しろ！"
+	done
 
 Route14Biker1EndBattleText:
-	text_far _Route14Biker1EndBattleText
-	text_end
+	text "まけた　まけた"
+	line "おわりだ　じゃあな"
+	prompt
 
 Route14Biker1AfterBattleText:
-	text_far _Route14Biker1AfterBattleText
-	text_end
+	text "なんだ　なんだ　なんだ！"
+	line "まだ　ようじが　ある　ある　のか！"
+	done
 
 Route14Biker2Text:
 	text_asm
-	ld hl, Route14TrainerHeader7
+	ld hl, Route14_TrainerHeader7
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14Biker2BattleText:
-	text_far _Route14Biker2BattleText
-	text_end
+	text "ちょうど　いいぜ！"
+	line "つべこべ　いわずに　あいて　しな"
+	done
 
 Route14Biker2EndBattleText:
-	text_far _Route14Biker2EndBattleText
-	text_end
+	text "なんだ　こらあ！"
+	prompt
 
 Route14Biker2AfterBattleText:
-	text_far _Route14Biker2AfterBattleText
-	text_end
+	text "どうも　ちまちまと"
+	line "そだてる　のは　にがてだぜ！"
+	done
 
 Route14Biker3Text:
 	text_asm
-	ld hl, Route14TrainerHeader8
+	ld hl, Route14_TrainerHeader8
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14Biker3BattleText:
-	text_far _Route14Biker3BattleText
-	text_end
+	text "この　あたりは"
+	line "たてものが　すくねえ　から"
+	cont "よく　はしりに　くるぜ！"
+	done
 
 Route14Biker3EndBattleText:
-	text_far _Route14Biker3EndBattleText
-	text_end
+	text "おっと　こけちまった！"
+	prompt
 
 Route14Biker3AfterBattleText:
-	text_far _Route14Biker3AfterBattleText
-	text_end
+	text "よく　そこまで　そだてたな！"
+	line "なんにしても<⋯>"
+
+	para "つよいって　ことは"
+	line "たいした　もんだぜ！"
+	done
 
 Route14Biker4Text:
 	text_asm
-	ld hl, Route14TrainerHeader9
+	ld hl, Route14_TrainerHeader9
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route14Biker4BattleText:
-	text_far _Route14Biker4BattleText
-	text_end
+	text "#　たいけつか！"
+	line "おもしろい！　つきあうぜ！"
+	done
 
 Route14Biker4EndBattleText:
-	text_far _Route14Biker4EndBattleText
-	text_end
+	text "なっとく　いかねえ"
+	prompt
 
 Route14Biker4AfterBattleText:
-	text_far _Route14Biker4AfterBattleText
-	text_end
+	text "おれと　おまえの"
+	line "ちょくせつ　たいけつ　だったら"
+	cont "おれが　かつぜ！"
+	done
 
 Route14SignText:
-	text_far _Route14SignText
-	text_end
+	text "ここは　１４ばん　どうろ"
+	line "にし　<⋯>　セキチク　シティ"
+	done

@@ -7,9 +7,13 @@ ViridianForestSouthGate_TextPointers:
 	dw_const ViridianForestSouthGateLittleGirlText, TEXT_VIRIDIANFORESTSOUTHGATE_LITTLE_GIRL
 
 ViridianForestSouthGateGirlText:
-	text_far _ViridianForestSouthGateGirlText
-	text_end
+	text "トキワの　もりへ　いくの？"
+	line "もりは　てんねんの　めいろよ"
+	cont "まよわないよう　きを　つけて"
+	done
 
 ViridianForestSouthGateLittleGirlText:
-	text_far _ViridianForestSouthGateLittleGirlText
-	text_end
+	text "コラッタは　ちっちゃい　けど"
+	line "まえばの　いちげきは　あなどれない"
+	cont "もう　つかまえた　かしら？"
+	done

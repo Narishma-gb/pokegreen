@@ -9,13 +9,19 @@ SafariZoneEastRestHouse_TextPointers:
 	dw_const SafariZoneEastRestHouseSilphWorkerMText, TEXT_SAFARIZONEEASTRESTHOUSE_SILPH_WORKER_M
 
 SafariZoneEastRestHouseScientistText:
-	text_far _SafariZoneEastRestHouseScientistText
-	text_end
+	text "おたく　なんびき　つかまえた？"
+	line "ぼくは　つかまえに　つかまえて"
+	cont "つかれて　しまったよ"
+	done
 
 SafariZoneEastRestHouseRockerText:
-	text_far _SafariZoneEastRestHouseRockerText
-	text_end
+	text "ラッキーを　つかまえたぜ！"
+
+	para "これで"
+	line "じゅーぶん　もとは　とった！"
+	done
 
 SafariZoneEastRestHouseSilphWorkerMText:
-	text_far _SafariZoneEastRestHouseSilphWorkerMText
-	text_end
+	text "はあ<⋯>！"
+	line "はしゃぎ　すぎて　つかれちゃった"
+	done

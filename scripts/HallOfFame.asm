@@ -31,7 +31,7 @@ HallOfFameResetEventsAndSaveScript:
 	ld [wLetterPrintingDelayFlags], a
 	ld hl, wStatusFlags7
 	res BIT_NO_MAP_MUSIC, [hl]
-	assert wStatusFlags7 + 1 == wElite4Flags
+	ASSERT wStatusFlags7 + 1 == wElite4Flags
 	inc hl
 	set BIT_UNUSED_BEAT_ELITE_4, [hl] ; debug, unused?
 	xor a ; SCRIPT_*_DEFAULT
@@ -108,5 +108,25 @@ HallOfFame_TextPointers:
 	dw_const HallOfFameOakText, TEXT_HALLOFFAME_OAK
 
 HallOfFameOakText:
-	text_far _HallOfFameOakText
-	text_end
+	text "オーキド『<⋯>　おほんッ！"
+	line "おめでとう！　<PLAYER>！"
+
+	para "ここは<⋯>"
+	line "れきだいの　#　リーグ"
+	cont "<TRAINER>の　もとで<⋯>"
+
+	para "かつやく　した　#　たちを"
+	line "えいえんに　きろく　して"
+	cont "たたえる　フロア　である！"
+
+	para "#　<TRAINER>は　ここに"
+	line "きろく　される　よろこびを"
+	cont "でんどういり　と　よんで　いる！"
+
+	para "<PLAYER>！　おまえは"
+	line "はげしい　たたかいの　すえ"
+	cont "リーグ　チャンピオンと　なった！"
+
+	para "ここに　<PLAYER>の　なまえと"
+	line "#　たちを　きろく　しよう！"
+	done

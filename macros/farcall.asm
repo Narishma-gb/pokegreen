@@ -34,6 +34,18 @@ MACRO homecall
 	ld [MBC1RomBank], a
 ENDM
 
+MACRO homecall_ld ; homecall with first instruction ld a, [hLoadedROMBank] instead of ldh
+	ld a, [hLoadedROMBank]
+	push af
+	ld a, BANK(\1)
+	ldh [hLoadedROMBank], a
+	ld [MBC1RomBank], a
+	call \1
+	pop af
+	ldh [hLoadedROMBank], a
+	ld [MBC1RomBank], a
+ENDM
+
 MACRO homecall_sf ; homecall but save flags by popping into bc instead of af
 	ldh a, [hLoadedROMBank]
 	push af

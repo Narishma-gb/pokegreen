@@ -5,7 +5,7 @@ RedsHouse1F_TextPointers:
 	def_text_pointers
 	dw_const RedsHouse1FMomText, TEXT_REDSHOUSE1F_MOM
 	dw_const RedsHouse1FTVText,  TEXT_REDSHOUSE1F_TV
-
+	
 RedsHouse1FMomText:
 	text_asm
 	ld a, [wStatusFlags4]
@@ -20,8 +20,15 @@ RedsHouse1FMomText:
 	jp TextScriptEnd
 
 .WakeUpText:
-	text_far _RedsHouse1FMomWakeUpText
-	text_end
+	text "おかあさん『<⋯>　そうね"
+	line "おとこのこは　いつか"
+	cont "たびに　でるもの　なのよ"
+	cont "うん<⋯>　テレビの　はなしよ！"
+	
+	para "そういえば"
+	line "となりの　オーキドはかせが"
+	cont "あなたを　よんでたわよ"
+	done
 
 RedsHouse1FMomHealScript:
 	ld hl, RedsHouse1FMomYouShouldRestText
@@ -44,11 +51,19 @@ RedsHouse1FMomHealScript:
 	jp PrintText
 
 RedsHouse1FMomYouShouldRestText:
-	text_far _RedsHouse1FMomYouShouldRestText
-	text_end
+	text "おかあさん『<PLAYER><⋯>！"
+	line "すこし　やすんで　いったら"
+	cont "どうかしら<⋯>？"
+	cont "<⋯>　<⋯>　<⋯>"
+	prompt
+
 RedsHouse1FMomLookingGreatText:
-	text_far _RedsHouse1FMomLookingGreatText
-	text_end
+	text "おかあさん『あらあら！"
+	line "あなたも　#も"
+	cont "げんき　いっぱいね！"
+	cont "それじゃ　きを　つけて！"
+	cont "いってらっしゃい！"
+	done
 
 RedsHouse1FTVText:
 	text_asm
@@ -62,9 +77,13 @@ RedsHouse1FTVText:
 	jp TextScriptEnd
 
 .StandByMeMovieText:
-	text_far _RedsHouse1FTVStandByMeMovieText
-	text_end
+	text "テレビで　えいがを　やってる！"
+	line "おとこのこが　４にん"
+	cont "せんろのうえを　あるいてる<⋯>"
+	
+	para "<⋯>　ぼくも　もう　いかなきゃ！"
+	done
 
 .WrongSideText:
-	text_far _RedsHouse1FTVWrongSideText
-	text_end
+	text "みえない<⋯>"
+	done

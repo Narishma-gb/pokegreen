@@ -36,8 +36,21 @@ CinnabarGymQuiz::
 	jp TextScriptEnd
 
 CinnabarGymQuizIntroText:
-	text_far _CinnabarGymQuizIntroText
-	text_end
+	text "#　クイズ！"
+
+	para "せいかい　すると　ドアが　あいて"
+	line "つぎへ　すすめます！"
+
+	para "まちがえたら　でしの　<TRAINER>と"
+	line "たたかって　いただきます！"
+
+	para "ここの　リーダーに　あう　まで"
+	line "#の　たいりょくを"
+	cont "とって　おきたいなら！"
+
+	para "がんばって　こたえて　ください！"
+	line "では　おこたえ　ください！"
+	prompt
 
 CinnabarQuizQuestions:
 	dw CinnabarQuizQuestionsText1
@@ -48,28 +61,38 @@ CinnabarQuizQuestions:
 	dw CinnabarQuizQuestionsText6
 
 CinnabarQuizQuestionsText1:
-	text_far _CinnabarQuizQuestionsText1
-	text_end
+	text "#　キャタピーが　しんかすると"
+	line "バタフリーに　なる？"
+	done
 
 CinnabarQuizQuestionsText2:
-	text_far _CinnabarQuizQuestionsText2
-	text_end
+	text "#　リーグ　にんてい"
+	line "バッジは　ぜんぶで　９しゅるい？"
+	done
 
 CinnabarQuizQuestionsText3:
-	text_far _CinnabarQuizQuestionsText3
-	text_end
+	text "ニョロモは　３かい　しんかする"
+	line "#　である？"
+	done
 
 CinnabarQuizQuestionsText4:
-	text_far _CinnabarQuizQuestionsText4
-	text_end
+	text "かみなり　タイプの　わざを"
+	line "くりだした　とき"
+
+	para "じめん　タイプの　#には"
+	line "よく　きく？"
+	done
 
 CinnabarQuizQuestionsText5:
-	text_far _CinnabarQuizQuestionsText5
-	text_end
+	text "おなじ　レベルの　おなじ　#"
+	line "でも　つかまえる　たびに"
+	cont "つよさは　ちがう？"
+	done
 
 CinnabarQuizQuestionsText6:
-	text_far _CinnabarQuizQuestionsText6
-	text_end
+	text "「<TM>２８」とは"
+	line "「しねしねこうせん」である？"
+	done
 
 CinnabarGymGateFlagAction:
 	EventFlagAddress hl, EVENT_CINNABAR_GYM_GATE0_UNLOCKED
@@ -89,7 +112,7 @@ CinnabarGymQuiz_AskQuestion:
 	ld hl, CinnabarGymQuizCorrectText
 	call PrintText
 	ldh a, [hBackupGymGateIndex]
-	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
+;	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
 	ld c, a
 	ld b, FLAG_SET
 	call CinnabarGymGateFlagAction
@@ -103,7 +126,7 @@ CinnabarGymQuiz_AskQuestion:
 	call PrintText
 	ldh a, [hGymGateIndex]
 	add $2
-	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
+;	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
 	ld c, a
 	ld b, FLAG_TEST
 	EventFlagAddress hl, EVENT_BEAT_CINNABAR_GYM_TRAINER_0
@@ -118,12 +141,13 @@ CinnabarGymQuiz_AskQuestion:
 
 CinnabarGymQuizCorrectText:
 	sound_get_item_1
-	text_far _CinnabarGymQuizCorrectText
+	text "あたり　です！"
+
+	para "さきへ　すすんで　いいです@"
 	text_promptbutton
 	text_asm
-
 	ldh a, [hBackupGymGateIndex]
-	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
+;	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
 	ld c, a
 	ld b, FLAG_TEST
 	call CinnabarGymGateFlagAction
@@ -137,8 +161,8 @@ CinnabarGymQuizCorrectText:
 	jp TextScriptEnd
 
 CinnabarGymQuizIncorrectText:
-	text_far _CinnabarGymQuizIncorrectText
-	text_end
+	text "ばか　はずれです<⋯>"
+	prompt
 
 UpdateCinnabarGymGateTileBlocks_::
 ; Update the overworld map with open floor blocks or locked gate blocks
@@ -163,7 +187,7 @@ UpdateCinnabarGymGateTileBlocks_::
 	push bc
 	ldh a, [hGymGateIndex]
 	ldh [hBackupGymGateIndex], a
-	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
+;	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
 	ld c, a
 	ld b, FLAG_TEST
 	call CinnabarGymGateFlagAction

@@ -1099,6 +1099,7 @@ FrameBlock62:
 	dbsprite  1,  3,  0,  0, $49, 0
 	dbsprite  3,  3,  0,  0, $49, 0
 	dbsprite  5,  3,  0,  0, $49, 0
+; Unused ?
 	dbsprite  7,  3,  0,  0, $49, 0
 
 FrameBlock63:

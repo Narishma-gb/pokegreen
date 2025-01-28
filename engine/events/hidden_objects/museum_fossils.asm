@@ -7,8 +7,9 @@ AerodactylFossil:
 	ret
 
 AerodactylFossilText::
-	text_far _AerodactylFossilText
-	text_end
+	text "めずらしい　こだい　#"
+	line "プテラの　カセキ"
+	done
 
 KabutopsFossil:
 	ld a, FOSSIL_KABUTOPS
@@ -19,8 +20,9 @@ KabutopsFossil:
 	ret
 
 KabutopsFossilText::
-	text_far _KabutopsFossilText
-	text_end
+	text "めずらしい　こだい　#"
+	line "カブトプスの　カセキ"
+	done
 
 DisplayMonFrontSpriteInBox:
 ; Displays a pokemon's front sprite in a pop-up window.

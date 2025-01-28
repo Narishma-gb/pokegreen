@@ -24,7 +24,7 @@ PrintLetterDelay::
 .checkButtons
 	call Joypad
 	ldh a, [hJoyHeld]
-.checkAButton
+; checkAButton
 	bit BIT_A_BUTTON, a
 	jr z, .checkBButton
 	jr .endWait

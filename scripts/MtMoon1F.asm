@@ -1,6 +1,6 @@
 MtMoon1F_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, MtMoon1TrainerHeaders
+	ld hl, MtMoon1F_TrainerHeaders
 	ld de, MtMoon1F_ScriptPointers
 	ld a, [wMtMoon1FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -30,150 +30,169 @@ MtMoon1F_TextPointers:
 	dw_const PickUpItemText,            TEXT_MTMOON1F_TM_WATER_GUN
 	dw_const MtMoon1FBewareZubatSign,   TEXT_MTMOON1F_BEWARE_ZUBAT_SIGN
 
-MtMoon1TrainerHeaders:
-	def_trainers
-MtMoon1TrainerHeader0:
-	trainer EVENT_BEAT_MT_MOON_1_TRAINER_0, 2, MtMoon1FHikerBattleText, MtMoon1FHikerEndBattleText, MtMoon1FHikerAfterBattleText
-MtMoon1TrainerHeader1:
-	trainer EVENT_BEAT_MT_MOON_1_TRAINER_1, 3, MtMoon1FYoungster1BattleText, MtMoon1FYoungster1EndBattleText, MtMoon1FYoungster1AfterBattleText
-MtMoon1TrainerHeader2:
-	trainer EVENT_BEAT_MT_MOON_1_TRAINER_2, 3, MtMoon1FCooltrainerF1BattleText, MtMoon1FCooltrainerF1EndBattleText, MtMoon1FCooltrainerF1AfterBattleText
-MtMoon1TrainerHeader3:
-	trainer EVENT_BEAT_MT_MOON_1_TRAINER_3, 3, MtMoon1FSuperNerdBattleText, MtMoon1FSuperNerdEndBattleText, MtMoon1FSuperNerdAfterBattleText
-MtMoon1TrainerHeader4:
-	trainer EVENT_BEAT_MT_MOON_1_TRAINER_4, 3, MtMoon1FCooltrainerF2BattleText, MtMoon1FCooltrainerF2EndBattleText, MtMoon1FCooltrainerF2AfterBattleText
-MtMoon1TrainerHeader5:
-	trainer EVENT_BEAT_MT_MOON_1_TRAINER_5, 3, MtMoon1FYoungster2BattleText, MtMoon1FYoungster2EndBattleText, MtMoon1FYoungster2AfterBattleText
-MtMoon1TrainerHeader6:
-	trainer EVENT_BEAT_MT_MOON_1_TRAINER_6, 3, MtMoon1FYoungster3BattleText, MtMoon1FYoungster3EndBattleText, MtMoon1FYoungster3AfterBattleText
+	def_trainers MtMoon1F
+	trainer EVENT_BEAT_MT_MOON_1_TRAINER_0, 2, Hiker
+	trainer EVENT_BEAT_MT_MOON_1_TRAINER_1, 3, Youngster1
+	trainer EVENT_BEAT_MT_MOON_1_TRAINER_2, 3, CooltrainerF1
+	trainer EVENT_BEAT_MT_MOON_1_TRAINER_3, 3, SuperNerd
+	trainer EVENT_BEAT_MT_MOON_1_TRAINER_4, 3, CooltrainerF2
+	trainer EVENT_BEAT_MT_MOON_1_TRAINER_5, 3, Youngster2
+	trainer EVENT_BEAT_MT_MOON_1_TRAINER_6, 3, Youngster3
 	db -1 ; end
 
 MtMoon1FHikerText:
 	text_asm
-	ld hl, MtMoon1TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-MtMoon1FYoungster1Text:
-	text_asm
-	ld hl, MtMoon1TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-MtMoon1FCooltrainerF1Text:
-	text_asm
-	ld hl, MtMoon1TrainerHeader2
-	call TalkToTrainer
-	jp TextScriptEnd
-
-MtMoon1FSuperNerdText:
-	text_asm
-	ld hl, MtMoon1TrainerHeader3
-	call TalkToTrainer
-	jp TextScriptEnd
-
-MtMoon1FCooltrainerF2Text:
-	text_asm
-	ld hl, MtMoon1TrainerHeader4
-	call TalkToTrainer
-	jp TextScriptEnd
-
-MtMoon1FYoungster2Text:
-	text_asm
-	ld hl, MtMoon1TrainerHeader5
-	call TalkToTrainer
-	jp TextScriptEnd
-
-MtMoon1FYoungster3Text:
-	text_asm
-	ld hl, MtMoon1TrainerHeader6
+	ld hl, MtMoon1F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 MtMoon1FHikerBattleText:
-	text_far _MtMoon1FHikerBattleText
-	text_end
+	text "うわーッ！"
+	line "びっくり　した！"
+	cont "<⋯>　なんだ　こどもか"
+	done
 
 MtMoon1FHikerEndBattleText:
-	text_far _MtMoon1FHikerEndBattleText
-	text_end
+	text "おどろいた！"
+	prompt
 
 MtMoon1FHikerAfterBattleText:
-	text_far _MtMoon1FHikerAfterBattleText
-	text_end
+	text "こどもが"
+	line "こんな　くらい　ところを"
+	cont "ウロウロ　しちゃ　いかん　なあ"
+	done
+
+MtMoon1FYoungster1Text:
+	text_asm
+	ld hl, MtMoon1F_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 MtMoon1FYoungster1BattleText:
-	text_far _MtMoon1FYoungster1BattleText
-	text_end
+	text "きみも"
+	line "どうくつ　たんけんに　きたのかい"
+	done
 
 MtMoon1FYoungster1EndBattleText:
-	text_far _MtMoon1FYoungster1EndBattleText
-	text_end
+	text "<⋯>　まける　なんて"
+	line "カッコ　わるい"
+	prompt
 
 MtMoon1FYoungster1AfterBattleText:
-	text_far _MtMoon1FYoungster1AfterBattleText
-	text_end
+	text "おんなのこに"
+	line "イイ　とこ　みせようと"
+	cont "こんな　とこ　まで　きちゃった"
+	done
+
+MtMoon1FCooltrainerF1Text:
+	text_asm
+	ld hl, MtMoon1F_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 MtMoon1FCooltrainerF1BattleText:
-	text_far _MtMoon1FCooltrainerF1BattleText
-	text_end
+	text "わあーッ！"
+	line "どうくつの　なかって"
+	cont "いがいと　ひろいのねー！"
+	done
 
 MtMoon1FCooltrainerF1EndBattleText:
-	text_far _MtMoon1FCooltrainerF1EndBattleText
-	text_end
+	text "あ<⋯>　まけてる！"
+	prompt
 
 MtMoon1FCooltrainerF1AfterBattleText:
-	text_far _MtMoon1FCooltrainerF1AfterBattleText
-	text_end
+	text "こんなに　ひろいと"
+	line "どっちが　でぐちか　まよっちゃう"
+	done
+
+MtMoon1FSuperNerdText:
+	text_asm
+	ld hl, MtMoon1F_TrainerHeader3
+	call TalkToTrainer
+	jp TextScriptEnd
 
 MtMoon1FSuperNerdBattleText:
-	text_far _MtMoon1FSuperNerdBattleText
-	text_end
+	text "うわッ！　なんだ？"
+	line "きゅうに　こえを　かけるな！"
+	done
 
 MtMoon1FSuperNerdEndBattleText:
-	text_far _MtMoon1FSuperNerdEndBattleText
-	text_end
+	text "<⋯>"
+	line "こんな　#　では　ダメか"
+	prompt
 
 MtMoon1FSuperNerdAfterBattleText:
-	text_far _MtMoon1FSuperNerdAfterBattleText
-	text_end
+	text "えーと<⋯>！　どこかに"
+	line "つよい　#　いないか<⋯>　な"
+	done
+
+MtMoon1FCooltrainerF2Text:
+	text_asm
+	ld hl, MtMoon1F_TrainerHeader4
+	call TalkToTrainer
+	jp TextScriptEnd
 
 MtMoon1FCooltrainerF2BattleText:
-	text_far _MtMoon1FCooltrainerF2BattleText
-	text_end
+	text "なによー！"
+	line "どうくつで　はぐれた　ともだちを"
+	cont "ここで　まってるのよ"
+	done
 
 MtMoon1FCooltrainerF2EndBattleText:
-	text_far _MtMoon1FCooltrainerF2EndBattleText
-	text_end
+	text "わたし　まけたの？"
+	prompt
 
 MtMoon1FCooltrainerF2AfterBattleText:
-	text_far _MtMoon1FCooltrainerF2AfterBattleText
-	text_end
+	text "この　どうくつに"
+	line "すごい　カセキが"
+	cont "あるって　きいて　きたの"
+	done
+
+MtMoon1FYoungster2Text:
+	text_asm
+	ld hl, MtMoon1F_TrainerHeader5
+	call TalkToTrainer
+	jp TextScriptEnd
 
 MtMoon1FYoungster2BattleText:
-	text_far _MtMoon1FYoungster2BattleText
-	text_end
+	text "あやしい　おとこが"
+	line "どうくつを　うろついてるんだ"
+	cont "きみは<⋯>？"
+	done
 
 MtMoon1FYoungster2EndBattleText:
-	text_far _MtMoon1FYoungster2EndBattleText
-	text_end
+	text "やられた！"
+	prompt
 
 MtMoon1FYoungster2AfterBattleText:
-	text_far _MtMoon1FYoungster2AfterBattleText
-	text_end
+	text "ぼくが　みた　やつ！"
+	line "まちがい　ない！"
+	cont "あいつ　<ROCKET>　だぜ！"
+	done
+
+MtMoon1FYoungster3Text:
+	text_asm
+	ld hl, MtMoon1F_TrainerHeader6
+	call TalkToTrainer
+	jp TextScriptEnd
 
 MtMoon1FYoungster3BattleText:
-	text_far _MtMoon1FYoungster3BattleText
-	text_end
+	text "ハナダ　シティに　いくには"
+	line "どうくつを"
+	cont "ぬけないと　だめだよ！"
+	done
 
 MtMoon1FYoungster3EndBattleText:
-	text_far _MtMoon1FYoungster3EndBattleText
-	text_end
+	text "ぼくの　まけだ"
+	prompt
 
 MtMoon1FYoungster3AfterBattleText:
-	text_far _MtMoon1FYoungster3AfterBattleText
-	text_end
+	text "ズバットは　てごわい！"
+	line "でも　つかまえられれば"
+	cont "たよりに　なる　#だよ"
+	done
 
 MtMoon1FBewareZubatSign:
-	text_far _MtMoon1FBewareZubatSign
-	text_end
+	text "ズバットの"
+	line "きゅうけつ　こうげきに　ちゅうい！"
+	done

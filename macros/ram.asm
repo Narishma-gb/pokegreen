@@ -18,6 +18,7 @@ MACRO box_struct
 \1Moves::      ds NUM_MOVES
 \1OTID::       dw
 \1Exp::        ds 3
+\1StatExp::
 \1HPExp::      dw
 \1AttackExp::  dw
 \1DefenseExp:: dw

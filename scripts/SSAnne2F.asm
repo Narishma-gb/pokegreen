@@ -184,8 +184,14 @@ SSAnne2F_TextPointers:
 	dw_const SSAnne2FRivalCutMasterText, TEXT_SSANNE2F_RIVAL_CUT_MASTER
 
 SSAnne2FWaiterText:
-	text_far _SSAnne2FWaiterText
-	text_end
+	text "この　ふねは　せかい　かくちの"
+	line "#　<TRAINER>が　のってる"
+	cont "あこがれの　ごうか　きゃくせん！"
+
+	para "みなとに　つくたびに"
+	line "しょうたい　された　<TRAINER>と"
+	cont "こうりゅう　パーティを　してます"
+	done
 
 SSAnne2FRivalText:
 	text_asm
@@ -200,17 +206,53 @@ SSAnne2FRivalText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SSAnne2FRivalText
-	text_end
+	text "<RIVAL>『ボン　ジュール！"
+	line "<PLAYER>！"
+
+	para "おやおや！　こんな　ところで"
+	line "あう　とは<⋯>！"
+
+	para "<PLAYER><⋯>"
+	line "しょうたい　されてたっけ？"
+
+	para "それで　#　ずかんの"
+	line "データは　あつまったか！"
+
+	para "おれ　なんか"
+	line "もう　４０しゅるい　つかまえたぜ！"
+
+	para "みち　いっぽん　ちがう　だけで"
+	line "とれる　#も　ちがうぜ！"
+
+	para "ちゃんと　くさむら　はいって"
+	line "さがして　みろ！"
+	done
 
 SSAnne2FRivalDefeatedText:
-	text_far _SSAnne2FRivalDefeatedText
-	text_end
+	text "ふん<⋯>！"
+
+	para "とにかく<⋯>　#は"
+	line "そこそこ　そだててる　ようだな！"
+	prompt
 
 SSAnne2FRivalVictoryText:
-	text_far _SSAnne2FRivalVictoryText
-	text_end
+	text "<PLAYER><⋯>！"
+	line "ふなよい　してるのか！"
+
+	para "もっと　からだ"
+	line "きたえた　ほうが　いいぜ！"
+	prompt
 
 SSAnne2FRivalCutMasterText:
-	text_far _SSAnne2FRivalCutMasterText
-	text_end
+	text "<RIVAL>『いあいぎりの　めいじんが"
+	line "ふねに　のってるって　いう　からよ"
+
+	para "あって　みたら"
+	line "これが　ただの　ふなよい　おやじ！"
+
+	para "でも　この　わざが"
+	line "また　つかえるんだよなー！"
+
+	para "おまえも　あって　みると　いいぜ！"
+	line "じゃー　あばよ！"
+	done

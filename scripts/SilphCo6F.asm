@@ -1,7 +1,7 @@
 SilphCo6F_Script:
 	call SilphCo6F_GateCallbackScript
 	call EnableAutoTextBoxDrawing
-	ld hl, SilphCo6TrainerHeaders
+	ld hl, SilphCo6F_TrainerHeaders
 	ld de, SilphCo6F_ScriptPointers
 	ld a, [wSilphCo6FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -53,14 +53,10 @@ SilphCo6F_TextPointers:
 	dw_const PickUpItemText,             TEXT_SILPHCO6F_HP_UP
 	dw_const PickUpItemText,             TEXT_SILPHCO6F_X_ACCURACY
 
-SilphCo6TrainerHeaders:
-	def_trainers 6
-SilphCo6TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_0, 2, SilphCo6FRocket1BattleText, SilphCo6Rocket1EndBattleText, SilphCo6Rocket1AfterBattleText
-SilphCo6TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_1, 3, SilphCo6FScientistBattleText, SilphCo6FScientistEndBattleText, SilphCo6FScientistAfterBattleText
-SilphCo6TrainerHeader2:
-	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_2, 2, SilphCo6FRocket2BattleText, SilphCo6FRocket2EndBattleText, SilphCo6FRocket2AfterBattleText
+	def_trainers SilphCo6F, 6
+	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_0, 2, Rocket1
+	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_1, 3, Scientist
+	trainer EVENT_BEAT_SILPH_CO_6F_TRAINER_2, 2, Rocket2
 	db -1 ; end
 
 SilphCo6FBeatGiovanniPrintDEOrPrintHLScript:
@@ -81,12 +77,14 @@ SilphCo6FSilphWorkerM1Text:
 	jp TextScriptEnd
 
 .TookOverTheBuildingText:
-	text_far _SilphCo6FSilphWorkerM1TookOverTheBuildingText
-	text_end
+	text "やつらが　いきなり　やってきて"
+	line "ビルを　のっとったんです"
+	done
 
 .BackToWorkText:
-	text_far _SilphCo6FSilphWorkerM1BackToWorkText
-	text_end
+	text "<⋯>　さてと！"
+	line "しごと　しなきゃ　しごと！"
+	done
 
 SilphCo6FSilphWorkerM2Text:
 	text_asm
@@ -96,12 +94,14 @@ SilphCo6FSilphWorkerM2Text:
 	jp TextScriptEnd
 
 .HelpMePleaseText:
-	text_far _SilphCo6FSilphWorkerMHelpMePleaseText
-	text_end
+	text "ぶるぶる<⋯>"
+	line "かみさま　ほとけさま　たすけて"
+	done
 
 .WeGotEngagedText:
-	text_far _SilphCo6FSilphWorkerMWeGotEngagedText
-	text_end
+	text "ぼくたち　こんやく　したよ"
+	line "<⋯>　てれるなあ"
+	done
 
 SilphCo6FSilphWorkerF1Text:
 	text_asm
@@ -111,12 +111,15 @@ SilphCo6FSilphWorkerF1Text:
 	jp TextScriptEnd
 
 .SuchACowardText:
-	text_far _SilphCo6FSilphWorkerF1SuchACowardText
-	text_end
+	text "となりの　ひと<⋯>"
+	line "おとこ　なのに　なさけないわ"
+	done
 
 .HaveToMarryHimText:
-	text_far _SilphCo6FSilphWorkerF1HaveToMarryHimText
-	text_end
+	text "このひとは"
+	line "あたしが　ついてなきゃ"
+	cont "だめだって　おもったの"
+	done
 
 SilphCo6FSilphWorkerF2Text:
 	text_asm
@@ -126,12 +129,15 @@ SilphCo6FSilphWorkerF2Text:
 	jp TextScriptEnd
 
 .TeamRocketConquerWorldText:
-	text_far _SilphCo6FSilphWorkerF2TeamRocketConquerWorldText
-	text_end
+	text "<ROCKET>は"
+	line "#　つかって"
+	cont "せかい　せいふく　したいのよ"
+	done
 
 .TeamRocketRanText:
-	text_far _SilphCo6FSilphWorkerF2TeamRocketRanText
-	text_end
+	text "<ROCKET>が　にげたのは"
+	line "あなたの　おかげね"
+	done
 
 SilphCo6FSilphWorkerM3Text:
 	text_asm
@@ -141,63 +147,78 @@ SilphCo6FSilphWorkerM3Text:
 	jp TextScriptEnd
 
 .TargetedSilphText:
-	text_far _SilphCo6FSilphWorkerM3TargetedSilphText
-	text_end
+	text "シルフ　カンパニーは　グッズを"
+	line "いっぱい　つくってる　から"
+	cont "ねらわれたんだろうな"
+	done
 
 .WorkForSilphText:
-	text_far _SilphCo6FSilphWorkerM3WorkForSilphText
-	text_end
+	text "おおきく　なったら"
+	line "シルフで　はたらくと　いいよ"
+	done
 
 SilphCo6FRocket1Text:
 	text_asm
-	ld hl, SilphCo6TrainerHeader0
+	ld hl, SilphCo6F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo6FRocket1BattleText:
-	text_far _SilphCo6FRocket1BattleText
-	text_end
+	text "おれこそは"
+	line "ロケット　４きょうだいの　ひとり！"
+	done
 
-SilphCo6Rocket1EndBattleText:
-	text_far _SilphCo6Rocket1EndBattleText
-	text_end
+SilphCo6FRocket1EndBattleText:
+	text "まけたよ"
+	prompt
 
-SilphCo6Rocket1AfterBattleText:
-	text_far _SilphCo6Rocket1AfterBattleText
-	text_end
+SilphCo6FRocket1AfterBattleText:
+	text "まあ　いい"
+	line "おとうとが　かたきを　とって　くれる"
+	done
 
 SilphCo6FScientistText:
 	text_asm
-	ld hl, SilphCo6TrainerHeader1
+	ld hl, SilphCo6F_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo6FScientistBattleText:
-	text_far _SilphCo6FScientistBattleText
-	text_end
+	text "しゃちょうめー！"
+
+	para "おれさまを"
+	line "ポナヤツングスカ　してん"
+	cont "なんかに　とばし　やがるから"
+	cont "<ROCKET>に　ねらわれるのだ！"
+	done
 
 SilphCo6FScientistEndBattleText:
-	text_far _SilphCo6FScientistEndBattleText
-	text_end
+	text "がっくしよ"
+	prompt
 
 SilphCo6FScientistAfterBattleText:
-	text_far _SilphCo6FScientistAfterBattleText
-	text_end
+	text "ポナヤツングスカ　してん？"
+	line "ああ<⋯>"
+	cont "ロシアの　おくの　ほうだよ"
+	done
 
 SilphCo6FRocket2Text:
 	text_asm
-	ld hl, SilphCo6TrainerHeader2
+	ld hl, SilphCo6F_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo6FRocket2BattleText:
-	text_far _SilphCo6FRocket2BattleText
-	text_end
+	text "<ROCKET>を　うらぎって"
+	line "ただで　すむと　おもうな！"
+	done
 
 SilphCo6FRocket2EndBattleText:
-	text_far _SilphCo6FRocket2EndBattleText
-	text_end
+	text "うらぎりもの　め"
+	prompt
 
 SilphCo6FRocket2AfterBattleText:
-	text_far _SilphCo6FRocket2AfterBattleText
-	text_end
+	text "うらぎり　じゃない？"
+	line "せいぎの　みかた　なら"
+	cont "きみは　おれらの　うらぎりものだ"
+	done

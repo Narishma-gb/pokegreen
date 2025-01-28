@@ -1,6 +1,6 @@
 RocketHideoutB3F_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, RocketHideout3TrainerHeaders
+	ld hl, RocketHideoutB3F_TrainerHeaders
 	ld de, RocketHideoutB3F_ScriptPointers
 	ld a, [wRocketHideoutB3FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -132,46 +132,52 @@ RocketHideoutB3F_TextPointers:
 	dw_const PickUpItemText,              TEXT_ROCKETHIDEOUTB3F_TM_DOUBLE_EDGE
 	dw_const PickUpItemText,              TEXT_ROCKETHIDEOUTB3F_RARE_CANDY
 
-RocketHideout3TrainerHeaders:
-	def_trainers
-RocketHideout3TrainerHeader0:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_3_TRAINER_0, 2, RocketHideoutB3FRocket1BattleText, RocketHideoutB3FRocket1EndBattleText, RocketHideoutB3FRocket1AfterBattleText
-RocketHideout3TrainerHeader1:
-	trainer EVENT_BEAT_ROCKET_HIDEOUT_3_TRAINER_1, 4, RocketHideoutB3FRocket2BattleText, RocketHideoutB3FRocket2EndBattleText, RocketHideoutB3FRocket2AfterBattleText
+	def_trainers RocketHideoutB3F
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_3_TRAINER_0, 2, Rocket1
+	trainer EVENT_BEAT_ROCKET_HIDEOUT_3_TRAINER_1, 4, Rocket2
 	db -1 ; end
 
 RocketHideoutB3FRocket1Text:
 	text_asm
-	ld hl, RocketHideout3TrainerHeader0
+	ld hl, RocketHideoutB3F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 RocketHideoutB3FRocket1BattleText:
-	text_far _RocketHideoutB3FRocket1BattleText
-	text_end
+	text "あまり　<ROCKET>の"
+	line "じゃまを　しない　ほうが"
+	cont "みの　ため　だぜ！"
+	done
 
 RocketHideoutB3FRocket1EndBattleText:
-	text_far _RocketHideoutB3FRocket1EndBattleText
-	text_end
+	text "くッ　やられた！"
+	prompt
 
 RocketHideoutB3FRocket1AfterBattleText:
-	text_far _RocketHideoutB3FRocket1AfterBattleText
-	text_end
+	text "<⋯>　シルフスコープ？　ああ！"
+	line "ボスが　シルフ　カンパニーで"
+	cont "ぬすんで　きた　マシンの　ことか！"
+	cont "<⋯>　どこかに　ある　はず　だぜ"
+	done
 
 RocketHideoutB3FRocket2Text:
 	text_asm
-	ld hl, RocketHideout3TrainerHeader1
+	ld hl, RocketHideoutB3F_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 RocketHideoutB3FRocket2BattleText:
-	text_far _RocketHideout3BattleText
-	text_end
+	text "<⋯>　きたな？"
+	line "うえの　フロア　から"
+	cont "れんらくが　きてるぜ！"
+	done
 
 RocketHideoutB3FRocket2EndBattleText:
-	text_far _RocketHideout3EndBattleText3
-	text_end
+	text "まけた<⋯>　ばかな！"
+	prompt
 
 RocketHideoutB3FRocket2AfterBattleText:
-	text_far _RocketHide3AfterBattleText3
-	text_end
+	text "いく　なら　いって　みろ！"
+	line "しかし　エレベータは"
+	cont "カギが　ないと　つかえないぜ！"
+	done

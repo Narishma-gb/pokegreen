@@ -10,12 +10,12 @@ DisplayTownMap:
 	ld [hl], $ff
 	push hl
 	ld a, $1
-	ldh [hJoy7], a
+	ld [hJoy7], a
 	ld a, [wCurMap]
 	push af
 	ld b, $0
 	call DrawPlayerOrBirdSprite
-	hlcoord 1, 0
+	hlcoord 1, 1
 	ld de, wNameBuffer
 	call PlaceString
 	ld hl, wShadowOAMSprite00
@@ -33,7 +33,7 @@ DisplayTownMap:
 
 .townMapLoop
 	hlcoord 0, 0
-	lb bc, 1, 20
+	lb bc, 2, 10
 	call ClearScreenArea
 	ld hl, TownMapOrder
 	ld a, [wWhichTownMapLocation]
@@ -59,7 +59,7 @@ DisplayTownMap:
 	inc de
 	cp "@"
 	jr nz, .copyMapName
-	hlcoord 1, 0
+	hlcoord 1, 1
 	ld de, wNameBuffer
 	call PlaceString
 	ld hl, wShadowOAMSprite04
@@ -81,7 +81,7 @@ DisplayTownMap:
 	jr nz, .pressedDown
 	xor a
 	ld [wTownMapSpriteBlinkingEnabled], a
-	ldh [hJoy7], a
+	ld [hJoy7], a
 	ld [wAnimCounter], a
 	call ExitTownMap
 	pop hl
@@ -122,10 +122,9 @@ LoadTownMap_Nest:
 	push hl
 	call DisplayWildLocations
 	call GetMonName
-	hlcoord 1, 0
+	hlcoord 0, 1
 	call PlaceString
-	ld h, b
-	ld l, c
+	hlcoord 5, 1
 	ld de, MonsNestText
 	call PlaceString
 	call WaitForTextScrollButtonPress
@@ -136,7 +135,7 @@ LoadTownMap_Nest:
 	ret
 
 MonsNestText:
-	db "'s NEST@"
+	db "の　すみか@"
 
 LoadTownMap_Fly::
 	call ClearSprites
@@ -157,34 +156,38 @@ LoadTownMap_Fly::
 	push af
 	ld [hl], $ff
 	push hl
-	hlcoord 0, 0
+	hlcoord 5, 1
 	ld de, ToText
 	call PlaceString
 	ld a, [wCurMap]
 	ld b, $0
 	call DrawPlayerOrBirdSprite
 	ld hl, wFlyLocationsList
-	decoord 18, 0
+	decoord 9, 1
 .townMapFlyLoop
-	ld a, " "
+	ld a, "　"
 	ld [de], a
 	push hl
 	push hl
-	hlcoord 3, 0
-	lb bc, 1, 15
-	call ClearScreenArea
+	hlcoord 1, 0
+	ld de, FourSpacesText
+	call PlaceString
+	hlcoord 3, 1
+	ld a, "　"
+	ld [hli], a
+	ld [hl], a
 	pop hl
 	ld a, [hl]
 	ld b, BIRD_BASE_TILE
 	call DrawPlayerOrBirdSprite
-	hlcoord 3, 0
+	hlcoord 1, 1
 	ld de, wNameBuffer
 	call PlaceString
 	ld c, 15
 	call DelayFrames
-	hlcoord 18, 0
+	hlcoord 9, 0
 	ld [hl], "▲"
-	hlcoord 19, 0
+	hlcoord 9, 1
 	ld [hl], "▼"
 	pop hl
 .inputLoop
@@ -212,7 +215,7 @@ LoadTownMap_Fly::
 	ld [wDestinationMap], a
 	ld hl, wStatusFlags6
 	set BIT_FLY_WARP, [hl]
-	assert wStatusFlags6 + 1 == wStatusFlags7
+	ASSERT wStatusFlags6 + 1 == wStatusFlags7
 	inc hl
 	set BIT_USED_FLY, [hl]
 .pressedB
@@ -224,7 +227,7 @@ LoadTownMap_Fly::
 	ld [hl], a
 	ret
 .pressedUp
-	decoord 18, 0
+	decoord 9, 1
 	inc hl
 	ld a, [hl]
 	cp $ff
@@ -236,7 +239,7 @@ LoadTownMap_Fly::
 	ld hl, wFlyLocationsList
 	jp .townMapFlyLoop
 .pressedDown
-	decoord 19, 0
+	decoord 9, 0
 	dec hl
 	ld a, [hl]
 	cp $ff
@@ -249,7 +252,10 @@ LoadTownMap_Fly::
 	jr .pressedDown
 
 ToText:
-	db "To@"
+	db "へ　とぶ@"
+
+FourSpacesText:
+	db "　　　　@"
 
 BuildFlyLocationsList:
 	ld hl, wFlyAnimUsingCoordList
@@ -419,7 +425,7 @@ DisplayWildLocations:
 	jp CopyData
 
 AreaUnknownText:
-	db " AREA UNKNOWN@"
+	db "　せいそくち　ふめい@"
 
 TownMapCoordsToOAMCoords:
 ; in: lower nybble of a = x, upper nybble of a = y

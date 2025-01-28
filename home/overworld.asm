@@ -103,8 +103,6 @@ OverworldLoopLessDelay::
 	jr nz, .checkForOpponent
 	bit BIT_SEEN_BY_TRAINER, a
 	jr nz, .checkForOpponent
-	lda_coord 8, 9
-	ld [wTilePlayerStandingOn], a ; checked when using Surf for forbidden tile pairs
 	call DisplayTextID ; display either the start menu or the NPC/sign text
 	ld a, [wEnteringCableClub]
 	and a
@@ -174,7 +172,6 @@ OverworldLoopLessDelay::
 	jr z, .noDirectionButtonsPressed
 	ld a, 1
 	ld [wSpritePlayerStateData1XStepVector], a
-
 
 .handleDirectionButtonPress
 	ld [wPlayerDirection], a ; new direction
@@ -321,7 +318,7 @@ OverworldLoopLessDelay::
 .newBattle
 	call NewBattle
 	ld hl, wMovementFlags
-	res BIT_STANDING_ON_WARP, [hl]
+	res BIT_STANDING_ON_WARP, [hl] ; standing on warp flag
 	jp nc, CheckWarpsNoCollision ; check for warps if there was no battle
 .battleOccurred
 	ld hl, wStatusFlags3
@@ -411,7 +408,7 @@ CheckWarpsNoCollisionLoop::
 	push hl
 	push bc
 	ld hl, wMovementFlags
-	set BIT_STANDING_ON_WARP, [hl]
+	set BIT_STANDING_ON_WARP, [hl] ; standing on warp flag
 	farcall IsPlayerStandingOnDoorTileOrWarpTile
 	pop bc
 	pop hl
@@ -491,7 +488,7 @@ WarpFound2::
 	ld a, [wCurMap]
 	ld [wLastMap], a
 	ld a, [wCurMapWidth]
-	ld [wUnusedLastMapWidth], a
+	ld [wUnusedLastMapWidth], a ; not read
 	ldh a, [hWarpDestinationMap]
 	ld [wCurMap], a
 	cp ROCK_TUNNEL_1F
@@ -546,7 +543,7 @@ ContinueCheckWarpsNoCollisionLoop::
 
 ; if no matching warp was found
 CheckMapConnections::
-.checkWestMap
+; checkWestMap
 	ld a, [wXCoord]
 	cp $ff
 	jr nz, .checkEastMap
@@ -756,6 +753,7 @@ MapEntryAfterBattle::
 HandleBlackOut::
 ; For when all the player's pokemon faint.
 ; Does not print the "blacked out" message.
+
 	call GBFadeOutToBlack
 	ld a, $08
 	call StopMusic
@@ -1097,7 +1095,7 @@ IsSpriteOrSignInFrontOfPlayer::
 	ld a, [hli] ; sign X
 	cp e
 	jr nz, .retry
-.xCoordMatched
+; xCoordMatched
 ; found sign
 	push hl
 	push bc
@@ -1295,10 +1293,6 @@ CheckForJumpingAndTilePairCollisions::
 	ret nz
 ; if not jumping
 
-CheckForTilePairCollisions2::
-	lda_coord 8, 9 ; tile the player is on
-	ld [wTilePlayerStandingOn], a
-
 CheckForTilePairCollisions::
 	ld a, [wTileInFrontOfPlayer]
 	ld c, a
@@ -1315,7 +1309,7 @@ CheckForTilePairCollisions::
 	inc hl
 	jr .tilePairCollisionLoop
 .tilesetMatches
-	ld a, [wTilePlayerStandingOn] ; tile the player is on
+	lda_coord 8, 9 ; tile the player is on
 	ld b, a
 	ld a, [hl]
 	cp b
@@ -2047,7 +2041,7 @@ LoadMapHeader::
 ; copy connection data (if any) to WRAM
 	ld a, [wCurMapConnections]
 	ld b, a
-.checkNorth
+; checkNorth
 	bit NORTH_F, b
 	jr z, .checkSouth
 	ld de, wNorthConnectionHeader
@@ -2080,7 +2074,7 @@ LoadMapHeader::
 	ld de, wMapBackgroundTile
 	ld a, [hli]
 	ld [de], a
-.loadWarpData
+; loadWarpData
 	ld a, [hli]
 	ld [wNumberOfWarps], a
 	and a
@@ -2133,7 +2127,7 @@ LoadMapHeader::
 	jr nz, .signLoop
 .loadSpriteData
 	ld a, [wStatusFlags4]
-	bit BIT_BATTLE_OVER_OR_BLACKOUT, a
+	bit BIT_BATTLE_OVER_OR_BLACKOUT, a ; did a battle happen immediately before this?
 	jp nz, .finishUp ; if so, skip this because battles don't destroy this data
 	ld a, [hli]
 	ld [wNumSprites], a ; save the number of sprites
@@ -2392,37 +2386,6 @@ ForceBikeOrSurf::
 	ld hl, LoadPlayerSpriteGraphics ; in bank 0
 	call Bankswitch
 	jp PlayDefaultMusic ; update map/player state?
-
-CheckForUserInterruption::
-; Return carry if Up+Select+B, Start or A are pressed in c frames.
-; Used only in the intro and title screen.
-	call DelayFrame
-
-	push bc
-	call JoypadLowSensitivity
-	pop bc
-
-	ldh a, [hJoyHeld]
-	cp D_UP + SELECT + B_BUTTON
-	jr z, .input
-
-	ldh a, [hJoy5]
-IF DEF(_DEBUG)
-	and START | SELECT | A_BUTTON
-ELSE
-	and START | A_BUTTON
-ENDC
-	jr nz, .input
-
-	dec c
-	jr nz, CheckForUserInterruption
-
-	and a
-	ret
-
-.input
-	scf
-	ret
 
 ; function to load position data for destination warp when switching maps
 ; INPUT:

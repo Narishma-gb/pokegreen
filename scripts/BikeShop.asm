@@ -58,9 +58,6 @@ BikeShopClerkText:
 	hlcoord 2, 2
 	ld de, BikeShopMenuText
 	call PlaceString
-	hlcoord 8, 3
-	ld de, BikeShopMenuPrice
-	call PlaceString
 	ld hl, BikeShopClerkDoYouLikeItText
 	call PrintText
 	call HandleMenuInput
@@ -80,44 +77,59 @@ BikeShopClerkText:
 	jp TextScriptEnd
 
 BikeShopMenuText:
-	db   "BICYCLE"
-	next "CANCEL@"
-
-BikeShopMenuPrice:
-	db "¥1000000@"
+	db   "じてんしゃ　１００００００円"
+	next "かわない@"
 
 BikeShopClerkWelcomeText:
-	text_far _BikeShopClerkWelcomeText
-	text_end
+	text "はい　はい！　いらっしゃい！"
+	line "ここは　ミラクル　じてんしゃや！"
+
+	para "ほりだしもの　あるよー！"
+	line "かってくー？"
+	prompt
 
 BikeShopClerkDoYouLikeItText:
-	text_far _BikeShopClerkDoYouLikeItText
-	text_end
+	text "かっこいい　じてんしゃ　あるけど"
+	line "かって　いかない？"
+	done
 
 BikeShopCantAffordText:
-	text_far _BikeShopCantAffordText
-	text_end
+	text "おきゃくさん！"
+	line "おかねが　たりませんなー！"
+	prompt
 
 BikeShopClerkOhThatsAVoucherText:
-	text_far _BikeShopClerkOhThatsAVoucherText
-	text_end
+	text "あー　それは<⋯>！"
+
+	para "じてんしゃ　ひきかえけん！"
+
+	para "<⋯>わかりました！"
+	line "ささっ　これを　どうぞ！"
+	prompt
 
 BikeShopExchangedVoucherText:
-	text_far _BikeShopExchangedVoucherText
+	text "<PLAYER>は　ひきかえけんで"
+	line "じてんしゃを　もらった！@"
 	sound_get_key_item
 	text_end
 
 BikeShopComeAgainText:
-	text_far _BikeShopComeAgainText
-	text_end
+	text "また　よろしく！"
+	line "ありがとう　ございました！"
+	done
 
 BikeShopClerkHowDoYouLikeYourBicycleText:
-	text_far _BikeShopClerkHowDoYouLikeYourBicycleText
-	text_end
+	text "やあ　こんちは！　じてんしゃの"
+	line "のりごこちは　いかが　です？"
+
+	para "あの　じてんしゃ　なら"
+	line "サイクリング　ロードは　もちろん"
+	cont "どうくつ　だって　はしれちゃうよ！"
+	done
 
 BikeShopBagFullText:
-	text_far _BikeShopBagFullText
-	text_end
+	text "じてんしゃを　もっていけないよ"
+	done
 
 BikeShopMiddleAgedWomanText:
 	text_asm
@@ -126,8 +138,12 @@ BikeShopMiddleAgedWomanText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _BikeShopMiddleAgedWomanText
-	text_end
+	text "うーん<⋯>！"
+	line "やっぱり　ママチャリ　かしら？"
+
+	para "マウンテン　バイクに"
+	line "かいものカゴ　にあわない　もん"
+	done
 
 BikeShopYoungsterText:
 	text_asm
@@ -140,9 +156,12 @@ BikeShopYoungsterText:
 	jp TextScriptEnd
 
 .TheseBikesAreExpensiveText:
-	text_far _BikeShopYoungsterTheseBikesAreExpensiveText
-	text_end
+	text "この　みせの　じてんしゃ"
+	line "ものは　いいけど　たかいよ！"
+	cont "ぼくには　かえないね"
+	done
 
 .CoolBikeText:
-	text_far _BikeShopYoungsterCoolBikeText
-	text_end
+	text "きみの　じてんしゃ　かっこいい"
+	line "うらやましいなあ"
+	done

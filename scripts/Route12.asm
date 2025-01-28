@@ -1,6 +1,6 @@
 Route12_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, Route12TrainerHeaders
+	ld hl, Route12_TrainerHeaders
 	ld de, Route12_ScriptPointers
 	ld a, [wRoute12CurScript]
 	call ExecuteCurMapScriptInTable
@@ -78,166 +78,189 @@ Route12_TextPointers:
 	dw_const Route12SnorlaxWokeUpText,     TEXT_ROUTE12_SNORLAX_WOKE_UP
 	dw_const Route12SnorlaxCalmedDownText, TEXT_ROUTE12_SNORLAX_CALMED_DOWN
 
-Route12TrainerHeaders:
-	def_trainers 2
-Route12TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_12_TRAINER_0, 4, Route12Fisher1BattleText, Route12Fisher1EndBattleText, Route12Fisher1AfterBattleText
-Route12TrainerHeader1:
-	trainer EVENT_BEAT_ROUTE_12_TRAINER_1, 4, Route12Fisher2BattleText, Route12Fisher2EndBattleText, Route12Fisher2AfterBattleText
-Route12TrainerHeader2:
-	trainer EVENT_BEAT_ROUTE_12_TRAINER_2, 4, Route12CooltrainerMBattleText, Route12CooltrainerMEndBattleText, Route12CooltrainerMAfterBattleText
-Route12TrainerHeader3:
-	trainer EVENT_BEAT_ROUTE_12_TRAINER_3, 4, Route12SuperNerdBattleText, Route12SuperNerdEndBattleText, Route12SuperNerdAfterBattleText
-Route12TrainerHeader4:
-	trainer EVENT_BEAT_ROUTE_12_TRAINER_4, 4, Route12Fisher3BattleText, Route12Fisher3EndBattleText, Route12Fisher3AfterBattleText
-Route12TrainerHeader5:
-	trainer EVENT_BEAT_ROUTE_12_TRAINER_5, 4, Route12Fisher4BattleText, Route12Fisher4EndBattleText, Route12Fisher4AfterBattleText
-Route12TrainerHeader6:
-	trainer EVENT_BEAT_ROUTE_12_TRAINER_6, 1, Route12Fisher5BattleText, Route12Fisher5EndBattleText, Route12Fisher5AfterBattleText
+	def_trainers Route12, 2
+	trainer EVENT_BEAT_ROUTE_12_TRAINER_0, 4, Fisher1
+	trainer EVENT_BEAT_ROUTE_12_TRAINER_1, 4, Fisher2
+	trainer EVENT_BEAT_ROUTE_12_TRAINER_2, 4, CooltrainerM
+	trainer EVENT_BEAT_ROUTE_12_TRAINER_3, 4, SuperNerd
+	trainer EVENT_BEAT_ROUTE_12_TRAINER_4, 4, Fisher3
+	trainer EVENT_BEAT_ROUTE_12_TRAINER_5, 4, Fisher4
+	trainer EVENT_BEAT_ROUTE_12_TRAINER_6, 1, Fisher5
 	db -1 ; end
 
 Route12SnorlaxText:
-	text_far _Route12SnorlaxText
-	text_end
+	text "#が　とても"
+	line "きもち　よさそうに　ねてます"
+	done
 
 Route12SnorlaxWokeUpText:
-	text_far _Route12SnorlaxWokeUpText
-	text_end
+	text "カビゴンが　めを　さました！"
+
+	para "カビゴンは"
+	line "ねぼけて　おそってきた！"
+	done
 
 Route12SnorlaxCalmedDownText:
-	text_far _Route12SnorlaxCalmedDownText
-	text_end
+	text "カビゴンは　おとなしく　なった"
+	line "おおきな　あくびを　すると<⋯>"
+	cont "やまおくへ　さって　いった！"
+	done
 
 Route12Fisher1Text:
 	text_asm
-	ld hl, Route12TrainerHeader0
+	ld hl, Route12_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route12Fisher1BattleText:
-	text_far _Route12Fisher1BattleText
-	text_end
+	text "おっ　おーッ！"
+	line "ひいてる　ひいてる！"
+	done
 
 Route12Fisher1EndBattleText:
-	text_far _Route12Fisher1EndBattleText
-	text_end
+	text "ちッ！"
+	line "げどう　だったか"
+	prompt
 
 Route12Fisher1AfterBattleText:
-	text_far _Route12Fisher1AfterBattleText
-	text_end
+	text "まって　くれ！"
+	line "つりいとが　こんがらがった！"
+	done
 
 Route12Fisher2Text:
 	text_asm
-	ld hl, Route12TrainerHeader1
+	ld hl, Route12_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route12Fisher2BattleText:
-	text_far _Route12Fisher2BattleText
-	text_end
+	text "<⋯>　あわてるな！"
+	line "まつ　ことも　また！"
+	cont "つりの　たのしみ　である"
+	done
 
 Route12Fisher2EndBattleText:
-	text_far _Route12Fisher2EndBattleText
-	text_end
+	text "おっと<⋯>！"
+	line "ちょっと　まって　くれ"
+	prompt
 
 Route12Fisher2AfterBattleText:
-	text_far _Route12Fisher2AfterBattleText
-	text_end
+	text "いい　つりざおを　つかえば"
+	line "いい　#が　つれるんだが<⋯>"
+	done
 
 Route12CooltrainerMText:
 	text_asm
-	ld hl, Route12TrainerHeader2
+	ld hl, Route12_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route12CooltrainerMBattleText:
-	text_far _Route12CooltrainerMBattleText
-	text_end
+	text "つきのいし　さがしてるんだ　けど"
+	line "きみ　もって　ない？"
+	done
 
 Route12CooltrainerMEndBattleText:
-	text_far _Route12CooltrainerMEndBattleText
-	text_end
+	text "ありゃりゃ<⋯>！"
+	prompt
 
 Route12CooltrainerMAfterBattleText:
-	text_far _Route12CooltrainerMAfterBattleText
-	text_end
+	text "つきのいしが　あれば"
+	line "#が　しんか　して"
+	cont "ぼく　かってた　かも　しれないよ"
+	done
 
 Route12SuperNerdText:
 	text_asm
-	ld hl, Route12TrainerHeader3
+	ld hl, Route12_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route12SuperNerdBattleText:
-	text_far _Route12SuperNerdBattleText
-	text_end
+	text "ぼくの　せんもん　でんき　だから"
+	line "うみ　#は　くわしく　ないよ"
+	done
 
 Route12SuperNerdEndBattleText:
-	text_far _Route12SuperNerdEndBattleText
-	text_end
+	text "ふにゃ　ふにゃ<⋯>"
+	prompt
 
 Route12SuperNerdAfterBattleText:
-	text_far _Route12SuperNerdAfterBattleText
-	text_end
+	text "うーん<⋯>　たしか　みずは"
+	line "でんきを　よく　とおす　から"
+	cont "わざが　きく　はず　だよね<⋯>"
+	done
 
 Route12Fisher3Text:
 	text_asm
-	ld hl, Route12TrainerHeader4
+	ld hl, Route12_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route12Fisher3BattleText:
-	text_far _Route12Fisher3BattleText
-	text_end
+	text "おうッ！　つり　バカ"
+	line "#　バカに　であう！"
+	done
 
 Route12Fisher3EndBattleText:
-	text_far _Route12Fisher3EndBattleText
-	text_end
+	text "さすが　つよい！"
+	prompt
 
 Route12Fisher3AfterBattleText:
-	text_far _Route12Fisher3AfterBattleText
-	text_end
+	text "すき　こそ"
+	line "ものの　じょうず　なれ<⋯>　だな！"
+	cont "ぼくも　つり　なら　まけないぞ！"
+	done
 
 Route12Fisher4Text:
 	text_asm
-	ld hl, Route12TrainerHeader5
+	ld hl, Route12_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route12Fisher4BattleText:
-	text_far _Route12Fisher4BattleText
-	text_end
+	text "つり　ばっかり　して　ないで"
+	line "もっと　しごとも　できれば"
+	cont "さいこう　なんだが<⋯>"
+	done
 
 Route12Fisher4EndBattleText:
-	text_far _Route12Fisher4EndBattleText
-	text_end
+	text "なかなか<⋯>"
+	line "うまく　いかん　もの　じゃ"
+	prompt
 
 Route12Fisher4AfterBattleText:
-	text_far _Route12Fisher4AfterBattleText
-	text_end
+	text "ははは<⋯>　だいじょうぶ！"
+	line "まけた　くらいで　はらは　たてんよ"
+	done
 
 Route12Fisher5Text:
 	text_asm
-	ld hl, Route12TrainerHeader6
+	ld hl, Route12_TrainerHeader6
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route12Fisher5BattleText:
-	text_far _Route12Fisher5BattleText
-	text_end
+	text "<⋯>　なにが　つれるかって？"
+	line "そりゃ　つって　みなけりゃ"
+	cont "わからんよ！"
+	done
 
 Route12Fisher5EndBattleText:
-	text_far _Route12Fisher5EndBattleText
-	text_end
+	text "しくじったな"
+	prompt
 
 Route12Fisher5AfterBattleText:
-	text_far _Route12Fisher5AfterBattleText
-	text_end
+	text "ああ　コイキング<⋯>　ね"
+	line "よく　つれる　けど"
+	cont "よわすぎるんだよなあ<⋯>"
+	done
 
 Route12SignText:
-	text_far _Route12SignText
-	text_end
+	text "ここは　１２ばん　どうろ"
+	line "きた　<⋯>　シオン　タウン"
+	done
 
 Route12SportFishingSignText:
-	text_far _Route12SportFishingSignText
-	text_end
+	text "ここは　つりの　めいしょ"
+	done

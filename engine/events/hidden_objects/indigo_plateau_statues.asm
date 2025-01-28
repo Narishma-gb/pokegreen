@@ -12,13 +12,15 @@ IndigoPlateauStatues::
 	jp TextScriptEnd
 
 IndigoPlateauStatuesText1:
-	text_far _IndigoPlateauStatuesText1
-	text_end
+	text "ここは　セキエイ　こうげん"
+	prompt
 
 IndigoPlateauStatuesText2:
-	text_far _IndigoPlateauStatuesText2
-	text_end
+	text "#　<TRAINER>の　ちょうてん！"
+	line "#　リーグ　ほんぶ"
+	done
 
 IndigoPlateauStatuesText3:
-	text_far _IndigoPlateauStatuesText3
-	text_end
+	text "#の　さいこう　きかん"
+	line "#　リーグ　ほんぶ"
+	done

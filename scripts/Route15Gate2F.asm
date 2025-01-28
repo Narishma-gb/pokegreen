@@ -32,8 +32,16 @@ Route15Gate2FOaksAideText:
 	jp TextScriptEnd
 
 .ExpAllText:
-	text_far _Route15Gate2FOaksAideExpAllText
-	text_end
+	text "がくしゅうそうちは"
+	line "たたかわない　#も"
+	cont "けいけんちが　もらえます"
+
+	para "でも　１ぴき　あたりの"
+	line "わけまえが　すくなく　なるので"
+	cont "つかいたくない　ときは"
+	cont "<PC>に　あずけて　ください"
+	cont "そうちは　どうさ　しません"
+	done
 
 Route15Gate2FBinocularsText:
 	text_asm
@@ -41,5 +49,8 @@ Route15Gate2FBinocularsText:
 	jp GateUpstairsScript_PrintIfFacingUp
 
 .Text:
-	text_far _Route15Gate2FBinocularsText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "うみの　むこうに<⋯>"
+	line "ちいさな　しまが　みえる！"
+	done

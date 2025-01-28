@@ -9,13 +9,19 @@ SafariZoneWestRestHouse_TextPointers:
 	dw_const SafariZoneWestRestHouseSilphWorkerFText, TEXT_SAFARIZONEWESTRESTHOUSE_SILPH_WORKER_F
 
 SafariZoneWestRestHouseScientistText:
-	text_far _SafariZoneWestRestHouseScientistText
-	text_end
+	text "いしころ　あてると"
+	line "にげる　かも　しれないが"
+	cont "つかまえ　やすくは　なるよ！"
+	done
 
 SafariZoneWestRestHouseCooltrainerMText:
-	text_far _SafariZoneWestRestHouseCooltrainerMText
-	text_end
+	text "エサだまを　なげると"
+	line "エサに　むちゅうで　いる　あいだ"
+	cont "ポケモンは　あまり　にげない！"
+	done
 
 SafariZoneWestRestHouseSilphWorkerFText:
-	text_far _SafariZoneWestRestHouseSilphWorkerFText
-	text_end
+	text "たくさん　あるいた　けど"
+	line "とりたい　ポケモンが"
+	cont "なかなか　とびだして　こないの"
+	done

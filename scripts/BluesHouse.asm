@@ -37,12 +37,12 @@ BluesHouseDaisySittingText:
 .give_town_map
 	ld hl, BluesHouseDaisyOfferMapText
 	call PrintText
-	lb bc, TOWN_MAP, 1
-	call GiveItem
-	jr nc, .bag_full
 	ld a, HS_TOWN_MAP
 	ld [wMissableObjectIndex], a
 	predef HideObject
+	lb bc, TOWN_MAP, 1
+	call GiveItem
+	jr nc, .bag_full
 	ld hl, GotMapText
 	call PrintText
 	SetEvent EVENT_GOT_TOWN_MAP
@@ -60,30 +60,44 @@ BluesHouseDaisySittingText:
 	jp TextScriptEnd
 
 BluesHouseDaisyRivalAtLabText:
-	text_far _BluesHouseDaisyRivalAtLabText
-	text_end
+	text "こんにちは　<PLAYER>くん！"
+	line "おとうとの　<RIVAL>なら"
+	cont "おじいちゃんの　けんきゅうじょよ"
+	done
 
 BluesHouseDaisyOfferMapText:
-	text_far _BluesHouseDaisyOfferMapText
-	text_end
+	text "オーキドの　おじいちゃん"
+	line "おしごと　たのんだんだって？"
+	cont "たいへんねー"
+	cont "これ　あげるから　つかって！"
+	prompt
 
 GotMapText:
-	text_far _GotMapText
+	text "<PLAYER>は　おねえさんから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_key_item
 	text_end
 
 BluesHouseDaisyBagFullText:
-	text_far _BluesHouseDaisyBagFullText
-	text_end
+	text "にもつ　いっぱいよ"
+	done
 
 BluesHouseDaisyUseMapText:
-	text_far _BluesHouseDaisyUseMapText
-	text_end
+	text "じぶんの　いる　ばしょや"
+	line "まちの　なまえが　しりたいとき"
+	cont "タウンマップ　つかうと　いいわよ"
+	done
 
 BluesHouseDaisyWalkingText:
-	text_far _BluesHouseDaisyWalkingText
-	text_end
+	text "にんげんと　おなじように"
+	line "#も　いきてるの！"
+	cont "たいりょくが　ないときは"
+	cont "やすませて　あげて！"
+	done
 
 BluesHouseTownMapText:
-	text_far _BluesHouseTownMapText
-	text_end
+	text "カントー　ちほうの　ちずだ！"
+	line "<⋯>　もらえたら　うれしい？"
+	done

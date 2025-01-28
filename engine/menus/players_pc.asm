@@ -8,7 +8,7 @@ PlayerPC::
 	ld [wBagSavedMenuItem], a
 	ld [wParentMenuItem], a
 	ld a, [wMiscFlags]
-	bit BIT_USING_GENERIC_PC, a
+	bit BIT_USING_GENERIC_PC, a ; accessing player's PC through another PC?
 	jr nz, PlayerPCMenu
 ; accessing it directly
 	ld a, SFX_TURN_ON_PC
@@ -24,7 +24,7 @@ PlayerPCMenu:
 	call LoadScreenTilesFromBuffer2
 	hlcoord 0, 0
 	ld b, $8
-	ld c, $e
+	ld c, $a
 	call TextBoxBorder
 	call UpdateSprites
 	hlcoord 2, 2
@@ -64,7 +64,7 @@ PlayerPCMenu:
 
 ExitPlayerPC:
 	ld a, [wMiscFlags]
-	bit BIT_USING_GENERIC_PC, a
+	bit BIT_USING_GENERIC_PC, a ; accessing player's PC through another PC?
 	jr nz, .next
 ; accessing it directly
 	ld a, SFX_TURN_OFF_PC
@@ -241,63 +241,73 @@ PlayerPCToss:
 	jp .loop
 
 PlayersPCMenuEntries:
-	db   "WITHDRAW ITEM"
-	next "DEPOSIT ITEM"
-	next "TOSS ITEM"
-	next "LOG OFF@"
+	db   "どうぐを　ひきだす"
+	next "どうぐを　あずける"
+	next "どうぐを　すてる"
+	next "スイッチを　きる@"
 
 TurnedOnPC2Text:
-	text_far _TurnedOnPC2Text
-	text_end
+	text "<PLAYER>は"
+	line "<PC>の　スイッチを　いれた！"
+	prompt
 
 WhatDoYouWantText:
-	text_far _WhatDoYouWantText
-	text_end
+	text "なにを　しますか？"
+	done
 
 WhatToDepositText:
-	text_far _WhatToDepositText
-	text_end
+	text "なにを　あずけますか？"
+	done
 
 DepositHowManyText:
-	text_far _DepositHowManyText
-	text_end
+	text "いくつ　あずけますか？"
+	done
 
 ItemWasStoredText:
-	text_far _ItemWasStoredText
-	text_end
+	text "<PC>つうしんで"
+	line "@"
+	text_ram wNameBuffer
+	text "を　あずけた！"
+	prompt
 
 NothingToDepositText:
-	text_far _NothingToDepositText
-	text_end
+	text "あずけられる　どうぐを"
+	line "もっていません！"
+	prompt
 
 NoRoomToStoreText:
-	text_far _NoRoomToStoreText
-	text_end
+	text "どうぐが　いっぱいです"
+	line "もう　あずけられません！"
+	prompt
 
 WhatToWithdrawText:
-	text_far _WhatToWithdrawText
-	text_end
+	text "なにを　ひきだしますか？"
+	done
 
 WithdrawHowManyText:
-	text_far _WithdrawHowManyText
-	text_end
+	text "いくつ　ひきだしますか？"
+	done
 
 WithdrewItemText:
-	text_far _WithdrewItemText
-	text_end
+	text "<PC>つうしんで"
+	line "@"
+	text_ram wNameBuffer
+	text "を　ひきだした！"
+	prompt
 
 NothingStoredText:
-	text_far _NothingStoredText
-	text_end
+	text "なにも　あずけていません！"
+	prompt
 
 CantCarryMoreText:
-	text_far _CantCarryMoreText
-	text_end
+	text "どうぐが　いっぱいです"
+	line "もう　もてません！"
+	prompt
 
 WhatToTossText:
-	text_far _WhatToTossText
-	text_end
+	text "なにを　すてますか？"
+	done
 
 TossHowManyText:
-	text_far _TossHowManyText
-	text_end
+	text "いくつ　すてますか？"
+	done

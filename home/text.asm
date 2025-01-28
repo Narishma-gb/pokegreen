@@ -6,7 +6,7 @@ TextBoxBorder::
 	ld a, "┌"
 	ld [hli], a
 	inc a ; "─"
-	call .PlaceChars
+	call PlaceChars
 	inc a ; "┐"
 	ld [hl], a
 	pop hl
@@ -19,8 +19,8 @@ TextBoxBorder::
 	push hl
 	ld a, "│"
 	ld [hli], a
-	ld a, " "
-	call .PlaceChars
+	ld a, "　"
+	call PlaceChars
 	ld [hl], "│"
 	pop hl
 
@@ -33,11 +33,11 @@ TextBoxBorder::
 	ld a, "└"
 	ld [hli], a
 	ld a, "─"
-	call .PlaceChars
+	call PlaceChars
 	ld [hl], "┘"
 	ret
 
-.PlaceChars::
+PlaceChars::
 ; Place char a c times.
 	ld d, c
 .loop
@@ -61,13 +61,8 @@ PlaceNextChar::
 .NotTerminator
 	cp "<NEXT>"
 	jr nz, .NotNext
-	ld bc, 2 * SCREEN_WIDTH
-	ldh a, [hUILayoutFlags]
-	bit BIT_SINGLE_SPACED_LINES, a
-	jr z, .ok
-	ld bc, SCREEN_WIDTH
-.ok
 	pop hl
+	ld bc, 2 * SCREEN_WIDTH
 	add hl, bc
 	push hl
 	jp NextChar
@@ -87,7 +82,6 @@ PlaceNextChar::
 	dict "<SCROLL>",  _ContTextNoPause
 	dict "<_CONT>",   _ContText
 	dict "<PARA>",    Paragraph
-	dict "<PAGE>",    PageChar
 	dict "<PLAYER>",  PrintPlayerName
 	dict "<RIVAL>",   PrintRivalName
 	dict "#",         PlacePOKe
@@ -96,14 +90,78 @@ PlaceNextChar::
 	dict "<TM>",      TMChar
 	dict "<TRAINER>", TrainerChar
 	dict "<CONT>",    ContText
-	dict "<……>",      SixDotsChar
+	dict "<⋯>",      SixDotsChar
 	dict "<DONE>",    DoneText
 	dict "<PROMPT>",  PromptText
-	dict "<PKMN>",    PlacePKMN
-	dict "<DEXEND>",  PlaceDexEnd
 	dict "<TARGET>",  PlaceMoveTargetsName
 	dict "<USER>",    PlaceMoveUsersName
 
+; Japanese diacritic symbols. The code up to .KanaCharacter does not appear
+; to be used, since the naming screen characters are loaded as tile indexes,
+; and ROM/RAM text strings use control characters for diacritic kana.
+	cp "゜" ; handakuten
+	jr z, .PlaceDiacriticSymbol
+	cp "゛" ; dakuten
+	jr nz, .KanaCharacter
+
+.PlaceDiacriticSymbol
+	push hl
+	ld bc, -SCREEN_WIDTH ; one line above
+	add hl, bc
+	ld [hl], a
+	pop hl
+	jr NextChar
+
+.KanaCharacter
+	cp $60 ; non diacritic kanas
+	jr nc, .RegularKana
+
+	cp "パ" ; lowest handakuten in charmap
+	jr nc, .IsHandakuten
+
+	cp $20 ; test if Katakana or Hiragana dakuten
+	jr nc, .IsHiraganaDakuten
+
+; IsKatakanaDakuten
+	add $80 ; same character without diacritic
+	jr .PlaceDakuten
+
+.IsHiraganaDakuten
+	add $90 ; same character without diacritic
+
+.PlaceDakuten
+	push af
+	ld a, "゛" ; dakuten
+	push hl
+	ld bc, -SCREEN_WIDTH ; one line above
+	add hl, bc
+	ld [hl], a
+	pop hl
+	pop af
+	jr .RegularKana
+
+.IsHandakuten
+	cp "ぱ" ; lowest Hiragana handakuten in charmap
+	jr nc, .IsHiraganaHandakuten
+
+; IsKatakanaHandakuten
+	add $59 ; same character without diacritic
+	jr .PlaceHandakuten
+
+.IsHiraganaHandakuten
+	add $86 ; same character without diacritic
+
+.PlaceHandakuten
+	push af
+	ld a, "゜" ; handakuten
+	push hl
+	ld bc, -SCREEN_WIDTH ; one line above
+	add hl, bc
+	ld [hl], a
+	pop hl
+	pop af
+
+.RegularKana
 	ld [hli], a
 	call PrintLetterDelay
 
@@ -124,8 +182,9 @@ NullChar:: ; unused
 	ret
 
 TextIDErrorText:: ; "[hTextID] ERROR."
-	text_far _TextIDErrorText
-	text_end
+	text_decimal hTextID, 1, 2
+	text "エラー"
+	done
 
 MACRO print_name
 	push de
@@ -142,7 +201,6 @@ PCChar::      print_name PCCharText
 RocketChar::  print_name RocketCharText
 PlacePOKe::   print_name PlacePOKeText
 SixDotsChar:: print_name SixDotsCharText
-PlacePKMN::   print_name PlacePKMNText
 
 PlaceMoveTargetsName::
 	ldh a, [hWhoseTurn]
@@ -176,14 +234,13 @@ PlaceCommandCharacter::
 	inc de
 	jp PlaceNextChar
 
-TMCharText::      db "TM@"
-TrainerCharText:: db "TRAINER@"
-PCCharText::      db "PC@"
-RocketCharText::  db "ROCKET@"
-PlacePOKeText::   db "POKé@"
-SixDotsCharText:: db "……@"
-EnemyText::       db "Enemy @"
-PlacePKMNText::   db "<PK><MN>@"
+TMCharText::      db "わざマシン@"
+TrainerCharText:: db "トレーナー@"
+PCCharText::      db "パソコン@"
+RocketCharText::  db "ロケットだん@"
+PlacePOKeText::   db "ポケモン@"
+SixDotsCharText:: db "⋯⋯@"
+EnemyText::       db "てきの　@"
 
 ContText::
 	push de
@@ -198,13 +255,8 @@ ContText::
 	jp PlaceNextChar
 
 ContCharText::
-	text_far _ContCharText
+	text "<_CONT>@"
 	text_end
-
-PlaceDexEnd::
-	ld [hl], "."
-	pop hl
-	ret
 
 PromptText::
 	ld a, [wLinkState]
@@ -215,7 +267,7 @@ PromptText::
 .ok
 	call ProtectedDelay3
 	call ManualTextScroll
-	ld a, " "
+	ld a, "　"
 	ldcoord_a 18, 16
 
 DoneText::
@@ -242,23 +294,6 @@ Paragraph::
 	hlcoord 1, 14
 	jp NextChar
 
-PageChar::
-	push de
-	ld a, "▼"
-	ldcoord_a 18, 16
-	call ProtectedDelay3
-	call ManualTextScroll
-	hlcoord 1, 10
-	lb bc, 7, 18
-	call ClearScreenArea
-	ld c, 20
-	call DelayFrames
-	pop de
-	pop hl
-	hlcoord 1, 11
-	push hl
-	jp NextChar
-
 _ContText::
 	ld a, "▼"
 	ldcoord_a 18, 16
@@ -266,7 +301,7 @@ _ContText::
 	push de
 	call ManualTextScroll
 	pop de
-	ld a, " "
+	ld a, "　"
 	ldcoord_a 18, 16
 _ContTextNoPause::
 	push de
@@ -291,19 +326,17 @@ ScrollTextUpOneLine::
 	dec b
 	jr nz, .copyText
 	hlcoord 1, 16
-	ld a, " "
+	ld a, "　"
 	ld b, SCREEN_WIDTH - 2
 .clearText
 	ld [hli], a
 	dec b
 	jr nz, .clearText
-
 	ld b, 5
 .WaitFrame
 	call DelayFrame
 	dec b
 	jr nz, .WaitFrame
-
 	ret
 
 ProtectedDelay3::
@@ -316,9 +349,6 @@ TextCommandProcessor::
 	ld a, [wLetterPrintingDelayFlags]
 	push af
 	set BIT_TEXT_DELAY, a
-	ld e, a
-	ldh a, [hClearLetterPrintingDelayFlags]
-	xor e
 	ld [wLetterPrintingDelayFlags], a
 	ld a, c
 	ld [wTextDest], a
@@ -335,10 +365,6 @@ NextTextCommand::
 
 .TextCommand:
 	push hl
-	cp TX_FAR
-	jp z, TextCommand_FAR
-	cp TX_SOUND_POKEDEX_RATING
-	jp nc, TextCommand_SOUND
 	ld hl, TextCommandJumpTable
 	push bc
 	add a
@@ -441,7 +467,7 @@ TextCommand_PROMPT_BUTTON::
 	push bc
 	call ManualTextScroll ; blink arrow and wait for A or B to be pressed
 	pop bc
-	ld a, " "
+	ld a, "　"
 	ldcoord_a 18, 16 ; overwrite down arrow with blank space
 	pop hl
 	jp NextTextCommand
@@ -449,7 +475,7 @@ TextCommand_PROMPT_BUTTON::
 TextCommand_SCROLL::
 ; pushes text up two lines and sets the BC cursor to the border tile
 ; below the first character column of the text box.
-	ld a, " "
+	ld a, "　"
 	ldcoord_a 18, 16 ; place blank space in lower right corner of dialogue text box
 	call ScrollTextUpOneLine
 	call ScrollTextUpOneLine
@@ -555,7 +581,7 @@ TextCommandSounds::
 	db TX_SOUND_CRY_DEWGONG,          DEWGONG  ; unused
 
 TextCommand_DOTS::
-; wait for button press or 30 frames while printing "…"s
+; wait for button press or 30 frames while printing "⋯"s
 	pop hl
 	ld a, [hli]
 	ld d, a
@@ -564,7 +590,7 @@ TextCommand_DOTS::
 	ld l, c
 
 .loop
-	ld a, "…"
+	ld a, "⋯"
 	ld [hli], a
 	push de
 	call Joypad
@@ -591,32 +617,6 @@ TextCommand_WAIT_BUTTON::
 	pop hl
 	jp NextTextCommand
 
-TextCommand_FAR::
-; write text from a different bank (little endian)
-	pop hl
-	ldh a, [hLoadedROMBank]
-	push af
-
-	ld a, [hli]
-	ld e, a
-	ld a, [hli]
-	ld d, a
-	ld a, [hli]
-
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
-
-	push hl
-	ld l, e
-	ld h, d
-	call TextCommandProcessor
-	pop hl
-
-	pop af
-	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
-	jp NextTextCommand
-
 TextCommandJumpTable::
 ; entries correspond to TX_* constants (see macros/scripts/text.asm)
 	dw TextCommand_START         ; TX_START
@@ -626,15 +626,19 @@ TextCommandJumpTable::
 	dw TextCommand_BOX           ; TX_BOX
 	dw TextCommand_LOW           ; TX_LOW
 	dw TextCommand_PROMPT_BUTTON ; TX_PROMPT_BUTTON
-IF DEF(_DEBUG)
-	dw _ContTextNoPause          ; TX_SCROLL
-ELSE
 	dw TextCommand_SCROLL        ; TX_SCROLL
-ENDC
 	dw TextCommand_START_ASM     ; TX_START_ASM
 	dw TextCommand_NUM           ; TX_NUM
 	dw TextCommand_PAUSE         ; TX_PAUSE
 	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1 (also handles other TX_SOUND_* commands)
 	dw TextCommand_DOTS          ; TX_DOTS
 	dw TextCommand_WAIT_BUTTON   ; TX_WAIT_BUTTON
-	; greater TX_* constants are handled directly by NextTextCommand
+	dw TextCommand_SOUND         ; TX_SOUND_POKEDEX_RATING
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_1_DUPLICATE
+	dw TextCommand_SOUND         ; TX_SOUND_GET_ITEM_2
+	dw TextCommand_SOUND         ; TX_SOUND_GET_KEY_ITEM
+	dw TextCommand_SOUND         ; TX_SOUND_CAUGHT_MON
+	dw TextCommand_SOUND         ; TX_SOUND_DEX_PAGE_ADDED
+	dw TextCommand_SOUND         ; TX_SOUND_CRY_NIDORINA
+	dw TextCommand_SOUND         ; TX_SOUND_CRY_PIDGEOT
+	dw TextCommand_SOUND         ; TX_SOUND_CRY_DEWGONG

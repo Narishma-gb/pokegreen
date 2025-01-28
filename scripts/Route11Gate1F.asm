@@ -6,5 +6,14 @@ Route11Gate1F_TextPointers:
 	dw_const Route11Gate1FGuardText, TEXT_ROUTE11GATE1F_GUARD
 
 Route11Gate1FGuardText:
-	text_far _Route11Gate1FGuardText
-	text_end
+	text "#を　たくさん　とると"
+	line "なまえを　つけて　あげるのに"
+	cont "くろう　しちゃう　でしょ！"
+
+	para "この　さきの　シオン　タウンに"
+	line "#の　なまえを"
+	cont "うらなって　くれる　ひとが　いるよ"
+
+	para "#に　もっと　いい　なまえを"
+	line "つけ　なおす　ことも　できるよ"
+	done

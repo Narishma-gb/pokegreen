@@ -32,9 +32,13 @@ Route2GateOaksAideText:
 	jp TextScriptEnd
 
 .FlashExplanationText:
-	text_far _Route2GateOaksAideFlashExplanationText
-	text_end
+	text "ひでんの　フラッシュで"
+	line "どんなに　くらいばしょでも"
+	cont "バッチリ　あかるく　なります"
+	done
 
 Route2GateYoungsterText:
-	text_far _Route2GateYoungsterText
-	text_end
+	text "#が"
+	line "フラッシュを　おぼえたら"
+	cont "イワヤマトンネルが　とおれるね"
+	done

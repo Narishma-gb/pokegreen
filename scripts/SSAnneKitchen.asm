@@ -13,28 +13,44 @@ SSAnneKitchen_TextPointers:
 	dw_const SSAnneKitchenCook7Text, TEXT_SSANNEKITCHEN_COOK7
 
 SSAnneKitchenCook1Text:
-	text_far _SSAnneKitchenCook1Text
-	text_end
+	text "ほら！"
+	line "そこの　きみ　じゃまだよ！"
+	cont "どいた　どいた！"
+	done
 
 SSAnneKitchenCook2Text:
-	text_far _SSAnneKitchenCook2Text
-	text_end
+	text "ゴミばこに　へんなボールが"
+	line "すてて　あったけど　なんだろう？"
+	done
 
 SSAnneKitchenCook3Text:
-	text_far _SSAnneKitchenCook3Text
-	text_end
+	text "いそがしくって　めが　まわる！"
+	line "たのむ　から　あっち　いってくれ！"
+	done
 
 SSAnneKitchenCook4Text:
-	text_far _SSAnneKitchenCook4Text
-	text_end
+	text "せっせ　せっせ<⋯>"
+
+	para "おれは　まいにち"
+	line "イモの　かわむきだ！"
+	cont "せっせ　せっせ<⋯>"
+	done
 
 SSAnneKitchenCook5Text:
-	text_far _SSAnneKitchenCook5Text
-	text_end
+	text "そういえば　くいしんぼうの"
+	line "カビゴン　しってる？"
+
+	para "あんなに　よく　たべて　よく　ねる"
+	line "#は　ほかに　いないよ！"
+	done
 
 SSAnneKitchenCook6Text:
-	text_far _SSAnneKitchenCook6Text
-	text_end
+	text "しくしく　しくしく<⋯>"
+
+	para "おれは　まいにち"
+	line "タマネギの　かわむきだー"
+	cont "しくしく　しくしく<⋯>"
+	done
 
 SSAnneKitchenCook7Text:
 	text_asm
@@ -57,17 +73,29 @@ SSAnneKitchenCook7Text:
 	jp TextScriptEnd
 
 .MainCourseIsText:
-	text_far _SSAnneKitchenCook7MainCourseIsText
-	text_end
+	text "おっほん！"
+	line "わたしが　ここの　シェフです！"
+
+	para "きょうの　メイン　ディッシュは"
+	prompt
 
 .SalmonDuSaladText:
-	text_far SSAnneKitchenCook7SalmonDuSaladText
-	text_end
+	text "したびらめの　ムニエル！"
+
+	para "しかし　おきゃくさんに"
+	line "また　さかな？　と　いわれそうだ"
+	done
 
 .EelsAuBarbecueText:
-	text_far SSAnneKitchenCook7EelsAuBarbecueText
-	text_end
+	text "さんまの　しおやき！"
+
+	para "<⋯>じゃ　おきゃく　さんに"
+	line "おこられるか？"
+	done
 
 .PrimeBeefSteakText:
-	text_far SSAnneKitchenCook7PrimeBeefSteakText
-	text_end
+	text "ぎゅう　フィレの　ステーキ！"
+
+	para "でも　ざいりょう"
+	line "にんずう　ぶん　あったかな？"
+	done

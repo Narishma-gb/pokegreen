@@ -29,19 +29,19 @@ MACRO shift_const
 ENDM
 
 MACRO const_skip
-	if _NARG >= 1
+	IF _NARG >= 1
 		DEF const_value += const_inc * (\1)
-	else
+	ELSE
 		DEF const_value += const_inc
-	endc
+	ENDC
 ENDM
 
 MACRO const_next
-	if (const_value > 0 && \1 < const_value) || (const_value < 0 && \1 > const_value)
-		fail "const_next cannot go backwards from {const_value} to \1"
-	else
+	IF (const_value > 0 && \1 < const_value) || (const_value < 0 && \1 > const_value)
+		FAIL "const_next cannot go backwards from {const_value} to \1"
+	ELSE
 		DEF const_value = \1
-	endc
+	ENDC
 ENDM
 
 MACRO dw_const
@@ -51,8 +51,8 @@ ENDM
 
 MACRO rb_skip
 	IF _NARG == 1
-		rsset _RS + \1
+		RSSET _RS + \1
 	ELSE
-		rsset _RS + 1
+		RSSET _RS + 1
 	ENDC
 ENDM

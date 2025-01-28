@@ -159,10 +159,37 @@ CopyVideoDataDouble::
 	ld c, a
 	jr .loop
 
+CheckForUserInterruption::
+; Return carry if Up+Select+B, Start or A are pressed in c frames.
+; Used only in the intro and title screen.
+	call DelayFrame
+
+	push bc
+	call JoypadLowSensitivity
+	pop bc
+
+	ldh a, [hJoyHeld]
+	cp D_UP + SELECT + B_BUTTON
+	jr z, .input
+
+	ldh a, [hJoy5]
+	and START | A_BUTTON
+	jr nz, .input
+
+	dec c
+	jr nz, CheckForUserInterruption
+
+	and a
+	ret
+
+.input
+	scf
+	ret
+
 ClearScreenArea::
 ; Clear tilemap area cxb at hl.
-	ld a, " " ; blank tile
-	ld de, 20 ; screen width
+	ld a, "　" ; blank tile
+	ld de, SCREEN_WIDTH
 .y
 	push hl
 	push bc
@@ -215,10 +242,10 @@ CopyScreenTileBufferToVRAM::
 ClearScreen::
 ; Clear wTileMap, then wait
 ; for the bg map to update.
-	ld bc, 20 * 18
+	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
 	inc b
 	hlcoord 0, 0
-	ld a, " "
+	ld a, "　"
 .loop
 	ld [hli], a
 	dec c

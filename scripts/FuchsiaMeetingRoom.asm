@@ -9,13 +9,24 @@ FuchsiaMeetingRoom_TextPointers:
 	dw_const FuchsiaMeetingRoomSafariZoneWorker3, TEXT_FUCHSIAMEETINGROOM_SAFARI_ZONE_WORKER3
 
 FuchsiaMeetingRoomSafariZoneWorker1:
-	text_far _FuchsiaMeetingRoomSafariZoneWorker1
-	text_end
+	text "ウチの　えんちょう"
+	line "あだな　ヤドンって　いうんです"
+
+	para "ほら！　#の　ヤドンって"
+	line "とぼけた　かんじ　でしょ！"
+	done
 
 FuchsiaMeetingRoomSafariZoneWorker2:
-	text_far _FuchsiaMeetingRoomSafariZoneWorker2
-	text_end
+	text "ヤドンさんって"
+	line "すごい　#　くわしいんだ！"
+
+	para "みた　ことも　ない"
+	line "#の　カセキとか　もってるし"
+	done
 
 FuchsiaMeetingRoomSafariZoneWorker3:
-	text_far _FuchsiaMeetingRoomSafariZoneWorker3
-	text_end
+	text "ウチの　ヤドン　なにやら"
+	line "ふにゃふにゃ　いってたな<⋯>"
+
+	para "ボケた　のか？"
+	done

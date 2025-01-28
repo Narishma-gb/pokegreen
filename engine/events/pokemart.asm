@@ -1,6 +1,6 @@
 DisplayPokemartDialogue_::
 	ld a, [wListScrollOffset]
-	ld [wSavedListScrollOffset], a
+	push af
 	call UpdateSprites
 	xor a
 	ld [wBoughtOrSoldItemInMart], a
@@ -99,7 +99,7 @@ DisplayPokemartDialogue_::
 	dec a
 	jr z, .sellMenuLoop
 
-.sellItem
+; sellItem
 	ld a, [wBoughtOrSoldItemInMart]
 	and a
 	jr nz, .skipSettingFlag1
@@ -117,7 +117,6 @@ DisplayPokemartDialogue_::
 .bagEmpty
 	ld hl, PokemartItemBagEmptyText
 	call PrintText
-	call SaveScreenTilesToBuffer1
 	jp .returnToMainPokemartMenu
 .buyMenu
 
@@ -177,7 +176,7 @@ DisplayPokemartDialogue_::
 	dec a
 	jr z, .buyMenuLoop
 
-.buyItem
+; buyItem
 	call .isThereEnoughMoney
 	jr c, .notEnoughMoney
 	ld hl, wNumBagItems
@@ -223,50 +222,62 @@ DisplayPokemartDialogue_::
 	ld a, 1
 	ld [wUpdateSpritesEnabled], a
 	call UpdateSprites
-	ld a, [wSavedListScrollOffset]
+	pop af
 	ld [wListScrollOffset], a
 	ret
 
 PokemartBuyingGreetingText:
-	text_far _PokemartBuyingGreetingText
-	text_end
+	text "ゆっくり　ごらんになって　ください"
+	done
 
 PokemartTellBuyPriceText:
-	text_far _PokemartTellBuyPriceText
-	text_end
+	text_ram wStringBuffer
+	text "ですね"
+	line "@"
+	text_bcd hMoney, 3 | LEADING_ZEROES | LEFT_ALIGN
+	text "円に　なりますが？"
+	done
 
 PokemartBoughtItemText:
-	text_far _PokemartBoughtItemText
-	text_end
+	text "はい　どうぞ"
+	line "まいど　ありがとう　ございます"
+	prompt
 
 PokemartNotEnoughMoneyText:
-	text_far _PokemartNotEnoughMoneyText
-	text_end
+	text "おかねが　たりないようですね"
+	prompt
 
 PokemartItemBagFullText:
-	text_far _PokemartItemBagFullText
-	text_end
+	text "それいじょう　もちきれませんね"
+	line "いらないモノを　せいりしてください"
+	prompt
 
 PokemonSellingGreetingText:
-	text_far _PokemonSellingGreetingText
-	text_end
+	text "どれを　うっていただけますか？"
+	done
 
 PokemartTellSellPriceText:
-	text_far _PokemartTellSellPriceText
-	text_end
+	text "それでしたら　@"
+	text_bcd hMoney, 3 | LEADING_ZEROES | LEFT_ALIGN
+	text "円で　"
+	line "おひきとりいたしましょう"
+	done
 
 PokemartItemBagEmptyText:
-	text_far _PokemartItemBagEmptyText
-	text_end
+	text "かいとれる　しなものは"
+	line "おもちで　ないようです"
+	prompt
 
 PokemartUnsellableItemText:
-	text_far _PokemartUnsellableItemText
-	text_end
+	text "<⋯>そのしなものに　おねだんを"
+	line "おつけするわけには　まいりません"
+	prompt
 
 PokemartThankYouText:
-	text_far _PokemartThankYouText
-	text_end
+	text "ありがとう　ございました"
+	done
 
 PokemartAnythingElseText:
-	text_far _PokemartAnythingElseText
-	text_end
+	text "そのほかに　わたくしどもで"
+	line "おちからに　なれることは？"
+	done

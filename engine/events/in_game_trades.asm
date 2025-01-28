@@ -3,10 +3,8 @@ DoInGameTradeDialogue:
 	call SaveScreenTilesToBuffer2
 	ld hl, TradeMons
 	ld a, [wWhichTrade]
-	ld b, a
 	swap a
-	sub b
-	sub b
+	srl a
 	ld c, a
 	ld b, 0
 	add hl, bc
@@ -19,6 +17,8 @@ DoInGameTradeDialogue:
 	ld de, wInGameTradeMonNick
 	ld bc, NAME_LENGTH
 	call CopyData
+	ld a, "@"
+	ld [wInGameTradeMonNick + 5], a
 	pop af
 	ld l, a
 	ld h, 0
@@ -42,14 +42,14 @@ DoInGameTradeDialogue:
 	predef FlagActionPredef
 	ld a, c
 	and a
-	ld a, $4
+	ld a, TEXT_AFTER_TRADE
 	ld [wInGameTradeTextPointerTableIndex], a
 	jr nz, .printText
 ; if the trade hasn't been done yet
-	xor a
+	xor a ; TEXT_WANNA_TRADE
 	ld [wInGameTradeTextPointerTableIndex], a
 	call .printText
-	ld a, $1
+	ld a, TEXT_NO_TRADE
 	ld [wInGameTradeTextPointerTableIndex], a
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
@@ -95,13 +95,13 @@ InGameTrade_DoTrade:
 	push af
 	call InGameTrade_RestoreScreen
 	pop af
-	ld a, $1
-	jp c, .tradeFailed ; jump if the player didn't select a pokemon
+	ld a, TEXT_NO_TRADE
+	jr c, .tradeFailed ; jump if the player didn't select a pokemon
 	ld a, [wInGameTradeGiveMonSpecies]
 	ld b, a
 	ld a, [wCurPartySpecies]
 	cp b
-	ld a, $2
+	ld a, TEXT_WRONG_MON
 	jr nz, .tradeFailed ; jump if the selected mon's species is not the required one
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Level
@@ -123,6 +123,7 @@ InGameTrade_DoTrade:
 	call LoadHpBarAndStatusTilePatterns
 	call InGameTrade_PrepareTradeData
 	predef InternalClockTradeAnim
+	call ClearScreen
 	pop af
 	ld [wCurEnemyLevel], a
 	pop af
@@ -136,13 +137,11 @@ InGameTrade_DoTrade:
 	ld a, $80 ; prevent the player from naming the mon
 	ld [wMonDataLocation], a
 	call AddPartyMon
-	call InGameTrade_CopyDataToReceivedMon
-	callfar EvolveTradeMon
-	call ClearScreen
 	call InGameTrade_RestoreScreen
 	farcall RedrawMapView
+	call InGameTrade_CopyDataToReceivedMon
 	and a
-	ld a, $3
+	ld a, TEXT_THANKS
 	jr .tradeSucceeded
 .tradeFailed
 	scf
@@ -230,7 +229,7 @@ InGameTrade_GetReceivedMonPointer:
 	ret
 
 InGameTrade_TrainerString:
-	db "<TRAINER>@@@@@@@@@@"
+	db "<TRAINER>@"
 
 InGameTradeTextPointers:
 ; entries correspond to TRADE_DIALOGSET_* constants
@@ -260,71 +259,129 @@ TradeTextPointers3:
 	dw AfterTrade3Text
 
 ConnectCableText:
-	text_far _ConnectCableText
-	text_end
+	text "じゃあ"
+	line "ケーブルを　つないで<⋯>と"
+	prompt
 
 TradedForText:
-	text_far _TradedForText
+	text "<PLAYER>は　@"
+	text_ram wInGameTradeGiveMonName
+	text "と"
+	line "@"
+	text_ram wInGameTradeReceiveMonName
+	text "を　こうかんした！@"
 	sound_get_key_item
 	text_pause
 	text_end
 
 WannaTrade1Text:
-	text_far _WannaTrade1Text
-	text_end
+	text "おれ　@"
+	text_ram wInGameTradeGiveMonName
+	text "　さがしてるんだ！"
+
+	para "きみ　もってたら　@"
+	text_ram wInGameTradeReceiveMonName
+	text "と"
+	line "こうかんしようぜ？"
+	done
 
 NoTrade1Text:
-	text_far _NoTrade1Text
-	text_end
+	text "そんなー"
+	line "<⋯>まっ　いっか"
+	done
 
 WrongMon1Text:
-	text_far _WrongMon1Text
-	text_end
+	text "<⋯>なんだ"
+	line "@"
+	text_ram wInGameTradeGiveMonName
+	text "じゃ　ないじゃん"
+
+	para "もし　つかまえたら"
+	line "まっさきに　ここへ　こいよ！"
+	done
 
 Thanks1Text:
-	text_far _Thanks1Text
-	text_end
+	text "サンキュー"
+	done
 
 AfterTrade1Text:
-	text_far _AfterTrade1Text
-	text_end
+	text "おれの　やった"
+	line "@"
+	text_ram wInGameTradeReceiveMonName
+	text "　イイだろ？"
+	done
 
 WannaTrade2Text:
-	text_far _WannaTrade2Text
-	text_end
+	text "これこれ"
+	line "きみ　@"
+	text_ram wInGameTradeGiveMonName
+	text "　もっとる？"
+
+	para "わしの　@"
+	text_ram wInGameTradeReceiveMonName
+	text "と"
+	line "こうかん　しないか？"
+	done
 
 NoTrade2Text:
-	text_far _NoTrade2Text
-	text_end
+	text "まー　ムリに　とは　いわんが<⋯>"
+	done
 
 WrongMon2Text:
-	text_far _WrongMon2Text
-	text_end
+	text "<⋯>む？"
+	line "@"
+	text_ram wInGameTradeGiveMonName
+	text "では　ないじゃないか"
+
+	para "てに　いれた　ときは"
+	line "よろしく　たのむよ"
+	done
 
 Thanks2Text:
-	text_far _Thanks2Text
-	text_end
+	text "ありがとよ"
+	done
 
 AfterTrade2Text:
-	text_far _AfterTrade2Text
-	text_end
+	text "こうかんした　@"
+	text_ram wInGameTradeReceiveMonName
+	text_start
+	line "つよくなったかい？"
+	done
 
 WannaTrade3Text:
-	text_far _WannaTrade3Text
-	text_end
+	text "ねー　きみ"
+	line "@"
+	text_ram wInGameTradeGiveMonName
+	text "　もってる？"
+
+	para "わたしの　@"	
+	text_ram wInGameTradeReceiveMonName
+	text "と"
+	line "とりかえて　くれない？"
+	done
 
 NoTrade3Text:
-	text_far _NoTrade3Text
-	text_end
+	text "イヤなら　しょーがないな"
+	done
 
 WrongMon3Text:
-	text_far _WrongMon3Text
-	text_end
+	text "<⋯>　これ"
+	line "@"
+	text_ram wInGameTradeGiveMonName
+	text "じゃ　ないわー"
+
+	para "てに　いれたら"
+	line "ぜったい　とりかえてよねっ！"
+	done
 
 Thanks3Text:
-	text_far _Thanks3Text
-	text_end
+	text "ありがとね"
+	done
 
 AfterTrade3Text:
-	text_far _AfterTrade3Text
-	text_end
+	text_ram wInGameTradeReceiveMonName
+	text "　げんき？"
+	line "わたしの　@"
+	text_ram wInGameTradeGiveMonName
+	text "は　げんきよ"
+	done

@@ -50,7 +50,7 @@ StartMenu_Pokemon::
 	ld hl, wTopMenuItemY
 	ld a, c
 	ld [hli], a ; top menu item Y
-	ldh a, [hFieldMoveMonMenuTopMenuItemX]
+	ld a, 12
 	ld [hli], a ; top menu item X
 	xor a
 	ld [hli], a ; current menu item ID
@@ -122,7 +122,7 @@ StartMenu_Pokemon::
 .outOfBattleMovePointers
 	dw .cut
 	dw .fly
-	dw .surf
+	dw .unused
 	dw .surf
 	dw .strength
 	dw .flash
@@ -157,6 +157,8 @@ StartMenu_Pokemon::
 	and a
 	jp z, .loop
 	jp CloseTextDisplay
+.unused
+	jp .loop
 .surf
 	bit BIT_SOULBADGE, a
 	jp z, .newBadgeRequired
@@ -190,8 +192,9 @@ StartMenu_Pokemon::
 	call GBPalWhiteOutWithDelay3
 	jp .goBackToMap
 .flashLightsAreaText
-	text_far _FlashLightsAreaText
-	text_end
+	text "まばゆい　ひかりが"
+	line "あたりを　あかるく　てらす<⋯>"
+	prompt
 .dig
 	ld a, ESCAPE_ROPE
 	ld [wCurItem], a
@@ -225,14 +228,21 @@ StartMenu_Pokemon::
 	call GBPalWhiteOutWithDelay3
 	jp .goBackToMap
 .warpToLastPokemonCenterText
-	text_far _WarpToLastPokemonCenterText
-	text_end
+	text "さいごに　やすんだ"
+	line "#センターへ　とびます！"
+	done
 .cannotUseTeleportNowText
-	text_far _CannotUseTeleportNowText
-	text_end
+	text "ここでは　@"
+	text_ram wNameBuffer
+	text "で"
+	line "テレポートすることは　できません！"
+	prompt
 .cannotFlyHereText
-	text_far _CannotFlyHereText
-	text_end
+	text "ここでは　@"
+	text_ram wNameBuffer
+	text "で"
+	line "そらを　とぶことは　できません！"
+	prompt
 .softboiled
 	ld hl, wPartyMon1MaxHP
 	ld a, [wWhichPokemon]
@@ -270,8 +280,8 @@ StartMenu_Pokemon::
 	call PrintText
 	jp .loop
 .notHealthyEnoughText
-	text_far _NotHealthyEnoughText
-	text_end
+	text "たいりょくが　たりません！"
+	prompt
 .goBackToMap
 	call RestoreScreenTilesAndReloadTilePatterns
 	jp CloseTextDisplay
@@ -280,8 +290,9 @@ StartMenu_Pokemon::
 	call PrintText
 	jp .loop
 .newBadgeRequiredText
-	text_far _NewBadgeRequiredText
-	text_end
+	text "あたらしい　バッジを　てにするまで"
+	line "まだ　つかえません！"
+	prompt
 
 ; writes a blank tile to all possible menu cursor positions on the party menu
 ErasePartyMenuCursors::
@@ -289,7 +300,7 @@ ErasePartyMenuCursors::
 	ld bc, 2 * 20 ; menu cursor positions are 2 rows apart
 	ld a, 6 ; 6 menu cursor positions
 .loop
-	ld [hl], " "
+	ld [hl], "　"
 	add hl, bc
 	dec a
 	jr nz, .loop
@@ -329,7 +340,7 @@ StartMenu_Item::
 	jp RedisplayStartMenu
 .choseItem
 ; erase menu cursor (blank each tile in front of an item name)
-	ld a, " "
+	ld a, "　"
 	ldcoord_a 5, 4
 	ldcoord_a 5, 6
 	ldcoord_a 5, 8
@@ -340,14 +351,14 @@ StartMenu_Item::
 	ld a, [wCurItem]
 	cp BICYCLE
 	jp z, .useOrTossItem
-.notBicycle1
+; notBicycle1
 	ld a, USE_TOSS_MENU_TEMPLATE
 	ld [wTextBoxID], a
 	call DisplayTextBoxID
 	ld hl, wTopMenuItemY
 	ld a, 11
 	ld [hli], a ; top menu item Y
-	ld a, 14
+	ld a, 15
 	ld [hli], a ; top menu item X
 	xor a
 	ld [hli], a ; current menu item ID
@@ -439,12 +450,13 @@ StartMenu_Item::
 	jp ItemMenuLoop
 
 CannotUseItemsHereText:
-	text_far _CannotUseItemsHereText
-	text_end
+	text "ここでは　どうぐを"
+	line "つかうことは　できません"
+	prompt
 
 CannotGetOffHereText:
-	text_far _CannotGetOffHereText
-	text_end
+	text "おりることが　できない！"
+	prompt
 
 INCLUDE "data/items/use_party.asm"
 
@@ -481,7 +493,7 @@ DrawTrainerInfo:
 	predef DisplayPicCenteredOrUpperRight
 	call DisableLCD
 	hlcoord 0, 2
-	ld a, " "
+	ld a, "　"
 	call TrainerInfo_DrawVerticalLine
 	hlcoord 1, 2
 	call TrainerInfo_DrawVerticalLine
@@ -494,13 +506,13 @@ DrawTrainerInfo:
 	ld bc, 8 tiles
 	push bc
 	call TrainerInfo_FarCopyData
-	ld hl, BlankLeaderNames
+	ld hl, TrainerCardFontGraphics
 	ld de, vChars2 tile $60
 	ld bc, $17 tiles
 	call TrainerInfo_FarCopyData
 	pop bc
 	ld hl, BadgeNumbersTileGraphics  ; badge number tile patterns
-	ld de, vChars1 tile $58
+	ld de, vChars1 tile $68
 	call TrainerInfo_FarCopyData
 	ld hl, GymLeaderFaceAndBadgeTileGraphics  ; gym leader face and badge tile patterns
 	ld de, vChars2 tile $20
@@ -510,14 +522,14 @@ DrawTrainerInfo:
 	ld hl, TextBoxGraphics
 	ld de, 13 tiles
 	add hl, de ; hl = colon tile pattern
-	ld de, vChars1 tile $56
+	ld de, vChars1 tile $74
 	ld bc, 1 tiles
 	ld a, BANK(TextBoxGraphics)
 	push bc
 	call FarCopyData2
 	pop bc
 	ld hl, TrainerInfoTextBoxTileGraphics tile 8  ; background tile pattern
-	ld de, vChars1 tile $57
+	ld de, vChars1 tile $75
 	call TrainerInfo_FarCopyData
 	call EnableLCD
 	ld hl, wTrainerInfoTextBoxWidthPlus1
@@ -537,7 +549,7 @@ DrawTrainerInfo:
 	hlcoord 1, 10
 	call TrainerInfo_DrawTextBox
 	hlcoord 0, 10
-	ld a, $d7
+	ld a, $f5
 	call TrainerInfo_DrawVerticalLine
 	hlcoord 19, 10
 	call TrainerInfo_DrawVerticalLine
@@ -547,18 +559,19 @@ DrawTrainerInfo:
 	hlcoord 2, 2
 	ld de, TrainerInfo_NameMoneyTimeText
 	call PlaceString
-	hlcoord 7, 2
+	hlcoord 6, 2
 	ld de, wPlayerName
 	call PlaceString
 	hlcoord 8, 4
 	ld de, wPlayerMoney
-	ld c, $e3
+	ld c, 3 | LEADING_ZEROES | LEFT_ALIGN
 	call PrintBCDNumber
+	ld [hl], "円"
 	hlcoord 9, 6
 	ld de, wPlayTimeHours ; hours
 	lb bc, LEFT_ALIGN | 1, 3
 	call PrintNumber
-	ld [hl], $d6 ; colon tile ID
+	ld [hl], $f4
 	inc hl
 	ld de, wPlayTimeMinutes ; minutes
 	lb bc, LEADING_ZEROES | 1, 2
@@ -569,13 +582,13 @@ TrainerInfo_FarCopyData:
 	jp FarCopyData2
 
 TrainerInfo_NameMoneyTimeText:
-	db   "NAME/"
-	next "MONEY/"
-	next "TIME/@"
+	db   "なまえ／"
+	next "おこづかい／"
+	next "プレイじかん／@"
 
 ; $76 is a circle tile
 TrainerInfo_BadgesText:
-	db $76,"BADGES",$76,"@"
+	db $76, $70, $71, $72, $73, $74, $75, $76, "@" ; small font °ポケモン　バッヅ°
 
 ; draws a text box on the trainer info screen
 ; height is always 6
@@ -671,7 +684,7 @@ SwitchPartyMon_ClearGfx:
 	ld bc, SCREEN_WIDTH * 2
 	call AddNTimes
 	ld c, SCREEN_WIDTH * 2
-	ld a, " "
+	ld a, "　"
 .clearMonBGLoop ; clear the mon's row in the party menu
 	ld [hli], a
 	dec c

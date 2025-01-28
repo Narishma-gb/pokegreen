@@ -100,25 +100,25 @@ BadgeTextPointers:
 	dw EarthBadgeText
 
 EarthBadgeText:
-	db "EARTHBADGE@"
+	db "グリーン@"
 
 VolcanoBadgeText:
-	db "VOLCANOBADGE@"
+	db "クリムゾン@"
 
 MarshBadgeText:
-	db "MARSHBADGE@"
+	db "ゴールド@"
 
 SoulBadgeText:
-	db "SOULBADGE@"
+	db "ピンク@"
 
 RainbowBadgeText:
-	db "RAINBOWBADGE@"
+	db "レインボー@"
 
 ThunderBadgeText:
-	db "THUNDERBADGE@"
+	db "オレンジ@"
 
 CascadeBadgeText:
-	db "CASCADEBADGE@"
+	db "ブルー@"
 
 Route23MovePlayerDownScript:
 	ld a, $1
@@ -227,7 +227,19 @@ Route23PrintOhThatsTheBadgeTextScript: ; unreferenced
 	jp PrintText
 
 Route23YouDontHaveTheBadgeYetText:
-	text_far _Route23YouDontHaveTheBadgeYetText
+	text "ここから　さきは<⋯>"
+	line "@"
+	text_ram wNameBuffer
+	text "　バッジを"
+	cont "もった　もの　だけが　すすめる！"
+
+	para "きみは　まだ"
+	line "@"
+	text_ram wNameBuffer
+	text "　バッジを　もって　いない"
+
+	para "#　リーグを　めざす　なら"
+	line "でなおして　きなさい@"
 	text_asm
 	ld a, SFX_DENIED
 	call PlaySoundWaitForCurrent
@@ -235,11 +247,24 @@ Route23YouDontHaveTheBadgeYetText:
 	jp TextScriptEnd
 
 Route23OhThatIsTheBadgeText:
-	text_far _Route23OhThatIsTheBadgeText
+	text "ここから　さきは<⋯>"
+	line "@"
+	text_ram wNameBuffer
+	text "　バッジを"
+	cont "もった　もの　だけが　すすめる！"
+
+	para "むむッ<⋯>！"
+	line "それは　@"
+	text_ram wNameBuffer
+	text "　バッジ！@"
 	sound_get_item_1
-	text_far _Route23GoRightAheadText
-	text_end
+	text_start
+
+	para "わかった<⋯>！"
+	line "この　さきへ　すすみなさい！"
+	done
 
 Route23VictoryRoadGateSignText:
-	text_far _Route23VictoryRoadGateSignText
-	text_end
+	text "ここは　チャンピオン　ロード"
+	line "ゲート　<⋯>　#リーグ"
+	done

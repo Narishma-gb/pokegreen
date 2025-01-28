@@ -1,7 +1,7 @@
 LoreleisRoom_Script:
 	call LoreleiShowOrHideExitBlock
 	call EnableAutoTextBoxDrawing
-	ld hl, LoreleisRoomTrainerHeaders
+	ld hl, LoreleisRoom_TrainerHeaders
 	ld de, LoreleisRoom_ScriptPointers
 	ld a, [wLoreleisRoomCurScript]
 	call ExecuteCurMapScriptInTable
@@ -121,30 +121,50 @@ LoreleisRoom_TextPointers:
 	dw_const LoreleisRoomLoreleiText,            TEXT_LORELEISROOM_LORELEI
 	dw_const LoreleisRoomLoreleiDontRunAwayText, TEXT_LORELEISROOM_DONT_RUN_AWAY
 
-LoreleisRoomTrainerHeaders:
-	def_trainers
-LoreleisRoomTrainerHeader0:
-	trainer EVENT_BEAT_LORELEIS_ROOM_TRAINER_0, 0, LoreleisRoomLoreleiBeforeBattleText, LoreleisRoomLoreleiEndBattleText, LoreleisRoomLoreleiAfterBattleText
+	def_trainers LoreleisRoom
+	trainer EVENT_BEAT_LORELEIS_ROOM_TRAINER_0, 0, Lorelei
 	db -1 ; end
 
 LoreleisRoomLoreleiText:
 	text_asm
-	ld hl, LoreleisRoomTrainerHeader0
+	ld hl, LoreleisRoom_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
-LoreleisRoomLoreleiBeforeBattleText:
-	text_far _LoreleisRoomLoreleiBeforeBattleText
-	text_end
+LoreleisRoomLoreleiBattleText:
+	text "#　リーグへ　ようこそ！"
+
+	para "わたしが　してんのうの　カンナ！"
+
+	para "こおり　#　つかわせたら"
+	line "みぎに　でる　ものは　いないわ"
+
+	para "あいてを　こおらせるって"
+	line "とっても　きょうりょくよ！"
+
+	para "だって　こおっちゃったら"
+	line "あんたの　#"
+	cont "ぜんぜん　うごけ　ないんだから"
+
+	para "<⋯>　あははッ！"
+	line "じゃ　かくごは　いいかしら！"
+	done
 
 LoreleisRoomLoreleiEndBattleText:
-	text_far _LoreleisRoomLoreleiEndBattleText
-	text_end
+	text "<⋯>　なんて　やつなの！"
+	prompt
 
 LoreleisRoomLoreleiAfterBattleText:
-	text_far _LoreleisRoomLoreleiAfterBattleText
-	text_end
+	text "すこしは　できる　みたいね！"
+	line "わかった<⋯>！"
+	cont "つぎの　へやに　すすむと　いいわ！"
+
+	para "#　リーグ　しんの　パワーは"
+	line "まだまだ<⋯>！"
+	cont "こんな　ものじゃ　ないわよ！"
+	done
 
 LoreleisRoomLoreleiDontRunAwayText:
-	text_far _LoreleisRoomLoreleiDontRunAwayText
-	text_end
+	text "だれかの　こえが　きこえる<⋯>"
+	line "「にげては　ならん！」"
+	done

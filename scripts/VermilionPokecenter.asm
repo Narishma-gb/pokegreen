@@ -13,12 +13,19 @@ VermilionPokecenterNurseText:
 	script_pokecenter_nurse
 
 VermilionPokecenterFishingGuruText:
-	text_far _VermilionPokecenterFishingGuruText
-	text_end
+	text "おなじ　レベルの　#でも"
+	line "つよさは　まちまち　らしい"
+
+	para "それに　ひとが　そだてた"
+	line "#の　ほうが"
+	cont "やせい　より　つよい　らしい"
+	done
 
 VermilionPokecenterSailorText:
-	text_far _VermilionPokecenterSailorText
-	text_end
+	text "おれの　#"
+	line "どく　くらったまま　あるいてたら"
+	cont "ちから　つき　おったで！"
+	done
 
 VermilionPokecenterLinkReceptionistText:
 	script_cable_club_receptionist

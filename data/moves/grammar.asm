@@ -1,4 +1,4 @@
-ExclamationPointMoveSets:
+SentenceEndMoveSets:
 ; set 0
 	db SWORDS_DANCE
 	db GROWTH

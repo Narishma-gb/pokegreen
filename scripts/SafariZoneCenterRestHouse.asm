@@ -7,9 +7,11 @@ SafariZoneCenterRestHouse_TextPointers:
 	dw_const SafariZoneCenterRestHouseScientistText, TEXT_SAFARIZONECENTERRESTHOUSE_SCIENTIST
 
 SafariZoneCenterRestHouseGirlText:
-	text_far _SafariZoneCenterRestHouseGirlText
-	text_end
+	text "アツコ『#とりに　いこうって"
+	line "いった　のに<⋯>コージ　どこなのよ！"
+	done
 
 SafariZoneCenterRestHouseScientistText:
-	text_far _SafariZoneCenterRestHouseScientistText
-	text_end
+	text "よーし！　#　とり　まくって"
+	line "おみやげに　しようっと！"
+	done

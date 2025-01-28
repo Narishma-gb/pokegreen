@@ -8,9 +8,12 @@ SafariZoneCenter_TextPointers:
 	dw_const SafariZoneCenterTrainerTipsSignText, TEXT_SAFARIZONECENTER_TRAINER_TIPS_SIGN
 
 SafariZoneCenterRestHouseSignText:
-	text_far _SafariZoneCenterRestHouseSignText
-	text_end
+	text "きゅうけい　ハウス　<⋯>　いこい"
+	done
 
 SafariZoneCenterTrainerTipsSignText:
-	text_far _SafariZoneCenterTrainerTipsSignText
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "スタート　ボタン　おして！"
+	line "のこり　じかんの　かくにん！"
+	done

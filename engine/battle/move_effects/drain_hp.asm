@@ -20,7 +20,7 @@ DrainHPEffect_:
 	ld hl, wEnemyMonHP
 	ld de, wEnemyMonMaxHP
 .addDamageToAttackerHP
-	ld bc, wHPBarOldHP+1
+	ld bc, wHPBarOldHP + 1
 ; copy current HP to wHPBarOldHP
 	ld a, [hli]
 	ld [bc], a
@@ -45,7 +45,7 @@ DrainHPEffect_:
 	ld b, [hl]
 	adc b
 	ld [hli], a
-	ld [wHPBarNewHP+1], a
+	ld [wHPBarNewHP + 1], a
 	jr c, .capToMaxHP ; if HP > 65,535, cap to max HP
 ; compare HP with max HP
 	ld a, [hld]
@@ -66,7 +66,7 @@ DrainHPEffect_:
 	dec de
 	ld a, [de]
 	ld [hli], a
-	ld [wHPBarNewHP+1], a
+	ld [wHPBarNewHP + 1], a
 	inc de
 .next
 	ldh a, [hWhoseTurn]
@@ -96,9 +96,11 @@ DrainHPEffect_:
 	jp PrintText
 
 SuckedHealthText:
-	text_far _SuckedHealthText
-	text_end
+	text "<TARGET>から"
+	line "たいりょくを　すいとった！"
+	prompt
 
 DreamWasEatenText:
-	text_far _DreamWasEatenText
-	text_end
+	text "<TARGET>の"
+	line "ゆめを　くった！"
+	prompt

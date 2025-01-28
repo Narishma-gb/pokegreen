@@ -1,7 +1,7 @@
 FuchsiaGym_Script:
 	call .LoadNames
 	call EnableAutoTextBoxDrawing
-	ld hl, FuchsiaGymTrainerHeaders
+	ld hl, FuchsiaGym_TrainerHeaders
 	ld de, FuchsiaGym_ScriptPointers
 	ld a, [wFuchsiaGymCurScript]
 	call ExecuteCurMapScriptInTable
@@ -19,10 +19,10 @@ FuchsiaGym_Script:
 	ret
 
 .CityName:
-	db "FUCHSIA CITY@"
+	db "セキチク@"
 
 .LeaderName:
-	db "KOGA@"
+	db "キョウ@"
 
 FuchsiaGymResetScripts:
 	xor a ; SCRIPT_FUCHSIAGYM_DEFAULT
@@ -87,20 +87,13 @@ FuchsiaGym_TextPointers:
 	dw_const FuchsiaGymKogaReceivedTM06Text,  TEXT_FUCHSIAGYM_KOGA_RECEIVED_TM06
 	dw_const FuchsiaGymKogaTM06NoRoomText,    TEXT_FUCHSIAGYM_KOGA_TM06_NO_ROOM
 
-FuchsiaGymTrainerHeaders:
-	def_trainers 2
-FuchsiaGymTrainerHeader0:
-	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_0, 2, FuchsiaGymRocker1BattleText, FuchsiaGymRocker1EndBattleText, FuchsiaGymRocker1AfterBattleText
-FuchsiaGymTrainerHeader1:
-	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_1, 2, FuchsiaGymRocker2BattleText, FuchsiaGymRocker2EndBattleText, FuchsiaGymRocker2AfterBattleText
-FuchsiaGymTrainerHeader2:
-	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_2, 4, FuchsiaGymRocker3BattleText, FuchsiaGymRocker3EndBattleText, FuchsiaGymRocker3AfterBattleText
-FuchsiaGymTrainerHeader3:
-	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_3, 2, FuchsiaGymRocker4BattleText, FuchsiaGymRocker4EndBattleText, FuchsiaGymRocker4AfterBattleText
-FuchsiaGymTrainerHeader4:
-	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_4, 2, FuchsiaGymRocker5BattleText, FuchsiaGymRocker5EndBattleText, FuchsiaGymRocker5AfterBattleText
-FuchsiaGymTrainerHeader5:
-	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_5, 2, FuchsiaGymRocker6BattleText, FuchsiaGymRocker6EndBattleText, FuchsiaGymRocker6AfterBattleText
+	def_trainers FuchsiaGym, 2
+	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_0, 2, Rocker1
+	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_1, 2, Rocker2
+	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_2, 4, Rocker3
+	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_3, 2, Rocker4
+	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_4, 2, Rocker5
+	trainer EVENT_BEAT_FUCHSIA_GYM_TRAINER_5, 2, Rocker6
 	db -1 ; end
 
 FuchsiaGymKogaText:
@@ -139,138 +132,213 @@ FuchsiaGymKogaText:
 	jp TextScriptEnd
 
 .BeforeBattleText:
-	text_far _FuchsiaGymKogaBeforeBattleText
-	text_end
+	text "キョウ『<⋯>　ファ　ファ　ファ！"
+
+	para "こわっぱ　ごときが"
+	line "せっしゃに　たたかいを　いどむとは"
+	cont "かたはら　いたいわ！"
+
+	para "<⋯>　どくを　くらったら　じめつ！"
+	line "ねむって　しまったら　むていこう"
+
+	para "<⋯>　しのびの　わざの　ごくいを"
+	line "うけて　みるが　よい！"
+	done
 
 .ReceivedSoulBadgeText:
-	text_far _FuchsiaGymKogaReceivedSoulBadgeText
-	text_end
+	text "ふん<⋯>！"
+	line "おぬし　やりおるな！"
+
+	para "そら！"
+	line "ピンク　バッジを　うけとれ！"
+	prompt
 
 .PostBattleAdviceText:
-	text_far _FuchsiaGymKogaPostBattleAdviceText
-	text_end
+	text "どくどくは　どくを　あびたら"
+	line "１ターン　ごとに　どんどん"
+	cont "ダメージが　おおきく　なる！"
+
+	para "これは　あいてに"
+	line "きょうふを　あたえる　わざ　なのだ！"
+	done
 
 FuchsiaGymKogaSoulBadgeInfoText:
-	text_far _FuchsiaGymKogaSoulBadgeInfoText
-	text_end
+	text "ピンク　バッジを　もって　おれば"
+	line "おぬしの　#の"
+	cont "ぼうぎょ　りょくを　あげる！"
+
+	para "たたかって　ない　ときでも"
+	line "なみのりの　わざを"
+	cont "つかえる　ように　なる！"
+
+	para "そうだ<⋯>！　これを　おぬしに！"
+	done
 
 FuchsiaGymKogaReceivedTM06Text:
-	text_far _FuchsiaGymKogaReceivedTM06Text
+	text "<PLAYER>は　キョウ　から"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_key_item
-	text_far _FuchsiaGymKogaTM06ExplanationText
-	text_end
+	text_start
+
+	para "４００ねん　むかし　より"
+	line "わがやに　つたわる　#　わざ"
+
+	para "<TM>０６には　ごくい！"
+	line "どくどくが　ふういん　してある！"
+	done
 
 FuchsiaGymKogaTM06NoRoomText:
-	text_far _FuchsiaGymKogaTM06NoRoomText
-	text_end
+	text "にもつが　いっぱいだ"
+	done
 
 FuchsiaGymRocker1Text:
 	text_asm
-	ld hl, FuchsiaGymTrainerHeader0
+	ld hl, FuchsiaGym_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FuchsiaGymRocker1BattleText:
-	text_far _FuchsiaGymRocker1BattleText
-	text_end
+	text "ただ　つよい　だけでは　だめだ！"
+	line "<⋯>　わかるか？"
+
+	para "#は　テクニックだ！"
+
+	para "この　ジムに　きた　から　には"
+	line "そういう　#の　おく　ふかさ"
+	cont "タップリ　おしえて　やる！"
+	done
 
 FuchsiaGymRocker1EndBattleText:
-	text_far _FuchsiaGymRocker1EndBattleText
-	text_end
+	text "<⋯>！"
+	line "ただもの　では　ない！"
+	prompt
 
 FuchsiaGymRocker1AfterBattleText:
-	text_far _FuchsiaGymRocker1AfterBattleText
-	text_end
+	text "こどもの　<TRAINER>　とはいえ"
+	line "パワー　だけでなく"
+	cont "テクニックも　みがいてるな！"
+	done
 
 FuchsiaGymRocker2Text:
 	text_asm
-	ld hl, FuchsiaGymTrainerHeader1
+	ld hl, FuchsiaGym_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FuchsiaGymRocker2BattleText:
-	text_far _FuchsiaGymRocker2BattleText
-	text_end
+	text "マジシャン　だった　おれは"
+	line "ニンジャに　あこがれて"
+	cont "この　セキチク　ジムに　はいった！"
+	done
 
 FuchsiaGymRocker2EndBattleText:
-	text_far _FuchsiaGymRocker2EndBattleText
-	text_end
+	text "<⋯>　やられた！"
+	prompt
 
 FuchsiaGymRocker2AfterBattleText:
-	text_far _FuchsiaGymRocker2AfterBattleText
-	text_end
+	text "たとえ　まけても　おれは"
+	line "ニンジャ　マスター"
+	cont "キョウの　おしえに　いきる　つもりだ"
+	done
 
 FuchsiaGymRocker3Text:
 	text_asm
-	ld hl, FuchsiaGymTrainerHeader2
+	ld hl, FuchsiaGym_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FuchsiaGymRocker3BattleText:
-	text_far _FuchsiaGymRocker3BattleText
-	text_end
+	text "おれの　#　あやしの　わざ"
+	line "たっぷりと　あじわいな！"
+	done
 
 FuchsiaGymRocker3EndBattleText:
-	text_far _FuchsiaGymRocker3EndBattleText
-	text_end
+	text "<⋯>　そうか！"
+	line "おまえも　わざ　つかいか？"
+	prompt
 
 FuchsiaGymRocker3AfterBattleText:
-	text_far _FuchsiaGymRocker3AfterBattleText
-	text_end
+	text "たたかい　おわった　あとでも"
+	line "どく　ねむり　といった　こうかは"
+	cont "のこる　ところが　すき　だぜ！"
+	done
 
 FuchsiaGymRocker4Text:
 	text_asm
-	ld hl, FuchsiaGymTrainerHeader3
+	ld hl, FuchsiaGym_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FuchsiaGymRocker4BattleText:
-	text_far _FuchsiaGymRocker4BattleText
-	text_end
+	text "おっと！　まちな！"
+
+	para "セキチク　ジムの　めいぶつ"
+	line "みえない　かべ　システムは　どうだ"
+	done
 
 FuchsiaGymRocker4EndBattleText:
-	text_far _FuchsiaGymRocker4EndBattleText
-	text_end
+	text "<⋯>　ほお！"
+	line "やる　じゃないか！"
+	prompt
 
 FuchsiaGymRocker4AfterBattleText:
-	text_far _FuchsiaGymRocker4AfterBattleText
-	text_end
+	text "おまえは　ほねが　ありそう　だ！"
+	line "とくべつに　ヒントを　おしえよう！"
+
+	para "みえない　かべは　よく　みると"
+	line "しきりが　みえて　くる<⋯>！"
+	done
 
 FuchsiaGymRocker5Text:
 	text_asm
-	ld hl, FuchsiaGymTrainerHeader4
+	ld hl, FuchsiaGym_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FuchsiaGymRocker5BattleText:
-	text_far _FuchsiaGymRocker5BattleText
-	text_end
+	text "この　おれも"
+	line "ニンジャ　キョウの　もんかせい！"
+
+	para "ニンジャは　むかし　から"
+	line "よく　どうぶつを　つかった　という"
+	done
 
 FuchsiaGymRocker5EndBattleText:
-	text_far _FuchsiaGymRocker5EndBattleText
-	text_end
+	text "がおーん<⋯>！"
+	prompt
 
 FuchsiaGymRocker5AfterBattleText:
-	text_far _FuchsiaGymRocker5AfterBattleText
-	text_end
+	text "まだ　まだ！"
+	line "おれには　しゅぎょうが　たりない"
+	done
 
 FuchsiaGymRocker6Text:
 	text_asm
-	ld hl, FuchsiaGymTrainerHeader5
+	ld hl, FuchsiaGym_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FuchsiaGymRocker6BattleText:
-	text_far _FuchsiaGymRocker6BattleText
-	text_end
+	text "ここの　リーダー　キョウは"
+	line "イガ　ニンジャの　しそんだ！"
+
+	para "おいッ！"
+	line "おまえは　なにの　しそん　なんだ？"
+	done
 
 FuchsiaGymRocker6EndBattleText:
-	text_far _FuchsiaGymRocker6EndBattleText
-	text_end
+	text "なかなか　できるな！"
+	prompt
 
 FuchsiaGymRocker6AfterBattleText:
-	text_far _FuchsiaGymRocker6AfterBattleText
-	text_end
+	text "<⋯>　ひかり　ある　ところに"
+	line "かげが　ある！"
+
+	para "ひかりと　かげ！"
+	line "おまえは　どちらを　えらぶ？"
+	done
 
 FuchsiaGymGymGuideText:
 	text_asm
@@ -283,9 +351,20 @@ FuchsiaGymGymGuideText:
 	jp TextScriptEnd
 
 .ChampInMakingText:
-	text_far _FuchsiaGymGymGuideChampInMakingText
-	text_end
+	text "おーす！"
+	line "みらいの　チャンピオン！"
+
+	para "セキチク　ジムは　からくり　やしき"
+	line "みえない　かべで　しきられてる！"
+
+	para "キョウの　やつは　すぐ　そこに"
+	line "いる　ように　みえるが<⋯>"
+
+	para "みえない　かべの　とぎれてる　とこを"
+	line "さがし　ださないと　あえないぜ！"
+	done
 
 .BeatKogaText:
-	text_far _FuchsiaGymGymGuideBeatKogaText
-	text_end
+	text "げんだいに　なお　いき　のこる"
+	line "ニンジャの　こわさを　みたな！"
+	done

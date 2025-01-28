@@ -40,19 +40,12 @@ DrawHP_:
 	push hl
 	call DrawHPBar
 	pop hl
-	ldh a, [hUILayoutFlags]
-	bit BIT_PARTY_MENU_HP_BAR, a
-	jr z, .printFractionBelowBar
-	ld bc, $9 ; right of bar
-	jr .printFraction
-.printFractionBelowBar
 	ld bc, SCREEN_WIDTH + 1 ; below bar
-.printFraction
 	add hl, bc
 	ld de, wLoadedMonHP
 	lb bc, 2, 3
 	call PrintNumber
-	ld a, "/"
+	ld a, "／"
 	ld [hli], a
 	ld de, wLoadedMonMaxHP
 	lb bc, 2, 3
@@ -60,7 +53,6 @@ DrawHP_:
 	pop hl
 	pop de
 	ret
-
 
 ; Predef 0x37
 StatusScreen:
@@ -110,15 +102,15 @@ StatusScreen:
 	call DrawLineBox ; Draws the box around name, HP and status
 	ld de, -6
 	add hl, de
-	ld [hl], "<DOT>"
+	ld [hl], "．"
 	dec hl
 	ld [hl], "№"
 	hlcoord 19, 9
 	lb bc, 8, 6
 	call DrawLineBox ; Draws the box around types, ID No. and OT
-	hlcoord 10, 9
-	ld de, Type1Text
-	call PlaceString ; "TYPE1/"
+	hlcoord 10, 10
+	ld de, TypesIDNoOTText
+	call PlaceString
 	hlcoord 11, 3
 	predef DrawHP
 	ld hl, wStatusScreenHPBarColor
@@ -131,13 +123,13 @@ StatusScreen:
 	jr nz, .StatusWritten
 	hlcoord 16, 6
 	ld de, OKText
-	call PlaceString ; "OK"
+	call PlaceString
 .StatusWritten
-	hlcoord 9, 6
+	hlcoord 10, 6
 	ld de, StatusText
-	call PlaceString ; "STATUS/"
-	hlcoord 14, 2
-	call PrintLevel ; Pokémon level
+	call PlaceString
+	hlcoord 16, 1
+	call PrintLevel
 	ld a, [wMonHIndex]
 	ld [wPokedexNum], a
 	ld [wCurSpecies], a
@@ -146,21 +138,21 @@ StatusScreen:
 	ld de, wPokedexNum
 	lb bc, LEADING_ZEROES | 1, 3
 	call PrintNumber ; Pokémon no.
-	hlcoord 11, 10
+	hlcoord 15, 10
 	predef PrintMonType
 	ld hl, NamePointers2
 	call .GetStringPointer
 	ld d, h
 	ld e, l
-	hlcoord 9, 1
+	hlcoord 11, 1
 	call PlaceString ; Pokémon name
 	ld hl, OTPointers
 	call .GetStringPointer
 	ld d, h
 	ld e, l
-	hlcoord 12, 16
+	hlcoord 14, 16
 	call PlaceString ; OT
-	hlcoord 12, 14
+	hlcoord 14, 14
 	ld de, wLoadedMonOTID
 	lb bc, LEADING_ZEROES | 2, 5
 	call PrintNumber ; ID Number
@@ -204,27 +196,18 @@ NamePointers2:
 	dw wBoxMonNicks
 	dw wDayCareMonName
 
-Type1Text:
-	db   "TYPE1/"
-	next ""
-	; fallthrough
-Type2Text:
-	db   "TYPE2/"
-	next ""
-	; fallthrough
-IDNoText:
-	db   "<ID>№/"
-	next ""
-	; fallthrough
-OTText:
-	db   "OT/"
+TypesIDNoOTText:
+	db   "タイプ１／"
+	next "タイプ２／"
+	next "<ID>№／"
+	next "おや／"
 	next "@"
 
 StatusText:
-	db "STATUS/@"
+	db "じょうたい／@"
 
 OKText:
-	db "OK@"
+	db "ふつう@"
 
 ; Draws a line starting from hl high b and wide c
 DrawLineBox:
@@ -254,16 +237,16 @@ PrintStatsBox:
 	ld b, 8
 	ld c, 8
 	call TextBoxBorder ; Draws the box
-	hlcoord 1, 9 ; Start printing stats from here
-	ld bc, $19 ; Number offset
+	hlcoord 1, 10 ; Start printing stats from here
+	ld bc, $5 ; Number offset
 	jr .PrintStats
 .DifferentBox
 	hlcoord 9, 2
 	ld b, 8
 	ld c, 9
 	call TextBoxBorder
-	hlcoord 11, 3
-	ld bc, $18
+	hlcoord 11, 4
+	ld bc, $4
 .PrintStats
 	push bc
 	push hl
@@ -281,6 +264,7 @@ PrintStatsBox:
 	call PrintStat
 	ld de, wLoadedMonSpecial
 	jp PrintNumber
+
 PrintStat:
 	push hl
 	call PrintNumber
@@ -290,10 +274,10 @@ PrintStat:
 	ret
 
 StatsText:
-	db   "ATTACK"
-	next "DEFENSE"
-	next "SPEED"
-	next "SPECIAL@"
+	db   "こうげき"
+	next "ぼうぎょ"
+	next "すばやさ"
+	next "とくしゅ@"
 
 StatusScreen2:
 	ldh a, [hTileAnimations]
@@ -313,12 +297,12 @@ StatusScreen2:
 	lb bc, 5, 10
 	call ClearScreenArea ; Clear under name
 	hlcoord 19, 3
-	ld [hl], $78
+	ld [hl], $78 ; │ (Erases right end of HP bar)
 	hlcoord 0, 8
 	ld b, 8
 	ld c, 18
 	call TextBoxBorder ; Draw move container
-	hlcoord 2, 9
+	hlcoord 2, 10
 	ld de, wMovesString
 	call PlaceString ; Print moves
 	ld a, [wNumMovesMinusOne]
@@ -326,17 +310,17 @@ StatusScreen2:
 	ld c, a
 	ld a, $4
 	sub c
-	ld b, a ; Number of moves ?
+	ld b, a ; Number of blank moves
 	hlcoord 11, 10
 	ld de, SCREEN_WIDTH * 2
-	ld a, "<BOLD_P>"
+	ld a, "P"
 	call StatusScreen_PrintPP ; Print "PP"
 	ld a, b
 	and a
 	jr z, .InitPP
 	ld c, a
-	ld a, "-"
-	call StatusScreen_PrintPP ; Fill the rest with --
+	ld a, "ー"
+	call StatusScreen_PrintPP ; Fill the rest with ーー
 .InitPP
 	ld hl, wLoadedMonMoves
 	decoord 14, 10
@@ -372,7 +356,7 @@ StatusScreen2:
 	ld de, wStatusScreenCurrentPP
 	lb bc, 1, 2
 	call PrintNumber
-	ld a, "/"
+	ld a, "／"
 	ld [hli], a
 	ld de, wMaxPP
 	lb bc, 1, 2
@@ -399,8 +383,10 @@ StatusScreen2:
 	inc a
 	ld [wLoadedMonLevel], a ; Increase temporarily if not 100
 .Level100
+	hlcoord 14, 5
+	ld [hl], "゛"
 	hlcoord 14, 6
-	ld [hl], "<to>"
+	ld [hl], "て"
 	inc hl
 	inc hl
 	call PrintLevel
@@ -415,14 +401,14 @@ StatusScreen2:
 	hlcoord 7, 6
 	lb bc, 3, 7
 	call PrintNumber ; exp needed to level up
-	hlcoord 9, 0
+	hlcoord 11, 0
 	call StatusScreen_ClearName
-	hlcoord 9, 1
+	hlcoord 11, 1
 	call StatusScreen_ClearName
 	ld a, [wMonHIndex]
 	ld [wNamedObjectIndex], a
 	call GetMonName
-	hlcoord 9, 1
+	hlcoord 11, 1
 	call PlaceString
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
@@ -464,12 +450,12 @@ CalcExpToLevelUp:
 	ret
 
 StatusScreenExpText:
-	db   "EXP POINTS"
-	next "LEVEL UP@"
+	db   "けいけんち／"
+	next "あと@"
 
 StatusScreen_ClearName:
-	ld bc, 10
-	ld a, " "
+	ld bc, NAME_LENGTH - 1
+	ld a, "　"
 	jp FillMemory
 
 StatusScreen_PrintPP:

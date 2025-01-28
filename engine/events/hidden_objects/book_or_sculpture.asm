@@ -13,9 +13,9 @@ BookOrSculptureText::
 	jp TextScriptEnd
 
 PokemonBooksText:
-	text_far _PokemonBooksText
-	text_end
+	text "#の　ほんが　いっぱい！"
+	done
 
 DiglettSculptureText:
-	text_far _DiglettSculptureText
-	text_end
+	text "ぶつだん　だ<⋯>"
+	done

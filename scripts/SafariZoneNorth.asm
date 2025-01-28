@@ -12,21 +12,33 @@ SafariZoneNorth_TextPointers:
 	dw_const SafariZoneNorthTrainerTips3Text,  TEXT_SAFARIZONENORTH_TRAINER_TIPS_3
 
 SafariZoneNorthRestHouseSignText:
-	text_far _SafariZoneNorthRestHouseSignText
-	text_end
+	text "きゅうけい　ハウス　<⋯>　いこい"
+	done
 
 SafariZoneNorthTrainerTips1Text:
-	text_far _SafariZoneNorthTrainerTips1Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "トレジャー　ハウスは"
+	line "まだ　さきだ！　がんばろう！"
+	done
 
 SafariZoneNorthSignText:
-	text_far _SafariZoneNorthSignText
-	text_end
+	text "ここは　だい２　エリア"
+	done
 
 SafariZoneNorthTrainerTips2Text:
-	text_far _SafariZoneNorthTrainerTips2Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "#は　くさむらの　なかに"
+	line "このんで　かくれる！"
+
+	para "なかなか　みつからない　ときは"
+	line "くさむらを　ジグザグに　あるこう！"
+	done
 
 SafariZoneNorthTrainerTips3Text:
-	text_far _SafariZoneNorthTrainerTips3Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "トレジャー　ハウスを　みつけると"
+	line "ひでんマシンが　もらえるぞ！"
+	done

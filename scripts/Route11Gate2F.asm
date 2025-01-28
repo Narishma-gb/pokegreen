@@ -43,8 +43,18 @@ Route11Gate2FOaksAideText:
 	jr Route11Gate2FScriptEnd
 
 .ItemfinderDescriptionText:
-	text_far _Route11Gate2FOaksAideItemfinderDescriptionText
-	text_end
+	text "めに　みえて　なくても"
+	line "べんりな　どうぐが"
+	cont "あちこちに　おちて　います！"
+
+	para "ダウジング　マシンで"
+	line "ちかくに　なにか　おちてるか"
+	cont "どうかが　わかります！"
+
+	para "くわしい　ばしょは"
+	line "マシンでも　わかりません！"
+	cont "ちかくを　さがして　みて　ください"
+	done
 
 Route11Gate2FLeftBinocularsText:
 	text_asm
@@ -60,12 +70,16 @@ Route11Gate2FLeftBinocularsText:
 	jp TextScriptEnd
 
 .SnorlaxText:
-	text_far _Route11Gate2FLeftBinocularsSnorlaxText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "どうろに　#が　ねてる！"
+	done
 
 .NoSnorlaxText:
-	text_far _Route11Gate2FLeftBinocularsNoSnorlaxText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "すばらしい　けしきだ！"
+	done
 
 Route11Gate2FRightBinocularsText:
 	text_asm
@@ -73,5 +87,9 @@ Route11Gate2FRightBinocularsText:
 	jp GateUpstairsScript_PrintIfFacingUp
 
 .Text:
-	text_far _Route11Gate2FRightBinocularsText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "シオン　タウンに　いく　には<⋯>"
+	line "ハナダ　シティ　から"
+	cont "イワヤマを　ぬければ　よさそう<⋯>"
+	done

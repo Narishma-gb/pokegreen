@@ -1,6 +1,6 @@
 Route11_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, Route11TrainerHeaders
+	ld hl, Route11_TrainerHeaders
 	ld de, Route11_ScriptPointers
 	ld a, [wRoute11CurScript]
 	call ExecuteCurMapScriptInTable
@@ -27,210 +27,232 @@ Route11_TextPointers:
 	dw_const Route11Youngster4Text,       TEXT_ROUTE11_YOUNGSTER4
 	dw_const Route11DiglettsCaveSignText, TEXT_ROUTE11_DIGLETTSCAVE_SIGN
 
-Route11TrainerHeaders:
-	def_trainers
-Route11TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_0, 3, Route11Gambler1BattleText, Route11Gambler1EndBattleText, Route11Gambler1AfterBattleText
-Route11TrainerHeader1:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_1, 2, Route11Gambler2BattleText, Route11Gambler2EndBattleText, Route11Gambler2AfterBattleText
-Route11TrainerHeader2:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_2, 3, Route11Youngster1BattleText, Route11Youngster1EndBattleText, Route11Youngster1AfterBattleText
-Route11TrainerHeader3:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_3, 3, Route11SuperNerd1BattleText, Route11SuperNerd1EndBattleText, Route11SuperNerd1AfterBattleText
-Route11TrainerHeader4:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_4, 4, Route11Youngster2BattleText, Route11Youngster2EndBattleText, Route11Youngster2AfterBattleText
-Route11TrainerHeader5:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_5, 3, Route11Gambler3BattleText, Route11Gambler3EndBattleText, Route11Gambler3AfterBattleText
-Route11TrainerHeader6:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_6, 3, Route11Gambler4BattleText, Route11Gambler4EndBattleText, Route11Gambler4AfterBattleText
-Route11TrainerHeader7:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_7, 4, Route11Youngster3BattleText, Route11Youngster3EndBattleText, Route11Youngster3AfterBattleText
-Route11TrainerHeader8:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_8, 3, Route11SuperNerd2BattleText, Route11SuperNerd2EndBattleText, Route11SuperNerd2AfterBattleText
-Route11TrainerHeader9:
-	trainer EVENT_BEAT_ROUTE_11_TRAINER_9, 4, Route11Youngster4BattleText, Route11Youngster4EndBattleText, Route11Youngster4AfterBattleText
+	def_trainers Route11
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_0, 3, Gambler1
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_1, 2, Gambler2
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_2, 3, Youngster1
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_3, 3, SuperNerd1
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_4, 4, Youngster2
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_5, 3, Gambler3
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_6, 3, Gambler4
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_7, 4, Youngster3
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_8, 3, SuperNerd2
+	trainer EVENT_BEAT_ROUTE_11_TRAINER_9, 4, Youngster4
 	db -1 ; end
 
 Route11Gambler1Text:
 	text_asm
-	ld hl, Route11TrainerHeader0
+	ld hl, Route11_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11Gambler1BattleText:
-	text_far _Route11Gambler1BattleText
-	text_end
+	text "かつか　まけるか　しょうぶ！"
+	done
 
 Route11Gambler1EndBattleText:
-	text_far _Route11Gambler1EndBattleText
-	text_end
+	text "ちッ！"
+	line "きょうは　ついて　ない"
+	prompt
 
 Route11Gambler1AfterBattleText:
-	text_far _Route11Gambler1AfterBattleText
-	text_end
+	text "#は　じんせい　だ！"
+	line "じんせいは　ギャンブル　だ！"
+	done
 
 Route11Gambler2Text:
 	text_asm
-	ld hl, Route11TrainerHeader1
+	ld hl, Route11_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11Gambler2BattleText:
-	text_far _Route11Gambler2BattleText
-	text_end
+	text "しょうぶ　ごとが　すきでよ！"
+	line "だから　あいては　えらばねえ！"
+	done
 
 Route11Gambler2EndBattleText:
-	text_far _Route11Gambler2EndBattleText
-	text_end
+	text "くそッ！"
+	line "かてると　ふんだ　が　だめか！"
+	prompt
 
 Route11Gambler2AfterBattleText:
-	text_far _Route11Gambler2AfterBattleText
-	text_end
+	text "まけを　こわがって　たら"
+	line "#は　できねえ　もんな！"
+	done
 
 Route11Youngster1Text:
 	text_asm
-	ld hl, Route11TrainerHeader2
+	ld hl, Route11_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11Youngster1BattleText:
-	text_far _Route11Youngster1BattleText
-	text_end
+	text "#に　ずるは　なし　だよ！"
+	line "せいせい　どうどう　やろう！"
+	done
 
 Route11Youngster1EndBattleText:
-	text_far _Route11Youngster1EndBattleText
-	text_end
+	text "ありゃ？"
+	line "こんな　はずじゃ<⋯>"
+	prompt
 
 Route11Youngster1AfterBattleText:
-	text_far _Route11Youngster1AfterBattleText
-	text_end
+	text "せいせい　どうどう　やった！"
+	line "こうかいは　しないよ！"
+	done
 
 Route11SuperNerd1Text:
 	text_asm
-	ld hl, Route11TrainerHeader3
+	ld hl, Route11_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11SuperNerd1BattleText:
-	text_far _Route11SuperNerd1BattleText
-	text_end
+	text "こんちは！"
+	line "おたくの　でんき　あんぜん　ですか？"
+	done
 
 Route11SuperNerd1EndBattleText:
-	text_far _Route11SuperNerd1EndBattleText
-	text_end
+	text "おじさんを"
+	line "まかす　なんて　すごいな！"
+	prompt
 
 Route11SuperNerd1AfterBattleText:
-	text_far _Route11SuperNerd1AfterBattleText
-	text_end
+	text "ひとこと　いい　わすれてた！"
+	line "でんきは　たいせつに！"
+	done
 
 Route11Youngster2Text:
 	text_asm
-	ld hl, Route11TrainerHeader4
+	ld hl, Route11_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11Youngster2BattleText:
-	text_far _Route11Youngster2BattleText
-	text_end
+	text "ぼくは　#　<TRAINER>に"
+	line "なった　ばかり　だ！"
+	cont "でも　かつ　じしん　あるよ！"
+	done
 
 Route11Youngster2EndBattleText:
-	text_far _Route11Youngster2EndBattleText
-	text_end
+	text "まける　なんて<⋯>　まだ"
+	line "#　そだって　ないのか　なあ"
+	prompt
 
 Route11Youngster2AfterBattleText:
-	text_far _Route11Youngster2AfterBattleText5
-	text_end
+	text "なんだよー"
+	line "おまえなんか　あっちいけよー！"
+	done
 
 Route11Gambler3Text:
 	text_asm
-	ld hl, Route11TrainerHeader5
+	ld hl, Route11_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11Gambler3BattleText:
-	text_far _Route11Gambler3BattleText
-	text_end
+	text "ははーは！　わたしは"
+	line "いままで　まけた　ことが　ないぞ！"
+	done
 
 Route11Gambler3EndBattleText:
-	text_far _Route11Gambler3EndBattleText
-	text_end
+	text "はッ！"
+	line "はじめて　まけたーッ！"
+	prompt
 
 Route11Gambler3AfterBattleText:
-	text_far _Route11Gambler3AfterBattleText
-	text_end
+	text "しょうぶは　ときの　うん　だ！"
+	line "そう　おもわないと　おちこむよ"
+	done
 
 Route11Gambler4Text:
 	text_asm
-	ld hl, Route11TrainerHeader6
+	ld hl, Route11_TrainerHeader6
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11Gambler4BattleText:
-	text_far _Route11Gambler4BattleText
-	text_end
+	text "わたしは"
+	line "いままで　かった　ことが　ない<⋯>"
+	done
 
 Route11Gambler4EndBattleText:
-	text_far _Route11Gambler4EndBattleText
-	text_end
+	text "<⋯>　がく！"
+	line "やっぱり　まけた！"
+	prompt
 
 Route11Gambler4AfterBattleText:
-	text_far _Route11Gambler4AfterBattleText
-	text_end
+	text "しょうぶは　ときの　うん　だ<⋯>"
+	line "そう　おもわないと　おちこむよ"
+	done
 
 Route11Youngster3Text:
 	text_asm
-	ld hl, Route11TrainerHeader7
+	ld hl, Route11_TrainerHeader7
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11Youngster3BattleText:
-	text_far _Route11Youngster3BattleText
-	text_end
+	text "ぼくは　クラスで　いちばん　つよい！"
+	line "まいあさ　れんしゅうも　してるんだ！"
+	done
 
 Route11Youngster3EndBattleText:
-	text_far _Route11Youngster3EndBattleText
-	text_end
+	text "あちゃー！　<⋯>　もっと"
+	line "つよい　#　でなきゃ　だめだ！"
+	prompt
 
 Route11Youngster3AfterBattleText:
-	text_far _Route11Youngster3AfterBattleText
-	text_end
+	text "たまに　やまから　おりてくる"
+	line "ふとった　#<⋯>"
+
+	para "あれ　つかまえたら"
+	line "つよいんじゃ　ないかな？"
+	done
 
 Route11SuperNerd2Text:
 	text_asm
-	ld hl, Route11TrainerHeader8
+	ld hl, Route11_TrainerHeader8
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11SuperNerd2BattleText:
-	text_far _Route11SuperNerd2BattleText
-	text_end
+	text "オッース！"
+	line "でんきの　けしわすれ　して　ないか"
+	done
 
 Route11SuperNerd2EndBattleText:
-	text_far _Route11SuperNerd2EndBattleText
-	text_end
+	text "まいった！"
+	line "さいきんの　こどもは　つよい！"
+	prompt
 
 Route11SuperNerd2AfterBattleText:
-	text_far _Route11SuperNerd2AfterBattleText
-	text_end
+	text "さてと<⋯>"
+	line "でんきこうじに　いかなくちゃ"
+	done
 
 Route11Youngster4Text:
 	text_asm
-	ld hl, Route11TrainerHeader9
+	ld hl, Route11_TrainerHeader9
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route11Youngster4BattleText:
-	text_far _Route11Youngster4BattleText
-	text_end
+	text "だいじに　そだてた　#！"
+	line "そろそろ　たたかわせて　みよう！"
+	done
 
 Route11Youngster4EndBattleText:
-	text_far _Route11Youngster4EndBattleText
-	text_end
+	text "バイバイ<⋯>！"
+	line "ありがとう　さようなら！"
+	prompt
 
 Route11Youngster4AfterBattleText:
-	text_far _Route11Youngster4AfterBattleText
-	text_end
+	text "ちえッ<⋯>！"
+	line "もっと　つよいの　さがして　こよう"
+	done
 
 Route11DiglettsCaveSignText:
-	text_far _Route11DiglettsCaveSignText
-	text_end
+	text "ディグダの　あな"
+	done

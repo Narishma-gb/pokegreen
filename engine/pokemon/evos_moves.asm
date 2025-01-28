@@ -140,8 +140,8 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld [wEvoNewSpecies], a
 	ld a, MONSTER_NAME
 	ld [wNameListType], a
-	ld a, BANK(TrainerNames) ; bank is not used for monster names
-	ld [wPredefBank], a
+	ld a, BANK(MonsterNames) ; unused, any value will work
+	ld [wPredefBank], a ; GetMonName disregards this and bankswitches to BANK(MonsterNames)
 	call GetName
 	push hl
 	ld hl, IntoText
@@ -260,7 +260,7 @@ Evolution_PartyMonLoop: ; loop over party mons
 RenameEvolvedMon:
 ; Renames the mon to its new, evolved form's standard name unless it had a
 ; nickname, in which case the nickname is kept.
-	assert wCurSpecies == wNameListIndex ; save+restore wCurSpecies while using wNameListIndex
+	ASSERT wCurSpecies == wNameListIndex ; save+restore wCurSpecies while using wNameListIndex
 	ld a, [wCurSpecies]
 	push af
 	ld a, [wMonHIndex]
@@ -297,20 +297,31 @@ CancelledEvolution:
 	jp Evolution_PartyMonLoop
 
 EvolvedText:
-	text_far _EvolvedText
-	text_end
+	text "おめでとう！　@"
+	text_ram wStringBuffer
+	text "は"
+	done
 
 IntoText:
-	text_far _IntoText
-	text_end
+	text_start
+	line "@"
+	text_ram wNameBuffer
+	text "に　しんかした"
+	done
 
 StoppedEvolvingText:
-	text_far _StoppedEvolvingText
-	text_end
+	text "あれ<⋯>？"
+	line "@"
+	text_ram wStringBuffer
+	text "の　へんかが　とまった！"
+	prompt
 
 IsEvolvingText:
-	text_far _IsEvolvingText
-	text_end
+	text "<⋯>　おや！？"
+	line "@"
+	text_ram wStringBuffer
+	text "の　ようすが<⋯>！"
+	done
 
 Evolution_ReloadTilesetTilePatterns:
 	ld a, [wLinkState]
@@ -373,7 +384,7 @@ LearnMoveFromLevelUp:
 	predef LearnMove
 .done
 	ld a, [wCurPartySpecies]
-	ld [wPokedexNum], a
+	ld [wNamedObjectIndex], a
 	ret
 
 ; writes the moves a mon has at level [wCurEnemyLevel] to [de]

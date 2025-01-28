@@ -48,7 +48,7 @@ HealEffect_:
 	ld [wHPBarMaxHP], a
 	ld c, a
 	ld a, [hl]
-	ld [wHPBarMaxHP+1], a
+	ld [wHPBarMaxHP + 1], a
 	ld b, a
 	jr z, .gotHPAmountToHeal
 ; Recover and Softboiled only heal for half the mon's max HP
@@ -63,10 +63,10 @@ HealEffect_:
 	ld [wHPBarNewHP], a
 	dec de
 	ld a, [de]
-	ld [wHPBarOldHP+1], a
+	ld [wHPBarOldHP + 1], a
 	adc b
 	ld [de], a
-	ld [wHPBarNewHP+1], a
+	ld [wHPBarNewHP + 1], a
 	inc hl
 	inc de
 	ld a, [de]
@@ -79,7 +79,7 @@ HealEffect_:
 ; copy max HP to current HP if an overflow occurred
 	ld a, [hli]
 	ld [de], a
-	ld [wHPBarNewHP+1], a
+	ld [wHPBarNewHP + 1], a
 	inc de
 	ld a, [hl]
 	ld [de], a
@@ -108,13 +108,16 @@ HealEffect_:
 	jp EffectCallBattleCore
 
 StartedSleepingEffect:
-	text_far _StartedSleepingEffect
-	text_end
+	text "<USER>は"
+	line "ねむりはじめた！"
+	done
 
 FellAsleepBecameHealthyText:
-	text_far _FellAsleepBecameHealthyText
-	text_end
+	text "<USER>は　けんこうになって"
+	line "ねむりはじめた！"
+	done
 
 RegainedHealthText:
-	text_far _RegainedHealthText
-	text_end
+	text "<USER>は　たいりょくを"
+	line "かいふくした！"
+	prompt

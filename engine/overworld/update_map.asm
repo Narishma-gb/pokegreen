@@ -73,7 +73,7 @@ RedrawMapView:
 	ld a, h
 	ld [wBuffer + 1], a ; this copy of the address is not used
 	ld a, 2
-	ldh [hRedrawMapViewRowOffset], a
+	ld [hRedrawMapViewRowOffset], a
 	ld c, SCREEN_HEIGHT / 2 ; number of rows of 2x2 tiles (this covers the whole screen)
 .redrawRowLoop
 	push bc
@@ -81,7 +81,7 @@ RedrawMapView:
 	push hl
 	ld hl, wTileMap - 2 * SCREEN_WIDTH
 	ld de, SCREEN_WIDTH
-	ldh a, [hRedrawMapViewRowOffset]
+	ld a, [hRedrawMapViewRowOffset]
 .calcWRAMAddrLoop
 	add hl, de
 	dec a
@@ -89,7 +89,7 @@ RedrawMapView:
 	call CopyToRedrawRowOrColumnSrcTiles
 	pop hl
 	ld de, BG_MAP_WIDTH
-	ldh a, [hRedrawMapViewRowOffset]
+	ld a, [hRedrawMapViewRowOffset]
 	ld c, a
 .calcVRAMAddrLoop
 	add hl, de

@@ -156,10 +156,10 @@ VermilionDock_EmitSmokePuff:
 
 VermilionDockOAMBlock:
 ; tile ID, attributes
-	db $fc, $10
-	db $fd, $10
-	db $fe, $10
-	db $ff, $10
+	db $fc, OAM_OBP1
+	db $fd, OAM_OBP1
+	db $fe, OAM_OBP1
+	db $ff, OAM_OBP1
 
 VermilionDock_SyncScrollWithLY:
 	ld h, d
@@ -213,5 +213,5 @@ VermilionDock_TextPointers:
 	dw_const VermilionDockUnusedText, TEXT_VERMILIONDOCK_UNUSED
 
 VermilionDockUnusedText:
-	text_far _VermilionDockUnusedText
-	text_end
+	text_start
+	done

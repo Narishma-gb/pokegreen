@@ -7,7 +7,9 @@ PrintStrengthText:
 	jp PrintText
 
 UsedStrengthText:
-	text_far _UsedStrengthText
+	text_ram wNameBuffer
+	text "は"
+	line "かいりきを　はっきした！@"
 	text_asm
 	ld a, [wCurPartySpecies]
 	call PlayCry
@@ -15,8 +17,10 @@ UsedStrengthText:
 	jp TextScriptEnd
 
 CanMoveBouldersText:
-	text_far _CanMoveBouldersText
-	text_end
+	text_ram wNameBuffer
+	text "の　かいりきの　おかげで"
+	line "いわを　おせるように　なった！"
+	prompt
 
 IsSurfingAllowed:
 ; Returns whether surfing is allowed in BIT_SURF_ALLOWED of wStatusFlags1.
@@ -50,9 +54,11 @@ SeafoamIslandsB4FStairsCoords:
 	db -1 ; end
 
 CurrentTooFastText:
-	text_far _CurrentTooFastText
-	text_end
+	text "ながれが　はやくて"
+	line "ダメだ！"
+	prompt
 
 CyclingIsFunText:
-	text_far _CyclingIsFunText
-	text_end
+	text "せっかくの　サイクリング！"
+	line "<⋯>　なみのりは　やめとこう"
+	prompt

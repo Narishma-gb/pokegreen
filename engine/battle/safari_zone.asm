@@ -28,9 +28,15 @@ PrintSafariZoneBattleText:
 	jp PrintText
 
 SafariZoneEatingText:
-	text_far _SafariZoneEatingText
-	text_end
+	text "やせいの@"
+	text_ram wEnemyMonNick
+	text "は"
+	line "エサを　たべてる！"
+	prompt
 
 SafariZoneAngryText:
-	text_far _SafariZoneAngryText
-	text_end
+	text "やせいの@"
+	text_ram wEnemyMonNick
+	text "は"
+	line "おこってる！"
+	prompt

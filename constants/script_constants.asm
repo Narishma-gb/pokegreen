@@ -20,24 +20,33 @@ DEF SLOTS_SOMEONESKEYS EQU $ff
 ; in game trades
 ; TradeMons indexes (see data/events/trades.asm)
 	const_def
-	const TRADE_FOR_TERRY
-	const TRADE_FOR_MARCEL
-	const TRADE_FOR_CHIKUCHIKU ; unused
-	const TRADE_FOR_SAILOR
-	const TRADE_FOR_DUX
-	const TRADE_FOR_MARC
-	const TRADE_FOR_LOLA
-	const TRADE_FOR_DORIS
-	const TRADE_FOR_CRINKLES
-	const TRADE_FOR_SPOT
+	const TRADE_FOR_TERRY      ; 0
+	const TRADE_FOR_MARCEL     ; 1
+	const TRADE_FOR_CHIKUCHIKU ; 2 (unused)
+	const TRADE_FOR_SAILOR     ; 3
+	const TRADE_FOR_DUX        ; 4
+	const TRADE_FOR_MARC       ; 5
+	const TRADE_FOR_LOLA       ; 6
+	const TRADE_FOR_DORIS      ; 7
+	const TRADE_FOR_CRINKLES   ; 8
+	const TRADE_FOR_SPOT       ; 9
 DEF NUM_NPC_TRADES EQU const_value
 
 ; in game trade dialog sets
 ; InGameTradeTextPointers indexes (see engine/events/in_game_trades.asm)
 	const_def
 	const TRADE_DIALOGSET_CASUAL
-	const TRADE_DIALOGSET_EVOLUTION
+	const TRADE_DIALOGSET_POLITE
 	const TRADE_DIALOGSET_HAPPY
+
+; in game trade text pointers
+; TradeTextPointersX indexes (see engine/events/in_game_trades.asm)
+	const_def
+	const TEXT_WANNA_TRADE ; 0
+	const TEXT_NO_TRADE    ; 1
+	const TEXT_WRONG_MON   ; 2
+	const TEXT_THANKS      ; 3
+	const TEXT_AFTER_TRADE ; 4
 
 ; OaksAideScript results
 DEF OAKS_AIDE_BAG_FULL        EQU $00

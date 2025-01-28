@@ -1,3 +1,25 @@
+IF DEF(_REV0)
+UnusedSerialFunction:
+	ld a, [wLinkState]
+	bit 7, a
+	ret z
+	ld a, [wUnknownSerialCounter3]
+	dec a
+	ld [wUnknownSerialCounter3], a
+	ret nz
+	ld a, [wUnknownSerialCounter3 + 1]
+	dec a
+	ld [wUnknownSerialCounter3 + 1], a
+	ret nz
+	ld a, $0a
+	ld [wUnknownSerialCounter3 + 1], a
+	ld a, [wUnknownSerialByte]
+	xor $01
+	ld [wUnknownSerialByte], a
+	jp z, LoadScreenTilesFromBuffer1
+	; bug: fallthrough
+ENDC
+
 ; [wCurSpecies] = pokemon ID
 ; hl = dest addr
 PrintMonType:
@@ -23,12 +45,15 @@ PrintType:
 	push hl
 	jr PrintType_
 
-; erase "TYPE2/" if the mon only has 1 type
+; erase "タイプ２／" if the mon only has 1 type
 EraseType2Text:
-	ld a, " "
-	ld bc, $13
+	ld a, "　"
+	ld bc, SCREEN_WIDTH - 3
 	add hl, bc
-	ld bc, $6
+	ld [hl], a ; erase the Handakuten in  タイプ
+	inc bc ; SCREEN_WIDTH - 2
+	add hl, bc
+	ld bc, 5
 	jp FillMemory
 
 PrintMoveType:

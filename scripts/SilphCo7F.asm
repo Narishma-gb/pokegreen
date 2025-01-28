@@ -1,7 +1,7 @@
 SilphCo7F_Script:
 	call SilphCo7F_GateCallbackScript
 	call EnableAutoTextBoxDrawing
-	ld hl, SilphCo7TrainerHeaders
+	ld hl, SilphCo7F_TrainerHeaders
 	ld de, SilphCo7F_ScriptPointers
 	ld a, [wSilphCo7FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -281,16 +281,11 @@ SilphCo7F_TextPointers:
 	dw_const SilphCo7FRivalDefeatedText,      TEXT_SILPHCO7F_RIVAL_DEFEATED
 	dw_const SilphCo7FRivalGoodLuckToYouText, TEXT_SILPHCO7F_RIVAL_GOOD_LUCK_TO_YOU
 
-SilphCo7TrainerHeaders:
-	def_trainers 5
-SilphCo7TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_7F_TRAINER_0, 2, SilphCo7FRocket1BattleText, SilphCo7FRocket1EndBattleText, SilphCo7FRocket1AfterBattleText
-SilphCo7TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_7F_TRAINER_1, 3, SilphCo7FScientistBattleText, SilphCo7FScientistEndBattleText, SilphCo7FScientistAfterBattleText
-SilphCo7TrainerHeader2:
-	trainer EVENT_BEAT_SILPH_CO_7F_TRAINER_2, 3, SilphCo7FRocket2BattleText, SilphCo7FRocket2EndBattleText, SilphCo7FRocket2AfterBattleText
-SilphCo7TrainerHeader3:
-	trainer EVENT_BEAT_SILPH_CO_7F_TRAINER_3, 4, SilphCo7FRocket3BattleText, SilphCo7FRocket3EndBattleText, SilphCo7FRocket3AfterBattleText
+	def_trainers SilphCo7F, 5
+	trainer EVENT_BEAT_SILPH_CO_7F_TRAINER_0, 2, Rocket1
+	trainer EVENT_BEAT_SILPH_CO_7F_TRAINER_1, 3, Scientist
+	trainer EVENT_BEAT_SILPH_CO_7F_TRAINER_2, 3, Rocket2
+	trainer EVENT_BEAT_SILPH_CO_7F_TRAINER_3, 4, Rocket3
 	db -1 ; end
 
 SilphCo7FSilphWorkerM1Text:
@@ -310,7 +305,7 @@ SilphCo7FSilphWorkerM1Text:
 	lb bc, LAPRAS, 15
 	call GivePokemon
 	jr nc, .done
-	ld a, [wSimulatedJoypadStatesEnd]
+	ld a, [wAddedToParty]
 	and a
 	call z, WaitForTextScrollButtonPress
 	call EnableAutoTextBoxDrawing
@@ -326,20 +321,43 @@ SilphCo7FSilphWorkerM1Text:
 	jp TextScriptEnd
 
 .HaveThisPokemonText
-	text_far _SilphCo7FSilphWorkerM1HaveThisPokemonText
-	text_end
+	text "あ<⋯>　ひとだ！"
+	line "<ROCKET>　じゃ　ないね"
+	cont "きみ<⋯>"
+	cont "たすけに　きてくれたのか！"
+	cont "おお　ありがとう！"
+
+	para "そうだ！"
+	line "たすけに　きて　くれた　きみに"
+	cont "この　#を　わたそう！"
+	prompt
 
 .LaprasDescriptionText
-	text_far _SilphCo7FSilphWorkerM1LaprasDescriptionText
-	text_end
+	text "こいつは　ラプラスと　いって"
+	line "とても　あたまのいい　#だ！"
+
+	para "シルフの　けんきゅうしつで"
+	line "かっていたが<⋯>"
+	cont "ここに　いる　よりは"
+	cont "ずっと　いい　はずだ！"
+
+	para "きみなら　かわいがって　くれそうだし"
+	line "ラプラスも　よろこぶ　だろう！"
+
+	para "およぎが　とくい　だから"
+	line "うえに　のって"
+	cont "うみを　すすんでも　いいぞ！"
+	done
 
 .IsOurPresidentOkText
-	text_far _SilphCo7FSilphWorkerM1IsOurPresidentOkText
-	text_end
+	text "さっき　<ROCKET>の　ボスが"
+	line "しゃちょうしつに　あがってったが"
+	cont "<⋯>　しゃちょうが　しんぱいだ！"
+	done
 
 .SavedText
-	text_far _SilphCo7FSilphWorkerM1SavedText
-	text_end
+	text "たすかったよ　ありがと！"
+	done
 
 SilphCo7FSilphWorkerM2Text:
 	text_asm
@@ -355,12 +373,17 @@ SilphCo7FSilphWorkerM2Text:
 	jp TextScriptEnd
 
 .AfterTheMasterBallText
-	text_far _SilphCo7FSilphWorkerM2AfterTheMasterBallText
-	text_end
+	text "<ROCKET>の　ねらいは"
+	line "#が　かならず　とれる"
+	cont "モンスターボール！"
+	cont "<⋯>　マスターボール　だろう"
+	done
 
 .CancelledTheMasterBallText
-	text_far _SilphCo7FSilphWorkerM2CancelledMasterBallText
-	text_end
+	text "じけんの　せいで<⋯>"
+	line "マスターボールは"
+	cont "はつばい　ちゅうしに　なったよ"
+	done
 
 SilphCo7FSilphWorkerM3Text:
 	text_asm
@@ -376,12 +399,16 @@ SilphCo7FSilphWorkerM3Text:
 	jp TextScriptEnd
 
 .ItWouldBeBadText
-	text_far _SilphCo7FSilphWorkerM3ItWouldBeBadText
-	text_end
+	text "シルフも　#も<⋯>"
+	line "<ROCKET>の　いいなりに"
+	cont "なったら　やだなあ"
+	done
 
 .YouChasedOffTeamRocketText
-	text_far _SilphCo7FSilphWorkerM3YouChasedOffTeamRocketText
-	text_end
+	text "すごいなあ！"
+	line "<ROCKET>の　れんちゅうを"
+	cont "おっぱらったんだって？"
+	done
 
 SilphCo7FSilphWorkerM4Text:
 	text_asm
@@ -397,84 +424,97 @@ SilphCo7FSilphWorkerM4Text:
 	jp TextScriptEnd
 
 .ItsReallyDangerousHereText
-	text_far _SilphCo7FSilphWorkerM4ItsReallyDangerousHereText
-	text_end
+	text "あなた<⋯>！"
+	cont "ここは　あぶないわよ！"
+	cont "たすけに　きた？"
+	cont "<⋯>　だめよ"
+	done
 
 .SafeAtLastText
-	text_far _SilphCo7FSilphWorkerM4SafeAtLastText
-	text_end
+	text "たすかったわ　ありがと！"
+	done
 
 SilphCo7FRocket1Text:
 	text_asm
-	ld hl, SilphCo7TrainerHeader0
+	ld hl, SilphCo7F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo7FRocket1BattleText:
-	text_far _SilphCo7FRocket1BattleText
-	text_end
+	text "おっとー！"
+	line "こねずみを　みつけたぞ！"
+	done
 
 SilphCo7FRocket1EndBattleText:
-	text_far _SilphCo7FRocket1EndBattleText
-	text_end
+	text "がっくしだ！"
+	prompt
 
 SilphCo7FRocket1AfterBattleText:
-	text_far _SilphCo7FRocket1AfterBattleText
-	text_end
+	text "ちょろちょろ　してる　だけじゃ"
+	line "ボスには　たどり　つけないぜ"
+	done
 
 SilphCo7FScientistText:
 	text_asm
-	ld hl, SilphCo7TrainerHeader1
+	ld hl, SilphCo7F_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo7FScientistBattleText:
-	text_far _SilphCo7FScientistBattleText
-	text_end
+	text "ふひゃひゃ！"
+
+	para "シルフの　しゃいんだと"
+	line "おもったかい？"
+	done
 
 SilphCo7FScientistEndBattleText:
-	text_far _SilphCo7FScientistEndBattleText
-	text_end
+	text "もう　#　ない"
+	prompt
 
 SilphCo7FScientistAfterBattleText:
-	text_far _SilphCo7FScientistAfterBattleText
-	text_end
+	text "こども　なのに<⋯>"
+	line "なかなかの　つかいて　だな"
+	done
 
 SilphCo7FRocket2Text:
 	text_asm
-	ld hl, SilphCo7TrainerHeader2
+	ld hl, SilphCo7F_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo7FRocket2BattleText:
-	text_far _SilphCo7FRocket2BattleText
-	text_end
+	text "おれこそは"
+	line "ロケット　４きょうだいの　ひとり！"
+	done
 
 SilphCo7FRocket2EndBattleText:
-	text_far _SilphCo7FRocket2EndBattleText
-	text_end
+	text "にいさん　まけたよ！"
+	prompt
 
 SilphCo7FRocket2AfterBattleText:
-	text_far _SilphCo7FRocket2AfterBattleText
-	text_end
+	text "まあ　いい"
+	line "あにきが　かたきを　とって　くれる"
+	done
 
 SilphCo7FRocket3Text:
 	text_asm
-	ld hl, SilphCo7TrainerHeader3
+	ld hl, SilphCo7F_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo7FRocket3BattleText:
-	text_far _SilphCo7FRocket3BattleText
-	text_end
+	text "シルフに　しんにゅうした　こども"
+	line "<⋯>　おまえの　こと　だな！"
+	done
 
 SilphCo7FRocket3EndBattleText:
-	text_far _SilphCo7FRocket3EndBattleText
-	text_end
+	text "まけました！"
+	prompt
 
 SilphCo7FRocket3AfterBattleText:
-	text_far _SilphCo7FRocket3AfterBattleText
-	text_end
+	text "ボスが　おこる　まえに"
+	line "かえって　ねた　ほうが　いいぞ"
+	done
 
 SilphCo7FRivalText:
 	text_asm
@@ -483,21 +523,63 @@ SilphCo7FRivalText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SilphCo7FRivalText
-	text_end
+	text "<RIVAL>『まってたぜ　<PLAYER>！"
+	done
 
 SilphCo7FRivalWaitedHereText:
-	text_far _SilphCo7FRivalWaitedHereText
-	text_end
+	text "<RIVAL>『ひゃはは！"
+	line "ここで　まってれば"
+	cont "くるんじゃねえかと　おもったのさ"
+
+	para "しかし　<ROCKET>　あいてに"
+	line "てこずってる　みたいだな！"
+	cont "ま<⋯>　おれさまには"
+	cont "かんけいの　ないこと　だけど！"
+
+	para "ヤマブキ　シティで　<PLAYER>が"
+	line "あるいてんのを　ちょこっと"
+	cont "みかけた　もの　だからさ"
+
+	para "すこしは<⋯>　つよくなったのか"
+	line "なあーんちゃって　おもってさあ！"
+	done
 
 SilphCo7FRivalDefeatedText:
-	text_far _SilphCo7FRivalDefeatedText
-	text_end
+	text "おう　おうッ！"
+	line "<ROCKET>の　ボスに"
+	cont "いどむだけの　ことは　あるじゃん！"
+	prompt
 
 SilphCo7FRivalVictoryText:
-	text_far _SilphCo7FRivalVictoryText
-	text_end
+	text "<RIVAL>『おまえなあ<⋯>"
+
+	para "こんな　うでまえじゃ"
+	line "まだまだ<⋯>"
+	cont "いちにんまえ　とは　いえないぜ"
+	prompt
 
 SilphCo7FRivalGoodLuckToYouText:
-	text_far _SilphCo7FRivalGoodLuckToYouText
-	text_end
+	text "ほんじゃま　<PLAYER>！"
+
+	para "おれさまは"
+	line "ひとあし　さきに　いくぜ！"
+
+	para "#ずかん　やってる　うちに"
+	line "どういう　#が　つよい　とか"
+	cont "なにに　しんか　するか　とか"
+	cont "わかって　きちゃったんだよねえ！"
+	cont "おれって　てんさい？"
+
+	para "ま<⋯>　そういう　ことで"
+	line "これからは"
+	cont "#　リーグの　してんのうを"
+	cont "ばっさ　ばっさと　たおして"
+
+	para "さいきょうの　<TRAINER>に"
+	line "なってやろう　と　きめたのさ！"
+
+	para "<PLAYER>も"
+	line "せいぜい　がんばって　くれい"
+	cont "じゃあな！"
+	cont "バイビー！"
+	done

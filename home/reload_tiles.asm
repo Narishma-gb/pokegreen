@@ -33,9 +33,3 @@ ChooseFlyDestination::
 	ld hl, wStatusFlags4
 	res BIT_NO_BATTLES, [hl]
 	farjp LoadTownMap_Fly
-
-; causes the text box to close without waiting for a button press after displaying text
-DisableWaitingAfterTextDisplay::
-	ld a, $01
-	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	ret

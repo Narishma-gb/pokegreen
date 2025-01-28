@@ -1,7 +1,7 @@
 SilphCo9F_Script:
 	call SilphCo9FGateCallbackScript
 	call EnableAutoTextBoxDrawing
-	ld hl, SilphCo9TrainerHeaders
+	ld hl, SilphCo9F_TrainerHeaders
 	ld de, SilphCo9F_ScriptPointers
 	ld a, [wSilphCo9FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -131,14 +131,10 @@ SilphCo9F_TextPointers:
 	dw_const SilphCo9FScientistText, TEXT_SILPHCO9F_SCIENTIST
 	dw_const SilphCo9FRocket2Text,   TEXT_SILPHCO9F_ROCKET2
 
-SilphCo9TrainerHeaders:
-	def_trainers 2
-SilphCo9TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_0, 4, SilphCo9FRocket1BattleText, SilphCo9FRocket1EndBattleText, SilphCo9FRocket1AfterBattleText
-SilphCo9TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_1, 2, SilphCo9FScientistBattleText, SilphCo9FScientistEndBattleText, SilphCo9FScientistAfterBattleText
-SilphCo9TrainerHeader2:
-	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_2, 4, SilphCo9FRocket2BattleText, SilphCo9FRocket2EndBattleText, SilphCo9FRocket2AfterBattleText
+	def_trainers SilphCo9F, 2
+	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_0, 4, Rocket1
+	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_1, 2, Scientist
+	trainer EVENT_BEAT_SILPH_CO_9F_TRAINER_2, 4, Rocket2
 	db -1 ; end
 
 SilphCo9FNurseText:
@@ -161,67 +157,78 @@ SilphCo9FNurseText:
 	jp TextScriptEnd
 
 .YouLookTiredText:
-	text_far SilphCo9FNurseYouLookTiredText
-	text_end
+	text "つかれてる　みたいよ！"
+	line "かみんしつで　やすんで　いったら？"
+	prompt
 
 .DontGiveUpText:
-	text_far SilphCo9FNurseDontGiveUpText
-	text_end
+	text "がんばって！"
+	done
 
 .ThankYouText:
-	text_far SilphCo9FNurseThankYouText
-	text_end
+	text "たすかったわ　ありがと"
+	done
 
 SilphCo9FRocket1Text:
 	text_asm
-	ld hl, SilphCo9TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-SilphCo9FScientistText:
-	text_asm
-	ld hl, SilphCo9TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-SilphCo9FRocket2Text:
-	text_asm
-	ld hl, SilphCo9TrainerHeader2
+	ld hl, SilphCo9F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo9FRocket1BattleText:
-	text_far _SilphCo9FRocket1BattleText
-	text_end
+	text "こどもの　くせに　おまえの"
+	line "#　ずいぶん　なついているな"
+	done
 
 SilphCo9FRocket1EndBattleText:
-	text_far _SilphCo9FRocket1EndBattleText
-	text_end
+	text "ぐうーッ！"
+	prompt
 
 SilphCo9FRocket1AfterBattleText:
-	text_far _SilphCo9FRocket1AfterBattleText
-	text_end
+	text "おまえ　くらいの　としから"
+	line "#　やってれば　おれも<⋯>"
+	done
+
+SilphCo9FScientistText:
+	text_asm
+	ld hl, SilphCo9F_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 SilphCo9FScientistBattleText:
-	text_far _SilphCo9FScientistBattleText
-	text_end
+	text "きみの　#　には"
+	line "<⋯>　じゃくてんが　ある！"
+	cont "そこを　せめれば　おれ　かてるよ！"
+	done
 
 SilphCo9FScientistEndBattleText:
-	text_far _SilphCo9FScientistEndBattleText
-	text_end
+	text "じゃくてんを<⋯>"
+	line "つくまえに　やられたあ"
+	prompt
 
 SilphCo9FScientistAfterBattleText:
-	text_far _SilphCo9FScientistAfterBattleText
-	text_end
+	text "じゃくてんを"
+	line "せめると　いいのは　じじつだ！"
+	cont "タイプの　あいしょう　とか<⋯>"
+	done
+
+SilphCo9FRocket2Text:
+	text_asm
+	ld hl, SilphCo9F_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 SilphCo9FRocket2BattleText:
-	text_far _SilphCo9FRocket2BattleText
-	text_end
+	text "おれこそは"
+	line "ロケット　４きょうだいの　ひとりだ！"
+	done
 
 SilphCo9FRocket2EndBattleText:
-	text_far _SilphCo9FRocket2EndBattleText
-	text_end
+	text "うー！"
+	line "まけた　おとうとよ！"
+	prompt
 
 SilphCo9FRocket2AfterBattleText:
-	text_far _SilphCo9FRocket2AfterBattleText
-	text_end
+	text "まあ　いい"
+	line "おとうとが　かたきを　とってくれる"
+	done

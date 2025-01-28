@@ -1,6 +1,6 @@
 FightingDojo_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, FightingDojoTrainerHeaders
+	ld hl, FightingDojo_TrainerHeaders
 	ld de, FightingDojo_ScriptPointers
 	ld a, [wFightingDojoCurScript]
 	call ExecuteCurMapScriptInTable
@@ -71,7 +71,7 @@ FightingDojoKarateMasterPostBattleScript:
 	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
 	ld [wJoyIgnore], a
 	SetEventRange EVENT_BEAT_KARATE_MASTER, EVENT_BEAT_FIGHTING_DOJO_TRAINER_3
-	ld a, TEXT_FIGHTINGDOJO_KARATE_MASTER_I_WILL_GIVE_YOU_A_POKEMON
+	ld a, TEXT_FIGHTINGDOJO_KARATE_MASTER_GIVE_POKEMON
 	ldh [hTextID], a
 	call DisplayTextID
 	xor a ; SCRIPT_FIGHTINGDOJO_DEFAULT
@@ -82,25 +82,20 @@ FightingDojoKarateMasterPostBattleScript:
 
 FightingDojo_TextPointers:
 	def_text_pointers
-	dw_const FightingDojoKarateMasterText,                          TEXT_FIGHTINGDOJO_KARATE_MASTER
-	dw_const FightingDojoBlackbelt1Text,                            TEXT_FIGHTINGDOJO_BLACKBELT1
-	dw_const FightingDojoBlackbelt2Text,                            TEXT_FIGHTINGDOJO_BLACKBELT2
-	dw_const FightingDojoBlackbelt3Text,                            TEXT_FIGHTINGDOJO_BLACKBELT3
-	dw_const FightingDojoBlackbelt4Text,                            TEXT_FIGHTINGDOJO_BLACKBELT4
-	dw_const FightingDojoHitmonleePokeBallText,                     TEXT_FIGHTINGDOJO_HITMONLEE_POKE_BALL
-	dw_const FightingDojoHitmonchanPokeBallText,                    TEXT_FIGHTINGDOJO_HITMONCHAN_POKE_BALL
-	dw_const FightingDojoKarateMasterText.IWillGiveYouAPokemonText, TEXT_FIGHTINGDOJO_KARATE_MASTER_I_WILL_GIVE_YOU_A_POKEMON
+	dw_const FightingDojoKarateMasterText,            TEXT_FIGHTINGDOJO_KARATE_MASTER
+	dw_const FightingDojoBlackbelt1Text,              TEXT_FIGHTINGDOJO_BLACKBELT1
+	dw_const FightingDojoBlackbelt2Text,              TEXT_FIGHTINGDOJO_BLACKBELT2
+	dw_const FightingDojoBlackbelt3Text,              TEXT_FIGHTINGDOJO_BLACKBELT3
+	dw_const FightingDojoBlackbelt4Text,              TEXT_FIGHTINGDOJO_BLACKBELT4
+	dw_const FightingDojoHitmonleePokeBallText,       TEXT_FIGHTINGDOJO_HITMONLEE_POKE_BALL
+	dw_const FightingDojoHitmonchanPokeBallText,      TEXT_FIGHTINGDOJO_HITMONCHAN_POKE_BALL
+	dw_const FightingDojoKarateMasterGivePokemonText, TEXT_FIGHTINGDOJO_KARATE_MASTER_GIVE_POKEMON
 
-FightingDojoTrainerHeaders:
-	def_trainers 2
-FightingDojoTrainerHeader0:
-	trainer EVENT_BEAT_FIGHTING_DOJO_TRAINER_0, 4, FightingDojoBlackbelt1BattleText, FightingDojoBlackbelt1EndBattleText, FightingDojoBlackbelt1AfterBattleText
-FightingDojoTrainerHeader1:
-	trainer EVENT_BEAT_FIGHTING_DOJO_TRAINER_1, 4, FightingDojoBlackbelt2BattleText, FightingDojoBlackbelt2EndBattleText, FightingDojoBlackbelt2AfterBattleText
-FightingDojoTrainerHeader2:
-	trainer EVENT_BEAT_FIGHTING_DOJO_TRAINER_2, 3, FightingDojoBlackbelt3BattleText, FightingDojoBlackbelt3EndBattleText, FightingDojoBlackbelt3AfterBattleText
-FightingDojoTrainerHeader3:
-	trainer EVENT_BEAT_FIGHTING_DOJO_TRAINER_3, 3, FightingDojoBlackbelt4BattleText, FightingDojoBlackbelt4EndBattleText, FightingDojoBlackbelt4AfterBattleText
+	def_trainers FightingDojo, 2
+	trainer EVENT_BEAT_FIGHTING_DOJO_TRAINER_0, 4, Blackbelt1
+	trainer EVENT_BEAT_FIGHTING_DOJO_TRAINER_1, 4, Blackbelt2
+	trainer EVENT_BEAT_FIGHTING_DOJO_TRAINER_2, 3, Blackbelt3
+	trainer EVENT_BEAT_FIGHTING_DOJO_TRAINER_3, 3, Blackbelt4
 	db -1 ; end
 
 FightingDojoKarateMasterText:
@@ -109,7 +104,7 @@ FightingDojoKarateMasterText:
 	jp nz, .defeated_dojo
 	CheckEventReuseA EVENT_BEAT_KARATE_MASTER
 	jp nz, .defeated_master
-	ld hl, .Text
+	ld hl, .PreBattleText
 	call PrintText
 	ld hl, wStatusFlags3
 	set BIT_TALKED_TO_TRAINER, [hl]
@@ -126,102 +121,140 @@ FightingDojoKarateMasterText:
 	ld [wCurMapScript], a
 	jr .end
 .defeated_dojo
-	ld hl, .StayAndTrainWithUsText
+	ld hl, FightingDojoKarateMasterTrainWithUsText
 	call PrintText
 	jr .end
 .defeated_master
-	ld hl, .IWillGiveYouAPokemonText
+	ld hl, FightingDojoKarateMasterGivePokemonText
 	call PrintText
 .end
 	jp TextScriptEnd
 
-.Text:
-	text_far _FightingDojoKarateMasterText
-	text_end
+.PreBattleText:
+	text "オスッ！"
+
+	para "わしが　かくとう　どうじょうの"
+	line "しはん　カラテ　だいおう　である！"
+
+	para "おぬしは　どうじょう　やぶりか！"
+	line "ならば　ようしゃは　せんぞ！"
+
+	para "トオリャー！"
+	done
 
 .DefeatedText:
-	text_far _FightingDojoKarateMasterDefeatedText
-	text_end
+	text "ウオリャ！"
+	line "だー！　やられたあー！"
+	prompt
 
-.IWillGiveYouAPokemonText:
-	text_far _FightingDojoKarateMasterIWillGiveYouAPokemonText
-	text_end
+FightingDojoKarateMasterGivePokemonText:
+	text "わしは　たしかに　まけた！"
 
-.StayAndTrainWithUsText:
-	text_far _FightingDojoKarateMasterStayAndTrainWithUsText
-	text_end
+	para "しかし　どうじょうの　かんばん"
+	line "<⋯>　だけは！"
+	cont "もって　いかないで　くれい！"
+
+	para "かわりに　わしの　だいじな"
+	line "かくとう　#を　わたす！"
+
+	para "どうか！"
+	line "すきな　ほうを　えらんで　くれい！"
+	done
+
+FightingDojoKarateMasterTrainWithUsText:
+	text "オスッ！"
+
+	para "どうだ？　ついでに　ここで"
+	line "カラテ　れんしゅう　していくか！"
+	done
 
 FightingDojoBlackbelt1Text:
 	text_asm
-	ld hl, FightingDojoTrainerHeader0
+	ld hl, FightingDojo_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FightingDojoBlackbelt1BattleText:
-	text_far _FightingDojoBlackbelt1BattleText
-	text_end
+	text "ウオースッ！"
+	line "きさま！　どうじょう　やぶり　か！"
+	done
 
 FightingDojoBlackbelt1EndBattleText:
-	text_far _FightingDojoBlackbelt1EndBattleText
-	text_end
+	text "ま　まいった！"
+	prompt
 
 FightingDojoBlackbelt1AfterBattleText:
-	text_far _FightingDojoBlackbelt1AfterBattleText
-	text_end
+	text "あんしん　するのは"
+	line "しはんに　かって　からに　しろ！"
+
+	para "おれに　かっても"
+	line "たいした　こと　ないぜ！　オスッ！"
+	done
 
 FightingDojoBlackbelt2Text:
 	text_asm
-	ld hl, FightingDojoTrainerHeader1
+	ld hl, FightingDojo_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FightingDojoBlackbelt2BattleText:
-	text_far _FightingDojoBlackbelt2BattleText
-	text_end
+	text "オスッ！　うでが　たつ　らしいな！"
+	line "えんりょ　なく　いくぜ！"
+	done
 
 FightingDojoBlackbelt2EndBattleText:
-	text_far _FightingDojoBlackbelt2EndBattleText
-	text_end
+	text "ウオッス！　わざあり！"
+	prompt
 
 FightingDojoBlackbelt2AfterBattleText:
-	text_far _FightingDojoBlackbelt2AfterBattleText
-	text_end
+	text "しはんは　かくとうかの　かみさまだ！"
+	line "いどむと　いうなら　かくご　していけ"
+	done
 
 FightingDojoBlackbelt3Text:
 	text_asm
-	ld hl, FightingDojoTrainerHeader2
+	ld hl, FightingDojo_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FightingDojoBlackbelt3BattleText:
-	text_far _FightingDojoBlackbelt3BattleText
-	text_end
+	text "チェストー！"
+	line "かたい　もの　など　こわく　ない！"
+
+	para "まいにち　こぶしで"
+	line "いわを　わる　れんしゅう　してる！"
+	done
 
 FightingDojoBlackbelt3EndBattleText:
-	text_far _FightingDojoBlackbelt3EndBattleText
-	text_end
+	text "あたっ！　オスッ！"
+	prompt
 
 FightingDojoBlackbelt3AfterBattleText:
-	text_far _FightingDojoBlackbelt3AfterBattleText
-	text_end
+	text "かくとうかが　こわい　もの　など"
+	line "ちょうのうりょく　ぐらいだ！オスッ！"
+	done
 
 FightingDojoBlackbelt4Text:
 	text_asm
-	ld hl, FightingDojoTrainerHeader3
+	ld hl, FightingDojo_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 FightingDojoBlackbelt4BattleText:
-	text_far _FightingDojoBlackbelt4BattleText
-	text_end
+	text "オスッ！"
+
+	para "ここを　かくとう　どうじょうと"
+	line "しっての　ぶれい　か！"
+	done
 
 FightingDojoBlackbelt4EndBattleText:
-	text_far _FightingDojoBlackbelt4EndBattleText
-	text_end
+	text "ぐッ！　まいった！"
+	prompt
 
 FightingDojoBlackbelt4AfterBattleText:
-	text_far _FightingDojoBlackbelt4AfterBattleText
-	text_end
+	text "ここは　ぜんこくの　かくとうか　が"
+	line "あつまる　どうじょう　だ！　オスッ！"
+	done
 
 FightingDojoHitmonleePokeBallText:
 	text_asm
@@ -254,8 +287,9 @@ FightingDojoHitmonleePokeBallText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _FightingDojoHitmonleePokeBallText
-	text_end
+	text "ウスッ！　キック　わざのおに！"
+	line "サワムラーを　とるか？"
+	done
 
 FightingDojoHitmonchanPokeBallText:
 	text_asm
@@ -288,9 +322,10 @@ FightingDojoHitmonchanPokeBallText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _FightingDojoHitmonchanPokeBallText
-	text_end
+	text "ウスッ！　うなる　こぶし！"
+	line "エビワラーに　するか？"
+	done
 
 FightingDojoBetterNotGetGreedyText:
-	text_far _FightingDojoBetterNotGetGreedyText
-	text_end
+	text "よくばるのは　よそう<⋯>"
+	done

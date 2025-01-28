@@ -102,13 +102,15 @@ Route18Gate1FGuardText:
 	jp TextScriptEnd
 
 .YouNeedABicycleText:
-	text_far _Route18Gate1FGuardYouNeedABicycleText
-	text_end
+	text "サイクリング　ロード　には"
+	line "じてんしゃで　いって　ください！"
+	done
 
 .CyclingRoadUphillText:
-	text_far _Route18Gate1FGuardCyclingRoadUphillText
-	text_end
+	text "サイクリング　ロード"
+	line "こちら　からは　のぼり　ざか　です"
+	done
 
 Route18Gate1FGuardExcuseMeText:
-	text_far _Route18Gate1FGuardExcuseMeText
-	text_end
+	text "<⋯>　ちょっと　すいません！"
+	done

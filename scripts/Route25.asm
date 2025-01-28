@@ -1,7 +1,7 @@
 Route25_Script:
 	call Route25ShowHideBillScript
 	call EnableAutoTextBoxDrawing
-	ld hl, Route25TrainerHeaders
+	ld hl, Route25_TrainerHeaders
 	ld de, Route25_ScriptPointers
 	ld a, [wRoute25CurScript]
 	call ExecuteCurMapScriptInTable
@@ -55,190 +55,211 @@ Route25_TextPointers:
 	dw_const PickUpItemText,           TEXT_ROUTE25_TM_SEISMIC_TOSS
 	dw_const Route25BillSignText,      TEXT_ROUTE25_BILL_SIGN
 
-Route25TrainerHeaders:
-	def_trainers
-Route25TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_25_TRAINER_0, 2, Route25Youngster1BattleText, Route25Youngster1EndBattleText, Route25Youngster1AfterBattleText
-Route25TrainerHeader1:
-	trainer EVENT_BEAT_ROUTE_25_TRAINER_1, 3, Route25Youngster2BattleText, Route25Youngster2EndBattleText, Route25Youngster2AfterBattleText
-Route25TrainerHeader2:
-	trainer EVENT_BEAT_ROUTE_25_TRAINER_2, 3, Route25CooltrainerMBattleText, Route25CooltrainerMEndBattleText, Route25CooltrainerMAfterBattleText
-Route25TrainerHeader3:
-	trainer EVENT_BEAT_ROUTE_25_TRAINER_3, 2, Route25CooltrainerF1BattleText, Route25CooltrainerF1EndBattleText, Route25CooltrainerF1AfterBattleText
-Route25TrainerHeader4:
-	trainer EVENT_BEAT_ROUTE_25_TRAINER_4, 4, Route25Youngster3BattleText, Route25Youngster3EndBattleText, Route25Youngster3AfterBattleText
-Route25TrainerHeader5:
-	trainer EVENT_BEAT_ROUTE_25_TRAINER_5, 4, Route25CooltrainerF2BattleText, Route25CooltrainerF2EndBattleText, Route25CooltrainerF2AfterBattleText
-Route25TrainerHeader6:
-	trainer EVENT_BEAT_ROUTE_25_TRAINER_6, 3, Route25Hiker1BattleText, Route25Hiker1EndBattleText, Route25Hiker1AfterBattleText
-Route25TrainerHeader7:
-	trainer EVENT_BEAT_ROUTE_25_TRAINER_7, 2, Route25Hiker2BattleText, Route25Hiker2EndBattleText, Route25Hiker2AfterBattleText
-Route25TrainerHeader8:
-	trainer EVENT_BEAT_ROUTE_25_TRAINER_8, 2, Route25Hiker3BattleText, Route25Hiker3EndBattleText, Route25Hiker3AfterBattleText
+	def_trainers Route25
+	trainer EVENT_BEAT_ROUTE_25_TRAINER_0, 2, Youngster1
+	trainer EVENT_BEAT_ROUTE_25_TRAINER_1, 3, Youngster2
+	trainer EVENT_BEAT_ROUTE_25_TRAINER_2, 3, CooltrainerM
+	trainer EVENT_BEAT_ROUTE_25_TRAINER_3, 2, CooltrainerF1
+	trainer EVENT_BEAT_ROUTE_25_TRAINER_4, 4, Youngster3
+	trainer EVENT_BEAT_ROUTE_25_TRAINER_5, 4, CooltrainerF2
+	trainer EVENT_BEAT_ROUTE_25_TRAINER_6, 3, Hiker1
+	trainer EVENT_BEAT_ROUTE_25_TRAINER_7, 2, Hiker2
+	trainer EVENT_BEAT_ROUTE_25_TRAINER_8, 2, Hiker3
 	db -1 ; end
 
 Route25Youngster1Text:
 	text_asm
-	ld hl, Route25TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route25Youngster2Text:
-	text_asm
-	ld hl, Route25TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route25CooltrainerMText:
-	text_asm
-	ld hl, Route25TrainerHeader2
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route25CooltrainerF1Text:
-	text_asm
-	ld hl, Route25TrainerHeader3
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route25Youngster3Text:
-	text_asm
-	ld hl, Route25TrainerHeader4
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route25CooltrainerF2Text:
-	text_asm
-	ld hl, Route25TrainerHeader5
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route25Hiker1Text:
-	text_asm
-	ld hl, Route25TrainerHeader6
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route25Hiker2Text:
-	text_asm
-	ld hl, Route25TrainerHeader7
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route25Hiker3Text:
-	text_asm
-	ld hl, Route25TrainerHeader8
+	ld hl, Route25_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route25Youngster1BattleText:
-	text_far _Route25Youngster1BattleText
-	text_end
+	text "この　はやしは　きんじょの"
+	line "<TRAINER>が"
+	cont "れんしゅうに　くる　ばしょさ！"
+	done
 
 Route25Youngster1EndBattleText:
-	text_far _Route25Youngster1EndBattleText
-	text_end
+	text "なかなか　できるね"
+	prompt
 
 Route25Youngster1AfterBattleText:
-	text_far _Route25Youngster1AfterBattleText
-	text_end
+	text "#は　１ぴきだけ　つよくても"
+	line "にがてな　タイプには　かてない"
+	cont "たくさん　そだてる　ほうが　いいよ"
+	done
+
+Route25Youngster2Text:
+	text_asm
+	ld hl, Route25_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route25Youngster2BattleText:
-	text_far _Route25Youngster2BattleText
-	text_end
+	text "クチバ　みなとの"
+	line "サントアンヌ　ごうの　パーティ"
+	cont "パパと　いったぜ　いいだろー！"
+	done
 
 Route25Youngster2EndBattleText:
-	text_far _Route25Youngster2EndBattleText
-	text_end
+	text "くやしく　ないもん"
+	prompt
 
 Route25Youngster2AfterBattleText:
-	text_far _Route25Youngster2AfterBattleText
-	text_end
+	text "サントアンヌ　ごう　は"
+	line "せかいの　<TRAINER>が"
+	cont "いっぱい　いたよ"
+	done
+
+Route25CooltrainerMText:
+	text_asm
+	ld hl, Route25_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route25CooltrainerMBattleText:
-	text_far _Route25CooltrainerMBattleText
-	text_end
+	text "ぼくは　ボーイスカウト"
+	line "かのじょは　ミニスカート！"
+	done
 
 Route25CooltrainerMEndBattleText:
-	text_far _Route25CooltrainerMEndBattleText
-	text_end
+	text "トホホ<⋯>"
+	prompt
 
 Route25CooltrainerMAfterBattleText:
-	text_far _Route25CooltrainerMAfterBattleText
-	text_end
+	text "ま<⋯>　いっか"
+	line "かのじょに　なぐさめて　もらおう"
+	done
+
+Route25CooltrainerF1Text:
+	text_asm
+	ld hl, Route25_TrainerHeader3
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route25CooltrainerF1BattleText:
-	text_far _Route25CooltrainerF1BattleText
-	text_end
+	text "わたしは　ミニスカート"
+	line "かれは　ボーイスカウト！"
+	done
 
 Route25CooltrainerF1EndBattleText:
-	text_far _Route25CooltrainerF1EndBattleText
-	text_end
+	text "ちょうし　わるーい"
+	prompt
 
 Route25CooltrainerF1AfterBattleText:
-	text_far _Route25CooltrainerF1AfterBattleText
-	text_end
+	text "わたしの　かれも"
+	line "きみ　くらい　つよいと　いいのに"
+	done
+
+Route25Youngster3Text:
+	text_asm
+	ld hl, Route25_TrainerHeader4
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route25Youngster3BattleText:
-	text_far _Route25Youngster3BattleText
-	text_end
+	text "む<⋯>！"
+	line "きみと　ぼくは　たたかう　よかん"
+	done
 
 Route25Youngster3EndBattleText:
-	text_far _Route25Youngster3EndBattleText
-	text_end
+	text "まけそうな"
+	line "よかんが　したよ"
+	prompt
 
 Route25Youngster3AfterBattleText:
-	text_far _Route25Youngster3AfterBattleText
-	text_end
+	text "まきつきや　こんらんを　うけたら"
+	line "さっさと　#を　とりかえる"
+	cont "さくせんも　いいね"
+	done
+
+Route25CooltrainerF2Text:
+	text_asm
+	ld hl, Route25_TrainerHeader5
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route25CooltrainerF2BattleText:
-	text_far _Route25CooltrainerF2BattleText
-	text_end
+	text "ともだちが　かわいい　#"
+	line "いっぱい　もってるの"
+	cont "<⋯>　くやしいわ！"
+	done
 
 Route25CooltrainerF2EndBattleText:
-	text_far _Route25CooltrainerF2EndBattleText
-	text_end
+	text "くやしく　ないもん"
+	prompt
 
 Route25CooltrainerF2AfterBattleText:
-	text_far _Route25CooltrainerF2AfterBattleText
-	text_end
+	text "オツキミやま　から　きたの？"
+	line "じゃ　あたし　ピッピ　ほしーい！"
+	cont "ねえ　ちょうだい"
+	done
+
+Route25Hiker1Text:
+	text_asm
+	ld hl, Route25_TrainerHeader6
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route25Hiker1BattleText:
-	text_far _Route25Hiker1BattleText
-	text_end
+	text "オツキミ　やま　から"
+	line "おりてきた　ばかりだが"
+	cont "まだまだ　げんき！"
+	done
 
 Route25Hiker1EndBattleText:
-	text_far _Route25Hiker1EndBattleText
-	text_end
+	text "がんばるなあ"
+	prompt
 
 Route25Hiker1AfterBattleText:
-	text_far _Route25Hiker1AfterBattleText
-	text_end
+	text "くそッ"
+	line "どうくつの　なかで"
+	cont "ズバットに　かまれちまった"
+	done
+
+Route25Hiker2Text:
+	text_asm
+	ld hl, Route25_TrainerHeader7
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route25Hiker2BattleText:
-	text_far _Route25Hiker2BattleText
-	text_end
+	text "みさきに　すんでる"
+	line "#　マニアの　コレクション"
+	cont "みに　いこうと　おもってな！"
+	done
 
 Route25Hiker2EndBattleText:
-	text_far _Route25Hiker2EndBattleText
-	text_end
+	text "やられたなあ"
+	prompt
 
 Route25Hiker2AfterBattleText:
-	text_far _Route25Hiker2AfterBattleText
-	text_end
+	text "マニアという　だけに"
+	line "いろいろ　めずらしい　#を"
+	cont "もってる　らしい"
+	done
+
+Route25Hiker3Text:
+	text_asm
+	ld hl, Route25_TrainerHeader8
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route25Hiker3BattleText:
-	text_far _Route25Hiker3BattleText
-	text_end
+	text "マサキの　いえに　いくのか？"
+	line "そのまえに　しょうぶ　しよう！"
+	done
 
 Route25Hiker3EndBattleText:
-	text_far _Route25Hiker3EndBattleText
-	text_end
+	text "やるなあ"
+	prompt
 
 Route25Hiker3AfterBattleText:
-	text_far _Route25Hiker3AfterBattleText
-	text_end
+	text "ハナダ　シティに　かえる　ときは"
+	line "したの　ほどうを　あるくと　はやい"
+	done
 
 Route25BillSignText:
-	text_far _Route25BillSignText
-	text_end
+	text "ここは　みさきの　こや"
+	line "<⋯>　マサキの　いえ"
+	done

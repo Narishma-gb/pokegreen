@@ -46,23 +46,32 @@ DisplayPokemonCenterDialogue_::
 	jp UpdateSprites
 
 PokemonCenterWelcomeText:
-	text_far _PokemonCenterWelcomeText
-	text_end
+	text "ようこそ！"
+	line "#センターへ"
+
+	para "ここでは　#の"
+	line "たいりょく　かいふくを　いたします"
+	prompt
 
 ShallWeHealYourPokemonText:
 	text_pause
-	text_far _ShallWeHealYourPokemonText
-	text_end
+	text "モンスターボールを　"
+	line "おあずけに　なりますか？"
+	done
 
 NeedYourPokemonText:
-	text_far _NeedYourPokemonText
-	text_end
+	text "それでは"
+	line "あずからせて　いただきます！"
+	done
 
 PokemonFightingFitText:
-	text_far _PokemonFightingFitText
-	text_end
+	text "おまちどうさまでした！"
+	line "おあずかりした　#は"
+	cont "みんな　げんきに　なりましたよ！"
+	prompt
 
 PokemonCenterFarewellText:
 	text_pause
-	text_far _PokemonCenterFarewellText
-	text_end
+	text "またの"
+	line "ごりようを　おまちしてます！"
+	done

@@ -39,47 +39,90 @@ CopycatsHouse2FCopycatText:
 	call PrintText
 	jr .done
 .got_item
-	ld hl, .TM31Explanation2Text
+	ld hl, .TM31ExplanationText
 	call PrintText
 .done
 	jp TextScriptEnd
 
 .DoYouLikePokemonText:
-	text_far _CopycatsHouse2FCopycatDoYouLikePokemonText
-	text_end
+	text "<PLAYER>『やあ！　こんにちは！"
+	line "きみ　#　すきかい？"
+
+	para "<PLAYER>『ぼく　じゃなくって"
+	line "きみに　きいてるんだ　けど"
+
+	para "<PLAYER>『<⋯>　えー　なんだよ！"
+	line "ヘンな　やつ　だなあ！"
+
+	para "モノマネむすめ『<⋯>　なに？"
+	line "ひとの　マネ　すんなって？"
+
+	para "だって　あたし　"
+	line "ものまね　しゅみ　なんだ　もん！"
+	prompt
 
 .TM31PreReceiveText:
-	text_far _CopycatsHouse2FCopycatTM31PreReceiveText
-	text_end
+	text "わあー！"
+	line "ピッピにんぎょう　くれるのー！"
+
+	para "うれしーい！"
+
+	para "<⋯>　じゃあねー！"
+	line "わたし　からは　これ　あげるー！"
+	prompt
 
 .ReceivedTM31Text:
-	text_far _CopycatsHouse2FCopycatReceivedTM31Text
+	text "<PLAYER>は　むすめさんから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
-.TM31Explanation1Text:
-	text_far _CopycatsHouse2FCopycatTM31Explanation1Text
+	text_start
+
+	para "<TM>３１の　なかは"
+	line "わたしの　だいすきな　ものまね！"
+
+	para "あなたの　すきな　#に"
+	line "つかって　あげて！@"
 	text_waitbutton
 	text_end
 
-.TM31Explanation2Text:
-	text_far _CopycatsHouse2FCopycatTM31Explanation2Text
-	text_end
+.TM31ExplanationText:
+	text "<PLAYER>『やあ！　さっきは"
+	line "<TM>　ありがとう！"
+
+	para "<PLAYER>『<⋯>　なーに？"
+
+	para "<PLAYER>『ぼくの　まね　して"
+	line "そんなに　たのしい　かい？"
+
+	para "モノマネむすめ『うん<⋯>！"
+	line "とっても　たのしいー！"
+	done
 
 .TM31NoRoomText:
-	text_far _CopycatsHouse2FCopycatTM31NoRoomText
+	text "にもつが　いっぱいね！@"
 	text_waitbutton
 	text_end
 
 CopycatsHouse2FDoduoText:
-	text_far _CopycatsHouse2FDoduoText
-	text_end
+	text "ドードー『ギー　ギーッ！"
+
+	para "<⋯>　カガミ　ヨ　カガミ！"
+	line "セカイデ　イチバン　カワイイ"
+	cont "オンナノコハ　ダーレ？"
+	done
 
 CopycatsHouse2FRareDollText:
-	text_far _CopycatsHouse2FRareDollText
-	text_end
+	text "これは　めずらしい　#！？"
+	line "<⋯>　あれ？　ぬいぐるみ　だった"
+	done
 
 CopycatsHouse2FSNESText:
-	text_far _CopycatsHouse2FSNESText
-	text_end
+	text "これは<⋯>！"
+	line "マリオが　バケツを　かぶって"
+	cont "あるいて　いく　ゲームだ！"
+	done
 
 CopycatsHouse2FPCText:
 	text_asm
@@ -93,9 +136,16 @@ CopycatsHouse2FPCText:
 	jp TextScriptEnd
 
 .MySecretsText:
-	text_far _CopycatsHouse2FPCMySecretsText
-	text_end
+	text "<⋯>　<⋯>　<⋯>"
+
+	para "わたしの　ひみつ<⋯>！"
+
+	para "とくいなもの　<⋯>　ものまね！"
+	line "しゅみ　<⋯>　ぬいぐるみ！"
+	cont "すきなもの　<⋯>　ピッピ！"
+	cont "<⋯>　<⋯>　<⋯>"
+	done
 
 .CantSeeText:
-	text_far _CopycatsHouse2FPCCantSeeText
-	text_end
+	text "？　みえないぞ<⋯>"
+	done

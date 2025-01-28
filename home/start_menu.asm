@@ -14,7 +14,7 @@ RedisplayStartMenu::
 .loop
 	call HandleMenuInput
 	ld b, a
-.checkIfUpPressed
+;checkIfUpPressed
 	bit BIT_D_UP, a
 	jr z, .checkIfDownPressed
 	ld a, [wCurrentMenuItem] ; menu selection

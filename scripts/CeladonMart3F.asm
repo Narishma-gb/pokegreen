@@ -43,62 +43,94 @@ CeladonMart3FClerkText:
 	jp TextScriptEnd
 
 .TM18PreReceiveText:
-	text_far _CeladonMart3FClerkTM18PreReceiveText
-	text_end
+	text "いらっしゃい！"
+	line "いやあー！"
+	cont "#　やっと　おわったよ！"
+
+	para "きみは　まだ　なの？"
+	line "それじゃあ"
+	cont "いい　もの　あげよう"
+	prompt
 
 .ReceivedTM18Text:
-	text_far _CeladonMart3FClerkReceivedTM18Text
+	text "<PLAYER>は　てんいん　から"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
 	text_end
 
 .TM18ExplanationText:
-	text_far _CeladonMart3FClerkTM18ExplanationText
-	text_end
+	text "てんいんの　プレゼント　だけに"
+	line "<TM>１８の　わざは"
+	cont "<⋯>　カウンター！　だよ！"
+	cont "それじゃ　がんばってね！"
+	done
 
 .TM18NoRoomText:
-	text_far _CeladonMart3FClerkTM18NoRoomText
-	text_end
+	text "にもつが　いっぱいだ！"
+	done
 
 CeladonMart3FGameBoyKid1Text:
-	text_far _CeladonMart3FGameBoyKid1Text
-	text_end
+	text "とった　ひとの　なまえと"
+	line "アイディが　#　ごとに"
+	cont "きろく　されてるよ"
+	done
 
 CeladonMart3FGameBoyKid2Text:
-	text_far _CeladonMart3FGameBoyKid2Text
-	text_end
+	text "やったー！"
+	
+	para "となりのこが　ゴーストと　ガルーラ"
+	line "こうかん　してくれるって！"
+	done
 
 CeladonMart3FGameBoyKid3Text:
-	text_far _CeladonMart3FGameBoyKid3Text
-	text_end
+	text "はやく　きて！"
+	line "ゴースト　ちゃーん！"
 
+	para "ぼくは"
+	line "ゴースト　マニア　なのね！"
+
+	para "<⋯>　あー？"
+	
+	para "てんそう　されて　きた　ゴーストが"
+	line "べつの　#に！？"
+	done
+	
 CeladonMart3FLittleBoyText:
-	text_far _CeladonMart3FLittleBoyText
-	text_end
+	text "ひとから　もらった　#は"
+	line "アイディが　ちがうから　わかるよ"
+	done
 
 CeladonMart3FSNESText:
-	text_far _CeladonMart3FSNESText
-	text_end
+	text "スーパー　ファミコン　だ！"
+	done
 
 CeladonMart3FRPGText:
-	text_far _CeladonMart3FRPGText
-	text_end
+	text "ロールプレイング　ゲームだ！"
+	line "<⋯>　あそんでく　ひまが　ない"
+	done
 
 CeladonMart3FSportsGameText:
-	text_far _CeladonMart3FSportsGameText
-	text_end
+	text "これは　スポーツ　ゲームだ！"
+	line "<⋯>　おとうさんが　すきそう！"
+	done
 
 CeladonMart3FPuzzleGameText:
-	text_far _CeladonMart3FPuzzleGameText
-	text_end
+	text "パズル　ゲームだ<⋯>！"
+	line "<⋯>　はじめたら　やめられない"
+	done
 
 CeladonMart3FFightingGameText:
-	text_far _CeladonMart3FFightingGameText
-	text_end
+	text "たいせん　アクションゲームだ！"
+	line "<⋯>　ちょっと　むずかしそう！"
+	done
 
 CeladonMart3FCurrentFloorSignText:
-	text_far _CeladonMart3FCurrentFloorSignText
-	text_end
+	text "３かい<⋯>テレビ　ゲーム　ショップ"
+	done
 
 CeladonMart3FPokemonPosterText:
-	text_far _CeladonMart3FPokemonPosterText
-	text_end
+	text "あかと　みどり！"
+	line "どっちも　ポケット　モンスター！"
+	done

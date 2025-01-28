@@ -175,42 +175,42 @@ DEF NUM_ATTACKS EQU const_value - 1
 
 	; Moves do double duty as animation identifiers.
 
-	const SHOWPIC_ANIM
-	const STATUS_AFFECTED_ANIM
-	const ANIM_A8
-	const ENEMY_HUD_SHAKE_ANIM
-	const TRADE_BALL_DROP_ANIM
-	const TRADE_BALL_SHAKE_ANIM
-	const TRADE_BALL_TILT_ANIM
-	const TRADE_BALL_POOF_ANIM
-	const XSTATITEM_ANIM ; use X Attack/Defense/Speed/Special
-	const XSTATITEM_DUPLICATE_ANIM
-	const SHRINKING_SQUARE_ANIM
-	const ANIM_B1
-	const ANIM_B2
-	const ANIM_B3
-	const ANIM_B4
-	const ANIM_B5
-	const ANIM_B6
-	const ANIM_B7
-	const ANIM_B8
-	const ANIM_B9
-	const BURN_PSN_ANIM ; Plays when a monster is burned or poisoned
-	const ANIM_BB
-	const SLP_PLAYER_ANIM
-	const SLP_ANIM ; sleeping monster
-	const CONF_PLAYER_ANIM
-	const CONF_ANIM ; confused monster
-	const SLIDE_DOWN_ANIM
-	const TOSS_ANIM ; toss Poké Ball
-	const SHAKE_ANIM ; shaking Poké Ball when catching monster
-	const POOF_ANIM ; puff of smoke
-	const BLOCKBALL_ANIM ; trainer knocks away Poké Ball
-	const GREATTOSS_ANIM ; toss Great Ball
-	const ULTRATOSS_ANIM ; toss Ultra Ball or Master Ball
-	const SHAKE_SCREEN_ANIM
-	const HIDEPIC_ANIM ; monster disappears
-	const ROCK_ANIM ; throw rock
-	const BAIT_ANIM ; throw bait
+	const SHOWPIC_ANIM             ; a6
+	const STATUS_AFFECTED_ANIM     ; a7
+	const ANIM_A8                  ; a8
+	const ENEMY_HUD_SHAKE_ANIM     ; a9
+	const TRADE_BALL_DROP_ANIM     ; aa
+	const TRADE_BALL_SHAKE_ANIM    ; ab
+	const TRADE_BALL_TILT_ANIM     ; ac
+	const TRADE_BALL_POOF_ANIM     ; ad
+	const XSTATITEM_ANIM           ; ae (use X Attack/Defense/Speed/Special)
+	const XSTATITEM_DUPLICATE_ANIM ; af
+	const SHRINKING_SQUARE_ANIM    ; b0
+	const ANIM_B1                  ; b1
+	const ANIM_B2                  ; b2
+	const ANIM_B3                  ; b3
+	const ANIM_B4                  ; b4
+	const ANIM_B5                  ; b5
+	const ANIM_B6                  ; b6
+	const ANIM_B7                  ; b7
+	const ANIM_B8                  ; b8
+	const ANIM_B9                  ; b9
+	const BURN_PSN_ANIM            ; ba (Plays when a monster is burned or poisoned)
+	const ANIM_BB                  ; bb
+	const SLP_PLAYER_ANIM          ; bc
+	const SLP_ANIM                 ; bd (sleeping monster)
+	const CONF_PLAYER_ANIM         ; be
+	const CONF_ANIM                ; bf (confused monster)
+	const SLIDE_DOWN_ANIM          ; c0
+	const TOSS_ANIM                ; c1 (toss Poké Ball)
+	const SHAKE_ANIM               ; c2 (shaking Poké Ball when catching monster)
+	const POOF_ANIM                ; c3 (puff of smoke)
+	const BLOCKBALL_ANIM           ; c4 (trainer knocks away Poké Ball)
+	const GREATTOSS_ANIM           ; c5 (toss Great Ball)
+	const ULTRATOSS_ANIM           ; c6 (toss Ultra Ball or Master Ball)
+	const SHAKE_SCREEN_ANIM        ; c7
+	const HIDEPIC_ANIM             ; c8 (monster disappears)
+	const ROCK_ANIM                ; c9 (throw rock)
+	const BAIT_ANIM                ; ca (throw bait)
 
 DEF NUM_ATTACK_ANIMS EQU const_value - 1

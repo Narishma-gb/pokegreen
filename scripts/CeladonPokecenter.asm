@@ -16,9 +16,15 @@ CeladonPokecenterNurseText:
 	script_pokecenter_nurse
 
 CeladonPokecenterGentlemanText:
-	text_far _CeladonPokecenterGentlemanText
-	text_end
+	text "#のふえで　ねてる　#が"
+	line "とび　おきるのは"
+
+	para "ひとには　きこえない"
+	line "とくべつな　おとも　でてる　からだよ"
+	done
 
 CeladonPokecenterBeautyText:
-	text_far _CeladonPokecenterBeautyText
-	text_end
+	text "セキチク　シティから　きたんだけど"
+	line "サイクリング　ロード"
+	cont "のぼりざか　だから　つかれちゃった！"
+	done

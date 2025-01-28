@@ -8,9 +8,20 @@ SSAnne1F_TextPointers:
 	dw_const SSAnne1FSailorText, TEXT_SSANNE1F_SAILOR
 
 SSAnne1FWaiterText:
-	text_far _SSAnne1FWaiterText
-	text_end
+	text "ボン　ジュール！"
+	line "わたしは　このふねの　ボーイです"
+
+	para "ごようを　なんなりと"
+	line "おもうしつけ　ください！"
+
+	para "<⋯>　<⋯>　<⋯>"
+	line "<⋯>　むくちな　かた　ですね"
+	done
 
 SSAnne1FSailorText:
-	text_far _SSAnne1FSailorText
-	text_end
+	text "この　ふねの　おきゃくは"
+	line "ながたびに　たいくつ　してる！"
+
+	para "ひま　つぶしに　たたかいを"
+	line "いどんで　くる　ひとも　いるかも"
+	done

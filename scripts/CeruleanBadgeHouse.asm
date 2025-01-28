@@ -28,7 +28,6 @@ CeruleanBadgeHouseMiddleAgedManText:
 	ld [wListPointer + 1], a
 	xor a
 	ld [wPrintItemPrices], a
-	ld [wMenuItemToSwap], a
 	ld a, SPECIALLISTMENU
 	ld [wListMenuID], a
 	call DisplayListMenuID
@@ -67,16 +66,27 @@ CeruleanBadgeHouseMiddleAgedManText:
 	assert_table_length NUM_BADGES + 2
 
 .Text:
-	text_far _CeruleanBadgeHouseMiddleAgedManText
-	text_end
+	text "うでが　あがった"
+	line "#<TRAINER>だけが　もらえる"
+	cont "#　バッジ"
+
+	para "あなたも　いくつか　もってるね"
+
+	para "その　バッジには"
+	line "すごい　ひみつが　あるのです"
+	prompt
 
 .WhichBadgeText:
-	text_far _CeruleanBadgeHouseMiddleAgedManWhichBadgeText
-	text_end
+	text "では<⋯>"
+
+	para "#　バッジ　８つの　ひみつ"
+	line "どれに　ついて　はなし　ましょう？"
+	done
 
 .VisitAnyTimeText:
-	text_far _CeruleanBadgeHouseMiddleAgedManVisitAnyTimeText
-	text_end
+	text "はなしを　ききたく　なったら"
+	line "また　いらっしゃい"
+	done
 
 CeruleanBadgeHouseBadgeTextPointers:
 	table_width 2
@@ -91,33 +101,74 @@ CeruleanBadgeHouseBadgeTextPointers:
 	assert_table_length NUM_BADGES
 
 CeruleanBadgeHouseBoulderBadgeText:
-	text_far _CeruleanBadgeHouseBoulderBadgeText
-	text_end
+	text "すべての"
+	line "#の　こうげき　りょくが"
+	cont "すこし　たかく　なります"
+
+	para "それから　フラッシュの　わざは"
+	line "たたかって　いない　ときでも"
+	cont "つかえるように　なります"
+	prompt
 
 CeruleanBadgeHouseCascadeBadgeText:
-	text_far _CeruleanBadgeHouseCascadeBadgeText
-	text_end
+	text "レベル３０までの　#は"
+	line "おとなしく　いうことを　ききます"
+
+	para "それいじょう　レベルが　たかいと"
+	line "うまく　あつかえません"
+
+	para "それから　いあいぎりの　わざは"
+	line "たたかって　いない　ときでも"
+	cont "つかえるように　なります"
+	prompt
 
 CeruleanBadgeHouseThunderBadgeText:
-	text_far _CeruleanBadgeHouseThunderBadgeText
-	text_end
+	text "すべての"
+	line "#の　すばやさが"
+	cont "すこし　たかく　なります"
+
+	para "それから　そらをとぶ　わざは"
+	line "たたかって　いない　ときでも"
+	cont "つかえるように　なります"
+	prompt
 
 CeruleanBadgeHouseRainbowBadgeText:
-	text_far _CeruleanBadgeHouseRainbowBadgeText
-	text_end
+	text "レベル５０までの　#は"
+	line "おとなしく　いうことを　ききます"
+
+	para "それいじょう　レベルが　たかいと"
+	line "うまく　あつかえません"
+
+	para "それから　かいりきの　わざは"
+	line "たたかって　いない　ときでも"
+	cont "つかえるように　なります"
+	prompt
 
 CeruleanBadgeHouseSoulBadgeText:
-	text_far _CeruleanBadgeHouseSoulBadgeText
-	text_end
+	text "すべての"
+	line "#の　ぼうぎょ　りょくが"
+	cont "すこし　たかく　なります"
+
+	para "それから　なみのりの　わざは"
+	line "たたかって　いない　ときでも"
+	cont "つかえるように　なります"
+	prompt
 
 CeruleanBadgeHouseMarshBadgeText:
-	text_far _CeruleanBadgeHouseMarshBadgeText
-	text_end
+	text "レベル７０までの　#は"
+	line "おとなしく　いうことを　ききます"
+
+	para "それいじょう　レベルが　たかいと"
+	line "うまく　あつかえません"
+	prompt
 
 CeruleanBadgeHouseVolcanoBadgeText:
-	text_far _CeruleanBadgeHouseVolcanoBadgeText
-	text_end
+	text "すべての"
+	line "#の　とくしゅ　のうりょくが"
+	cont "すこし　たかく　なります"
+	prompt
 
 CeruleanBadgeHouseEarthBadgeText:
-	text_far _CeruleanBadgeHouseEarthBadgeText
-	text_end
+	text "すべての　#は"
+	line "おとなしく　いうことを　ききます"
+	prompt

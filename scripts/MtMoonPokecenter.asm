@@ -15,12 +15,20 @@ MtMoonPokecenterNurseText:
 	script_pokecenter_nurse
 
 MtMoonPokecenterYoungsterText:
-	text_far _MtMoonPokecenterYoungsterText
-	text_end
+	text "ボールを　ベルトに　セット"
+	line "１　２　３　４　５　６<⋯>　と！"
+
+	para "うん<⋯>　つれて　いける"
+	line "#は　６ひき　までだ"
+	done
 
 MtMoonPokecenterGentlemanText:
-	text_far _MtMoonPokecenterGentlemanText
-	text_end
+	text "ハナダ　シティの　みんか"
+	line "おそわれる<⋯>　か！"
+
+	para "しんぶんに　<ROCKET>の"
+	line "じけんが　のらない　ひは　ないな"
+	done
 
 MtMoonPokecenterMagikarpSalesmanText:
 	text_asm
@@ -44,9 +52,6 @@ MtMoonPokecenterMagikarpSalesmanText:
 	ld hl, .NoMoneyText
 	jr .printText
 .enoughMoney
-	lb bc, MAGIKARP, 5
-	call GivePokemon
-	jr nc, .done
 	xor a
 	ld [wPriceTemp], a
 	ld [wPriceTemp + 2], a
@@ -59,6 +64,9 @@ MtMoonPokecenterMagikarpSalesmanText:
 	ld a, MONEY_BOX
 	ld [wTextBoxID], a
 	call DisplayTextBoxID
+	lb bc, MAGIKARP, 5 ; BUG: money is lost even if there is no room (party or box) to receive the mon
+	call GivePokemon
+	jr nc, .done
 	SetEvent EVENT_BOUGHT_MAGIKARP
 	jr .done
 .choseNo
@@ -72,24 +80,31 @@ MtMoonPokecenterMagikarpSalesmanText:
 	jp TextScriptEnd
 
 .IGotADealText
-	text_far _MtMoonPokecenterMagikarpSalesmanIGotADealText
-	text_end
+	text "おじさん『ぼっちゃん"
+	line "あ·な·た·だけに<⋯>！"
+	cont "いい　おはなしが　ありまして"
+
+	para "ひみつの　#　コイキングが"
+	line "なんと　たったの　５００円！"
+	cont "どうだい　かうかね？"
+	done
 
 .NoText
-	text_far _MtMoonPokecenterMagikarpSalesmanNoText
-	text_end
+	text "そお？　ざんねんだねえ<⋯>"
+	done
 
 .NoMoneyText
-	text_far _MtMoonPokecenterMagikarpSalesmanNoMoneyText
-	text_end
+	text "おかね　たりない　みたいだねえ"
+	done
 
 .NoRefundsText
-	text_far _MtMoonPokecenterMagikarpSalesmanNoRefundsText
-	text_end
+	text "おじさん『そうそう　#の"
+	line "へんぴんは　おことわり　だからな"
+	done
 
 MtMoonPokecenterClipboardText:
-	text_far _MtMoonPokecenterClipboardText
-	text_end
+	text_start
+	done
 
 MtMoonPokecenterLinkReceptionistText:
 	script_cable_club_receptionist

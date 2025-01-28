@@ -162,9 +162,9 @@ MoveToNextBufferPosition::
 	inc a
 	ld [wSpriteOutputPtr], a
 	ret nz
-	ld a, [wSpriteOutputPtr+1]
+	ld a, [wSpriteOutputPtr + 1]
 	inc a
-	ld [wSpriteOutputPtr+1], a
+	ld [wSpriteOutputPtr + 1], a
 	ret
 .curColumnDone
 	xor a
@@ -178,7 +178,7 @@ MoveToNextBufferPosition::
 	ld a, [hli]
 	ld [wSpriteOutputPtr], a
 	ld a, [hl]
-	ld [wSpriteOutputPtr+1], a
+	ld [wSpriteOutputPtr + 1], a
 	ret
 .bitOffsetsDone
 	ld a, $3
@@ -192,7 +192,7 @@ MoveToNextBufferPosition::
 	jr z, .allColumnsDone
 	ld a, [wSpriteOutputPtr]
 	ld l, a
-	ld a, [wSpriteOutputPtr+1]
+	ld a, [wSpriteOutputPtr + 1]
 	ld h, a
 	inc hl
 	jp StoreSpriteOutputPointer
@@ -231,7 +231,7 @@ WriteSpriteBitsToBuffer::
 .offset0
 	ld a, [wSpriteOutputPtr]
 	ld l, a
-	ld a, [wSpriteOutputPtr+1]
+	ld a, [wSpriteOutputPtr + 1]
 	ld h, a
 	ld a, [hl]
 	or e
@@ -258,14 +258,14 @@ ReadNextInputBit::
 ReadNextInputByte::
 	ld a, [wSpriteInputPtr]
 	ld l, a
-	ld a, [wSpriteInputPtr+1]
+	ld a, [wSpriteInputPtr + 1]
 	ld h, a
 	ld a, [hli]
 	ld b, a
 	ld a, l
 	ld [wSpriteInputPtr], a
 	ld a, h
-	ld [wSpriteInputPtr+1], a
+	ld [wSpriteInputPtr + 1], a
 	ld a, b
 	ret
 
@@ -320,16 +320,16 @@ SpriteDifferentialDecode::
 	ld a, l
 	ld [wSpriteDecodeTable0Ptr], a
 	ld a, h
-	ld [wSpriteDecodeTable0Ptr+1], a
+	ld [wSpriteDecodeTable0Ptr + 1], a
 	ld a, e
 	ld [wSpriteDecodeTable1Ptr], a
 	ld a, d
-	ld [wSpriteDecodeTable1Ptr+1], a
+	ld [wSpriteDecodeTable1Ptr + 1], a
 	ld e, $0                          ; last decoded nybble, initialized to 0
 .decodeNextByteLoop
 	ld a, [wSpriteOutputPtr]
 	ld l, a
-	ld a, [wSpriteOutputPtr+1]
+	ld a, [wSpriteOutputPtr + 1]
 	ld h, a
 	ld a, [hl]
 	ld b, a
@@ -345,7 +345,7 @@ SpriteDifferentialDecode::
 	ld b, a
 	ld a, [wSpriteOutputPtr]
 	ld l, a
-	ld a, [wSpriteOutputPtr+1]
+	ld a, [wSpriteOutputPtr + 1]
 	ld h, a
 	ld a, b
 	ld [hl], a                        ; write back decoded data
@@ -356,7 +356,7 @@ SpriteDifferentialDecode::
 .noCarry
 	ld [wSpriteOutputPtr], a
 	ld a, h
-	ld [wSpriteOutputPtr+1], a
+	ld [wSpriteOutputPtr + 1], a
 	ld a, [wSpriteCurPosX]
 	add $8
 	ld [wSpriteCurPosX], a
@@ -376,7 +376,7 @@ SpriteDifferentialDecode::
 	jr z, .done                       ; test if all rows finished
 	ld a, [wSpriteOutputPtrCached]
 	ld l, a
-	ld a, [wSpriteOutputPtrCached+1]
+	ld a, [wSpriteOutputPtrCached + 1]
 	ld h, a
 	inc hl
 	call StoreSpriteOutputPointer
@@ -406,12 +406,12 @@ DifferentialDecodeNybble::
 	jr nz, .initialValue1 ; load the appropriate table
 	ld a, [wSpriteDecodeTable0Ptr]
 	ld l, a
-	ld a, [wSpriteDecodeTable0Ptr+1]
+	ld a, [wSpriteDecodeTable0Ptr + 1]
 	jr .tableLookup
 .initialValue1
 	ld a, [wSpriteDecodeTable1Ptr]
 	ld l, a
-	ld a, [wSpriteDecodeTable1Ptr+1]
+	ld a, [wSpriteDecodeTable1Ptr + 1]
 .tableLookup
 	ld h, a
 	ld a, e
@@ -474,17 +474,17 @@ XorSpriteChunks::
 	call ResetSpriteBufferPointers
 	ld a, [wSpriteOutputPtr]          ; points to buffer 1 or 2, depending on flags
 	ld l, a
-	ld a, [wSpriteOutputPtr+1]
+	ld a, [wSpriteOutputPtr + 1]
 	ld h, a
 	call SpriteDifferentialDecode      ; decode buffer 1 or 2, depending on flags
 	call ResetSpriteBufferPointers
 	ld a, [wSpriteOutputPtr]          ; source buffer, points to buffer 1 or 2, depending on flags
 	ld l, a
-	ld a, [wSpriteOutputPtr+1]
+	ld a, [wSpriteOutputPtr + 1]
 	ld h, a
 	ld a, [wSpriteOutputPtrCached]    ; destination buffer, points to buffer 2 or 1, depending on flags
 	ld e, a
-	ld a, [wSpriteOutputPtrCached+1]
+	ld a, [wSpriteOutputPtrCached + 1]
 	ld d, a
 .xorChunksLoop
 	ld a, [wSpriteFlipped]
@@ -557,11 +557,11 @@ ResetSpriteBufferPointers::
 	ld a, l
 	ld [wSpriteOutputPtr], a
 	ld a, h
-	ld [wSpriteOutputPtr+1], a
+	ld [wSpriteOutputPtr + 1], a
 	ld a, e
 	ld [wSpriteOutputPtrCached], a
 	ld a, d
-	ld [wSpriteOutputPtrCached+1], a
+	ld [wSpriteOutputPtrCached + 1], a
 	ret
 
 ; maps each nybble to its reverse
@@ -577,7 +577,7 @@ UnpackSpriteMode2::
 	ld [wSpriteFlipped], a            ; temporarily clear flipped flag for decoding the destination chunk
 	ld a, [wSpriteOutputPtrCached]
 	ld l, a
-	ld a, [wSpriteOutputPtrCached+1]
+	ld a, [wSpriteOutputPtrCached + 1]
 	ld h, a
 	call SpriteDifferentialDecode
 	call ResetSpriteBufferPointers
@@ -591,6 +591,6 @@ StoreSpriteOutputPointer::
 	ld [wSpriteOutputPtr], a
 	ld [wSpriteOutputPtrCached], a
 	ld a, h
-	ld [wSpriteOutputPtr+1], a
-	ld [wSpriteOutputPtrCached+1], a
+	ld [wSpriteOutputPtr + 1], a
+	ld [wSpriteOutputPtrCached + 1], a
 	ret

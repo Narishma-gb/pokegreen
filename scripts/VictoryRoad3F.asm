@@ -1,7 +1,7 @@
 VictoryRoad3F_Script:
 	call VictoryRoad3FCheckBoulderEventScript
 	call EnableAutoTextBoxDrawing
-	ld hl, VictoryRoad3TrainerHeaders
+	ld hl, VictoryRoad3F_TrainerHeaders
 	ld de, VictoryRoad3F_ScriptPointers
 	ld a, [wVictoryRoad3FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -88,86 +88,90 @@ VictoryRoad3F_TextPointers:
 	dw_const BoulderText,                    TEXT_VICTORYROAD3F_BOULDER3
 	dw_const BoulderText,                    TEXT_VICTORYROAD3F_BOULDER4
 
-VictoryRoad3TrainerHeaders:
-	def_trainers
-VictoryRoad3TrainerHeader0:
-	trainer EVENT_BEAT_VICTORY_ROAD_3_TRAINER_0, 1, VictoryRoad3FCooltrainerM1BattleText, VictoryRoad3FCooltrainerM1EndBattleText, VictoryRoad3FCooltrainerM1AfterBattleText
-VictoryRoad3TrainerHeader1:
-	trainer EVENT_BEAT_VICTORY_ROAD_3_TRAINER_1, 4, VictoryRoad3FCooltrainerF1BattleText, VictoryRoad3FCooltrainerF1EndBattleText, VictoryRoad3FCooltrainerF1AfterBattleText
-VictoryRoad3TrainerHeader2:
-	trainer EVENT_BEAT_VICTORY_ROAD_3_TRAINER_2, 4, VictoryRoad3FCooltrainerM2BattleText, VictoryRoad3FCooltrainerM2EndBattleText, VictoryRoad3FCooltrainerM2AfterBattleText
-VictoryRoad3TrainerHeader3:
-	trainer EVENT_BEAT_VICTORY_ROAD_3_TRAINER_3, 4, VictoryRoad3FCooltrainerF2BattleText, VictoryRoad3FCooltrainerF2EndBattleText, VictoryRoad3FCooltrainerF2AfterBattleText
+	def_trainers VictoryRoad3F
+	trainer EVENT_BEAT_VICTORY_ROAD_3_TRAINER_0, 1, CooltrainerM1
+	trainer EVENT_BEAT_VICTORY_ROAD_3_TRAINER_1, 4, CooltrainerF1
+	trainer EVENT_BEAT_VICTORY_ROAD_3_TRAINER_2, 4, CooltrainerM2
+	trainer EVENT_BEAT_VICTORY_ROAD_3_TRAINER_3, 4, CooltrainerF2
 	db -1 ; end
 
 VictoryRoad3FCooltrainerM1Text:
 	text_asm
-	ld hl, VictoryRoad3TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-VictoryRoad3FCooltrainerF1Text:
-	text_asm
-	ld hl, VictoryRoad3TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-VictoryRoad3FCooltrainerM2Text:
-	text_asm
-	ld hl, VictoryRoad3TrainerHeader2
-	call TalkToTrainer
-	jp TextScriptEnd
-
-VictoryRoad3FCooltrainerF2Text:
-	text_asm
-	ld hl, VictoryRoad3TrainerHeader3
+	ld hl, VictoryRoad3F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 VictoryRoad3FCooltrainerM1BattleText:
-	text_far _VictoryRoad3FCooltrainerM1BattleText
-	text_end
+	text "やたらと　つよい　こどもが　いると"
+	line "ウワサは　きいて　いるよ"
+	done
 
 VictoryRoad3FCooltrainerM1EndBattleText:
-	text_far _VictoryRoad3FCooltrainerM1EndBattleText
-	text_end
+	text "たいした　やつだ"
+	prompt
 
 VictoryRoad3FCooltrainerM1AfterBattleText:
-	text_far _VictoryRoad3FCooltrainerM1AfterBattleText
-	text_end
+	text "ロケットだんの　サカキを"
+	line "たおしたのは　<⋯>　きみか！"
+	done
+
+VictoryRoad3FCooltrainerF1Text:
+	text_asm
+	ld hl, VictoryRoad3F_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 VictoryRoad3FCooltrainerF1BattleText:
-	text_far _VictoryRoad3FCooltrainerF1BattleText
-	text_end
+	text "うえには　うえが　いるって"
+	line "おしえて　あげます！"
+	done
 
 VictoryRoad3FCooltrainerF1EndBattleText:
-	text_far _VictoryRoad3FCooltrainerF1EndBattleText
-	text_end
+	text "<⋯>　くやしい！"
+	prompt
 
 VictoryRoad3FCooltrainerF1AfterBattleText:
-	text_far _VictoryRoad3FCooltrainerF1AfterBattleText
-	text_end
+	text "あなた　わたしより　つよいわ！"
+	line "うえには　うえが　いるって　ことか"
+	done
+
+VictoryRoad3FCooltrainerM2Text:
+	text_asm
+	ld hl, VictoryRoad3F_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 VictoryRoad3FCooltrainerM2BattleText:
-	text_far _VictoryRoad3FCooltrainerM2BattleText
-	text_end
+	text "えらばれた　もの　だけが"
+	line "ここを　ぬけられるのだ！"
+	done
 
 VictoryRoad3FCooltrainerM2EndBattleText:
-	text_far _VictoryRoad3FCooltrainerM2EndBattleText
-	text_end
+	text "まさかの　はいぼくだ"
+	prompt
 
 VictoryRoad3FCooltrainerM2AfterBattleText:
-	text_far _VictoryRoad3FCooltrainerM2AfterBattleText
-	text_end
+	text "ここの　<TRAINER>も　みんな"
+	line "#　リーグを　めざしている"
+	cont "ゆだん　しない　ほうが　いいぜ！"
+	done
+
+VictoryRoad3FCooltrainerF2Text:
+	text_asm
+	ld hl, VictoryRoad3F_TrainerHeader3
+	call TalkToTrainer
+	jp TextScriptEnd
 
 VictoryRoad3FCooltrainerF2BattleText:
-	text_far _VictoryRoad3FCooltrainerF2BattleText
-	text_end
+	text "つよい　あいてを　もとめるのは"
+	line "<TRAINER>の　しゅくめいよ！"
+	done
 
 VictoryRoad3FCooltrainerF2EndBattleText:
-	text_far _VictoryRoad3FCooltrainerF2EndBattleText
-	text_end
+	text "ああッ　つよい！"
+	prompt
 
 VictoryRoad3FCooltrainerF2AfterBattleText:
-	text_far _VictoryRoad3FCooltrainerF2AfterBattleText
-	text_end
+	text "きびしい　たたかいを　つづけて"
+	line "ほんとうの　つよさが　みに　つくわ"
+	done

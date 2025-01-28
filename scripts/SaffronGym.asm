@@ -2,9 +2,9 @@ SaffronGym_Script:
 	ld hl, wCurrentMapScriptFlags
 	bit BIT_CUR_MAP_LOADED_2, [hl]
 	res BIT_CUR_MAP_LOADED_2, [hl]
-	call nz, .LoadNames
+	jr nz, .LoadNames
 	call EnableAutoTextBoxDrawing
-	ld hl, SaffronGymTrainerHeaders
+	ld hl, SaffronGym_TrainerHeaders
 	ld de, SaffronGym_ScriptPointers
 	ld a, [wSaffronGymCurScript]
 	call ExecuteCurMapScriptInTable
@@ -17,10 +17,10 @@ SaffronGym_Script:
 	jp LoadGymLeaderAndCityName
 
 .CityName:
-	db "SAFFRON CITY@"
+	db "ヤマブキ@"
 
 .LeaderName:
-	db "SABRINA@"
+	db "ナツメ@"
 
 SaffronGymResetScripts:
 	xor a ; SCRIPT_SAFFRONGYM_DEFAULT
@@ -86,22 +86,14 @@ SaffronGym_TextPointers:
 	dw_const SaffronGymSabrinaReceivedTM46Text,   TEXT_SAFFRONGYM_SABRINA_RECEIVED_TM46
 	dw_const SaffronGymSabrinaTM46NoRoomText,     TEXT_SAFFRONGYM_SABRINA_TM46_NO_ROOM
 
-SaffronGymTrainerHeaders:
-	def_trainers 2
-SaffronGymTrainerHeader0:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_0, 3, SaffronGymChanneler1BattleText, SaffronGymChanneler1EndBattleText, SaffronGymChanneler1AfterBattleText
-SaffronGymTrainerHeader1:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_1, 3, SaffronGymYoungster1BattleText, SaffronGymYoungster1EndBattleText, SaffronGymYoungster1AfterBattleText
-SaffronGymTrainerHeader2:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_2, 3, SaffronGymChanneler2BattleText, SaffronGymChanneler2EndBattleText, SaffronGymChanneler2AfterBattleText
-SaffronGymTrainerHeader3:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_3, 3, SaffronGymYoungster2BattleText, SaffronGymYoungster2EndBattleText, SaffronGymYoungster2AfterBattleText
-SaffronGymTrainerHeader4:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_4, 3, SaffronGymChanneler3BattleText, SaffronGymChanneler3EndBattleText, SaffronGymChanneler3AfterBattleText
-SaffronGymTrainerHeader5:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_5, 3, SaffronGymYoungster3BattleText, SaffronGymYoungster3EndBattleText, SaffronGymYoungster3AfterBattleText
-SaffronGymTrainerHeader6:
-	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_6, 3, SaffronGymYoungster4BattleText, SaffronGymYoungster4EndBattleText, SaffronGymYoungster4AfterBattleText
+	def_trainers SaffronGym, 2
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_0, 3, Channeler1
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_1, 3, Youngster1
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_2, 3, Channeler2
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_3, 3, Youngster2
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_4, 3, Channeler3
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_5, 3, Youngster3
+	trainer EVENT_BEAT_SAFFRON_GYM_TRAINER_6, 3, Youngster4
 	db -1 ; end
 
 SaffronGymSabrinaText:
@@ -138,74 +130,242 @@ SaffronGymSabrinaText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SaffronGymSabrinaText
-	text_end
+	text "<⋯>　やっぱり　きたわ！"
+	line "よかんが　したのよ！"
+
+	para "なにげに　スプーンを　なげたら"
+	line "まがって　いらい<⋯>　わたし"
+	cont "エスパー　しょうじょ　なの"
+
+	para "たたかうの　すき　じゃない　けど"
+	line "あなたが　のぞむ　なら"
+	cont "わたしの　ちから"
+	cont "みせて　あげる！"
+	done
 
 .ReceivedMarshBadgeText:
-	text_far _SaffronGymSabrinaReceivedMarshBadgeText
+	text "まける　なんて<⋯>！"
+	line "とても　ショック！"
+	cont "でも　まけは　まけ<⋯>！"
+
+	para "わたしの　しょうぶの　あまさを"
+	line "いさぎよく　みとめるわ！"
+
+	para "かった　あかしに"
+	line "ゴールド　バッジを"
+	cont "あなたに　さしあげ　ましょう@"
 	sound_get_key_item ; actually plays the second channel of SFX_BALL_POOF due to the wrong music bank being loaded
 	text_promptbutton
 	text_end
 
 .PostBattleAdviceText:
-	text_far _SaffronGymSabrinaPostBattleAdviceText
-	text_end
+	text "ちょうのうりょくは　かぎられた"
+	line "ひとの　ちから　では　ないわ！"
+	cont "だれでも　もってるのよ！"
+	cont "ただ　それに　きが　つかない　だけ"
+	done
 
 SaffronGymSabrinaMarshBadgeInfoText:
-	text_far _SaffronGymSabrinaMarshBadgeInfoText
-	text_end
+	text "ゴールド　バッジで"
+	line "レベル７０　までの　#が"
+	cont "いうことを　ききます！"
+
+	para "それ　いじょう"
+	line "つよい　#は"
+	cont "ソッポ　むいたり　ふてね　したり"
+	cont "あつかいが　たいへん　です！"
+
+	para "だけど　そだて　すぎなきゃ"
+	line "そういう　しんぱいは　むようよ！"
+
+	para "それから<⋯>！"
+	line "<TM>を　もって　いって"
+	done
 
 SaffronGymSabrinaReceivedTM46Text:
-	text_far _SaffronGymSabrinaReceivedTM46Text
+	text "<PLAYER>は　ナツメから"
+	line "<TM>４６を　もらった！@"
 	sound_get_item_1
-	text_far _TM46ExplanationText
-	text_end
+	text_start
+
+	para "<TM>４６は　サイコウェーブ！"
+	line "きょうりょくな　ねんぱが"
+	cont "おおきな　ダメージを　あたえるわ！"
+	done
 
 SaffronGymSabrinaTM46NoRoomText:
-	text_far _SaffronGymSabrinaTM46NoRoomText
-	text_end
+	text "あ　にもつが　いっぱいよ"
+	done
 
 SaffronGymChanneler1Text:
 	text_asm
-	ld hl, SaffronGymTrainerHeader0
+	ld hl, SaffronGym_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SaffronGymChanneler1BattleText:
+	text "ナツメは<⋯>　わたし　より"
+	line "だいぶ　としした　だが！"
+	cont "かのじょを　そんけい　している！"
+	done
+
+SaffronGymChanneler1EndBattleText:
+	text "およばなかったか！"
+	prompt
+
+SaffronGymChanneler1AfterBattleText:
+	text "しょうぶが　ごかくの　ときは"
+	line "きもちが　つよい　ほうが　かつ！"
+
+	para "ナツメに　かちたい　なら"
+	line "きみも　かちたいッ！　と"
+	cont "つよく　ねんじた　ほうが　いい"
+	done
 
 SaffronGymYoungster1Text:
 	text_asm
-	ld hl, SaffronGymTrainerHeader1
+	ld hl, SaffronGym_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SaffronGymYoungster1BattleText:
+	text "みえない　ちからを　つかう"
+	line "エスパーを　こわいと　おもうか！"
+	done
+
+SaffronGymYoungster1EndBattleText:
+	text "こういう　ことも"
+	line "あるのか<⋯>"
+	prompt
+
+SaffronGymYoungster1AfterBattleText:
+	text "エスパーに　ゆうりな　もの？"
+	line "<⋯>　はははーッ！"
+	cont "ゆうれい　や　むし　くらい　だぜ！"
+	done
 
 SaffronGymChanneler2Text:
 	text_asm
-	ld hl, SaffronGymTrainerHeader2
+	ld hl, SaffronGym_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SaffronGymChanneler2BattleText:
+	text "#は"
+	line "かいぬしに　にるって　しってるか？"
+
+	para "という　ことは<⋯>"
+	line "おまえの　#は　つよいかな？"
+	done
+
+SaffronGymChanneler2EndBattleText:
+	text "わかった！"
+	prompt
+
+SaffronGymChanneler2AfterBattleText:
+	text "わたしも　まだ　まだ　だ<⋯>"
+	line "サイコキネシス　マスター　して"
+	cont "#に　おしえて　なくては！"
+	done
 
 SaffronGymYoungster2Text:
 	text_asm
-	ld hl, SaffronGymTrainerHeader3
+	ld hl, SaffronGym_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SaffronGymYoungster2BattleText:
+	text "きみは　わかってる　だろ？"
+	line "#は　パワー　だけ"
+	cont "あったって　かて　ない　ことを！"
+	done
+
+SaffronGymYoungster2EndBattleText:
+	text "<⋯>　おれが"
+	line "まける　なんて　ばかな！"
+	prompt
+
+SaffronGymYoungster2AfterBattleText:
+	text "となりの　カラテ　だいおう　だって"
+	line "うちの　ナツメさんに"
+	cont "コテンパンに　やられたんだぜ"
+	done
 
 SaffronGymChanneler3Text:
 	text_asm
-	ld hl, SaffronGymTrainerHeader4
+	ld hl, SaffronGym_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SaffronGymChanneler3BattleText:
+	text "きみは　わたしと"
+	line "#を　たたかわせる<⋯>！"
+	done
+
+SaffronGymChanneler3EndBattleText:
+	text "くっ<⋯>！"
+	line "やはり　わたしが　やぶれたか"
+	prompt
+
+SaffronGymChanneler3AfterBattleText:
+	text "こういう　けっかは　わかってた<⋯>"
+	line "<⋯>　そう！"
+	cont "これが　よち　のうりょく　だ"
+	done
 
 SaffronGymYoungster3Text:
 	text_asm
-	ld hl, SaffronGymTrainerHeader5
+	ld hl, SaffronGym_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
+SaffronGymYoungster3BattleText:
+	text "ナツメさんは　わかく　して"
+	line "この　#　ジムを　しきる"
+	cont "じつりょくしゃ！"
+
+	para "かんたん　には　あわせ　ないぜ！"
+	done
+
+SaffronGymYoungster3EndBattleText:
+	text "まけて　しまった！"
+	prompt
+
+SaffronGymYoungster3AfterBattleText:
+	text "おしえて　やろう<⋯>"
+	line "かつて　ヤマブキ　には"
+	cont "ふたつの　#　ジムが　あった"
+
+	para "とういつ　しあいに　まけた　のが"
+	line "となりの　かくとう　どうじょうだ！"
+	done
+
 SaffronGymYoungster4Text:
 	text_asm
-	ld hl, SaffronGymTrainerHeader6
+	ld hl, SaffronGym_TrainerHeader6
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SaffronGymYoungster4BattleText:
+	text "ヤマブキ　ジム！"
+	cont "またの　なを"
+	cont "エスパー　ようせい　じょ"
+	cont "おまえ<⋯>"
+
+	para "<⋯>　ナツメに　あおうと　してるな？"
+	line "そうだろ！"
+	cont "わかってるんだ！"
+	done
+
+SaffronGymYoungster4EndBattleText:
+	text "ぐわああ<⋯>！"
+	prompt
+
+SaffronGymYoungster4AfterBattleText:
+	text "<⋯>　そうだ！"
+	line "ひとの　こころを　よむ"
+	cont "のうりょくを　テレパス　という！"
+	done
 
 SaffronGymGymGuideText:
 	text_asm
@@ -221,93 +381,23 @@ SaffronGymGymGuideText:
 	jp TextScriptEnd
 
 .ChampInMakingText:
-	text_far _SaffronGymGuideChampInMakingText
-	text_end
+	text "おーす！"
+	line "みらいの　チャンピオン！"
+
+	para "ナツメの　#は"
+	line "ちょうのうりょくを　つかって"
+	cont "おまえの　#を　まどわすぜ！"
+
+	para "とくに<⋯>！　かくとう　#は"
+	line "あいしょうが　わるい！"
+
+	para "パワーを　はっきする　まえに"
+	line "エジキに　なっちまう　からな！"
+	done
 
 .BeatSabrinaText:
-	text_far _SaffronGymGuideBeatSabrinaText
-	text_end
+	text "ちょうのうりょく<⋯>　か！"
 
-SaffronGymChanneler1BattleText:
-	text_far _SaffronGymChanneler1BattleText
-	text_end
-
-SaffronGymChanneler1EndBattleText:
-	text_far _SaffronGymChanneler1EndBattleText
-	text_end
-
-SaffronGymChanneler1AfterBattleText:
-	text_far _SaffronGymChanneler1AfterBattleText
-	text_end
-
-SaffronGymYoungster1BattleText:
-	text_far _SaffronGymYoungster1BattleText
-	text_end
-
-SaffronGymYoungster1EndBattleText:
-	text_far _SaffronGymYoungster1EndBattleText
-	text_end
-
-SaffronGymYoungster1AfterBattleText:
-	text_far _SaffronGymYoungster1AfterBattleText
-	text_end
-
-SaffronGymChanneler2BattleText:
-	text_far _SaffronGymChanneler2BattleText
-	text_end
-
-SaffronGymChanneler2EndBattleText:
-	text_far _SaffronGymChanneler2EndBattleText
-	text_end
-
-SaffronGymChanneler2AfterBattleText:
-	text_far _SaffronGymChanneler2AfterBattleText
-	text_end
-
-SaffronGymYoungster2BattleText:
-	text_far _SaffronGymYoungster2BattleText
-	text_end
-
-SaffronGymYoungster2EndBattleText:
-	text_far _SaffronGymYoungster2EndBattleText
-	text_end
-
-SaffronGymYoungster2AfterBattleText:
-	text_far _SaffronGymYoungster2AfterBattleText
-	text_end
-
-SaffronGymChanneler3BattleText:
-	text_far _SaffronGymChanneler3BattleText
-	text_end
-
-SaffronGymChanneler3EndBattleText:
-	text_far _SaffronGymChanneler3EndBattleText
-	text_end
-
-SaffronGymChanneler3AfterBattleText:
-	text_far _SaffronGymChanneler3AfterBattleText
-	text_end
-
-SaffronGymYoungster3BattleText:
-	text_far _SaffronGymYoungster3BattleText
-	text_end
-
-SaffronGymYoungster3EndBattleText:
-	text_far _SaffronGymYoungster3EndBattleText
-	text_end
-
-SaffronGymYoungster3AfterBattleText:
-	text_far _SaffronGymYoungster3AfterBattleText
-	text_end
-
-SaffronGymYoungster4BattleText:
-	text_far _SaffronGymYoungster4BattleText
-	text_end
-
-SaffronGymYoungster4EndBattleText:
-	text_far _SaffronGymYoungster4EndBattleText
-	text_end
-
-SaffronGymYoungster4AfterBattleText:
-	text_far _SaffronGymYoungster4AfterBattleText
-	text_end
+	para "おれに　そんな　ものが　あったら"
+	line "スロットで　あてほうだい　だぜ！"
+	done

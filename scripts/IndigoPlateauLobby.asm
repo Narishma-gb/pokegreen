@@ -11,6 +11,7 @@ IndigoPlateauLobby_Script:
 	bit BIT_STARTED_ELITE_4, [hl]
 	res BIT_STARTED_ELITE_4, [hl]
 	ret z
+	; Elite 4 events
 	ResetEventRange INDIGO_PLATEAU_EVENTS_START, EVENT_LANCES_ROOM_LOCK_DOOR
 	ret
 
@@ -26,12 +27,25 @@ IndigoPlateauLobbyNurseText:
 	script_pokecenter_nurse
 
 IndigoPlateauLobbyGymGuideText:
-	text_far _IndigoPlateauLobbyGymGuideText
-	text_end
+	text "おーす！"
+	line "みらいの　チャンピオン！"
+
+	para "#　リーグ　してんのうは"
+	line "４にん　つづけて"
+	cont "しょうぶ　する　ルールだ！"
+
+	para "まけたら　ひとりめ　から"
+	line "やりなおしに　なるぞ！"
+	cont "これが　さいごだ！　がんばれよ！"
+	done
 
 IndigoPlateauLobbyCooltrainerFText:
-	text_far _IndigoPlateauLobbyCooltrainerFText
-	text_end
+	text "このさきは　してんのうと"
+	line "ひとりずつ　たたかうの！"
+	cont "もし　かてたら　ドアが　ひらいて"
+	cont "おくの　へやに　すすめるわ！"
+	cont "がんばって！"
+	done
 
 IndigoPlateauLobbyLinkReceptionistText:
 	script_cable_club_receptionist

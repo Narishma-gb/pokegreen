@@ -33,12 +33,14 @@ ReflectLightScreenEffect_:
 	jp EffectCallBattleCore
 
 LightScreenProtectedText:
-	text_far _LightScreenProtectedText
-	text_end
+	text "<USER>は"
+	line "とくしゅこうげきに　つよくなった！"
+	prompt
 
 ReflectGainedArmorText:
-	text_far _ReflectGainedArmorText
-	text_end
+	text "<USER>は"
+	line "だげきこうげきに　つよくなった！"
+	prompt
 
 EffectCallBattleCore:
 	ld b, BANK(BattleCore)

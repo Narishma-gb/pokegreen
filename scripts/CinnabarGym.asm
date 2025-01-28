@@ -24,17 +24,16 @@ CinnabarGymSetMapAndTiles:
 	jp LoadGymLeaderAndCityName
 
 .CityName:
-	db "CINNABAR ISLAND@"
+	db "グレン@"
 
 .LeaderName:
-	db "BLAINE@"
+	db "カツラ@"
 
 CinnabarGymResetScripts:
 	xor a ; SCRIPT_CINNABARGYM_DEFAULT
 	ld [wJoyIgnore], a
 	ld [wCinnabarGymCurScript], a
 	ld [wCurMapScript], a
-	ld [wOpponentAfterWrongAnswer], a
 	ret
 
 CinnabarGymSetTrainerHeader:
@@ -100,7 +99,7 @@ CinnabarGymOpenGateScript:
 	jp z, CinnabarGymResetScripts
 	ld a, [wTrainerHeaderFlagBit]
 	ldh [hGymGateIndex], a
-	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
+;	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
 	ld c, a
 	ld b, FLAG_TEST
 	EventFlagAddress hl, EVENT_BEAT_CINNABAR_GYM_TRAINER_0
@@ -115,14 +114,14 @@ CinnabarGymOpenGateScript:
 .no_sound
 	ld a, [wTrainerHeaderFlagBit]
 	ldh [hGymGateIndex], a
-	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
+;	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
 	ld c, a
 	ld b, FLAG_SET
 	EventFlagAddress hl, EVENT_BEAT_CINNABAR_GYM_TRAINER_0
 	call CinnabarGymFlagAction
 	ld a, [wTrainerHeaderFlagBit]
 	sub $2
-	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
+;	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
 	ld c, a
 	ld b, FLAG_SET
 	EventFlagAddress hl, EVENT_CINNABAR_GYM_GATE0_UNLOCKED
@@ -233,32 +232,72 @@ CinnabarGymBlaineText:
 	jp CinnabarGymStartBattleScript
 
 .PreBattleText:
-	text_far _CinnabarGymBlainePreBattleText
-	text_end
+	text "うおおーす！"
+
+	para "わしは　もえる　おとこ！"
+	line "グレンじま　#ジムの　カツラ"
+
+	para "わしの　#は　すべてを"
+	line "ほのおで　やいて　こがしまくる"
+	cont "つわもの　ばかり　なのだー！"
+
+	para "うおおーす！"
+	line "やけどなおしの　よういは　いいか！"
+	done
 
 .ReceivedVolcanoBadgeText:
-	text_far _CinnabarGymBlaineReceivedVolcanoBadgeText
+	text "わしは　もえつきた！"
+
+	para "おまえに　こそ！"
+	line "クリムゾン　バッジは　ふさわしい！@"
 	sound_get_key_item ; actually plays the second channel of SFX_BALL_POOF due to the wrong music bank being loaded
 	text_waitbutton
 	text_end
 
 .PostBattleAdviceText:
-	text_far _CinnabarGymBlainePostBattleAdviceText
-	text_end
+	text "この　わざを　みんなは"
+	line "だいもんじやき　と　よんでるが"
+	cont "そりゃ　まちがいだ！"
+
+	para "ほんば　きょうと　では"
+	line "だいもんじ　とか　おくりび　と"
+	cont "よんで　いるのだ！"
+	done
 
 CinnabarGymBlaineVolcanoBadgeInfoText:
-	text_far _CinnabarGymBlaineVolcanoBadgeInfoText
-	text_end
+	text "うおーす！"
+
+	para "この　クリムゾン　バッジは"
+	line "もってる　だけで"
+
+	para "#の　とくしゅ　のうりょくを"
+	line "たかめる　こうかが　ある！"
+
+	para "それから！"
+	line "この　<TM>を　うけとれい！"
+	done
 
 CinnabarGymBlaineReceivedTM38Text:
-	text_far _CinnabarGymBlaineReceivedTM38Text
+	text "<PLAYER>は　カツラから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
-	text_far _CinnabarGymBlaineTM38ExplanationText
-	text_end
+	text_start
+
+	para "<TM>３８は"
+	line "もえる　おおわざ！　だいもんじ！"
+
+	para "だいもんじは"
+	line "ほのお　タイプの　#！"
+
+	para "ロコンや　リザードに"
+	line "おぼえさせると　よいぞ！"
+	done
 
 CinnabarGymBlaineTM38NoRoomText:
-	text_far _CinnabarGymBlaineTM38NoRoomText
-	text_end
+	text "にもつが　いっぱいだ"
+	done
 
 CinnabarGymSuperNerd1:
 	text_asm
@@ -277,16 +316,20 @@ CinnabarGymSuperNerd1:
 	jp TextScriptEnd
 
 .BattleText:
-	text_far _CinnabarGymSuperNerd1BattleText
-	text_end
+	text "#が　はく　ほのおの　おんど"
+	line "どの　くらいか　しってる？"
+	done
 
 .EndBattleText:
-	text_far _CinnabarGymSuperNerd1EndBattleText
-	text_end
+	text "<⋯>　あち！　やられた"
+	prompt
 
 .AfterBattleText:
-	text_far _CinnabarGymSuperNerd1AfterBattleText
-	text_end
+	text "もえる　っていう　のは"
+	line "くうき　ちゅうの　さんそが<⋯>"
+
+	para "むにゃむにゃ<⋯>　ブツブツ"
+	done
 
 CinnabarGymSuperNerd2:
 	text_asm
@@ -305,16 +348,19 @@ CinnabarGymSuperNerd2:
 	jp TextScriptEnd
 
 .BattleText:
-	text_far _CinnabarGymSuperNerd2BattleText
-	text_end
+	text "どろぼうと　なのって　おりやすが"
+	line "あしを　あらって"
+	cont "#の　しゅぎょう　してまっせ"
+	done
 
 .EndBattleText:
-	text_far _CinnabarGymSuperNerd2EndBattleText
-	text_end
+	text "まいりやした！"
+	prompt
 
 .AfterBattleText:
-	text_far _CinnabarGymSuperNerd2AfterBattleText
-	text_end
+	text "ひとの　#　みると"
+	line "つい　ぬすみたく　なっちゃうんでさ！"
+	done
 
 CinnabarGymSuperNerd3:
 	text_asm
@@ -333,16 +379,19 @@ CinnabarGymSuperNerd3:
 	jp TextScriptEnd
 
 .BattleText:
-	text_far _CinnabarGymSuperNerd3BattleText
-	text_end
+	text "#を　けんきゅう　しつくした"
+	line "ぼくに　かてるかい！"
+	done
 
 .EndBattleText:
-	text_far _CinnabarGymSuperNerd3EndBattleText
-	text_end
+	text "<⋯>！"
+	line "もっと　けんきゅう　しなきゃ"
+	prompt
 
 .AfterBattleText:
-	text_far _CinnabarGymSuperNerd3AfterBattleText
-	text_end
+	text "むずかしい　はなしは"
+	line "きみに　いっても　わからないよ"
+	done
 
 CinnabarGymSuperNerd4:
 	text_asm
@@ -361,16 +410,20 @@ CinnabarGymSuperNerd4:
 	jp TextScriptEnd
 
 .BattleText:
-	text_far _CinnabarGymSuperNerd4BattleText
-	text_end
+	text "ただ　なんとなく　すき　なんで"
+	line "ほのお　#　つかってるぜ！"
+	done
 
 .EndBattleText:
-	text_far _CinnabarGymSuperNerd4EndBattleText
-	text_end
+	text "<⋯>　もえた！"
+	prompt
 
 .AfterBattleText:
-	text_far _CinnabarGymSuperNerd4AfterBattleText
-	text_end
+	text "おいらの　ゆめ<⋯>？"
+
+	para "どろぼう　#が　いりゃ"
+	line "ぜひ　つかって　みたいねー！"
+	done
 
 CinnabarGymSuperNerd5:
 	text_asm
@@ -389,16 +442,23 @@ CinnabarGymSuperNerd5:
 	jp TextScriptEnd
 
 .BattleText:
-	text_far _CinnabarGymSuperNerd5BattleText
-	text_end
+	text "おれは　カツラが　#"
+	line "はじめた　きっかけを　しってるぜ"
+	done
 
 .EndBattleText:
-	text_far _CinnabarGymSuperNerd5EndBattleText
-	text_end
+	text "ありゃまあ"
+	prompt
 
 .AfterBattleText:
-	text_far _CinnabarGymSuperNerd5AfterBattleText
-	text_end
+	text "リーダーの　カツラが"
+	line "やま　のぼりで　そうなん　したとき"
+	cont "くらい　やまみちを　てらして"
+	cont "ひのとり　#が　とんでった！"
+
+	para "その　おかげで　カツラは　ぶじ"
+	line "やまを　おりることが　できたのさ"
+	done
 
 CinnabarGymSuperNerd6:
 	text_asm
@@ -417,16 +477,18 @@ CinnabarGymSuperNerd6:
 	jp TextScriptEnd
 
 .BattleText:
-	text_far _CinnabarGymSuperNerd6BattleText
-	text_end
+	text "いろんな　ジムに　いったけど"
+	line "おいらには　ここが　あってるねえ"
+	done
 
 .EndBattleText:
-	text_far _CinnabarGymSuperNerd6EndBattleText
-	text_end
+	text "あー　あつかった"
+	prompt
 
 .AfterBattleText:
-	text_far _CinnabarGymSuperNerd6AfterBattleText
-	text_end
+	text "ギャロップ　キュウコン　あたりが"
+	line "ほのお　タイプで　にんきが　あるよ"
+	done
 
 CinnabarGymSuperNerd7:
 	text_asm
@@ -445,16 +507,19 @@ CinnabarGymSuperNerd7:
 	jp TextScriptEnd
 
 .BattleText:
-	text_far _CinnabarGymSuperNerd7BattleText
-	text_end
+	text "ほのおの　じゃくてんは"
+	line "エイチ　ツー　オー　と　いわれてる"
+	done
 
 .EndBattleText:
-	text_far _CinnabarGymSuperNerd7EndBattleText
-	text_end
+	text "へろへろ<⋯>"
+	prompt
 
 .AfterBattleText:
-	text_far _CinnabarGymSuperNerd7AfterBattleText
-	text_end
+	text "たしかに　ほのおは　みずに　よわい！"
+	line "でも　とかして　しまうから"
+	cont "こおり　#には　つよいよ"
+	done
 
 CinnabarGymGymGuideText:
 	text_asm
@@ -469,9 +534,20 @@ CinnabarGymGymGuideText:
 	jp TextScriptEnd
 
 .ChampInMakingText:
-	text_far _CinnabarGymGymGuideChampInMakingText
-	text_end
+	text "おーす！"
+	line "みらいの　チャンピオン！"
+
+	para "ねっけつ　カツラは"
+	line "ほのおの　プロフェッショナルだ！"
+
+	para "それなら　こっちは"
+	line "クールに　みずで　きめろ！"
+
+	para "あと　やけどなおしを"
+	line "もって　いった　ほうが　いいぜ！"
+	done
 
 .BeatBlaineText:
-	text_far _CinnabarGymGymGuideBeatBlaineText
-	text_end
+	text "<PLAYER>！　かったか！"
+	line "あつ　くるしい　おやじ　だったな！"
+	done

@@ -7,8 +7,15 @@ CeruleanTradeHouse_TextPointers:
 	dw_const CeruleanTradeHouseGamblerText, TEXT_CERULEANTRADEHOUSE_GAMBLER
 
 CeruleanTradeHouseGrannyText:
-	text_far _CeruleanTradeHouseGrannyText
-	text_end
+	text "うちの　じいさま"
+	line "#の　こうかんに　こってるの"
+
+	para "ぼうや"
+	line "#　ずかん　あつめてるなら"
+
+	para "こうかんの　あいて"
+	line "して　あげて　くれるかしら"
+	done
 
 CeruleanTradeHouseGamblerText:
 	text_asm

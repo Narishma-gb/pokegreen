@@ -94,7 +94,7 @@ PalletTownOakNotSafeComeWithMeScript:
 	ld a, [wStatusFlags5]
 	bit BIT_SCRIPTED_NPC_MOVEMENT, a
 	ret nz
-	xor a ; ld a, SPRITE_FACING_DOWN
+	xor a ; SPRITE_FACING_DOWN
 	ld [wSpritePlayerStateData1FacingDirection], a
 	ld a, TRUE
 	ld [wOakWalkedToPlayer], a
@@ -175,7 +175,8 @@ PalletTownOakText:
 	jp TextScriptEnd
 
 .HeyWaitDontGoOutText:
-	text_far _PalletTownOakHeyWaitDontGoOutText
+	text "オーキド『おーい！"
+	line "まてー！　まつんじゃあ！@"
 	text_asm
 	ld c, 10
 	call DelayFrames
@@ -188,29 +189,49 @@ PalletTownOakText:
 	jp TextScriptEnd
 
 .ItsUnsafeText:
-	text_far _PalletTownOakItsUnsafeText
-	text_end
+	text "オーキド『あぶない　とこだった！"
+	line "くさむらでは"
+	cont "やせいの　#が　とびだす！"
+
+	para "こちらも　#を"
+	line "もって　いれば"
+	cont "たたかえるのだが<⋯>"
+	cont "そうじゃ！"
+
+	para "<⋯>　ちょっと"
+	line "わしに　ついて　きなさい！"
+	done
 
 PalletTownGirlText:
-	text_far _PalletTownGirlText
-	text_end
+	text "わたしも"
+	line "#を　そだててるの！"
+
+	para "つよく　なれば"
+	line "ガードマンの　かわりに　なるしね"
+	done
 
 PalletTownFisherText:
-	text_far _PalletTownFisherText
-	text_end
+	text "かがくの　ちからって　すげー！"
+	
+	para "いまは　<PC>つうしんで"
+	line "どうぐや　#を"
+	cont "データにして　おくれるんだと"
+	done
 
 PalletTownOaksLabSignText:
-	text_far _PalletTownOaksLabSignText
-	text_end
+	text "ここは　オーキド　はかせの"
+	line "#　けんきゅうじょ"
+	done
 
 PalletTownSignText:
-	text_far _PalletTownSignText
-	text_end
+	text "ここは　マサラ　タウン"
+	line "マサラは　まっしろ　はじまりのいろ"
+	done
 
 PalletTownPlayersHouseSignText:
-	text_far _PalletTownPlayersHouseSignText
-	text_end
+	text "ここは　<PLAYER>　のいえ"
+	done
 
 PalletTownRivalsHouseSignText:
-	text_far _PalletTownRivalsHouseSignText
-	text_end
+	text "ここは　<RIVAL>　のいえ"
+	done

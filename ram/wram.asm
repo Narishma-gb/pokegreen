@@ -462,7 +462,13 @@ wLinkBattleRandomNumberListIndex:: db
 ; number of times remaining that AI action can occur
 wAICount:: db
 
+IF DEF(_REV0)
+	wUnknown_CCE0:: db
+	ds 1
+ENDC
+IF DEF(_REV1)
 	ds 2
+ENDC
 
 wEnemyMoveListIndex:: db
 
@@ -629,8 +635,6 @@ NEXTU
 ; the current mon's field moves
 wFieldMoves:: ds NUM_MOVES
 wNumFieldMoves:: db
-wFieldMovesLeftmostXCoord:: db
-wLastFieldMoveID:: db ; unused
 
 NEXTU
 wBoxNumString:: ds 3
@@ -798,7 +802,7 @@ wBadgeOrFaceTiles:: ds NUM_BADGES + 1
 wTempObtainedBadgesBooleans:: ds NUM_BADGES
 
 NEXTU
-wUnusedCreditsByte:: db
+wCreditsScreenIndex:: db
 ; the number of credits mons that have been displayed so far
 wNumCreditsMonsDisplayed:: db
 
@@ -856,6 +860,8 @@ wOAMBaseTile::
 wGymTrashCanIndex:: db
 
 wSymmetricSpriteOAMAttributes:: db
+
+	ds 5
 
 wMonPartySpriteSpecies:: db
 
@@ -1000,8 +1006,7 @@ wSavedCoordIndex::
 wOakWalkedToPlayer::
 wNextSafariZoneGateScript:: db
 
-; used in CheckForTilePairCollisions2 to store the tile the player is on
-wTilePlayerStandingOn:: db
+	ds 1
 
 wNPCNumScriptedSteps:: db
 
@@ -1028,8 +1033,6 @@ wNPCMovementScriptSpriteOffset:: db
 wScriptedNPCWalkCounter:: db
 
 	ds 1
-
-wGBC:: db
 
 ; if running on SGB, it's 1, else it's 0
 wOnSGB:: db
@@ -1076,11 +1079,15 @@ wExpAmountGained:: dw
 wGainBoostedExp:: db
 ENDU
 
-wGymCityName:: ds 17
+wGymCityName:: ds 5
 
+UNION
 wGymLeaderName:: ds NAME_LENGTH
 
+NEXTU
+	ds 4
 wItemList:: ds 16
+ENDU
 
 wListPointer:: dw
 
@@ -1185,6 +1192,7 @@ wEnemyMonSpecies2:: db
 wBattleMonSpecies2:: db
 
 wEnemyMonNick:: ds NAME_LENGTH
+	ds 5
 
 wEnemyMon:: battle_struct wEnemyMon
 
@@ -1193,6 +1201,7 @@ wEnemyMonActualCatchRate:: db
 wEnemyMonBaseExp:: db
 
 wBattleMonNick:: ds NAME_LENGTH
+	ds 5
 wBattleMon:: battle_struct wBattleMon
 
 
@@ -1205,14 +1214,12 @@ wTrainerPicPointer:: dw
 	ds 1
 
 UNION
-wTempMoveNameBuffer:: ds 14
+wTempMoveNameBuffer:: ds 8
 
 NEXTU
 ; The name of the mon that is learning a move.
 wLearnMoveMonName:: ds NAME_LENGTH
 ENDU
-
-	ds 2
 
 ; money received after battle = base money × level of last enemy mon
 wTrainerBaseMoney:: dw ; BCD
@@ -1224,7 +1231,7 @@ wMissableObjectCounter:: db
 ; 13 bytes for the letters of the opposing trainer
 ; the name is terminated with $50 with possible
 ; unused trailing letters
-wTrainerName:: ds 13
+wTrainerName:: ds 11
 
 ; lost battle, this is -1
 ; no battle, this is 0
@@ -1347,11 +1354,7 @@ wPartyMenuTypeOrMessageID::
 ; temporary storage for the number of tiles in a tileset
 wTempTilesetNumTiles:: db
 
-; used by the pokemart code to save the existing value of wListScrollOffset
-; so that it can be restored when the player is done with the pokemart NPC
-wSavedListScrollOffset:: db
-
-	ds 2
+	ds 3
 
 ; base coordinates of frame block
 wBaseCoordX:: db
@@ -1553,7 +1556,7 @@ wMoves:: ds NUM_MOVES
 
 wMoveNum:: db
 
-wMovesString:: ds 56
+wMovesString:: ds 32
 
 wUnusedCurMapTilesetCopy:: db
 
@@ -1690,6 +1693,13 @@ ENDU
 
 wSerialPlayerDataBlock:: ; ds $1a8
 
+UNION
+IF DEF(_REV0)
+	wUnknownSerialCounter3:: dw
+	wUnknownSerialByte:: db
+ENDC
+
+NEXTU
 ; When a real item is being used, this is 0.
 ; When a move is acting as an item, this is the ID of the item it's acting as.
 ; For example, out-of-battle Dig is executed using a fake Escape Rope item. In
@@ -1699,6 +1709,7 @@ wPseudoItemID:: db
 wUnusedAlreadyOwnedFlag:: db
 
 	ds 2
+ENDU
 
 wEvoStoneItemID:: db
 
@@ -2146,7 +2157,7 @@ NEXTU
 ; linked game's trainer name
 wLinkEnemyTrainerName:: ds NAME_LENGTH
 
-	ds 1
+	ds 6
 
 wSerialEnemyDataBlock:: ; ds $1a8
 
@@ -2188,7 +2199,6 @@ wOpponentAfterWrongAnswer:: db
 ; mostly copied from map-specific map script pointer and written back later
 wCurMapScript:: db
 
-	ds 7
 
 wPlayTimeHours:: db
 wPlayTimeMaxed:: db
@@ -2245,7 +2255,7 @@ wBoxDataEnd::
 SECTION "Stack", WRAM0
 
 ; the stack grows downward
-	ds $100 - 1
+	ds $e7
 wStack:: db
 
 ENDSECTION

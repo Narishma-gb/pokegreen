@@ -28,8 +28,9 @@ ChoosePlayerName:
 	jp PrintText
 
 YourNameIsText:
-	text_far _YourNameIsText
-	text_end
+	text "ふむ···"
+	line "<PLAYER>　と　いうんだな！"
+	prompt
 
 ChooseRivalName:
 	call OakSpeechSlidePicRight
@@ -61,8 +62,9 @@ ChooseRivalName:
 	jp PrintText
 
 HisNameIsText:
-	text_far _HisNameIsText
-	text_end
+	text "そうだ　そうだ！　おもいだしたぞ"
+	line "<RIVAL>　という　なまえだ"
+	prompt
 
 OakSpeechSlidePicLeft:
 	push de
@@ -185,7 +187,7 @@ DisplayIntroNameTextBox:
 	jp HandleMenuInput
 
 .namestring
-	db "NAME@"
+	db "なまえこうほ@"
 
 INCLUDE "data/player_names.asm"
 

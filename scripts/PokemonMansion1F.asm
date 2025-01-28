@@ -1,7 +1,7 @@
 PokemonMansion1F_Script:
 	call Mansion1CheckReplaceSwitchDoorBlocks
 	call EnableAutoTextBoxDrawing
-	ld hl, Mansion1TrainerHeaders
+	ld hl, PokemonMansion1F_TrainerHeaders
 	ld de, PokemonMansion1F_ScriptPointers
 	ld a, [wPokemonMansion1FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -68,29 +68,31 @@ PokemonMansion1F_TextPointers:
 	dw_const PickUpItemText,                TEXT_POKEMONMANSION1F_CARBOS
 	dw_const PokemonMansion1FSwitchText,    TEXT_POKEMONMANSION1F_SWITCH
 
-Mansion1TrainerHeaders:
-	def_trainers
-Mansion1TrainerHeader0:
-	trainer EVENT_BEAT_MANSION_1_TRAINER_0, 3, PokemonMansion1FScientistBattleText, PokemonMansion1FScientistEndBattleText, PokemonMansion1FScientistAfterBattleText
+	def_trainers PokemonMansion1F
+	trainer EVENT_BEAT_MANSION_1_TRAINER_0, 3, Scientist
 	db -1 ; end
 
 PokemonMansion1FScientistText:
 	text_asm
-	ld hl, Mansion1TrainerHeader0
+	ld hl, PokemonMansion1F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 PokemonMansion1FScientistBattleText:
-	text_far _PokemonMansion1FScientistBattleText
-	text_end
+	text "だれも　いない　はずの"
+	line "いえを　あるき　まわる"
+	cont "きみは　だれだね？"
+	done
 
 PokemonMansion1FScientistEndBattleText:
-	text_far _PokemonMansion1FScientistEndBattleText
-	text_end
+	text "まいったな"
+	prompt
 
 PokemonMansion1FScientistAfterBattleText:
-	text_far _PokemonMansion1FScientistAfterBattleText
-	text_end
+	text "<⋯>　なに？"
+	line "カギを　さがして　いるのか"
+	cont "さあ　しらないねえ<⋯>"
+	done
 
 PokemonMansion1FSwitchText:
 	text_asm
@@ -119,13 +121,15 @@ PokemonMansion1FSwitchText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _PokemonMansion1FSwitchText
-	text_end
+	text "ひみつの　スイッチが　ある！"
+
+	para "おして　みますか？"
+	done
 
 .PressedText:
-	text_far _PokemonMansion1FSwitchPressedText
-	text_end
+	text "おしてみよう！　<⋯>ポチッとな"
+	prompt
 
 .NotPressedText:
-	text_far _PokemonMansion1FSwitchNotPressedText
-	text_end
+	text "おすのは　あきらめた"
+	done

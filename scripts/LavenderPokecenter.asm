@@ -16,9 +16,15 @@ LavenderPokecenterNurseText:
 	script_pokecenter_nurse
 
 LavenderPokecenterGentlemanText:
-	text_far _LavenderPokecenterGentlemanText
-	text_end
+	text "<ROCKET>の　れんちゅう<⋯>"
+	line "おかね　もうけの　ためなら"
+	cont "どんな　わるい　ことでも　やるのさ"
+	done
 
 LavenderPokecenterLittleGirlText:
-	text_far _LavenderPokecenterLittleGirlText
-	text_end
+	text "カラカラの　おかあさんが"
+	line "<ROCKET>から　にげる　ところ"
+	cont "わたしも　みたわ<⋯>"
+
+	para "にげる　とちゅうで　ころされたわ"
+	done

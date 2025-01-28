@@ -1,7 +1,7 @@
 SilphCo8F_Script:
 	call SilphCo8FGateCallbackScript
 	call EnableAutoTextBoxDrawing
-	ld hl, SilphCo8TrainerHeaders
+	ld hl, SilphCo8F_TrainerHeaders
 	ld de, SilphCo8F_ScriptPointers
 	ld a, [wSilphCo8FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -83,14 +83,10 @@ SilphCo8F_TextPointers:
 	dw_const SilphCo8FScientistText,    TEXT_SILPHCO8F_SCIENTIST
 	dw_const SilphCo8FRocket2Text,      TEXT_SILPHCO8F_ROCKET2
 
-SilphCo8TrainerHeaders:
-	def_trainers 2
-SilphCo8TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_8F_TRAINER_0, 4, SilphCo8FRocket1BattleText, SilphCo8FRocket1EndBattleText, SilphCo8FRocket1AfterBattleText
-SilphCo8TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_8F_TRAINER_1, 4, SilphCo8FScientistBattleText, SilphCo8FScientistEndBattleText, SilphCo8FScientistAfterBattleText
-SilphCo8TrainerHeader2:
-	trainer EVENT_BEAT_SILPH_CO_8F_TRAINER_2, 4, SilphCo8FRocket2BattleText, SilphCo8FRocket2EndBattleText, SilphCo8FRocket2AfterBattleText
+	def_trainers SilphCo8F, 2
+	trainer EVENT_BEAT_SILPH_CO_8F_TRAINER_0, 4, Rocket1
+	trainer EVENT_BEAT_SILPH_CO_8F_TRAINER_1, 4, Scientist
+	trainer EVENT_BEAT_SILPH_CO_8F_TRAINER_2, 4, Rocket2
 	db -1 ; end
 
 SilphCo8FSilphWorkerMText:
@@ -104,63 +100,70 @@ SilphCo8FSilphWorkerMText:
 	jp TextScriptEnd
 
 .SilphIsFinishedText:
-	text_far __SilphCo8FSilphWorkerMThanksForSavingUsText
-	text_end
+	text "シルフは　のっとられて"
+	line "<⋯>　おわりかな"
+	done
 
 .ThanksForSavingUsText:
-	text_far _SilphCo8FSilphWorkerMThanksForSavingUsText
-	text_end
+	text "ありがとう　たすかった！"
+	done
 
 SilphCo8FRocket1Text:
 	text_asm
-	ld hl, SilphCo8TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-SilphCo8FScientistText:
-	text_asm
-	ld hl, SilphCo8TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-SilphCo8FRocket2Text:
-	text_asm
-	ld hl, SilphCo8TrainerHeader2
+	ld hl, SilphCo8F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo8FRocket1BattleText:
-	text_far _SilphCo8FRocket1BattleText
-	text_end
+	text "ここから　さきは　いかせ　ないぜ！"
+	done
 
 SilphCo8FRocket1EndBattleText:
-	text_far _SilphCo8FRocket1EndBattleText
-	text_end
+	text "きあいが　たりんか"
+	prompt
 
 SilphCo8FRocket1AfterBattleText:
-	text_far _SilphCo8FRocket1AfterBattleText
-	text_end
+	text "はやく　ひきかえさないと"
+	line "<⋯>　なかまを　よぶぜ！"
+	done
+
+SilphCo8FScientistText:
+	text_asm
+	ld hl, SilphCo8F_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 SilphCo8FScientistBattleText:
-	text_far _SilphCo8FScientistBattleText
-	text_end
+	text "すき　かって　やられちゃ"
+	line "こまるんだぜ！"
+	done
 
 SilphCo8FScientistEndBattleText:
-	text_far _SilphCo8FScientistEndBattleText
-	text_end
+	text "<⋯>？　まけたのか"
+	prompt
 
 SilphCo8FScientistAfterBattleText:
-	text_far _SilphCo8FScientistAfterBattleText
-	text_end
+	text "どうだね？"
+	line "めいろの　ような"
+	cont "シルフ　ビルの　かんそうは？"
+	done
+
+SilphCo8FRocket2Text:
+	text_asm
+	ld hl, SilphCo8F_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 SilphCo8FRocket2BattleText:
-	text_far _SilphCo8FRocket2BattleText
-	text_end
+	text "おれこそは"
+	line "ロケット　４きょうだいの　ひとり！"
+	done
 
 SilphCo8FRocket2EndBattleText:
-	text_far _SilphCo8FRocket2EndBattleText
-	text_end
+	text "にいさん　まけたよ"
+	prompt
 
 SilphCo8FRocket2AfterBattleText:
-	text_far _SilphCo8FRocket2AfterBattleText
-	text_end
+	text "まあ　いい"
+	line "あにきが　かたきを　とって　くれる"
+	done

@@ -15,14 +15,19 @@ OpenOaksPC:
 	jp LoadScreenTilesFromBuffer2
 
 GetDexRatedText:
-	text_far _GetDexRatedText
-	text_end
+	text "げんざいの　#ずかんを"
+	line "ひょうか　して　もらい　ますか？"
+	done
 
 ClosedOaksPCText:
-	text_far _ClosedOaksPCText
+	text "<⋯>　オーキドの　<PC>との"
+	line "せつぞくを　おわった！@"
 	text_waitbutton
 	text_end
 
 AccessedOaksPCText:
-	text_far _AccessedOaksPCText
-	text_end
+	text "オーキドの　<PC>と　つないだ！"
+
+	para "#　ずかん"
+	line "ひょうか　システムを　よびだした！"
+	prompt

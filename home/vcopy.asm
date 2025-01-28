@@ -19,7 +19,7 @@ GetRowColAddressBgMap::
 ; clears a VRAM background map with blank space tiles
 ; INPUT: h - high byte of background tile map address in VRAM
 ClearBgMap::
-	ld a, " "
+	ld a, "　"
 	jr .next
 	ld a, l
 .next
@@ -136,9 +136,9 @@ AutoBgMapTransfer::
 .transferBottomThird
 	hlcoord 0, 12
 	ld sp, hl
-	ldh a, [hAutoBGTransferDest + 1]
+	ld a, [hAutoBGTransferDest + 1]
 	ld h, a
-	ldh a, [hAutoBGTransferDest]
+	ld a, [hAutoBGTransferDest]
 	ld l, a
 	ld de, 12 * 32
 	add hl, de
@@ -147,18 +147,18 @@ AutoBgMapTransfer::
 .transferTopThird
 	hlcoord 0, 0
 	ld sp, hl
-	ldh a, [hAutoBGTransferDest + 1]
+	ld a, [hAutoBGTransferDest + 1]
 	ld h, a
-	ldh a, [hAutoBGTransferDest]
+	ld a, [hAutoBGTransferDest]
 	ld l, a
 	ld a, TRANSFERMIDDLE
 	jr .doTransfer
 .transferMiddleThird
 	hlcoord 0, 6
 	ld sp, hl
-	ldh a, [hAutoBGTransferDest + 1]
+	ld a, [hAutoBGTransferDest + 1]
 	ld h, a
-	ldh a, [hAutoBGTransferDest]
+	ld a, [hAutoBGTransferDest]
 	ld l, a
 	ld de, 6 * 32
 	add hl, de
@@ -426,13 +426,11 @@ UpdateMovingBgTiles::
 	ldh [hMovingBGTilesCounter1], a
 
 	ld a, [wMovingBGTilesCounter2]
-	and 3
-	cp 2
+; 2-cycle flower tile animation
+	and 1
 	ld hl, FlowerTile1
-	jr c, .copy
-	ld hl, FlowerTile2
 	jr z, .copy
-	ld hl, FlowerTile3
+	ld hl, FlowerTile2
 .copy
 	ld de, vTileset tile $03
 	ld c, $10
@@ -446,4 +444,3 @@ UpdateMovingBgTiles::
 
 FlowerTile1: INCBIN "gfx/tilesets/flower/flower1.2bpp"
 FlowerTile2: INCBIN "gfx/tilesets/flower/flower2.2bpp"
-FlowerTile3: INCBIN "gfx/tilesets/flower/flower3.2bpp"

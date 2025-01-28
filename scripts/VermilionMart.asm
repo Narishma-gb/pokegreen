@@ -8,9 +8,21 @@ VermilionMart_TextPointers:
 	dw_const VermilionMartCooltrainerFText, TEXT_VERMILIONMART_COOLTRAINER_F
 
 VermilionMartCooltrainerMText:
-	text_far _VermilionMartCooltrainerMText
-	text_end
+	text "よのなか　には　#で"
+	line "わるだくみを　する　やつらも　いる"
+
+	para "#を　たかく　うりさばいたり"
+	line "ときには　にんきがない　とか"
+
+	para "やくに　たたない　という　りゆうで"
+	line "ころして　しまったり"
+
+	para "そういう　わるい　こと　ばかりする"
+	line "あつまりが　ロケットだんさ"
+	done
 
 VermilionMartCooltrainerFText:
-	text_far _VermilionMartCooltrainerFText
-	text_end
+	text "#は　つかう　ひとに　よって"
+	line "よくも　わるくも　なる"
+	cont "パートナーだと　おもうの"
+	done

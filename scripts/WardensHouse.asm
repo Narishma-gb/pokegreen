@@ -57,41 +57,77 @@ WardensHouseWardenText:
 	jp TextScriptEnd
 
 .Gibberish1Text:
-	text_far _WardensHouseWardenGibberish1Text
-	text_end
+	text "えんちょう『ふぁいへんひゃ"
+	line "ふへほ　はんひ"
+
+	para "ひへは　ほはへへ　ひほうはッ！"
+	line "はッ　はふへへ　ふへ！"
+	done
 
 .Gibberish2Text:
-	text_far _WardensHouseWardenGibberish2Text
-	text_end
+	text "よほひふ　はほひまふは！"
+	line "はふは　はふぁりほーんひゃ！"
+	done
 
 .Gibberish3Text:
-	text_far _WardensHouseWardenGibberish3Text
-	text_end
+	text "はひ？"
+	line "ほは　ほうは<⋯>"
+	cont "ひひ　ほはへには　はのはんはッ！"
+	done
 
 .GaveTheGoldTeethText:
-	text_far _WardensHouseWardenGaveTheGoldTeethText
+	text "えんちょうは　<PLAYER>から"
+	line "きんのいればを　もらった！@"
 	sound_get_item_1
+	text_start
 
-.PoppedInHisTeethText: ; unreferenced
-	text_far _WardensHouseWardenTeethPoppedInHisTeethText
-	text_end
+	para "もらった　いればを"
+	line "いそいで　くちに　はめた！"
+	prompt
 
 .ThanksText:
-	text_far _WardensHouseWardenThanksText
-	text_end
+	text "えんちょう『すんまへん！"
+	cont "ほんま　たすかったわあ！"
+	cont "だれに　なに　いうても"
+	cont "ぜんぜん　つうじへんし"
+
+	para "はずかしゅうて　じむしょも"
+	line "かお　だせへん　かったんや"
+	cont "そや　ぼうず！"
+	cont "あんがとな"
+	cont "おれいに　ええもん　やるわ！"
+	prompt
 
 .ReceivedHM04Text:
-	text_far _WardensHouseWardenReceivedHM04Text
+	text "<PLAYER>は　えんちょうから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
 	text_end
 
 .HM04ExplanationText:
-	text_far _WardensHouseWardenHM04ExplanationText
-	text_end
+	text "えんちょう『ひでんマシン０４の"
+	line "なかみは　かいりき　やで！"
+
+	para "#が"
+	line "ちから　もちに　なってな"
+	cont "たたかわん　ときは"
+	cont "いわを　おすように　なるで！"
+
+	para "そや<⋯>　それから！"
+	line "サファリ　ゾーンで"
+	cont "トレジャー　ハウスは　みつけたか？"
+	cont "ひでんマシンが　もらえるで！"
+
+	para "めったに　てに　はいらん"
+	line "なみのり　なんやで！"
+	done
 
 .HM04NoRoomText:
-	text_far _WardensHouseWardenHM04NoRoomText
-	text_end
+	text "なんや　にもつ"
+	line "いっぱいやんけ！"
+	done
 
 WardensHouseDisplayText:
 	text_asm
@@ -105,9 +141,11 @@ WardensHouseDisplayText:
 	jp TextScriptEnd
 
 .PhotosAndFossilsText:
-	text_far _WardensHouseDisplayPhotosAndFossilsText
-	text_end
+	text "#の　カセキやら"
+	line "しゃしんが　かざって　ある！"
+	done
 
 .MerchandiseText:
-	text_far _WardensHouseDisplayMerchandiseText
-	text_end
+	text "ふるい　#　グッズが"
+	line "かざって　ある！"
+	done

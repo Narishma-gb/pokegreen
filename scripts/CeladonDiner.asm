@@ -11,20 +11,30 @@ CeladonDiner_TextPointers:
 	dw_const CeladonDinerGymGuideText,        TEXT_CELADONDINER_GYM_GUIDE
 
 CeladonDinerCookText:
-	text_far _CeladonDinerCookText
-	text_end
+	text "らっしゃい！"
+
+	para "じょうれん　ばかりで　わるいね！"
+	done
 
 CeladonDinerMiddleAgedWomanText:
-	text_far _CeladonDinerMiddleAgedWomanText
-	text_end
+	text "うちで　かってる　#<⋯>"
+	line "たいりょく　ないから　いつも"
+	cont "デパートで　おくすり　かって　くるの"
+	done
 
 CeladonDinerMiddleAgedManText:
-	text_far _CeladonDinerMiddleAgedManText
-	text_end
+	text "ひそひそ<⋯>　むしゃ　むしゃ<⋯>"
+	line "<⋯>　ゲーム　コーナーの　したに"
+	cont "ちかしつが　ある　らしいね<⋯>"
+	done
 
 CeladonDinerFisherText:
-	text_far _CeladonDinerFisherText
-	text_end
+	text "もぐもぐ<⋯>！"
+
+	para "あそこの　テーブルの　おっさん"
+	line "スロットで　おかね　ぜんぶ"
+	cont "つかっちゃった　らしいよ！"
+	done
 
 CeladonDinerGymGuideText:
 	text_asm
@@ -50,18 +60,32 @@ CeladonDinerGymGuideText:
 	jp TextScriptEnd
 
 .ImFlatOutBustedText:
-	text_far _CeladonDinerGymGuideImFlatOutBustedText
-	text_end
+	text "うおう<⋯>　わらってくれ！"
+
+	para "ゲーム　コーナーで　すって"
+	line "いちもん　なしに　なっちまった！"
+
+	para "もう　スロットは　やらん！"
+	line "じみちに　はたらくぞ！"
+
+	para "<⋯>　というわけで"
+	line "これは　おまえに　やる！"
+	prompt
 
 .ReceivedCoinCaseText:
-	text_far _CeladonDinerGymGuideReceivedCoinCaseText
+	text "<PLAYER>は　おっさん　から"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_key_item
 	text_end
 
 .CoinCaseNoRoomText:
-	text_far _CeladonDinerGymGuideCoinCaseNoRoomText
-	text_end
+	text "にもつが　いっぱい　だぜ"
+	done
 
 .WinItBackText:
-	text_far _CeladonDinerGymGuideWinItBackText
-	text_end
+	text "あーあ！"
+	line "いつか　かならず　かてる！"
+	cont "と　おもったのに　この　ざまだ<⋯>！"
+	done

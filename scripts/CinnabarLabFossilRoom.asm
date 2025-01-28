@@ -83,20 +83,38 @@ CinnabarLabFossilRoomScientist1Text:
 	jr .done
 
 .Text:
-	text_far _CinnabarLabFossilRoomScientist1Text
-	text_end
+	text "はいー！"
+
+	para "わたしは　エラーイ　はかせ"
+
+	para "いつも　めずらしい　カセキ"
+	line "けんきゅう　してる　アルよ！"
+
+	para "あなた！"
+	line "いい　カセキ　もってるか？"
+	prompt
 
 .NoFossilsText:
-	text_far _CinnabarLabFossilRoomScientist1NoFossilsText
-	text_end
+	text "もってない　アルね<⋯>"
+	done
 
 .GoForAWalkText:
-	text_far _CinnabarLabFossilRoomScientist1GoForAWalkText
-	text_end
+	text "ちょっと　じかん　かかるよ！"
+
+	para "そこらへんを　すこし　"
+	line "ブラブラ　してくると　よろしー！"
+	done
 
 .FossilIsBackToLifeText:
-	text_far _CinnabarLabFossilRoomScientist1FossilIsBackToLifeText
-	text_end
+	text "おそいねー！"
+
+	para "もう　カセキ　いきかえったよー！"
+
+	para "やっぱり　カセキは"
+	line "@"
+	text_ram wStringBuffer
+	text "　だった　アルね！"
+	prompt
 
 CinnabarLabFossilRoomScientist2Text:
 	text_asm

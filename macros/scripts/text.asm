@@ -1,13 +1,12 @@
-DEF text   EQUS "db TX_START,"    ; Start writing text.
-DEF next   EQUS "db \"<NEXT>\","  ; Move a line down.
-DEF line   EQUS "db \"<LINE>\","  ; Start writing at the bottom line.
-DEF para   EQUS "db \"<PARA>\","  ; Start a new paragraph.
-DEF cont   EQUS "db \"<CONT>\","  ; Scroll to the next line.
-DEF done   EQUS "db \"<DONE>\""   ; End a text box.
-DEF prompt EQUS "db \"<PROMPT>\"" ; Prompt the player to end a text box (initiating some other event).
-
-DEF page   EQUS "db \"<PAGE>\","         ; Start a new Pokédex page.
-DEF dex    EQUS "db \"<DEXEND>\", \"@\"" ; End a Pokédex entry.
+DEF text   EQUS "db TX_START,"     ; Start writing text.
+DEF _cnt   EQUS "db \"<_CONT>\","  ; Scroll to the next line.
+DEF scrl   EQUS "db \"<SCROLL>\"," ; Scroll to the next line, without pausing.
+DEF next   EQUS "db \"<NEXT>\","   ; Move a line down.
+DEF line   EQUS "db \"<LINE>\","   ; Start writing at the bottom line.
+DEF para   EQUS "db \"<PARA>\","   ; Start a new paragraph.
+DEF cont   EQUS "db \"<CONT>\","   ; Scroll to the next line.
+DEF done   EQUS "db \"<DONE>\""    ; End a text box.
+DEF prompt EQUS "db \"<PROMPT>\""  ; Prompt the player to end a text box (initiating some other event).
 
 
 ; TextCommandJumpTable indexes (see home/text.asm)
@@ -32,18 +31,18 @@ MACRO text_bcd
 ENDM
 
 	const TX_MOVE ; $03
-MACRO text_move
-	db TX_MOVE
-	dw \1 ; address of the new location
-ENDM
+;MACRO text_move
+;	db TX_MOVE
+;	dw \1 ; address of the new location
+;ENDM
 
 	const TX_BOX ; $04
-MACRO text_box
-; draw box
-	db TX_BOX
-	dw \1 ; address of upper left corner
-	db \2, \3 ; height, width
-ENDM
+;MACRO text_box
+;; draw box
+;	db TX_BOX
+;	dw \1 ; address of upper left corner
+;	db \2, \3 ; height, width
+;ENDM
 
 	const TX_LOW ; $05
 MACRO text_low
@@ -56,9 +55,9 @@ MACRO text_promptbutton
 ENDM
 
 	const TX_SCROLL ; $07
-MACRO text_scroll
-	db TX_SCROLL
-ENDM
+;MACRO text_scroll
+;	db TX_SCROLL
+;ENDM
 
 	const TX_START_ASM ; $08
 MACRO text_asm
@@ -68,10 +67,10 @@ ENDM
 	const TX_NUM ; $09
 MACRO text_decimal
 ; print a big-endian decimal number.
-	db TX_NUM
-	dw \1 ; address to read from
-	dn \2, \3 ; number of bytes to read, number of digits to display
-ENDM
+	 db TX_NUM
+	 dw \1 ; address to read from
+	 dn \2, \3 ; number of bytes to read, number of digits to display
+ ENDM
 
 	const TX_PAUSE ; $0a
 MACRO text_pause
@@ -87,10 +86,10 @@ DEF TX_SOUND_LEVEL_UP EQU TX_SOUND_GET_ITEM_1
 DEF sound_level_up EQUS "sound_get_item_1"
 
 	const TX_DOTS ; $0c
-MACRO text_dots
-	db TX_DOTS
-	db \1 ; number of ellipses to draw
-ENDM
+;MACRO text_dots
+;	db TX_DOTS
+;	db \1 ; number of ellipses to draw
+;ENDM
 
 	const TX_WAIT_BUTTON ; $0d
 MACRO text_waitbutton
@@ -98,14 +97,14 @@ MACRO text_waitbutton
 ENDM
 
 	const TX_SOUND_POKEDEX_RATING ; $0e
-MACRO sound_pokedex_rating
-	db TX_SOUND_POKEDEX_RATING
-ENDM
+;MACRO sound_pokedex_rating
+;	db TX_SOUND_POKEDEX_RATING
+;ENDM
 
 	const TX_SOUND_GET_ITEM_1_DUPLICATE ; $0f
-MACRO sound_get_item_1_duplicate
-	db TX_SOUND_GET_ITEM_1_DUPLICATE
-ENDM
+;MACRO sound_get_item_1_duplicate
+;	db TX_SOUND_GET_ITEM_1_DUPLICATE
+;ENDM
 
 	const TX_SOUND_GET_ITEM_2 ; $10
 MACRO sound_get_item_2
@@ -138,16 +137,9 @@ MACRO sound_cry_pidgeot
 ENDM
 
 	const TX_SOUND_CRY_DEWGONG ; $16
-MACRO sound_cry_dewgong
-	db TX_SOUND_CRY_DEWGONG
-ENDM
-
-	const TX_FAR ; $17
-MACRO text_far
-	db TX_FAR
-	dab \1 ; address of text commands
-ENDM
-
+;MACRO sound_cry_dewgong
+;	db TX_SOUND_CRY_DEWGONG
+;ENDM
 
 	const_next $50
 

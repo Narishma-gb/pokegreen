@@ -94,30 +94,58 @@ MACRO warp_to
 ENDM
 
 
-;\1 first bit offset / first object id
+;\1 Map label
+;\2 first bit offset / first object id (optional)
 MACRO def_trainers
-	IF _NARG == 1
-		DEF CURRENT_TRAINER_BIT = \1
+	REDEF CURRENT_TRAINER_MAP EQUS "\1"
+	DEF CURRENT_TRAINER_HEADER = 0
+	IF _NARG > 1
+		DEF CURRENT_TRAINER_BIT = \2
 	ELSE
 		DEF CURRENT_TRAINER_BIT = 1
 	ENDC
+{CURRENT_TRAINER_MAP}_TrainerHeaders:
 ENDM
 
 ;\1 event flag
 ;\2 view range
-;\3 TextBeforeBattle
-;\4 TextAfterBattle
-;\5 TextEndBattle
+;\3 Trainer label
 MACRO trainer
 	DEF _ev_bit = \1 % 8
 	DEF _cur_bit = CURRENT_TRAINER_BIT % 8
 	ASSERT _ev_bit == _cur_bit, \
 		"Expected \1 to be bit {d:_cur_bit}, got {d:_ev_bit}"
+
+{CURRENT_TRAINER_MAP}_TrainerHeader{d:CURRENT_TRAINER_HEADER}:
 	db CURRENT_TRAINER_BIT
 	db \2 << 4
 	dw wEventFlags + (\1 - CURRENT_TRAINER_BIT) / 8
-	dw \3, \5, \4, \4
+	dw {CURRENT_TRAINER_MAP}\3BattleText, \
+	   {CURRENT_TRAINER_MAP}\3AfterBattleText, \
+	   {CURRENT_TRAINER_MAP}\3EndBattleText, \
+	   {CURRENT_TRAINER_MAP}\3EndBattleText
 	DEF CURRENT_TRAINER_BIT += 1
+	DEF CURRENT_TRAINER_HEADER += 1
+ENDM
+
+;\1 event flag
+;\2 Text
+MACRO battlemon
+	DEF _ev_bit = \1 % 8
+	DEF _cur_bit = CURRENT_TRAINER_BIT % 8
+	ASSERT _ev_bit == _cur_bit, \
+		"Expected \1 to be bit {d:_cur_bit}, got {d:_ev_bit}"
+
+{CURRENT_TRAINER_MAP}_TrainerHeader{d:CURRENT_TRAINER_HEADER}:
+	db CURRENT_TRAINER_BIT
+	db 0 ; view range is always 0 for sprite mons
+	dw wEventFlags + (\1 - CURRENT_TRAINER_BIT) / 8
+	dw {CURRENT_TRAINER_MAP}\2BattleText, \
+	   {CURRENT_TRAINER_MAP}\2BattleText, \
+	   {CURRENT_TRAINER_MAP}\2BattleText, \
+	   {CURRENT_TRAINER_MAP}\2BattleText
+	DEF CURRENT_TRAINER_BIT += 1
+	DEF CURRENT_TRAINER_HEADER += 1
 ENDM
 
 ;\1 x position
@@ -213,7 +241,7 @@ MACRO connection
 		ENDC
 
 	ELSE
-		fail "Invalid direction for 'connection'."
+		FAIL "Invalid direction for 'connection'."
 	ENDC
 
 	db \3

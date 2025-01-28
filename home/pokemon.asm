@@ -128,7 +128,7 @@ LoadFrontSpriteByMonIndex::
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	xor a
-	ldh [hStartTileID], a
+	ld [hStartTileID], a
 	call CopyUncompressedPicToHL
 	xor a
 	ld [wSpriteFlipped], a
@@ -136,7 +136,6 @@ LoadFrontSpriteByMonIndex::
 	ldh [hLoadedROMBank], a
 	ld [MBC1RomBank], a
 	ret
-
 
 PlayCry::
 ; Play monster a's cry.
@@ -316,11 +315,11 @@ PrintStatusCondition::
 	pop de
 	jr nz, PrintStatusConditionNotFainted
 ; if the pokemon's HP is 0, print "FNT"
-	ld a, "F"
+	ld a, "ひ"
 	ld [hli], a
-	ld a, "N"
+	ld a, "ん"
 	ld [hli], a
-	ld [hl], "T"
+	ld [hl], "し"
 	and a
 	ret
 

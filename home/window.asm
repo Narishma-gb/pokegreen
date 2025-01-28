@@ -52,11 +52,11 @@ HandleMenuInput_::
 	ld b, a
 	bit BIT_D_UP, a
 	jr z, .checkIfDownPressed
-.upPressed
+; upPressed
 	ld a, [wCurrentMenuItem] ; selected menu item
 	and a ; already at the top of the menu?
 	jr z, .alreadyAtTop
-.notAtTop
+; notAtTop
 	dec a
 	ld [wCurrentMenuItem], a ; move selected menu item up one space
 	jr .checkOtherKeys
@@ -70,14 +70,14 @@ HandleMenuInput_::
 .checkIfDownPressed
 	bit BIT_D_DOWN, a
 	jr z, .checkOtherKeys
-.downPressed
+; downPressed
 	ld a, [wCurrentMenuItem]
 	inc a
 	ld c, a
 	ld a, [wMaxMenuItem]
 	cp c
 	jr nc, .notAtBottom
-.alreadyAtBottom
+; alreadyAtBottom
 	ld a, [wMenuWrappingEnabled]
 	and a ; is wrapping around enabled?
 	jr z, .noWrappingAround
@@ -93,7 +93,7 @@ HandleMenuInput_::
 	ldh a, [hJoy5]
 	and A_BUTTON | B_BUTTON
 	jr z, .skipPlayingSound
-.AButtonOrBButtonPressed
+; AButtonOrBButtonPressed
 	push hl
 	ld hl, wMiscFlags
 	bit BIT_NO_MENU_BUTTON_SOUND, [hl]
@@ -135,16 +135,7 @@ PlaceMenuCursor::
 	ld a, [wLastMenuItem]
 	and a ; was the previous menu id 0?
 	jr z, .checkForArrow1
-	push af
-	ldh a, [hUILayoutFlags]
-	bit BIT_DOUBLE_SPACED_MENU, a
-	jr z, .doubleSpaced1
-	ld bc, SCREEN_WIDTH
-	jr .getOldMenuItemScreenPosition
-.doubleSpaced1
 	ld bc, SCREEN_WIDTH * 2
-.getOldMenuItemScreenPosition
-	pop af
 .oldMenuItemLoop
 	add hl, bc
 	dec a
@@ -153,7 +144,7 @@ PlaceMenuCursor::
 	ld a, [hl]
 	cp "▶" ; was an arrow next to the previously selected menu item?
 	jr nz, .skipClearingArrow
-.clearArrow
+; clearArrow
 	ld a, [wTileBehindCursor]
 	ld [hl], a
 .skipClearingArrow
@@ -161,16 +152,7 @@ PlaceMenuCursor::
 	ld a, [wCurrentMenuItem]
 	and a
 	jr z, .checkForArrow2
-	push af
-	ldh a, [hUILayoutFlags]
-	bit BIT_DOUBLE_SPACED_MENU, a
-	jr z, .doubleSpaced2
-	ld bc, SCREEN_WIDTH
-	jr .getCurrentMenuItemScreenPosition
-.doubleSpaced2
-	ld bc, SCREEN_WIDTH * 2
-.getCurrentMenuItemScreenPosition
-	pop af
+	ld bc,  SCREEN_WIDTH * 2
 .currentMenuItemLoop
 	add hl, bc
 	dec a
@@ -211,7 +193,7 @@ EraseMenuCursor::
 	ld l, a
 	ld a, [wMenuCursorLocation + 1]
 	ld h, a
-	ld [hl], " "
+	ld [hl], "　"
 	ret
 
 ; This toggles a blinking down arrow at hl on and off after a delay has passed.
@@ -237,7 +219,7 @@ HandleDownArrowBlinkTiming::
 	dec a
 	ldh [hDownArrowBlinkCount2], a
 	ret nz
-	ld a, " "
+	ld a, "　"
 	ld [hl], a
 	ld a, $ff
 	ldh [hDownArrowBlinkCount1], a

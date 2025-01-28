@@ -29,18 +29,41 @@ SafariZoneSecretHouseFishingGuruText:
 	jp TextScriptEnd
 
 .YouHaveWonText:
-	text_far _SafariZoneSecretHouseFishingGuruYouHaveWonText
-	text_end
+	text "おおッ！　きたか！"
+
+	para "ここは　いちばん　おくち　の"
+	line "トレジャー　ハウス　だよ！"
+
+	para "サファリ　ゾーンの　キャンペーン"
+	line "ひらいたは　いいが　だれも　こない"
+	cont "ふあんに　なってた　ところだ"
+
+	para "いやー！　おめでとう！"
+	line "しょうひんは　きみの　ものだ！"
+	prompt
 
 .ReceivedHM03Text:
-	text_far _SafariZoneSecretHouseFishingGuruReceivedHM03Text
+	text "<PLAYER>は　かかりいん　から"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
 	text_end
 
 .HM03ExplanationText:
-	text_far _SafariZoneSecretHouseFishingGuruHM03ExplanationText
-	text_end
+	text "ひでんマシン０３は　なみのり！"
+
+	para "なんと！　#に　のって"
+	line "みずの　うえを　すすめる！"
+
+	para "しかも　この　マシンは　つかっても"
+	line "なく　ならない　タイプだ！"
+
+	para "こんなに　すばらしい"
+	line "しょうひんを　もらって　しまった"
+	cont "きみは　とても　ツイてるぞ！"
+	done
 
 .HM03NoRoomText:
-	text_far _SafariZoneSecretHouseFishingGuruHM03NoRoomText
-	text_end
+	text "きみ　もちもの　いっぱいだよ"
+	done

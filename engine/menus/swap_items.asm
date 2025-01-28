@@ -1,7 +1,9 @@
 HandleItemListSwapping::
 	ld a, [wListMenuID]
 	cp ITEMLISTMENU
-	jp nz, DisplayListMenuIDLoop ; only rearrange item list menus
+	; BUG: this allows swapping items within a SPECIALLISTMENU list menu, and will
+	; cause RAM corruption when attempting to rearrange floor lists inside elevators 
+	jp c, DisplayListMenuIDLoop
 	push hl
 	ld hl, wListPointer
 	ld a, [hli]
@@ -76,7 +78,7 @@ HandleItemListSwapping::
 	ld a, [hli]
 	cp b
 	jr z, .swapSameItemType
-.swapDifferentItems
+; swapDifferentItems
 	ldh [hSwapItemID], a ; save second item ID
 	ld a, [hld]
 	ldh [hSwapItemQuantity], a ; save second item quantity

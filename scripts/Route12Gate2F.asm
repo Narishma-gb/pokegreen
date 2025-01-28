@@ -31,21 +31,34 @@ Route12Gate2FBrunetteGirlText:
 	jp TextScriptEnd
 
 .YouCanHaveThisText:
-	text_far _Route12Gate2FBrunetteGirlYouCanHaveThisText
-	text_end
+	text "わたしが　かわいがってた　#"
+	line "いまは　#　タワーで"
+	cont "ねむってるの<⋯>"
+
+	para "<⋯>　そうだ　わたしの　<TM>"
+	line "おにいちゃんに　あげるわ"
+	cont "わたし<⋯>　もう　いらない　から"
+	prompt
 
 .ReceivedTM39Text:
-	text_far _Route12Gate2FBrunetteGirlReceivedTM39Text
+	text "<PLAYER>は　おんなのこから"
+	line "<TM>３９を　もらった！@"
 	sound_get_item_1
 	text_end
 
 .TM39ExplanationText:
-	text_far _Route12Gate2FBrunetteGirlTM39ExplanationText
-	text_end
+	text "<TM>３９は"
+	line "スピードスター　という　わざよ"
+
+	para "この　わざは　めいちゅうりつが"
+	line "すごく　たかいの"
+	cont "まけられない　しょうぶの　とき"
+	cont "やくに　たつ　はずよ"
+	done
 
 .TM39NoRoomText:
-	text_far _Route12Gate2FBrunetteGirlTM39NoRoomText
-	text_end
+	text "にもつ　いっぱいで　もてないよ"
+	done
 
 Route12Gate2FLeftBinocularsText:
 	text_asm
@@ -53,8 +66,10 @@ Route12Gate2FLeftBinocularsText:
 	jp GateUpstairsScript_PrintIfFacingUp
 
 .Text:
-	text_far _Route12Gate2FLeftBinocularsText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "つりを　してる　おじさんだ！"
+	done
 
 Route12Gate2FRightBinocularsText:
 	text_asm
@@ -62,8 +77,10 @@ Route12Gate2FRightBinocularsText:
 	jp GateUpstairsScript_PrintIfFacingUp
 
 .Text:
-	text_far _Route12Gate2FRightBinocularsText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "#　タワーが　みえる！"
+	done
 
 GateUpstairsScript_PrintIfFacingUp:
 	ld a, [wSpritePlayerStateData1FacingDirection]

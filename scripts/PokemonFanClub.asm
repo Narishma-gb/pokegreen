@@ -38,12 +38,16 @@ PokemonFanClubPikachuFanText:
 	jp TextScriptEnd
 
 .NormalText:
-	text_far _PokemonFanClubPikachuFanNormalText
-	text_end
+	text "みてよ！　うちの　ピカチュウ"
+	line "なんて　かわいい　しっぽ！"
+	done
 
 .BetterText:
-	text_far _PokemonFanClubPikachuFanBetterText
-	text_end
+	text "なにを！"
+	
+	para "うちの　ピカチュウの　ほうが"
+	line "その　ばいは　かわいい　わい！"
+	done
 
 PokemonFanClubSeelFanText:
 	text_asm
@@ -61,12 +65,18 @@ PokemonFanClubSeelFanText:
 	jp TextScriptEnd
 
 .NormalText:
-	text_far _PokemonFanClubSeelFanNormalText
-	text_end
+	text "あたしの　いとしい　パウワウ！"
+
+	para "だきしめると"
+	line "きゅー！　って　なくのよ！"
+	done
 
 .BetterText:
-	text_far _PokemonFanClubSeelFanBetterText
-	text_end
+	text "おほほ！"
+
+	para "あたしの　パウワウの　ほうが"
+	line "その　ばいは　かわいいわよ！"
+	done
 
 PokemonFanClubPikachuText:
 	text_asm
@@ -78,8 +88,8 @@ PokemonFanClubPikachuText:
 	jp TextScriptEnd
 
 .Text
-	text_far _PokemonFanClubPikachuText
-	text_end
+	text "ピカチュウ『ちゅー　ぴかちゅ"
+	done
 
 PokemonFanClubSeelText:
 	text_asm
@@ -91,8 +101,8 @@ PokemonFanClubSeelText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _PokemonFanClubSeelText
-	text_end
+	text "パウワウ『きゅー"
+	done
 
 PokemonFanClubChairmanText:
 	text_asm
@@ -131,39 +141,102 @@ PokemonFanClubChairmanText:
 	jp TextScriptEnd
 
 .IntroText:
-	text_far _PokemonFanClubChairmanIntroText
-	text_end
+	text "#　だいすき　クラブの"
+	line "かいちょうは　わし　じゃ！"
+
+	para "かってる　#は"
+	line "１００ぴきを　こえとる！"
+
+	para "#に　かんしては"
+	line "ホント　うるさい！　ですぞ！"
+
+	para "で<⋯>"
+
+	para "きみは　わしの　#　じまんを"
+	line "ききに　きたの　かね？"
+	done
 
 .StoryText:
-	text_far _PokemonFanClubChairmanStoryText
-	text_end
+	text "そうか！"
+	line "では　さっそく　はじめるか！"
+
+	para "あのな<⋯>　わしの　おきにいりの"
+	line "ギャロップがな<⋯>　<⋯>"
+
+	para "<⋯>　でな<⋯>　が<⋯>"
+	cont "<⋯>　<⋯>　かわいくてな<⋯>"
+	cont "たまらん<⋯>　くう<⋯>"
+	cont "<⋯>　さらに<⋯>　もう<⋯>"
+	cont "すごすぎ<⋯>　<⋯>　で<⋯>"
+	cont "<⋯>　そう　おもうか<⋯>"
+	cont "どうして<⋯>　<⋯>　すき<⋯>"
+	cont "<⋯>　はー！"
+
+	para "<⋯>　<⋯>　だきしめて<⋯>"
+	cont "ねるときも<⋯>"
+	cont "<⋯>　じゃろ<⋯>　<⋯>"
+	cont "<⋯>　<⋯>　すばらし<⋯>！"
+	cont "<⋯>　うつくし<⋯>"
+	cont "<⋯>　<⋯>　ありゃ！"
+	cont "もう　こんな　じかんか！"
+	cont "ちょっと　しゃべり　すぎたわい"
+
+	para "わしの　#　じまんを"
+	line "おとなしく　きいてた　おれいに"
+	cont "<⋯>これは　きもち　じゃ！"
+	prompt
 
 .BikeVoucherText:
-	text_far _PokemonFanClubReceivedBikeVoucherText
+	text "<PLAYER>は　かいちょうから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_key_item
-	text_far _PokemonFanClubExplainBikeVoucherText
-	text_end
+	text_start
+
+	para "その　ひきかえけんで"
+	line "タダで　じてんしゃが　もらえる！"
+
+	para "なに　わしには　おきにいりの"
+	line "とり#　オニドリルが　おる"
+	cont "いきたい　ところへ　ひとっとびじゃ"
+
+	para "だから　じてんしゃ　など　いらん！"
+
+	para "じてんしゃは　きみが"
+	line "すきに　のったら　ええ！"
+	done
 
 .NoStoryText:
-	text_far _PokemonFanClubNoStoryText
-	text_end
+	text "なんじゃ<⋯>　つまらん"
+	line "きく　きに　なったら　きてくれい！"
+	done
 
 .FinalText:
-	text_far _PokemonFanClubChairFinalText
-	text_end
+	text "やー　やー　<PLAYER>くん！"
+
+	para "また　わしの　#　じまんを"
+	line "ききに　きたの　かね！"
+
+	para "<⋯>　え　ちがう？"
+	line "なんじゃ<⋯>　つまらん"
+	done
 
 .BagFullText:
-	text_far _PokemonFanClubBagFullText
-	text_end
+	text "にもつが　いっぱい　じゃ！"
+	done
 
 PokemonFanClubReceptionistText:
-	text_far _PokemonFanClubReceptionistText
-	text_end
+	text "うちの　かいちょうは"
+	line "ホント　#に　うるさいの！"
+	done
 
 PokemonFanClubSign1Text:
-	text_far _PokemonFanClubSign1Text
-	text_end
+	text "かいぬしの　じまん　ばなしには"
+	line "しずかに　みみを　かたむけよう！"
+	done
 
 PokemonFanClubSign2Text:
-	text_far _PokemonFanClubSign2Text
-	text_end
+	text "ひとの　じまん　ばなしは"
+	line "１０ばい　にして　かえそう！"
+	done

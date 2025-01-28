@@ -13,12 +13,22 @@ FuchsiaPokecenterNurseText:
 	script_pokecenter_nurse
 
 FuchsiaPokecenterRockerText:
-	text_far _FuchsiaPokecenterRockerText
-	text_end
+	text "１ぴきだけ　そだてても"
+	line "つよい　<TRAINER>に　なれない"
+
+	para "おおくの　#を　"
+	line "バランス　よく　そだてるのも"
+	cont "たいへん　だけどな"
+	done
 
 FuchsiaPokecenterCooltrainerFText:
-	text_far _FuchsiaPokecenterCooltrainerFText
-	text_end
+	text "トキワの　にしに"
+	line "ほそい　みちが　ある　でしょう"
+
+	para "その　おくに　たってるのが"
+	line "すべての　#　<TRAINER>を"
+	cont "まとめる　そしき　#　リーグよ"
+	done
 
 FuchsiaPokecenterLinkReceptionistText:
 	script_cable_club_receptionist

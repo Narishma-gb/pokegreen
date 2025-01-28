@@ -1,7 +1,7 @@
 SilphCo11F_Script:
 	call SilphCo11FGateCallbackScript
 	call EnableAutoTextBoxDrawing
-	ld hl, SilphCo11TrainerHeaders
+	ld hl, SilphCo11F_TrainerHeaders
 	ld de, SilphCo11F_ScriptPointers
 	ld a, [wSilphCo11FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -282,12 +282,9 @@ SilphCo11F_TextPointers:
 	dw_const SilphCo11FRocket2Text,                   TEXT_SILPHCO11F_ROCKET2
 	dw_const SilphCo11FGiovanniYouRuinedOurPlansText, TEXT_SILPHCO11F_GIOVANNI_YOU_RUINED_OUR_PLANS
 
-SilphCo11TrainerHeaders:
-	def_trainers 4
-SilphCo11TrainerHeader0:
-	trainer EVENT_BEAT_SILPH_CO_11F_TRAINER_0, 4, SilphCo11FRocket1BattleText, SilphCo11FRocket1EndBattleText, SilphCo11FRocket1AfterBattleText
-SilphCo11TrainerHeader1:
-	trainer EVENT_BEAT_SILPH_CO_11F_TRAINER_1, 3, SilphCo11FRocket2BattleText, SilphCo11FRocket2EndBattleText, SilphCo11FRocket2AfterBattleText
+	def_trainers SilphCo11F, 4
+	trainer EVENT_BEAT_SILPH_CO_11F_TRAINER_0, 4, Rocket1
+	trainer EVENT_BEAT_SILPH_CO_11F_TRAINER_1, 3, Rocket2
 	db -1 ; end
 
 SilphCo11FSilphPresidentText:
@@ -314,73 +311,134 @@ SilphCo11FSilphPresidentText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SilphCo11FSilphPresidentText
-	text_end
+	text "しゃちょう『おお　しょうねんよ！"
+	line "たすけて　くれて　ありがとう！"
+
+	para "わたしは"
+	line "ピンチを　すくって　くれた"
+
+	para "きみのことを　このさき"
+	line "けして　わすれない　だろう！"
+
+	para "おお！　そうだ"
+	line "おれいを　さしあげなくては！"
+
+	para "わたしは"
+	line "ふとっぱらで　ある　からして"
+
+	para "ほれ"
+	line "こーんな　ものでは　いかがかな？"
+	prompt
 
 .ReceivedMasterBallText:
-	text_far _SilphCo11FSilphPresidentReceivedMasterBallText
+	text "<PLAYER>は　しゃちょうから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_key_item
 	text_end
 
 .MasterBallDescriptionText:
-	text_far _SilphCo11FSilphPresidentMasterBallDescriptionText
-	text_end
+	text "しゃちょう『それは<⋯>"
+	line "どこで　かうことも　できない"
+
+	para "ひみつの"
+	line "しさくひん　マスターボール！"
+
+	para "なげれば　かならず"
+	line "#を　つかまえられる！"
+
+	para "こっそりと<⋯>"
+	line "<⋯>　<⋯>　"
+	cont "つかって　みて　くれたまえ"
+	done
 
 .NoRoomText:
-	text_far _SilphCo11FSilphPresidentNoRoomText
-	text_end
+	text "もちものが　いっぱいだぞ"
+	done
 
 SilphCo11FBeautyText:
-	text_far _SilphCo11FBeautyText
-	text_end
+	text "ひしょ『このたびは　たすけて"
+	line "いただいて　ありがとう　ございます"
+
+	para "しゃちょう　ともども"
+	line "かんしゃの　きもちで　いっぱいです"
+	done
 
 SilphCo11FGiovanniText:
-	text_far _SilphCo11FGiovanniText
-	text_end
+	text "おお　<PLAYER>か？"
+	line "また　あったな！"
+
+	para "おれは　いま　シルフの　しゃちょうと"
+	line "しごとの　はなしを　してるんだ"
+
+	para "おとなの　せかいに"
+	line "くちを　はさまないで　もらいたい"
+
+	para "どうしても　というなら"
+	line "いたいめに　あって　もらうぞ！"
+	done
 
 SilphCo10FGiovanniILostAgainText:
-	text_far _SilphCo10FGiovanniILostAgainText
-	text_end
+	text "はぐ！"
+	line "この　おれが　まける　なんて！"
+	prompt
 
 SilphCo11FGiovanniYouRuinedOurPlansText:
-	text_far _SilphCo11FGiovanniYouRuinedOurPlansText
-	text_end
+	text "くそー　<⋯>しょうが　ない！"
+	line "シルフは　ひとまず　あきらめよう！"
+
+	para "しかし　"
+	line "わが　<ROCKET>は　ふめつだ！"
+
+	para "<PLAYER>！　すべての　#は"
+	line "<ROCKET>の　ために"
+	cont "そんざい　するのだ！"
+	cont "そのことを　わすれるなよ！"
+
+	para "では<⋯>！"
+	line "おれは　たいさん　しよう！"
+	done
 
 SilphCo11FRocket1Text:
 	text_asm
-	ld hl, SilphCo11TrainerHeader0
+	ld hl, SilphCo11F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo11FRocket1BattleText:
-	text_far _SilphCo11FRocket1BattleText
-	text_end
+	text "こらこら　まて！"
+	line "すすんでは　いかん　というのに"
+	done
 
 SilphCo11FRocket1EndBattleText:
-	text_far _SilphCo11FRocket1EndBattleText
-	text_end
+	text "ううーん　だめだ"
+	prompt
 
 SilphCo11FRocket1AfterBattleText:
-	text_far _SilphCo11FRocket1AfterBattleText
-	text_end
+	text "そうか"
+	line "ボスに　あおうって　いうのかい"
+	done
 
 SilphCo11FRocket2Text:
 	text_asm
-	ld hl, SilphCo11TrainerHeader1
+	ld hl, SilphCo11F_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SilphCo11FRocket2BattleText:
-	text_far _SilphCo11FRocket2BattleText
-	text_end
+	text "なんだ　おまえは"
+	line "ボスに　なんの　ようだ！"
+	done
 
 SilphCo11FRocket2EndBattleText:
-	text_far _SilphCo11FRocket2EndBattleText
-	text_end
+	text "だあー！　やられた"
+	prompt
 
 SilphCo11FRocket2AfterBattleText:
-	text_far _SilphCo11FRocket2AfterBattleText
-	text_end
+	text "いって　おくが　ボスは　つよいぞ"
+	line "くれぐれも　きを　つけな"
+	done
 
 SilphCo10FPorygonText: ; unreferenced
 	text_asm
@@ -391,5 +449,6 @@ SilphCo10FPorygonText: ; unreferenced
 	jp TextScriptEnd
 
 .Text:
-	text_far _SilphCo10FPorygonText
-	text_end
+	text "モニター　がめんに"
+	line "#が　うつってる！"
+	done

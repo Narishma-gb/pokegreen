@@ -26,21 +26,32 @@ Route16FlyHouseBrunetteGirlText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _Route16FlyHouseBrunetteGirlText
-	text_end
+	text "あらま<⋯>！"
+	line "みつかっちゃったわね！"
+
+	para "わたしの　こと"
+	line "だれにも　いわないで"
+	cont "これ　あげる　から"
+	cont "<⋯>　おねがいよ"
+	prompt
 
 .ReceivedHM02Text:
-	text_far _Route16FlyHouseBrunetteGirlReceivedHM02Text
+	text "<PLAYER>は　おんなのこから"
+	line "ひでんマシン０２を　もらった！@"
 	sound_get_key_item
 	text_end
 
 .HM02ExplanationText:
-	text_far _Route16FlyHouseBrunetteGirlHM02ExplanationText
-	text_end
+	text "ひでんマシン０２は　そらをとぶ！"
+	line "とても　べんりな"
+	cont "すばらしい　わざ　なの！"
+
+	para "だいじに　つかってね！"
+	done
 
 .HM02NoRoomText:
-	text_far _Route16FlyHouseBrunetteGirlHM02NoRoomText
-	text_end
+	text "あなた　にもつ　いっぱいよ"
+	done
 
 Route16FlyHouseFearowText:
 	text_asm
@@ -52,5 +63,5 @@ Route16FlyHouseFearowText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _Route16FlyHouseFearowText
-	text_end
+	text "オニドリル『キュイン！"
+	done

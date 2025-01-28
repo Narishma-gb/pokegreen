@@ -45,10 +45,13 @@ PickUpItem:
 	ret
 
 FoundItemText:
-	text_far _FoundItemText
+	text "<PLAYER>は"
+	line "@"
+	text_ram wStringBuffer
+	text "を　みつけた！@"
 	sound_get_item_1
 	text_end
 
 NoMoreRoomForItemText:
-	text_far _NoMoreRoomForItemText
-	text_end
+	text "もちものが　いっぱい！"
+	done

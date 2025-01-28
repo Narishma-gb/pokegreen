@@ -8,9 +8,15 @@ FuchsiaMart_TextPointers:
 	dw_const FuchsiaMartCooltrainerFText,  TEXT_FUCHSIAMART_COOLTRAINER_F
 
 FuchsiaMartMiddleAgedManText:
-	text_far _FuchsiaMartMiddleAgedManText
-	text_end
+	text "サファリゾーン！　と　かかれた"
+	line "ペナントは　ないのかね？"
+
+	para "ちょうちんは？"
+	line "カレンダーも　ないのか！"
+	done
 
 FuchsiaMartCooltrainerFText:
-	text_far _FuchsiaMartCooltrainerFText
-	text_end
+	text "スピーダーは　かって　みた？"
+	line "たたかう　#の　すばやさを"
+	cont "いちじてきに　あげるの"
+	done

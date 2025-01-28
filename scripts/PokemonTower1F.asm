@@ -10,21 +10,32 @@ PokemonTower1F_TextPointers:
 	dw_const PokemonTower1FChannelerText,       TEXT_POKEMONTOWER1F_CHANNELER
 
 PokemonTower1FReceptionistText:
-	text_far _PokemonTower1FReceptionistText
-	text_end
+	text "#　タワーは"
+	line "しんだ　#を　なぐさめるため"
+	cont "たてられた　とう　です"
+	done
 
 PokemonTower1FMiddleAgedWomanText:
-	text_far _PokemonTower1FMiddleAgedWomanText
-	text_end
+	text "あなたも"
+	line "おはか　まいりに　きたの？"
+	cont "#　おもいの　おとこのこ　ね"
+	done
 
 PokemonTower1FBaldingGuyText:
-	text_far _PokemonTower1FBaldingGuyText
-	text_end
+	text "しんだ　ピッピの　コトが"
+	line "わすれられん<⋯>！"
+
+	para "<⋯>イカン！"
+	line "なみだが　でて　きおった<⋯>"
+	done
 
 PokemonTower1FGirlText:
-	text_far _PokemonTower1FGirlText
-	text_end
+	text "ああ　わたしの　ガーディ<⋯>"
+	line "どうして　しんで　しまったの<⋯>"
+	done
 
 PokemonTower1FChannelerText:
-	text_far _PokemonTower1FChannelerText
-	text_end
+	text "わたしは　きとうし！"
+	line "どうも　うえの　かいに"
+	cont "まよえる　たましいを　かんじる"
+	done

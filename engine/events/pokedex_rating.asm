@@ -42,7 +42,7 @@ DisplayDexRating:
 	inc de
 .copyRatingTextLoop
 	ld a, [hli]
-	cp "@"
+	cp "<DONE>"
 	jr z, .doneCopying
 	ld [de], a
 	inc de
@@ -52,8 +52,18 @@ DisplayDexRating:
 	ret
 
 DexCompletionText:
-	text_far _DexCompletionText
-	text_end
+	text "<⋯>　<⋯>　#ずかんの"
+	line "げんざいの　かんせいど　は<⋯>"
+
+	para "みつけた　#　@"
+	text_decimal hDexRatingNumMonsSeen, 1, 3
+	text "！"
+	line "つかまえた　#　@"
+	text_decimal hDexRatingNumMonsOwned, 1, 3
+	text "！"
+
+	para "オーキドはかせの　ひょうか<⋯>"
+	prompt
 
 DexRatingsTable:
 	dbw 10, DexRatingText_Own0To9
@@ -74,65 +84,86 @@ DexRatingsTable:
 	dbw NUM_POKEMON + 1, DexRatingText_Own150To151
 
 DexRatingText_Own0To9:
-	text_far _DexRatingText_Own0To9
-	text_end
+	text "まだまだ<⋯>　これからだ"
+	line "あちこちの　くさむらに　はいって"
+	cont "#を　つかまえるのじゃ！"
+	done
 
 DexRatingText_Own10To19:
-	text_far _DexRatingText_Own10To19
-	text_end
+	text "どうにか　ちょうしが　でてきたな！"
+	line "じょしゅに　フラッシュを"
+	cont "もたせたぞ！　もらって　くれい！"
+	done
 
 DexRatingText_Own20To29:
-	text_far _DexRatingText_Own20To29
-	text_end
+	text "#ずかんに　しては　まだ"
+	line "ボリュームが　たりん！　いろいろな"
+	cont "しゅるいの　#を　とるのじゃ！"
+	done
 
 DexRatingText_Own30To39:
-	text_far _DexRatingText_Own30To39
-	text_end
+	text "ふむ<⋯>　がんばってるな！"
+	line "じょしゅに　ダウジングマシンを"
+	cont "もたせたぞ！　もらって　くれい！"
+	done
 
 DexRatingText_Own40To49:
-	text_far _DexRatingText_Own40To49
-	text_end
+	text "いい　できばえ　じゃないか！"
+	line "じょしゅに　がくしゅうそうちを"
+	cont "もたせたぞ！　もらって　くれい！"
+	done
 
 DexRatingText_Own50To59:
-	text_far _DexRatingText_Own50To59
-	text_end
+	text "ついに　５０しゅるいを　こえたか！"
+	line "<⋯>　この　ちょうし　じゃ！"
+	done
 
 DexRatingText_Own60To69:
-	text_far _DexRatingText_Own60To69
-	text_end
+	text "ほっほう！　<⋯>　こりゃ　いい"
+	line "#ずかんに　なって　きとる！"
+	done
 
 DexRatingText_Own70To79:
-	text_far _DexRatingText_Own70To79
-	text_end
+	text "ぜっこうちょう！　うみで　#"
+	line "つれば　もっと　あつまり　そうじゃ！"
+	done
 
 DexRatingText_Own80To89:
-	text_far _DexRatingText_Own80To89
-	text_end
+	text "ワンダフル！　もしかして　きみは"
+	line "ものを　あつめるの　すきなのか<⋯>？"
+	done
 
 DexRatingText_Own90To99:
-	text_far _DexRatingText_Own90To99
-	text_end
+	text "いやはや<⋯>　こりゃ　すごい！"
+	line "あつめるのは　たいへん　だったろ！"
+	done
 
 DexRatingText_Own100To109:
-	text_far _DexRatingText_Own100To109
-	text_end
+	text "とうとう　１００しゅるい　こえたか！"
+	line "<⋯>　しんじられない　うでまえじゃ！"
+	done
 
 DexRatingText_Own110To119:
-	text_far _DexRatingText_Own110To119
-	text_end
+	text "#の　しんか　けいたいも"
+	line "はいって　きとる<⋯>　すばらしい！"
+	done
 
 DexRatingText_Own120To129:
-	text_far _DexRatingText_Own120To129
-	text_end
+	text "エクセレント！　ともだちと　こうかん"
+	line "すると　もっと　あつまる　かもしれん"
+	done
 
 DexRatingText_Own130To139:
-	text_far _DexRatingText_Own130To139
-	text_end
+	text "ここまで　ずかんが　できたら"
+	line "もはや　プロフェッショナル　じゃ！"
+	done
 
 DexRatingText_Own140To149:
-	text_far _DexRatingText_Own140To149
-	text_end
+	text "わしゃ　もう　いうことは　ない！"
+	line "きみが　#はかせ　じゃ！"
+	done
 
 DexRatingText_Own150To151:
-	text_far _DexRatingText_Own150To151
-	text_end
+	text "ついに　パーフェクトな　ずかんの"
+	line "かんせいじゃ！　<⋯>　おめでとう！"
+	done

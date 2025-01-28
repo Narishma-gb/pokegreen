@@ -44,5 +44,5 @@ DisplayElevatorFloorMenu:
 	ret
 
 WhichFloorText:
-	text_far _WhichFloorText
-	text_end
+	text "なんかいへ　いきますか？"
+	done

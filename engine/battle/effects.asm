@@ -7,9 +7,9 @@ _JumpMoveEffect:
 	ldh a, [hWhoseTurn]
 	and a
 	ld a, [wPlayerMoveEffect]
-	jr z, .next1
+	jr z, .next
 	ld a, [wEnemyMoveEffect]
-.next1
+.next
 	dec a ; subtract 1, there is no special effect for 00
 	add a ; x2, 16bit pointers
 	ld hl, MoveEffectPointerTable
@@ -68,12 +68,14 @@ SleepEffect:
 	jp PrintDidntAffectText
 
 FellAsleepText:
-	text_far _FellAsleepText
-	text_end
+	text "<TARGET>は"
+	line "ねむってしまった！"
+	prompt
 
 AlreadyAsleepText:
-	text_far _AlreadyAsleepText
-	text_end
+	text "<TARGET>は　すでに"
+	line "ねむっている"
+	prompt
 
 PoisonEffect:
 	ld hl, wEnemyMonStatus
@@ -162,12 +164,13 @@ PoisonEffect:
 	jp PrintDidntAffectText
 
 PoisonedText:
-	text_far _PoisonedText
-	text_end
+	text "<TARGET>は　どくをあびた！"
+	prompt
 
 BadlyPoisonedText:
-	text_far _BadlyPoisonedText
-	text_end
+	text "<TARGET>は"
+	line "もうどくをあびた！"
+	prompt
 
 DrainHPEffect:
 	jpfar DrainHPEffect_
@@ -216,8 +219,8 @@ FreezeBurnParalyzeEffect:
 	jr c, .regular_effectiveness
 ; extra effectiveness
 	ld b, 30 percent + 1
-	assert PARALYZE_SIDE_EFFECT2 - PARALYZE_SIDE_EFFECT1 == BURN_SIDE_EFFECT2 - BURN_SIDE_EFFECT1
-	assert PARALYZE_SIDE_EFFECT2 - PARALYZE_SIDE_EFFECT1 == FREEZE_SIDE_EFFECT2 - FREEZE_SIDE_EFFECT1
+	ASSERT PARALYZE_SIDE_EFFECT2 - PARALYZE_SIDE_EFFECT1 == BURN_SIDE_EFFECT2 - BURN_SIDE_EFFECT1
+	ASSERT PARALYZE_SIDE_EFFECT2 - PARALYZE_SIDE_EFFECT1 == FREEZE_SIDE_EFFECT2 - FREEZE_SIDE_EFFECT1
 	sub PARALYZE_SIDE_EFFECT2 - PARALYZE_SIDE_EFFECT1 ; treat extra effective as regular from now on
 .regular_effectiveness
 	push af
@@ -230,7 +233,7 @@ FreezeBurnParalyzeEffect:
 	jr z, .burn1
 	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze1
-; .paralyze1
+; paralyze1
 	ld a, 1 << PAR
 	ld [wEnemyMonStatus], a
 	call QuarterSpeedDueToParalysis ; quarter speed of affected mon
@@ -283,7 +286,7 @@ FreezeBurnParalyzeEffect:
 	jr z, .burn2
 	cp FREEZE_SIDE_EFFECT1
 	jr z, .freeze2
-; .paralyze2
+; paralyze2
 	ld a, 1 << PAR
 	ld [wBattleMonStatus], a
 	call QuarterSpeedDueToParalysis
@@ -302,12 +305,14 @@ FreezeBurnParalyzeEffect:
 	jp PrintText
 
 BurnedText:
-	text_far _BurnedText
-	text_end
+	text "<TARGET>は"
+	line "やけどをおった！"
+	prompt
 
 FrozenText:
-	text_far _FrozenText
-	text_end
+	text "<TARGET>は"
+	line "こおりづけになった！"
+	prompt
 
 CheckDefrost:
 ; any fire-type move that has a chance inflict burn (all but Fire Spin) will defrost a frozen target
@@ -345,8 +350,9 @@ CheckDefrost:
 	jp PrintText
 
 FireDefrostedText:
-	text_far _FireDefrostedText
-	text_end
+	text "ほのおをあびて<TARGET>の"
+	line "こおりが　とけた！"
+	prompt
 
 StatModifierUpEffect:
 	ld hl, wPlayerMonStatMods
@@ -438,20 +444,20 @@ StatModifierUpEffect:
 	call Divide
 	pop hl
 ; cap at MAX_STAT_VALUE (999)
-	ldh a, [hProduct + 3]
+	ldh a, [hQuotient + 3]
 	sub LOW(MAX_STAT_VALUE)
-	ldh a, [hProduct + 2]
+	ldh a, [hQuotient + 2]
 	sbc HIGH(MAX_STAT_VALUE)
 	jp c, UpdateStat
 	ld a, HIGH(MAX_STAT_VALUE)
-	ldh [hMultiplicand + 1], a
+	ldh [hQuotient + 2], a
 	ld a, LOW(MAX_STAT_VALUE)
-	ldh [hMultiplicand + 2], a
+	ldh [hQuotient + 3], a
 
 UpdateStat:
-	ldh a, [hProduct + 2]
+	ldh a, [hQuotient + 2]
 	ld [hli], a
-	ldh a, [hProduct + 3]
+	ldh a, [hQuotient + 3]
 	ld [hl], a
 	pop hl
 UpdateStatDone:
@@ -514,7 +520,10 @@ PrintNothingHappenedText:
 	jp PrintText
 
 MonsStatsRoseText:
-	text_far _MonsStatsRoseText
+	text "<USER>の"
+	line "@"
+	text_ram wStringBuffer
+	text "が@"
 	text_asm
 	ld hl, GreatlyRoseText
 	ldh a, [hWhoseTurn]
@@ -530,11 +539,11 @@ MonsStatsRoseText:
 
 GreatlyRoseText:
 	text_pause
-	text_far _GreatlyRoseText
+	text "<SCROLL>ぐーんと@"
 ; fallthrough
 RoseText:
-	text_far _RoseText
-	text_end
+	text "　あがった！"
+	prompt
 
 StatModifierDownEffect:
 	ld hl, wEnemyMonStatMods
@@ -593,7 +602,7 @@ StatModifierDownEffect:
 	ld a, [de]
 	cp ATTACK_DOWN2_EFFECT - $16 ; $24
 	jr c, .ok
-	cp EVASION_DOWN2_EFFECT + $5 ; $44
+	cp ATTACK_DOWN_SIDE_EFFECT ; always -1 effect for stat mod side effect move
 	jr nc, .ok
 	dec b ; stat down 2 effects only (dec mod again)
 	jr nz, .ok
@@ -657,19 +666,19 @@ StatModifierDownEffect:
 	ld b, $4
 	call Divide
 	pop hl
-	ldh a, [hProduct + 3]
+	ldh a, [hQuotient + 3]
 	ld b, a
-	ldh a, [hProduct + 2]
+	ldh a, [hQuotient + 2]
 	or b
 	jp nz, UpdateLoweredStat
-	ldh [hMultiplicand + 1], a
+	ldh [hQuotient + 2], a
 	ld a, $1
-	ldh [hMultiplicand + 2], a
+	ldh [hQuotient + 3], a
 
 UpdateLoweredStat:
-	ldh a, [hProduct + 2]
+	ldh a, [hQuotient + 2]
 	ld [hli], a
-	ldh a, [hProduct + 3]
+	ldh a, [hQuotient + 3]
 	ld [hl], a
 	pop de
 	pop hl
@@ -680,14 +689,14 @@ UpdateLoweredStatDone:
 	call PrintStatText
 	pop de
 	ld a, [de]
-	cp $44
+	cp ATTACK_DOWN_SIDE_EFFECT ; don't play animation if it's a stat mod side effect move
 	jr nc, .ApplyBadgeBoostsAndStatusPenalties
 	call PlayCurrentMoveAnimation2
 .ApplyBadgeBoostsAndStatusPenalties
 	ldh a, [hWhoseTurn]
 	and a
-	call nz, ApplyBadgeStatBoosts ; whenever the player uses a stat-down move, badge boosts get reapplied again to every stat,
-	                              ; even to those not affected by the stat-up move (will be boosted further)
+	call nz, ApplyBadgeStatBoosts ; whenever the opponent uses a stat-down move, badge boosts get reapplied again to every stat,
+	                              ; even to those not affected by the stat-down move (will be boosted further)
 	ld hl, MonsStatsFellText
 	call PrintText
 
@@ -711,12 +720,15 @@ CantLowerAnymore:
 
 MoveMissed:
 	ld a, [de]
-	cp $44
+	cp ATTACK_DOWN_SIDE_EFFECT
 	ret nc
 	jp ConditionalPrintButItFailed
 
 MonsStatsFellText:
-	text_far _MonsStatsFellText
+	text "<TARGET>の"
+	line "@"
+	text_ram wStringBuffer
+	text "が@"
 	text_asm
 	ld hl, FellText
 	ldh a, [hWhoseTurn]
@@ -735,11 +747,11 @@ MonsStatsFellText:
 
 GreatlyFellText:
 	text_pause
-	text_far _GreatlyFellText
+	text "<SCROLL>がくっと@"
 ; fallthrough
 FellText:
-	text_far _FellText
-	text_end
+	text "　さがった！"
+	prompt
 
 PrintStatText:
 	ld hl, StatModTextStrings
@@ -911,16 +923,18 @@ SwitchAndTeleportEffect:
 	jp PrintText
 
 RanFromBattleText:
-	text_far _RanFromBattleText
-	text_end
+	text "<USER>は　せんとうから"
+	line "りだつした！"
+	prompt
 
 RanAwayScaredText:
-	text_far _RanAwayScaredText
-	text_end
+	text "<TARGET>は　おじけずいて"
+	line "にげだした！"
+	prompt
 
 WasBlownAwayText:
-	text_far _WasBlownAwayText
-	text_end
+	text "<TARGET>は　ふきとばされた！"
+	prompt
 
 TwoToFiveAttacksEffect:
 	ld hl, wPlayerBattleStatus1
@@ -979,6 +993,7 @@ FlinchSideEffect:
 	ld hl, wPlayerBattleStatus1
 	ld de, wEnemyMoveEffect
 .flinchSideEffect
+	call ClearHyperBeam
 	ld a, [de]
 	cp FLINCH_SIDE_EFFECT1
 	ld b, 10 percent + 1 ; chance of flinch (FLINCH_SIDE_EFFECT1)
@@ -989,7 +1004,6 @@ FlinchSideEffect:
 	cp b
 	ret nc
 	set FLINCHED, [hl] ; set mon's status to flinching
-	call ClearHyperBeam
 	ret
 
 OneHitKOEffect:
@@ -1030,7 +1044,7 @@ ChargeEffect:
 	jp PrintText
 
 ChargeMoveEffectText:
-	text_far _ChargeMoveEffectText
+	text "<USER>@"
 	text_asm
 	ld a, [wChargeMoveNum]
 	cp RAZOR_WIND
@@ -1054,28 +1068,34 @@ ChargeMoveEffectText:
 	ret
 
 MadeWhirlwindText:
-	text_far _MadeWhirlwindText
-	text_end
+	text "の　まわりで"
+	line "くうきが　うずを　まく！"
+	prompt
 
 TookInSunlightText:
-	text_far _TookInSunlightText
-	text_end
+	text "は"
+	line "ひかりを　きゅうしゅうした！"
+	prompt
 
 LoweredItsHeadText:
-	text_far _LoweredItsHeadText
-	text_end
+	text "は"
+	line "くびを　ひっこめた！"
+	prompt
 
 SkyAttackGlowingText:
-	text_far _SkyAttackGlowingText
-	text_end
+	text "を"
+	line "はげしい　ひかりが　つつむ！"
+	prompt
 
 FlewUpHighText:
-	text_far _FlewUpHighText
-	text_end
+	text "は"
+	line "そらたかく　とびあがった！"
+	prompt
 
 DugAHoleText:
-	text_far _DugAHoleText
-	text_end
+	text "は"
+	line "あなをほって　ちちゅうに　もぐった！"
+	prompt
 
 TrappingEffect:
 	ld hl, wPlayerBattleStatus1
@@ -1152,8 +1172,9 @@ ConfusionSideEffectSuccess:
 	jp PrintText
 
 BecameConfusedText:
-	text_far _BecameConfusedText
-	text_end
+	text "<TARGET>は"
+	line "こんらんした！"
+	prompt
 
 ConfusionEffectFailed:
 	cp CONFUSION_SIDE_EFFECT
@@ -1273,8 +1294,11 @@ MimicEffect:
 	jp PrintButItFailedText_
 
 MimicLearnedMoveText:
-	text_far _MimicLearnedMoveText
-	text_end
+	text "<USER>は"
+	line "@"
+	text_ram wNameBuffer
+	text "を　おぼえた！"
+	prompt
 
 LeechSeedEffect:
 	jpfar LeechSeedEffect_
@@ -1321,7 +1345,7 @@ DisableEffect:
 	cp LINK_STATE_BATTLING
 	pop hl ; wEnemyMonMoves
 	jr nz, .playerTurnNotLinkBattle
-; .playerTurnLinkBattle
+; playerTurnLinkBattle
 	push hl
 	ld hl, wEnemyMonPP
 .enemyTurn
@@ -1367,8 +1391,11 @@ DisableEffect:
 	jp PrintButItFailedText_
 
 MoveWasDisabledText:
-	text_far _MoveWasDisabledText
-	text_end
+	text "<TARGET>の"
+	line "@"
+	text_ram wNameBuffer
+	text "を　ふうじこめた！"
+	prompt
 
 PayDayEffect:
 	jpfar PayDayEffect_
@@ -1389,16 +1416,16 @@ ReflectLightScreenEffect:
 	jpfar ReflectLightScreenEffect_
 
 NothingHappenedText:
-	text_far _NothingHappenedText
-	text_end
+	text "しかし　こうかが　なかった！"
+	prompt
 
 PrintNoEffectText:
 	ld hl, NoEffectText
 	jp PrintText
 
 NoEffectText:
-	text_far _NoEffectText
-	text_end
+	text "しかし　なにもおこらない"
+	prompt
 
 ConditionalPrintButItFailed:
 	ld a, [wMoveDidntMiss]
@@ -1410,37 +1437,40 @@ PrintButItFailedText_:
 	jp PrintText
 
 ButItFailedText:
-	text_far _ButItFailedText
-	text_end
+	text "しかし　うまく　きまらなかった！"
+	prompt
 
 PrintDidntAffectText:
 	ld hl, DidntAffectText
 	jp PrintText
 
 DidntAffectText:
-	text_far _DidntAffectText
-	text_end
+	text "しかし　<TARGET>には"
+	line "きかなかった！"
+	prompt
 
 IsUnaffectedText:
-	text_far _IsUnaffectedText
-	text_end
+	text "<TARGET>は"
+	line "へいきな　かおを　している！"
+	prompt
 
 PrintMayNotAttackText:
 	ld hl, ParalyzedMayNotAttackText
 	jp PrintText
 
 ParalyzedMayNotAttackText:
-	text_far _ParalyzedMayNotAttackText
-	text_end
+	text "<TARGET>は　まひして"
+	line "わざが　でにくくなった！"
+	prompt
 
 CheckTargetSubstitute:
 	push hl
 	ld hl, wEnemyBattleStatus2
 	ldh a, [hWhoseTurn]
 	and a
-	jr z, .next1
+	jr z, .next
 	ld hl, wPlayerBattleStatus2
-.next1
+.next
 	bit HAS_SUBSTITUTE_UP, [hl]
 	pop hl
 	ret
@@ -1456,7 +1486,7 @@ PlayCurrentMoveAnimation2:
 .notEnemyTurn
 	and a
 	ret z
-
+; fallthrough
 PlayBattleAnimation2:
 ; play animation ID at a and animation type 6 or 3
 	ld [wAnimationID], a
@@ -1482,7 +1512,7 @@ PlayCurrentMoveAnimation:
 .notEnemyTurn
 	and a
 	ret z
-
+; fallthrough
 PlayBattleAnimation:
 ; play animation ID at a and predefined animation type
 	ld [wAnimationID], a

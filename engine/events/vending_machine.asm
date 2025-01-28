@@ -25,9 +25,6 @@ VendingMachineMenu::
 	hlcoord 2, 5
 	ld de, DrinkText
 	call PlaceString
-	hlcoord 9, 6
-	ld de, DrinkPriceText
-	call PlaceString
 	ld hl, wStatusFlags5
 	res BIT_NO_TEXT_DELAY, [hl]
 	call HandleMenuInput
@@ -81,36 +78,32 @@ VendingMachineMenu::
 	jp PrintText
 
 VendingMachineText1:
-	text_far _VendingMachineText1
-	text_end
+	text "じどう　はんばいき　だ！"
+	line "ほしい　のみものは<⋯>　<⋯>"
+	prompt
 
 DrinkText:
-	db   "FRESH WATER"
-	next "SODA POP"
-	next "LEMONADE"
-	next "CANCEL@"
-
-DrinkPriceText:
-	db   "¥200"
-	next "¥300"
-	next "¥350"
-	next "@"
+	db   "おいしいみず　２００円"
+	next "サイコソーダ　３００円"
+	next "ミックスオレ　３５０円"
+	next "いらない@"
 
 VendingMachineText4:
-	text_far _VendingMachineText4
-	text_end
+	text "おかねが　たりないぞ！"
+	done
 
 VendingMachineText5:
-	text_far _VendingMachineText5
-	text_end
+	text_ram wStringBuffer
+	text "が　でてきた！"
+	done
 
 VendingMachineText6:
-	text_far _VendingMachineText6
-	text_end
+	text "これ　いじょう　もてない！"
+	done
 
 VendingMachineText7:
-	text_far _VendingMachineText7
-	text_end
+	text "やっぱり　やめた！"
+	done
 
 LoadVendingMachineItem:
 	ld hl, VendingPrices

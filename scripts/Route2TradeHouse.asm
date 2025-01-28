@@ -7,8 +7,12 @@ Route2TradeHouse_TextPointers:
 	dw_const Route2TradeHouseGameboyKidText, TEXT_ROUTE2TRADEHOUSE_GAMEBOY_KID
 
 Route2TradeHouseScientistText:
-	text_far _Route2TradeHouseScientistText
-	text_end
+	text "#の　ひんし　じょうたいは"
+	line "たたかう　げんきが　ない　だけで"
+
+	para "いあいぎり　などの　わざは"
+	line "いつもの　ように　つかえる！"
+	done
 
 Route2TradeHouseGameboyKidText:
 	text_asm

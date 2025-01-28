@@ -13,16 +13,22 @@ CeladonMansion3F_TextPointers:
 	dw_const CeladonMansion3FDevRoomSignText,    TEXT_CELADONMANSION3F_DEV_ROOM_SIGN
 
 CeladonMansion3FProgrammerText:
-	text_far _CeladonMansion3FProgrammerText
-	text_end
+	text "おれ？　プログラマー　だよ！"
+	done
 
 CeladonMansion3FGraphicArtistText:
-	text_far _CeladonMansion3FGraphicArtistText
-	text_end
+	text "おれ　グラフィッカー！"
+	line "おまえを　かいたの　おれさ！"
+	done
 
 CeladonMansion3FWriterText:
-	text_far _CeladonMansion3FWriterText
-	text_end
+	text "ぼく　シナリオ　かいた！"
+	line "あの<⋯>　エリカ　かわいい　でしょ"
+
+	para "カスミも　いいよね！"
+
+	para "ナツメも　いいよね！"
+	done
 
 CeladonMansion3FGameDesignerText:
 	text_asm
@@ -41,11 +47,23 @@ CeladonMansion3FGameDesignerText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _CeladonMansion3FGameDesignerText
-	text_end
+	text "そーですかー！"
+
+	para "ぼくは　ゲーム　デザイナー"
+
+	para "#ずかん　ぜんぶ　あつめるの"
+	line "たいへん　だけど　がんばって！"
+	cont "もし　ぜんぶ　あつめたら"
+
+	para "おしえてね！"
+	done
 
 .CompletedDexText:
-	text_far _CeladonMansion3FGameDesignerCompletedDexText
+	text "わあ　すごい！"
+	line "#ずかん　ぜんぶの　ページ"
+	cont "とうとう　あつめたんだね！"
+	cont "おめでとう！"
+	cont "<⋯><⋯>@"
 	text_promptbutton
 	text_asm
 	callfar DisplayDiploma
@@ -54,17 +72,21 @@ CeladonMansion3FGameDesignerText:
 	jp TextScriptEnd
 
 CeladonMansion3FGameProgramPCText:
-	text_far _CeladonMansion3FGameProgramPCText
-	text_end
+	text "ゲームの　プログラムだ！"
+	line "これ　かえたら　バグる　かも"
+	done
 
 CeladonMansion3FPlayingGamePCText:
-	text_far _CeladonMansion3FPlayingGamePCText
-	text_end
+	text "<PC>で　しごと　ちゅう<⋯>"
+	line "と　おもったら　ゲーム　だった！"
+	done
 
 CeladonMansion3FGameScriptPCText:
-	text_far _CeladonMansion3FGameScriptPCText
-	text_end
+	text "<⋯>　ポケモンの　シナリオだ！"
+	line "これは　エンディングだ！"
+	cont "いまは　みないで　おこう<⋯>！"
+	done
 
 CeladonMansion3FDevRoomSignText:
-	text_far _CeladonMansion3FDevRoomSignText
-	text_end
+	text "ゲームフリーク　かいはつ　しつ"
+	done

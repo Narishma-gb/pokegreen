@@ -7,9 +7,14 @@ ViridianSchoolHouse_TextPointers:
 	dw_const ViridianSchoolHouseCooltrainerFText, TEXT_VIRIDIANSCHOOLHOUSE_COOLTRAINER_F
 
 ViridianSchoolHouseBrunetteGirlText:
-	text_far _ViridianSchoolHouseBrunetteGirlText
-	text_end
+	text "ふー"
+	line "ノートの　なかの　こと"
+	cont "わたし　ぜんぶ　おぼえるの"
+	done
 
 ViridianSchoolHouseCooltrainerFText:
-	text_far _ViridianSchoolHouseCooltrainerFText
-	text_end
+	text "はい！"
+
+	para "こくばんに　かかれてる　こと"
+	line "ちゃんと　みて！"
+	done

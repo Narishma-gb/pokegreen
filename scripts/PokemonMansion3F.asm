@@ -1,7 +1,7 @@
 PokemonMansion3F_Script:
 	call Mansion3CheckReplaceSwitchDoorBlocks
 	call EnableAutoTextBoxDrawing
-	ld hl, Mansion3TrainerHeaders
+	ld hl, PokemonMansion3F_TrainerHeaders
 	ld de, PokemonMansion3F_ScriptPointers
 	ld a, [wPokemonMansion3FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -92,50 +92,56 @@ PokemonMansion3F_TextPointers:
 	dw_const PokemonMansion3FDiaryText,     TEXT_POKEMONMANSION3F_DIARY
 	dw_const PokemonMansion2FSwitchText,    TEXT_POKEMONMANSION3F_SWITCH ; This switch uses the text script from the 2F.
 
-Mansion3TrainerHeaders:
-	def_trainers
-Mansion3TrainerHeader0:
-	trainer EVENT_BEAT_MANSION_3_TRAINER_0, 0, PokemonMansion3FSuperNerdBattleText, PokemonMansion3FSuperNerdEndBattleText, PokemonMansion3FSuperNerdAfterBattleText
-Mansion3TrainerHeader1:
-	trainer EVENT_BEAT_MANSION_3_TRAINER_1, 2, PokemonMansion3FScientistBattleText, PokemonMansion3FScientistEndBattleText, PokemonMansion3FScientistAfterBattleText
+	def_trainers PokemonMansion3F
+	trainer EVENT_BEAT_MANSION_3_TRAINER_0, 0, SuperNerd
+	trainer EVENT_BEAT_MANSION_3_TRAINER_1, 2, Scientist
 	db -1 ; end
 
 PokemonMansion3FSuperNerdText:
 	text_asm
-	ld hl, Mansion3TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-PokemonMansion3FScientistText:
-	text_asm
-	ld hl, Mansion3TrainerHeader1
+	ld hl, PokemonMansion3F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 PokemonMansion3FSuperNerdBattleText:
-	text_far _PokemonMansion3FSuperNerdBattleText
-	text_end
+	text "それに　しても"
+	line "でっけー　やしき　だねえ！"
+	done
 
 PokemonMansion3FSuperNerdEndBattleText:
-	text_far _PokemonMansion3FSuperNerdEndBattleText
-	text_end
+	text "どろどろ　ぼーん！"
+	prompt
 
 PokemonMansion3FSuperNerdAfterBattleText:
-	text_far _PokemonMansion3FSuperNerdAfterBattleText
-	text_end
+	text "<⋯>　あいぼうが　いたんだ"
+	line "どこ　いったんだろ？"
+	done
+
+PokemonMansion3FScientistText:
+	text_asm
+	ld hl, PokemonMansion3F_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 PokemonMansion3FScientistBattleText:
-	text_far _PokemonMansion3FScientistBattleText
-	text_end
+	text "ここは　かつて"
+	line "わたしの　せんせいが　すんでいた"
+	done
 
 PokemonMansion3FScientistEndBattleText:
-	text_far _PokemonMansion3FScientistEndBattleText
-	text_end
+	text "なんと　つよい"
+	prompt
 
 PokemonMansion3FScientistAfterBattleText:
-	text_far _PokemonMansion3FScientistAfterBattleText
-	text_end
+	text "いきたい　ばしょに　いけなくて"
+	line "こまってるのか<⋯>　そこから"
+	cont "おもいきって　とびおりて　みろ！"
+	done
 
 PokemonMansion3FDiaryText:
-	text_far _PokemonMansion3FDiaryText
-	text_end
+	text "にっき　２がつ６か"
+	line "ミュウが　こどもを　うむ"
+
+	para "うまれた　ばかりの　ジュニアを"
+	line "ミュウツーと　よぶことに<⋯>"
+	done

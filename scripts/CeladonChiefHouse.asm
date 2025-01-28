@@ -9,13 +9,23 @@ CeladonChiefHouse_TextPointers:
 	dw_const CeladonChiefHouseSailorText, TEXT_CELADONCHIEFHOUSE_SAILOR
 
 CeladonChiefHouseChiefText:
-	text_far _CeladonChiefHouseChiefText
-	text_end
+	text "けへへ<⋯>！"
+	line "スロットは　だい　はんじょう！"
+	cont "もうかって　しかたないわ！"
+	done
 
 CeladonChiefHouseRocketText:
-	text_far _CeladonChiefHouseRocketText
-	text_end
+	text "チーフ！"
+
+	para "きょうも　スロットの　うりあげで"
+	line "しいれた　#　２０００ひき"
+	cont "しゅっか　しやした！"
+	done
 
 CeladonChiefHouseSailorText:
-	text_far _CeladonChiefHouseSailorText
-	text_end
+	text "ゲーム　コーナーに　はって　ある"
+	line "ポスターには　さわんな！"
+
+	para "うらに　スイッチが　かくして　ある"
+	line "なんて　こと　ないから！"
+	done

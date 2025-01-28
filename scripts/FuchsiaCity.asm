@@ -29,44 +29,61 @@ FuchsiaCity_TextPointers:
 	dw_const FuchsiaCityFossilSignText,      TEXT_FUCHSIACITY_FOSSIL_SIGN
 
 FuchsiaCityYoungster1Text:
-	text_far _FuchsiaCityYoungster1Text
-	text_end
+	text "サファリ　ゲーム　もう　やった？"
+	line "あそこでしか　とれない"
+	cont "めずらしい　#も　いるよ！"
+	done
 
 FuchsiaCityGamblerText:
-	text_far _FuchsiaCityGamblerText
-	text_end
+	text "サファリ　ゾーンは"
+	line "いりぐち　ふきんは　どうぶつえんで"
+
+	para "おくに　いくと　#が"
+	line "とりほうだいの　サファリ　ゲームじゃ"
+	done
 
 FuchsiaCityErikText:
-	text_far _FuchsiaCityErikText
-	text_end
+	text "コージ『おかしいな？　アツコと"
+	line "#とりで　まちあわせって<⋯>"
+	cont "とり#が　みつからない！"
+	done
 
 FuchsiaCityYoungster2Text:
-	text_far _FuchsiaCityYoungster2Text
-	text_end
+	text "あの　アイテム　ボール"
+	line "ほしいって　おもった？"
+	cont "<⋯>　<⋯>　<⋯>　ぼくもさ！"
+	cont "<⋯>　え　あれ　いきものなの？"
+	done
 
 FuchsiaCityPokemonText:
-	text_far _FuchsiaCityPokemonText
-	text_end
+	text "！"
+	done
 
 FuchsiaCitySignText:
-	text_far _FuchsiaCitySignText
-	text_end
+	text "ここは　セキチク　シティ"
+	line "セキチクは　ピンク　はなやかな　いろ"
+	done
 
 FuchsiaCitySafariGameSignText:
-	text_far _FuchsiaCitySafariGameSignText
-	text_end
+	text "めいぶつ！　サファリ　ゲーム！"
+	line "<⋯>　<⋯>　#　とりほうだい！"
+	done
 
 FuchsiaCityWardensHomeSignText:
-	text_far _FuchsiaCityWardensHomeSignText
-	text_end
+	text "サファリ　ゾーン"
+	line "えんちょうの　いえ"
+	done
 
 FuchsiaCitySafariZoneSignText:
-	text_far _FuchsiaCitySafariZoneSignText
-	text_end
+	text "いろんな　#　いっぱい！"
+	line "サファリ　ゾーンに　ようこそ！"
+	done
 
 FuchsiaCityGymSignText:
-	text_far _FuchsiaCityGymSignText
-	text_end
+	text "セキチク　シティ　#　ジム"
+	line "リーダー　キョウ"
+	cont "どくの　ことなら　なんでも　ござれ"
+	done
 
 FuchsiaCityChanseySignText:
 	text_asm
@@ -77,8 +94,9 @@ FuchsiaCityChanseySignText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _FuchsiaCityChanseySignText
-	text_end
+	text "なまえ　ラッキー"
+	line "つかまえたら　スーパー　ラッキー！"
+	prompt
 
 FuchsiaCityVoltorbSignText:
 	text_asm
@@ -89,8 +107,9 @@ FuchsiaCityVoltorbSignText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _FuchsiaCityVoltorbSignText
-	text_end
+	text "なまえ　ビリリダマ"
+	line "モンスター　ボールに　そっくり！"
+	prompt
 
 FuchsiaCityKangaskhanSignText:
 	text_asm
@@ -101,8 +120,12 @@ FuchsiaCityKangaskhanSignText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _FuchsiaCityKangaskhanSignText
-	text_end
+	text "なまえ　ガルーラ"
+	line "なかの　よい　おやこ　#！"
+
+	para "おなかに　こどもを　いれて"
+	line "そだてて　います！"
+	prompt
 
 FuchsiaCitySlowpokeSignText:
 	text_asm
@@ -113,8 +136,10 @@ FuchsiaCitySlowpokeSignText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _FuchsiaCitySlowpokeSignText
-	text_end
+	text "なまえ　ヤドン"
+	line "ひとなつこい　せいかくが　にんき！"
+	cont "うごきが　のろい　#！"
+	prompt
 
 FuchsiaCityLaprasSignText:
 	text_asm
@@ -125,8 +150,10 @@ FuchsiaCityLaprasSignText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _FuchsiaCityLaprasSignText
-	text_end
+	text "なまえ　ラプラス"
+	line "シー　ドラゴン　とも　よばれる"
+	cont "うみの　おうじゃ　です！"
+	prompt
 
 FuchsiaCityFossilSignText:
 	text_asm
@@ -152,13 +179,17 @@ FuchsiaCityFossilSignText:
 	jp TextScriptEnd
 
 .OmanyteText:
-	text_far _FuchsiaCityFossilSignOmanyteText
-	text_end
+	text "なまえ　オムナイト"
+	line "カセキ　から　いき　かえった"
+	cont "めずらしい　#！"
+	prompt
 
 .KabutoText:
-	text_far _FuchsiaCityFossilSignKabutoText
-	text_end
+	text "なまえ　カブト"
+	line "カセキ　から　いき　かえった"
+	cont "めずらしい　#！"
+	prompt
 
 .UndeterminedText:
-	text_far _FuchsiaCityFossilSignUndeterminedText
-	text_end
+	text "<⋯>"
+	done

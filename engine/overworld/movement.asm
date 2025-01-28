@@ -140,7 +140,7 @@ UpdateNPCSprite:
 	ld b, a
 	ld a, [wFontLoaded]
 	bit BIT_FONT_LOADED, a
-	jp nz, notYetMoving
+	jp nz, NotYetMoving
 	ld a, b
 	cp $2
 	jp z, UpdateSpriteMovementDelay  ; [x#SPRITESTATEDATA1_MOVEMENTSTATUS] == 2
@@ -210,7 +210,7 @@ UpdateNPCSprite:
 	cp LEFT_RIGHT
 	jr z, .moveLeft
 .moveDown
-	ld de, 2*SCREEN_WIDTH
+	ld de, 2 * SCREEN_WIDTH
 	add hl, de         ; move tile pointer two rows down
 	lb de, 1, 0
 	lb bc, 4, SPRITE_FACING_DOWN
@@ -222,7 +222,7 @@ UpdateNPCSprite:
 	cp LEFT_RIGHT
 	jr z, .moveRight
 .moveUp
-	ld de, -2*SCREEN_WIDTH
+	ld de, -2 * SCREEN_WIDTH
 	add hl, de         ; move tile pointer two rows up
 	lb de, -1, 0
 	lb bc, 8, SPRITE_FACING_UP
@@ -389,14 +389,15 @@ UpdateSpriteMovementDelay:
 	jr .moving
 .tickMoveCounter
 	dec [hl]                ; x#SPRITESTATEDATA2_MOVEMENTDELAY
-	jr nz, notYetMoving
+	jr nz, NotYetMoving
 .moving
 	dec h
 	ldh a, [hCurrentSpriteOffset]
 	inc a
 	ld l, a
 	ld [hl], $1             ; [x#SPRITESTATEDATA1_MOVEMENTSTATUS] = 1 (mark as ready to move)
-notYetMoving:
+	; fall through
+NotYetMoving:
 	ld h, HIGH(wSpriteStateData1)
 	ldh a, [hCurrentSpriteOffset]
 	add SPRITESTATEDATA1_ANIMFRAMECOUNTER
@@ -411,7 +412,7 @@ MakeNPCFacePlayer:
 ; disabled. This is only done when rubbing the S.S. Anne captain's back.
 	ld a, [wStatusFlags3]
 	bit BIT_NO_NPC_FACE_PLAYER, a
-	jr nz, notYetMoving
+	jr nz, NotYetMoving
 	res BIT_FACE_PLAYER, [hl]
 	ld a, [wPlayerDirection]
 	bit PLAYER_DIR_BIT_UP, a
@@ -435,7 +436,7 @@ MakeNPCFacePlayer:
 	add $9
 	ld l, a
 	ld [hl], c              ; [x#SPRITESTATEDATA1_FACINGDIRECTION]: set facing direction
-	jr notYetMoving
+	jr NotYetMoving
 
 InitializeSpriteStatus:
 	ld [hl], $1   ; [x#SPRITESTATEDATA1_MOVEMENTSTATUS] = ready
@@ -595,7 +596,7 @@ CanWalkOntoTile:
 .notScripted
 	ld a, [wTilesetCollisionPtr]
 	ld l, a
-	ld a, [wTilesetCollisionPtr+1]
+	ld a, [wTilesetCollisionPtr + 1]
 	ld h, a
 .tilePassableLoop
 	ld a, [hli]
@@ -661,7 +662,8 @@ CanWalkOntoTile:
 	bit 7, e           ; check if going left (e == -1)
 	jr nz, .left
 	add e
-	cp $5              ; compare, but no conditional jump like in the vertical check above (bug?)
+	cp $5              ; same behaviour as above, 5 steps left
+	jr c, .impassable  ; if [x#SPRITESTATEDATA2_XDISPLACEMENT]+e < 5, don't go
 	jr .passable
 .left
 	sub $1

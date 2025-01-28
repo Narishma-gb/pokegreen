@@ -1,6 +1,6 @@
 Route8_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, Route8TrainerHeaders
+	ld hl, Route8_TrainerHeaders
 	ld de, Route8_ScriptPointers
 	ld a, [wRoute8CurScript]
 	call ExecuteCurMapScriptInTable
@@ -26,190 +26,218 @@ Route8_TextPointers:
 	dw_const Route8CooltrainerF4Text,   TEXT_ROUTE8_COOLTRAINER_F4
 	dw_const Route8UndergroundSignText, TEXT_ROUTE8_UNDERGROUND_SIGN
 
-Route8TrainerHeaders:
-	def_trainers
-Route8TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_8_TRAINER_0, 4, Route8SuperNerd1BattleText, Route8SuperNerd1EndBattleText, Route8SuperNerd1AfterBattleText
-Route8TrainerHeader1:
-	trainer EVENT_BEAT_ROUTE_8_TRAINER_1, 4, Route8Gambler1BattleText, Route8Gambler1EndBattleText, Route8Gambler1AfterBattleText
-Route8TrainerHeader2:
-	trainer EVENT_BEAT_ROUTE_8_TRAINER_2, 4, Route8SuperNerd2BattleText, Route8SuperNerd2EndBattleText, Route8SuperNerd2AfterBattleText
-Route8TrainerHeader3:
-	trainer EVENT_BEAT_ROUTE_8_TRAINER_3, 2, Route8CooltrainerF1BattleText, Route8CooltrainerF21EndBattleText, Route8CooltrainerF1AfterBattleText
-Route8TrainerHeader4:
-	trainer EVENT_BEAT_ROUTE_8_TRAINER_4, 3, Route8SuperNerd3BattleText, Route8SuperNerd3EndBattleText, Route8SuperNerd3AfterBattleText
-Route8TrainerHeader5:
-	trainer EVENT_BEAT_ROUTE_8_TRAINER_5, 3, Route8CooltrainerF2BattleText, Route8CooltrainerF2EndBattleText, Route8CooltrainerF2AfterBattleText
-Route8TrainerHeader6:
-	trainer EVENT_BEAT_ROUTE_8_TRAINER_6, 2, Route8CooltrainerF3BattleText, Route8CooltrainerF3EndBattleText, Route8CooltrainerF3AfterBattleText
-Route8TrainerHeader7:
-	trainer EVENT_BEAT_ROUTE_8_TRAINER_7, 2, Route8Gambler2BattleText, Route8Gambler2EndBattleText, Route8Gambler2AfterBattleText
-Route8TrainerHeader8:
-	trainer EVENT_BEAT_ROUTE_8_TRAINER_8, 4, Route8CooltrainerF4BattleText, Route8CooltrainerF4EndBattleText, Route8CooltrainerF4AfterBattleText
+	def_trainers Route8
+	trainer EVENT_BEAT_ROUTE_8_TRAINER_0, 4, SuperNerd1
+	trainer EVENT_BEAT_ROUTE_8_TRAINER_1, 4, Gambler1
+	trainer EVENT_BEAT_ROUTE_8_TRAINER_2, 4, SuperNerd2
+	trainer EVENT_BEAT_ROUTE_8_TRAINER_3, 2, CooltrainerF1
+	trainer EVENT_BEAT_ROUTE_8_TRAINER_4, 3, SuperNerd3
+	trainer EVENT_BEAT_ROUTE_8_TRAINER_5, 3, CooltrainerF2
+	trainer EVENT_BEAT_ROUTE_8_TRAINER_6, 2, CooltrainerF3
+	trainer EVENT_BEAT_ROUTE_8_TRAINER_7, 2, Gambler2
+	trainer EVENT_BEAT_ROUTE_8_TRAINER_8, 4, CooltrainerF4
 	db -1 ; end
 
 Route8SuperNerd1Text:
 	text_asm
-	ld hl, Route8TrainerHeader0
+	ld hl, Route8_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route8SuperNerd1BattleText:
-	text_far _Route8SuperNerd1BattleText
-	text_end
+	text "きみ　#　つよそう　だけど"
+	line "りかは　とくい　なのかい？"
+	done
 
 Route8SuperNerd1EndBattleText:
-	text_far _Route8SuperNerd1EndBattleText
-	text_end
+	text "がーん！　ばったり"
+	prompt
 
 Route8SuperNerd1AfterBattleText:
-	text_far _Route8SuperNerd1AfterBattleText
-	text_end
+	text "ぼくは　やっぱり"
+	line "べんきょうの　ほうが　あってる"
+	done
 
 Route8Gambler1Text:
 	text_asm
-	ld hl, Route8TrainerHeader1
+	ld hl, Route8_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route8Gambler1BattleText:
-	text_far _Route8Gambler1BattleText
-	text_end
+	text "よっしゃ！"
+	line "たたかって　うんだめし　するか"
+	done
 
 Route8Gambler1EndBattleText:
-	text_far _Route8Gambler1EndBattleText
-	text_end
+	text "<⋯>　きょうは"
+	line "しょうぶ　うん　わるし！"
+	prompt
 
 Route8Gambler1AfterBattleText:
-	text_far _Route8Gambler1AfterBattleText
-	text_end
+	text "どうも　きょうは　ついてねえ"
+	line "じっと　してよう"
+	done
 
 Route8SuperNerd2Text:
 	text_asm
-	ld hl, Route8TrainerHeader2
+	ld hl, Route8_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route8SuperNerd2BattleText:
-	text_far _Route8SuperNerd2BattleText
-	text_end
+	text "あのね"
+	line "たたかい　には　せんりゃくが"
+	cont "ひつよう　なんだ"
+	done
 
 Route8SuperNerd2EndBattleText:
-	text_far _Route8SuperNerd2EndBattleText
-	text_end
+	text "りかい　できない！"
+	prompt
 
 Route8SuperNerd2AfterBattleText:
-	text_far _Route8SuperNerd2AfterBattleText
-	text_end
+	text "はじめに　ベトベター　だして<⋯>"
+	line "いいや　ほかので　いっきに<⋯>"
+	cont "<⋯>　うーん　ブツ　ブツ<⋯>"
+	done
 
 Route8CooltrainerF1Text:
 	text_asm
-	ld hl, Route8TrainerHeader3
+	ld hl, Route8_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route8CooltrainerF1BattleText:
-	text_far _Route8CooltrainerF1BattleText
-	text_end
+	text "あたし　ニドラン　すき　だから"
+	line "たくさん　あつめてるの"
+	done
 
-Route8CooltrainerF21EndBattleText:
-	text_far _Route8CooltrainerF21EndBattleText
-	text_end
+Route8CooltrainerF1EndBattleText:
+	text "なんで　なんでー"
+	prompt
 
 Route8CooltrainerF1AfterBattleText:
-	text_far _Route8CooltrainerF1AfterBattleText
-	text_end
+	text "#って　そだって　くると"
+	line "かわいく　なくなって　きちゃう"
+	cont "しんか　しないほうが　かわいいわ！"
+	done
 
 Route8SuperNerd3Text:
 	text_asm
-	ld hl, Route8TrainerHeader4
+	ld hl, Route8_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route8SuperNerd3BattleText:
-	text_far _Route8SuperNerd3BattleText
-	text_end
+	text "べんきょうも　いいけど<⋯>"
+	line "#も　いいね"
+	done
 
 Route8SuperNerd3EndBattleText:
-	text_far _Route8SuperNerd3EndBattleText
-	text_end
+	text "<⋯>　わかった"
+	line "ぼくには　べんきょう　しか　ない"
+	prompt
 
 Route8SuperNerd3AfterBattleText:
-	text_far _Route8SuperNerd3AfterBattleText
-	text_end
+	text "たまには　そとの　くうき　すいに"
+	line "いこうと　おもったのに"
+	cont "ヤマブキの　ゲートの　せいで"
+	cont "みんな　ここで　あしどめだ"
+	done
 
 Route8CooltrainerF2Text:
 	text_asm
-	ld hl, Route8TrainerHeader5
+	ld hl, Route8_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route8CooltrainerF2BattleText:
-	text_far _Route8CooltrainerF2BattleText
-	text_end
+	text "ニャース　って"
+	line "ちょー　かわいーの！"
+	cont "にゃー　にゃー　にゃー！"
+	done
 
 Route8CooltrainerF2EndBattleText:
-	text_far _Route8CooltrainerF2EndBattleText
-	text_end
+	text "そんにゃー！"
+	prompt
 
 Route8CooltrainerF2AfterBattleText:
-	text_far _Route8CooltrainerF2AfterBattleText
-	text_end
+	text "やーん！"
+	line "ポッポも　コラッタも　かわいー"
+	cont "あたし　まよっちゃう！"
+	done
 
 Route8CooltrainerF3Text:
 	text_asm
-	ld hl, Route8TrainerHeader6
+	ld hl, Route8_TrainerHeader6
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route8CooltrainerF3BattleText:
-	text_far _Route8CooltrainerF3BattleText
-	text_end
+	text "こうして　ならんでると"
+	line "はないち　もんめ　してる　みたい"
+	done
 
 Route8CooltrainerF3EndBattleText:
-	text_far _Route8CooltrainerF3EndBattleText
-	text_end
+	text "ひどーい！"
+	line "みんな　かわいい　#　なのに"
+	prompt
 
 Route8CooltrainerF3AfterBattleText:
-	text_far _Route8CooltrainerF3AfterBattleText
-	text_end
+	text "ヤマブキ　シティの　けいびいん"
+	line "ゲート　とおらせて　くれないの"
+	cont "まじめ　だけど<⋯>　いじわるね"
+	done
 
 Route8Gambler2Text:
 	text_asm
-	ld hl, Route8TrainerHeader7
+	ld hl, Route8_TrainerHeader7
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route8Gambler2BattleText:
-	text_far _Route8Gambler2BattleText
-	text_end
+	text "おれは　いまどき"
+	line "さすらいの　ギャンブラー！"
+	done
 
 Route8Gambler2EndBattleText:
-	text_far _Route8Gambler2EndBattleText
-	text_end
+	text "<⋯>！"
+	line "ここ　いちばんを　のがす　とは！"
+	prompt
 
 Route8Gambler2AfterBattleText:
-	text_far _Route8Gambler2AfterBattleText
-	text_end
+	text "ギャンブルも　#も"
+	line "しょうぶには　かわりない！"
+	cont "はじめたら　やめられ　ないのさ"
+	done
 
 Route8CooltrainerF4Text:
 	text_asm
-	ld hl, Route8TrainerHeader8
+	ld hl, Route8_TrainerHeader8
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route8CooltrainerF4BattleText:
-	text_far _Route8CooltrainerF4BattleText
-	text_end
+	text "まるくって　ふわふわで"
+	line "ぬいぐるみ　みたいな　#！"
+	cont "<⋯>　なーんだ？"
+	done
 
 Route8CooltrainerF4EndBattleText:
-	text_far _Route8CooltrainerF4EndBattleText
-	text_end
+	text "やめてー！"
+
+	para "わたしの　ピッピに"
+	line "らんぼう　しないでよう！"
+	prompt
 
 Route8CooltrainerF4AfterBattleText:
-	text_far _Route8CooltrainerF4AfterBattleText
-	text_end
+	text "つきのいしで　ピッピが　なんかに"
+	line "しんか　するって"
+	cont "#　ジャーナルで　よんだの"
+	cont "<⋯>　ほんと　かしら？"
+	done
 
 Route8UndergroundSignText:
-	text_far _Route8UndergroundSignText
-	text_end
+	text "ここから　ちかつうろ"
+	line "タマムシ　<⋯>　シオン"
+	done

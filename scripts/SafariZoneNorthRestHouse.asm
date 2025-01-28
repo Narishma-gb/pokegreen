@@ -9,13 +9,24 @@ SafariZoneNorthRestHouse_TextPointers:
 	dw_const SafariZoneNorthRestHouseGentlemanText,        TEXT_SAFARIZONENORTHRESTHOUSE_GENTLEMAN
 
 SafariZoneNorthRestHouseScientistText:
-	text_far _SafariZoneNorthRestHouseScientistText
-	text_end
+	text "サファリ　ゾーン　ないに"
+	line "おちてる　アイテムは"
+	cont "もって　いって　いいんだよ！"
+
+	para "でも　ぜんぶ　ひろって　たら"
+	line "じかん　なくなっちゃう！"
+	done
 
 SafariZoneNorthRestHouseSafariZoneWorkerText:
-	text_far _SafariZoneNorthRestHouseSafariZoneWorkerText
-	text_end
+	text "いま　キャンペーン　ちゅう　だろ"
+	line "ゾーン　いちばん　おくの　こやで"
+	cont "しょうひんを　くれるってさ！"
+	done
 
 SafariZoneNorthRestHouseGentlemanText:
-	text_far _SafariZoneNorthRestHouseGentlemanText
-	text_end
+	text "わたしの　イーブイ"
+	line "ブースターに　しんか　しよった！"
+
+	para "でも　ともだち　のは　シャワーズに"
+	line "なったんだ！　なんでだろう？"
+	done

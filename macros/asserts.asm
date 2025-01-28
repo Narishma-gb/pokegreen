@@ -11,11 +11,11 @@ MACRO _redef_current_label
 			DEF \1 EQUS "{..}"
 		ENDC
 	ELIF DEF(.)
-		if . - @ == 0
+		IF . - @ == 0
 			DEF \1 EQUS "{.}"
 		ENDC
 	ENDC
-	if !DEF(\1)
+	IF !DEF(\1)
 		DEF \1 EQUS \2
 		{\1}:
 	ENDC

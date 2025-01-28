@@ -1,5 +1,5 @@
 TownMapText::
-	text_far _TownMapText
+	text "タウンマップだ！@"
 	text_promptbutton
 	text_asm
 	ld a, $1

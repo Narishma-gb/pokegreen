@@ -1,6 +1,6 @@
 PowerPlant_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, PowerPlantTrainerHeaders
+	ld hl, PowerPlant_TrainerHeaders
 	ld de, PowerPlant_ScriptPointers
 	ld a, [wPowerPlantCurScript]
 	call ExecuteCurMapScriptInTable
@@ -30,26 +30,16 @@ PowerPlant_TextPointers:
 	dw_const PickUpItemText,           TEXT_POWERPLANT_TM_THUNDER
 	dw_const PickUpItemText,           TEXT_POWERPLANT_TM_REFLECT
 
-PowerPlantTrainerHeaders:
-	def_trainers
-Voltorb0TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_0, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
-Voltorb1TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_1, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
-Voltorb2TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_2, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
-Voltorb3TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_3, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
-Voltorb4TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_4, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
-Voltorb5TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_5, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
-Voltorb6TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_6, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
-Voltorb7TrainerHeader:
-	trainer EVENT_BEAT_POWER_PLANT_VOLTORB_7, 0, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText, PowerPlantVoltorbBattleText
-ZapdosTrainerHeader:
-	trainer EVENT_BEAT_ZAPDOS, 0, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText, PowerPlantZapdosBattleText
+	def_trainers PowerPlant
+	battlemon EVENT_BEAT_POWER_PLANT_VOLTORB_0, Voltorb
+	battlemon EVENT_BEAT_POWER_PLANT_VOLTORB_1, Voltorb
+	battlemon EVENT_BEAT_POWER_PLANT_VOLTORB_2, Voltorb
+	battlemon EVENT_BEAT_POWER_PLANT_VOLTORB_3, Voltorb
+	battlemon EVENT_BEAT_POWER_PLANT_VOLTORB_4, Voltorb
+	battlemon EVENT_BEAT_POWER_PLANT_VOLTORB_5, Voltorb
+	battlemon EVENT_BEAT_POWER_PLANT_VOLTORB_6, Voltorb
+	battlemon EVENT_BEAT_POWER_PLANT_VOLTORB_7, Voltorb
+	battlemon EVENT_BEAT_ZAPDOS, Zapdos
 	db -1 ; end
 
 PowerPlantInitBattleScript:
@@ -60,55 +50,55 @@ PowerPlantInitBattleScript:
 
 PowerPlantVoltorb1Text:
 	text_asm
-	ld hl, Voltorb0TrainerHeader
+	ld hl, PowerPlant_TrainerHeader0
 	jr PowerPlantInitBattleScript
 
 PowerPlantVoltorb2Text:
 	text_asm
-	ld hl, Voltorb1TrainerHeader
+	ld hl, PowerPlant_TrainerHeader1
 	jr PowerPlantInitBattleScript
 
 PowerPlantVoltorb3Text:
 	text_asm
-	ld hl, Voltorb2TrainerHeader
+	ld hl, PowerPlant_TrainerHeader2
 	jr PowerPlantInitBattleScript
 
 PowerPlantElectrode1Text:
 	text_asm
-	ld hl, Voltorb3TrainerHeader
+	ld hl, PowerPlant_TrainerHeader3
 	jr PowerPlantInitBattleScript
 
 PowerPlantVoltorb4Text:
 	text_asm
-	ld hl, Voltorb4TrainerHeader
+	ld hl, PowerPlant_TrainerHeader4
 	jr PowerPlantInitBattleScript
 
 PowerPlantVoltorb5Text:
 	text_asm
-	ld hl, Voltorb5TrainerHeader
+	ld hl, PowerPlant_TrainerHeader5
 	jr PowerPlantInitBattleScript
 
 PowerPlantElectrode2Text:
 	text_asm
-	ld hl, Voltorb6TrainerHeader
+	ld hl, PowerPlant_TrainerHeader6
 	jr PowerPlantInitBattleScript
 
 PowerPlantVoltorb6Text:
 	text_asm
-	ld hl, Voltorb7TrainerHeader
+	ld hl, PowerPlant_TrainerHeader7
 	jr PowerPlantInitBattleScript
 
 PowerPlantZapdosText:
 	text_asm
-	ld hl, ZapdosTrainerHeader
+	ld hl, PowerPlant_TrainerHeader8
 	jr PowerPlantInitBattleScript
 
 PowerPlantVoltorbBattleText:
-	text_far _PowerPlantVoltorbBattleText
-	text_end
+	text "ビリリ！"
+	done
 
 PowerPlantZapdosBattleText:
-	text_far _PowerPlantZapdosBattleText
+	text "ギヤーオ！@"
 	text_asm
 	ld a, ZAPDOS
 	call PlayCry

@@ -30,94 +30,139 @@ SaffronCity_TextPointers:
 	dw_const SaffronCitySilphCoLatestProductSignText, TEXT_SAFFRONCITY_SILPH_CO_LATEST_PRODUCT_SIGN
 
 SaffronCityRocket1Text:
-	text_far _SaffronCityRocket1Text
-	text_end
+	text "なんだァ！"
+	line "ぼうず！　あっち　いけ！"
+	done
 
 SaffronCityRocket2Text:
-	text_far _SaffronCityRocket2Text
-	text_end
+	text "ボスは　この　まちを"
+	line "<ROCKET>の　ものに　するってよォ"
+	done
 
 SaffronCityRocket3Text:
-	text_far _SaffronCityRocket3Text
-	text_end
+	text "こらァ　おれたちに　さからうと"
+	line "いたい　めに　あうぞ！"
+	done
 
 SaffronCityRocket4Text:
-	text_far _SaffronCityRocket4Text
-	text_end
+	text "ヤマブキ　シティ　ごと"
+	line "<ROCKET>が　のっとったぜ！"
+	done
 
 SaffronCityRocket5Text:
-	text_far _SaffronCityRocket5Text
-	text_end
+	text "わるい　こと　やりまくると"
+	line "スカッと　するぜ！"
+	done
 
 SaffronCityRocket6Text:
-	text_far _SaffronCityRocket6Text
-	text_end
+	text "いてッ！　この　やろ！"
+	line "どこ　みて　あるいてんだよ！"
+	done
 
 SaffronCityRocket7Text:
-	text_far _SaffronCityRocket7Text
-	text_end
+	text "シルフ　カンパニー　のっとったら"
+	line "せかい　じゅうに　#　うって"
+	cont "ガバガバ　おお　もうけ　だぜ！"
+	done
 
 SaffronCityScientistText:
-	text_far _SaffronCityScientistText
-	text_end
+	text "<ROCKET>　やっつけたの"
+	line "たった　ひとり　だって<⋯>　すごいな"
+	done
 
 SaffronCitySilphWorkerMText:
-	text_far _SaffronCitySilphWorkerMText
-	text_end
+	text "ばんざーい！"
+	line "<ROCKET>が　いなくなった！"
+	cont "ビビらないで　そと　あるけるんだ！"
+	done
 
 SaffronCitySilphWorkerFText:
-	text_far _SaffronCitySilphWorkerFText
-	text_end
+	text "ヤマブキ　シティも　いちじは"
+	line "ひとが　にげて　へっちゃった　けど"
+	cont "にぎやかな　まちに　もどるわ！"
+	done
 
 SaffronCityGentlemanText:
-	text_far _SaffronCityGentlemanText
-	text_end
+	text "<ROCKET>が　シルフ　おそって"
+	line "だいじけんって　きいて！"
+	cont "ピジョットで　とんで　きたッス"
+
+	para "かいけつ　した<⋯>？"
+	line "すんません！"
+	cont "ねっからの　ヤジウマ　で！"
+	done
 
 SaffronCityPidgeotText:
-	text_far _SaffronCityPidgeotText
+	text "ピジョット『ビビーッ！@"
 	sound_cry_pidgeot
 	text_end
 
 SaffronCityRockerText:
-	text_far _SaffronCityRockerText
-	text_end
+	text "おれ　みたぜ！　シルフの　ビル　から"
+	line "ロケットの　ボスが　にげて　いくの！"
+	done
 
 SaffronCityRocket8Text:
-	text_far _SaffronCityRocket8Text
-	text_end
+	text "わたしは　けいびいんだが"
+	line "あやしい　こどもは"
+
+	para "とおせんぼ　することに　してるのだ"
+	done
 
 SaffronCityRocket9Text:
-	text_far _SaffronCityRocket9Text
-	text_end
+	text "<⋯>　<⋯>　<⋯>"
+	line "<⋯>こっくり　こっくり"
+
+	para "しめしめ！　いねむり　しているぞ"
+	done
 
 SaffronCitySignText:
-	text_far _SaffronCitySignText
-	text_end
+	text "ここは　ヤマブキ　シティ"
+	line "ヤマブキ　きんいろ　かがやきのいろ"
+	done
 
 SaffronCityFightingDojoSignText:
-	text_far _SaffronCityFightingDojoSignText
-	text_end
+	text "かくとう　どうじょう！"
+	done
 
 SaffronCityGymSignText:
-	text_far _SaffronCityGymSignText
-	text_end
+	text "ヤマブキ　シティ　#　ジム"
+	line "リーダー　ナツメ"
+	cont "エスパー　しょうじょ！"
+	done
 
 SaffronCityTrainerTips1Text:
-	text_far _SaffronCityTrainerTips1Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "なんでも　なおしは"
+	line "ねむり　どく　やけど　こおり<⋯>"
+	cont "なんでも　なおします！"
+
+	para "すこし　たかい　けど"
+	line "ねむけざまし　どくけし　などを"
+	cont "バラバラに　かうより　らくちん！"
+	done
 
 SaffronCityTrainerTips2Text:
-	text_far _SaffronCityTrainerTips2Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "しんせいひん　スーパーボールは"
+	line "モンスターボール　より　かくじつに"
+	cont "#を　つかまえます！"
+
+	para "なかなか　つかまえ　られない"
+	line "#には　こちらを　ためそう！"
+	done
 
 SaffronCitySilphCoSignText:
-	text_far _SaffronCitySilphCoSignText
-	text_end
+	text "シルフ　カンパニー　ほんしゃ　ビル"
+	done
 
 SaffronCityMrPsychicsHouseSignText:
-	text_far _SaffronCityMrPsychicsHouseSignText
-	text_end
+	text "エスパー　おやじの　いえ"
+	done
 
 SaffronCitySilphCoLatestProductSignText:
-	text_far _SaffronCitySilphCoLatestProductSignText
-	text_end
+	text "シルフ　うわさの　しんせいひん！"
+	line "<⋯>　はつばいび　みてい"
+	done

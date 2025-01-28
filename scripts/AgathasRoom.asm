@@ -1,7 +1,7 @@
 AgathasRoom_Script:
 	call AgathaShowOrHideExitBlock
 	call EnableAutoTextBoxDrawing
-	ld hl, AgathasRoomTrainerHeaders
+	ld hl, AgathasRoom_TrainerHeaders
 	ld de, AgathasRoom_ScriptPointers
 	ld a, [wAgathasRoomCurScript]
 	call ExecuteCurMapScriptInTable
@@ -122,30 +122,51 @@ AgathasRoom_TextPointers:
 	dw_const AgathasRoomAgathaText,            TEXT_AGATHASROOM_AGATHA
 	dw_const AgathasRoomAgathaDontRunAwayText, TEXT_AGATHASROOM_AGATHA_DONT_RUN_AWAY
 
-AgathasRoomTrainerHeaders:
-	def_trainers
-AgathasRoomTrainerHeader0:
-	trainer EVENT_BEAT_AGATHAS_ROOM_TRAINER_0, 0, AgathaBeforeBattleText, AgathaEndBattleText, AgathaAfterBattleText
+	def_trainers AgathasRoom
+	trainer EVENT_BEAT_AGATHAS_ROOM_TRAINER_0, 0, Agatha
 	db -1 ; end
 
 AgathasRoomAgathaText:
 	text_asm
-	ld hl, AgathasRoomTrainerHeader0
+	ld hl, AgathasRoom_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
-AgathaBeforeBattleText:
-	text_far _AgathaBeforeBattleText
-	text_end
+AgathasRoomAgathaBattleText:
+	text "あたしは　してんのうの　キクコ！"
 
-AgathaEndBattleText:
-	text_far _AgathaEndBattleText
-	text_end
+	para "あんた　オーキドの　ジジイに"
+	line "かわいがられてんだって！"
 
-AgathaAfterBattleText:
-	text_far _AgathaAfterBattleText
-	text_end
+	para "ジジイ　むかしは　つよくて"
+	line "いい　おとこ　だった！"
+	cont "いまじゃ　みる　かげも　ないがね！"
+
+	para "#　ずかん"
+	line "つくってる　ようじゃ　だめだ！"
+	cont "#は　たたかわせる　ものさ"
+
+	para "<PLAYER><⋯>！　あんたにも"
+	line "ホントの　たたかいって　ものを"
+	cont "おしえて　やる！"
+	done
+
+AgathasRoomAgathaEndBattleText:
+	text "ほっほう！"
+	line "たいした　もんだよ！"
+	prompt
+
+AgathasRoomAgathaAfterBattleText:
+	text "あんたの　かち　だ！"
+	line "ジジイが　めを　つける　だけの"
+	cont "ことは　ある！"
+
+	para "もう　これ　いじょう"
+	line "あたしが　いう　ことは　ない！"
+	cont "つぎの　へやに　すすみな！"
+	done
 
 AgathasRoomAgathaDontRunAwayText:
-	text_far _AgathasRoomAgathaDontRunAwayText
-	text_end
+	text "だれかの　こえが　きこえる<⋯>"
+	line "「にげては　ならん！」"
+	done

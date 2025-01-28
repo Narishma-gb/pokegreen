@@ -164,3 +164,7 @@ ReadTrainer:
 	dec b
 	jr nz, .LastLoop ; repeat wCurEnemyLevel times
 	ret
+
+INCLUDE "data/trainers/special_moves.asm"
+
+INCLUDE "data/trainers/parties.asm"

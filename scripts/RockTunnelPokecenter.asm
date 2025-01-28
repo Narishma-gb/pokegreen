@@ -13,12 +13,15 @@ RockTunnelPokecenterNurseText:
 	script_pokecenter_nurse
 
 RockTunnelPokecenterGentlemanText:
-	text_far _RockTunnelPokecenterGentlemanText
-	text_end
+	text "#は　タイプに　よって"
+	line "ゆうりに　たたかえる　あいてと"
+	cont "にがてな　あいてが　いるのだ"
+	done
 
 RockTunnelPokecenterFisherText:
-	text_far _RockTunnelPokecenterFisherText
-	text_end
+	text "つかいみち　ないから　きんのたまを"
+	line "うったら　５０００円で　うれた！"
+	done
 
 RockTunnelPokecenterLinkReceptionistText:
 	script_cable_club_receptionist

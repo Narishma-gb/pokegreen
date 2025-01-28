@@ -1,3 +1,4 @@
 PokemonStuffText::
-	text_far _PokemonStuffText
-	text_end
+	text "わあ！　#グッズが"
+	line "たくさん　そろってるぞ！"
+	done

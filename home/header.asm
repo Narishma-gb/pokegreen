@@ -36,7 +36,7 @@ SECTION "rst30", ROM0[$0030]
 	ds $38 - @, 0 ; unused
 
 SECTION "rst38", ROM0[$0038]
-	rst $38
+	db $C3, $80, $F0 ; unused invalid jp to $F080 (Echo RAM)
 
 	ds $40 - @, 0 ; unused
 
@@ -66,6 +66,7 @@ SECTION "serial", ROM0[$0058]
 SECTION "joypad", ROM0[$0060]
 	reti
 
+	ds $68 - @, 0 ; unused
 
 SECTION "Header", ROM0[$0100]
 

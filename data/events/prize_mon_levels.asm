@@ -8,7 +8,7 @@ IF DEF(_RED)
 	db SCYTHER,  25
 	db PORYGON,  26
 ENDC
-IF DEF(_BLUE)
+IF DEF(_GREEN)
 	db ABRA,      6
 	db CLEFAIRY, 12
 	db NIDORINO, 17

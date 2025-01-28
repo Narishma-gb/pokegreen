@@ -10,17 +10,17 @@ DisplayTextIDInit::
 	jr nz, .notStartMenu
 ; if text ID is 0 (i.e. the start menu)
 ; Note that the start menu text border is also drawn in the function directly
-; below this, so this seems unnecessary.
+; below this (DrawStartMenu), so this seems unnecessary.
 	CheckEvent EVENT_GOT_POKEDEX
 ; start menu with pokedex
-	hlcoord 10, 0
+	hlcoord 12, 0
 	ld b, $0e
-	ld c, $08
+	ld c, $06
 	jr nz, .drawTextBoxBorder
 ; start menu without pokedex
-	hlcoord 10, 0
+	hlcoord 12, 0
 	ld b, $0c
-	ld c, $08
+	ld c, $06
 	jr .drawTextBoxBorder
 ; if text ID is not 0 (i.e. not the start menu) then do a standard dialogue text box
 .notStartMenu

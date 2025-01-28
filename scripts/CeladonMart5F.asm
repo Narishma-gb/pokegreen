@@ -10,13 +10,27 @@ CeladonMart5F_TextPointers:
 	dw_const CeladonMart5FCurrentFloorSignText, TEXT_CELADONMART5F_CURRENT_FLOOR_SIGN
 
 CeladonMart5FGentlemanText:
-	text_far _CeladonMart5FGentlemanText
-	text_end
+	text "#の　のうりょくを　あげる"
+	line "アイテムは　ここでしか　かえない"
+
+	para "リゾチウムは"
+	line "とくしゅ　のうりょくを　アップ"
+
+	para "インドメタシンは"
+	line "すばやさを　アップ　させるのだ"
+	done
 
 CeladonMart5FSailorText:
-	text_far _CeladonMart5FSailorText
-	text_end
+	text "#の　のうりょくを　あげる"
+	line "アイテムを　かいに　きたんだ！"
+
+	para "タウリンは"
+	line "こうげき　りょく　アップ！"
+
+	para "ブロムヘキシンは"
+	line "ぼうぎょ　りょく　アップ　だぜ！"
+	done
 
 CeladonMart5FCurrentFloorSignText:
-	text_far _CeladonMart5FCurrentFloorSignText
-	text_end
+	text "５かい<⋯>ドラッグ　ストア"
+	done

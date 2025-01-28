@@ -142,11 +142,15 @@ SafariZoneGate_TextPointers:
 	dw_const SafariZoneGateSafariZoneWorker1GoodHaulComeAgainText,  TEXT_SAFARIZONEGATE_SAFARI_ZONE_WORKER1_GOOD_HAUL_COME_AGAIN
 
 SafariZoneGateSafariZoneWorker1Text:
-	text_far _SafariZoneGateSafariZoneWorker1Text
-	text_end
+	text "サファリ　ゾーンに　ようこそ！"
+	done
 
 SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
-	text_far _SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText
+	text "この　ひろい　サファリで"
+	line "いろんな　#　とりほうだいの"
+	cont "ゲームが　たった　５００円！"
+
+	para "さっそく　やりますか？@"
 	text_asm
 	ld a, MONEY_BOX
 	ld [wTextBoxID], a
@@ -157,10 +161,9 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 	jp nz, .PleaseComeAgain
 	xor a
 	ldh [hMoney], a
+	ldh [hMoney + 2], a
 	ld a, $05
 	ldh [hMoney + 1], a
-	ld a, $00
-	ldh [hMoney + 2], a
 	call HasEnoughMoney
 	jr nc, .success
 	ld hl, .NotEnoughMoneyText
@@ -170,10 +173,9 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 .success
 	xor a
 	ld [wPriceTemp], a
+	ld [wPriceTemp + 2], a
 	ld a, $05
 	ld [wPriceTemp + 1], a
-	ld a, $00
-	ld [wPriceTemp + 2], a
 	ld hl, wPriceTemp + 2
 	ld de, wPlayerMoney + 2
 	ld c, 3
@@ -211,21 +213,34 @@ SafariZoneGateSafariZoneWorker1WouldYouLikeToJoinText:
 	jp TextScriptEnd
 
 .MakePaymentText
-	text_far _SafariZoneGateSafariZoneWorker1ThatllBe500PleaseText
+	text "それでは<⋯>！"
+	line "５００円　いただきまーす！"
+
+	para "ここでは　サファリ　せんようの"
+	line "モンスターボールを　つかいます！"
+	cont "<⋯>　これです！"
+
+	para "<PLAYER>は　うけつけ　から"
+	line "サファリボール　３０こ　もらった！@"
 	sound_get_item_1
-	text_far _SafariZoneGateSafariZoneWorker1CallYouOnThePAText
-	text_end
+	text_start
+
+	para "のこり　じかんが　なくなるか！"
+	line "サファリボールが　なくなったら"
+	cont "メガホンで　しらせます！"
+	cont "では<⋯>！　ぐっど　らっく！"
+	done
 
 .PleaseComeAgainText
-	text_far _SafariZoneGateSafariZoneWorker1PleaseComeAgainText
-	text_end
+	text "そうか<⋯>！　また　きて　ください"
+	done
 
 .NotEnoughMoneyText
-	text_far _SafariZoneGateSafariZoneWorker1NotEnoughMoneyText
-	text_end
+	text "あッ　おかねが　たりない！"
+	done
 
 SafariZoneGateSafariZoneWorker1LeavingEarlyText:
-	text_far _SafariZoneGateSafariZoneWorker1LeavingEarlyText
+	text "もう　おわりに　する？@"
 	text_asm
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
@@ -258,16 +273,19 @@ SafariZoneGateSafariZoneWorker1LeavingEarlyText:
 	jp TextScriptEnd
 
 .ReturnSafariBallsText
-	text_far _SafariZoneGateSafariZoneWorker1ReturnSafariBallsText
-	text_end
+	text "サファリボールの"
+	line "のこりは　ぜんぶ　ひきとります！"
+	done
 
 .GoodLuckText
-	text_far _SafariZoneGateSafariZoneWorker1GoodLuckText
-	text_end
+	text "では　がんばって！"
+	done
 
 SafariZoneGateSafariZoneWorker1GoodHaulComeAgainText:
-	text_far _SafariZoneGateSafariZoneWorker1GoodHaulComeAgainText
-	text_end
+	text "ごくろうさま！"
+	line "#　たくさん　とれたかな？"
+	cont "また　あそびに　きてね！"
+	done
 
 SafariZoneGateSafariZoneWorker2Text:
 	text_asm
@@ -284,13 +302,25 @@ SafariZoneGateSafariZoneWorker2Text:
 	jp TextScriptEnd
 
 .FirstTimeHereText
-	text_far _SafariZoneGateSafariZoneWorker2FirstTimeHereText
-	text_end
+	text "こんちわ！"
+	line "サファリ　ゲームは　はじめて？"
+	done
 
 .SafariZoneExplanationText
-	text_far _SafariZoneGateSafariZoneWorker2SafariZoneExplanationText
-	text_end
+	text "サファリ　ゲームは"
+	line "４つの　ゾーンに　わかれてます！"
+
+	para "それぞれに　めずらしい　#が"
+	line "せいそく　してますから"
+	cont "せんようの　サファリボールで"
+	cont "つかまえて　ください！"
+
+	para "ただし　じかんが　なくなるか"
+	line "サファリボールを　ぜんぶ　なげたら"
+	cont "ゲームは　おわり　だよ！"
+	done
 
 .YoureARegularHereText
-	text_far _SafariZoneGateSafariZoneWorker2YoureARegularHereText
-	text_end
+	text "おっと　しつれい！"
+	line "じょうれん　さん　だったね！"
+	done

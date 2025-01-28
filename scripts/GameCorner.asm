@@ -121,7 +121,7 @@ GameCorner_TextPointers:
 	def_text_pointers
 	dw_const GameCornerBeauty1Text,           TEXT_GAMECORNER_BEAUTY1
 	dw_const GameCornerClerk1Text,            TEXT_GAMECORNER_CLERK1
-	dw_const GameCornerMiddleAgedMan1Text,    TEXT_GAMECORNER_MIDDLE_AGED_MAN1
+	dw_const GameCornerMiddleAgedMan1Text,    TEXT_GAMECORNER_MIDDLE_AGED_MAN
 	dw_const GameCornerBeauty2Text,           TEXT_GAMECORNER_BEAUTY2
 	dw_const GameCornerFishingGuruText,       TEXT_GAMECORNER_FISHING_GURU
 	dw_const GameCornerMiddleAgedWomanText,   TEXT_GAMECORNER_MIDDLE_AGED_WOMAN
@@ -134,8 +134,12 @@ GameCorner_TextPointers:
 	dw_const GameCornerRocketAfterBattleText, TEXT_GAMECORNER_ROCKET_AFTER_BATTLE
 
 GameCornerBeauty1Text:
-	text_far _GameCornerBeauty1Text
-	text_end
+	text "いらっしゃいませ！"
+
+	para "ゲームで　ためた　コインは"
+	line "そとの　こうかんじょで"
+	cont "すきな　けいひんと　かえてね！"
+	done
 
 GameCornerClerk1Text:
 	text_asm
@@ -203,36 +207,51 @@ GameCornerClerk1Text:
 	jp TextScriptEnd
 
 .DoYouNeedSomeGameCoins:
-	text_far _GameCornerClerk1DoYouNeedSomeGameCoinsText
-	text_end
+	text "いらっしゃいませ！"
+	line "ロケット　ゲーム　コーナーです"
+
+	para "ゲームよう　コイン　ですか？"
+
+	para "５０まい　１０００円に　なります！"
+	line "コインを　かいますか？"
+	done
 
 .ThanksHereAre50Coins:
-	text_far _GameCornerClerk1ThanksHereAre50CoinsText
-	text_end
+	text "はい！　まいど　あり！"
+	line "コイン　５０まい　どうぞ！"
+	done
 
 .PleaseComePlaySometime:
-	text_far _GameCornerClerk1PleaseComePlaySometimeText
-	text_end
+	text "<⋯>　いりませんか！"
+	line "それでは　また　どうぞ！"
+	done
 
 .CantAffordTheCoins:
-	text_far _GameCornerClerk1CantAffordTheCoinsText
-	text_end
+	text "おかね　たりないよ！"
+	done
 
 .CoinCaseIsFull:
-	text_far _GameCornerClerk1CoinCaseIsFullText
-	text_end
+	text "おっと<⋯>！"
+	line "コインケースが　まんたんだ！"
+	done
 
 .DontHaveCoinCase:
-	text_far _GameCornerClerk1DontHaveCoinCaseText
-	text_end
+	text "あれ？　コインを　いれる"
+	line "コインケースが　ないよ！"
+	done
 
 GameCornerMiddleAgedMan1Text:
-	text_far _GameCornerMiddleAgedMan1Text
-	text_end
+	text "<⋯>　ここだけの　はなし<⋯>"
+
+	para "この　ゲーム　じょうは"
+	line "<ROCKET>の　おみせ　らしい<⋯>"
+	cont "みんな　うわさ　しちょる<⋯>"
+	done
 
 GameCornerBeauty2Text:
-	text_far _GameCornerBeauty2Text
-	text_end
+	text "ばしょに　よって　よく　でる"
+	line "スロットが　あるようね"
+	done
 
 GameCornerFishingGuruText:
 	text_asm
@@ -272,25 +291,29 @@ GameCornerFishingGuruText:
 	jp TextScriptEnd
 
 .WantToPlayText:
-	text_far _GameCornerFishingGuruWantToPlayText
-	text_end
+	text "<⋯>　ぼうず"
+	line "ゲーム　やりたいのか？"
+	prompt
 
 .Received10CoinsText:
-	text_far _GameCornerFishingGuruReceived10CoinsText
+	text "<PLAYER>は　おじさんから"
+	line "コイン　１０まい　もらった！@"
 	sound_get_item_1
 	text_end
 
 .DontNeedMyCoinsText:
-	text_far _GameCornerFishingGuruDontNeedMyCoinsText
-	text_end
+	text "やっぱり　やるの　やめた！"
+	done
 
 .WinsComeAndGoText:
-	text_far _GameCornerFishingGuruWinsComeAndGoText
-	text_end
+	text "かつ　ときは　かつんだけど"
+	line "まける　ときは　まけちゃうんだな"
+	done
 
 GameCornerMiddleAgedWomanText:
-	text_far _GameCornerMiddleAgedWomanText
-	text_end
+	text "スロット　ゲームは　たのしい！"
+	line "じかんが　たつのを　わすれるわ！"
+	done
 
 GameCornerGymGuideText:
 	text_asm
@@ -303,16 +326,34 @@ GameCornerGymGuideText:
 	jp TextScriptEnd
 
 GameCornerGymGuideChampInMakingText:
-	text_far _GameCornerGymGuideChampInMakingText
-	text_end
+	text "おお<⋯>！"
+
+	para "こんな　ところで"
+	line "あぶら　うってて　いいのか！"
+	cont "みらいの　チャンピオン！"
+
+	para "タマムシの　リーダー　エリカは"
+	line "しぜんと　こころを　かよわす"
+	cont "しょくぶつ　#の　つかいて！"
+
+	para "おはな　なんか　いけてる　から"
+	line "おとなしそうに　みえるが"
+	cont "てごわい　あいてに　なるぞ！"
+	done
 
 GameCornerGymGuideTheyOfferRarePokemonText:
-	text_far _GameCornerGymGuideTheyOfferRarePokemonText
-	text_end
+	text "いい　#が　けいひんに"
+	line "あったからよー"
+
+	para "がんばってるんだが"
+	line "ぜんぜん　だめだ！"
+	done
 
 GameCornerGamblerText:
-	text_far _GameCornerGamblerText
-	text_end
+	text "ひょー<⋯>　ゲームは　こわい！"
+	line "ちょっと　いきぬきの　つもりが"
+	cont "むちゅうに　なっちまう！"
+	done
 
 GameCornerClerk2Text:
 	text_asm
@@ -350,21 +391,24 @@ GameCornerClerk2Text:
 	jp TextScriptEnd
 
 .WantSomeCoinsText:
-	text_far _GameCornerClerk2WantSomeCoinsText
-	text_end
+	text "<⋯>　なんだよ？"
+	line "コイン　わけて　やろうか？"
+	prompt
 
 .Received20CoinsText:
-	text_far _GameCornerClerk2Received20CoinsText
+	text "<PLAYER>は　おにいさんから"
+	line "コイン　２０まい　もらった！@"
 	sound_get_item_1
 	text_end
 
 .YouHaveLotsOfCoinsText:
-	text_far _GameCornerClerk2YouHaveLotsOfCoinsText
-	text_end
+	text "いっぱい　もってる　じゃん"
+	done
 
 .INeedMoreCoinsText:
-	text_far _GameCornerClerk2INeedMoreCoinsText
-	text_end
+	text "くそ　でないな！"
+	line "ほしい　けいひんが　あるのに"
+	done
 
 GameCornerGentlemanText:
 	text_asm
@@ -402,21 +446,26 @@ GameCornerGentlemanText:
 	jp TextScriptEnd
 
 .ThrowingMeOffText:
-	text_far _GameCornerGentlemanThrowingMeOffText
-	text_end
+	text "わ　ちょっと！"
+	line "<⋯>　てもとが　くるう"
+	cont "コイン　あげるから"
+	cont "あっち　いってくれ"
+	prompt
 
 .Received20CoinsText:
-	text_far _GameCornerGentlemanReceived20CoinsText
+	text "<PLAYER>は　おじさんから"
+	line "コイン　２０まい　もらった！@"
 	sound_get_item_1
 	text_end
 
 .YouGotYourOwnCoinsText:
-	text_far _GameCornerGentlemanYouGotYourOwnCoinsText
-	text_end
+	text "コイン　いっぱい　あるじゃん"
+	done
 
 .CloselyWatchTheReelsText:
-	text_far _GameCornerGentlemanCloselyWatchTheReelsText
-	text_end
+	text "スロットの　えがらを　よおく　みて"
+	line "ボタンを　おすのが　コツだよ"
+	done
 
 GameCornerRocketText:
 	text_asm
@@ -441,16 +490,21 @@ GameCornerRocketText:
 	jp TextScriptEnd
 
 .ImGuardingThisPosterText:
-	text_far _GameCornerRocketImGuardingThisPosterText
-	text_end
+	text "おれは"
+	line "この　ポスターを　みはってるのだ"
+	cont "じゃまを　すると"
+	cont "いたいめに　あわせるぞ！"
+	done
 
 .BattleEndText:
-	text_far _GameCornerRocketBattleEndText
-	text_end
+	text "ち　ちくしょう！"
+	prompt
 
 GameCornerRocketAfterBattleText:
-	text_far _GameCornerRocketAfterBattleText
-	text_end
+	text "このままでは　<ROCKET>"
+	line "アジトの　そんざいが　ばれちまう"
+	cont "ボスに　れんらく　しなくては！"
+	done
 
 GameCornerPosterText:
 	text_asm
@@ -470,7 +524,11 @@ GameCornerPosterText:
 	jp TextScriptEnd
 
 .SwitchBehindPosterText:
-	text_far _GameCornerPosterSwitchBehindPosterText
+	text "あ！"
+
+	para "ポスターの　うらに"
+	line "ひみつの　スイッチを　みつけた"
+	cont "おしてみよう！　<⋯>ポチッとな！@"
 	text_asm
 	ld a, SFX_SWITCH
 	call PlaySound
@@ -478,8 +536,9 @@ GameCornerPosterText:
 	jp TextScriptEnd
 
 GameCornerOopsForgotCoinCaseText:
-	text_far _GameCornerOopsForgotCoinCaseText
-	text_end
+	text "しまった！"
+	line "コインケースを　もっていない！"
+	done
 
 GameCornerDrawCoinBox:
 	ld hl, wStatusFlags5
@@ -497,37 +556,37 @@ GameCornerDrawCoinBox:
 	ld de, GameCornerMoneyText
 	call PlaceString
 	hlcoord 12, 3
-	ld de, GameCornerBlankText1
+	ld de, GameCornerYenText
 	call PlaceString
 	hlcoord 12, 3
 	ld de, wPlayerMoney
-	ld c, 3 | MONEY_SIGN | LEADING_ZEROES
+	ld c, 3 | LEADING_ZEROES
 	call PrintBCDNumber
 	hlcoord 12, 4
 	ld de, GameCornerCoinText
 	call PlaceString
 	hlcoord 12, 5
-	ld de, GameCornerBlankText2
+	ld de, GameCornerCoinCounterText
 	call PlaceString
-	hlcoord 15, 5
+	hlcoord 13, 5
 	ld de, wPlayerCoins
-	ld c, $82
+	ld c, 2 | LEADING_ZEROES
 	call PrintBCDNumber
 	ld hl, wStatusFlags5
 	res BIT_NO_TEXT_DELAY, [hl]
 	ret
 
 GameCornerMoneyText:
-	db "MONEY@"
+	db "おこづかい@"
 
 GameCornerCoinText:
-	db "COIN@"
+	db "コイン@"
 
-GameCornerBlankText1:
-	db "       @"
+GameCornerYenText:
+	db "　　　　　　円@"
 
-GameCornerBlankText2:
-	db "       @"
+GameCornerCoinCounterText:
+	db "　　　　　まい@"
 
 Has9990Coins:
 	ld a, $99

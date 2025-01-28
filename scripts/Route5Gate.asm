@@ -96,15 +96,38 @@ SaffronGateGuardText:
 	jp TextScriptEnd
 
 SaffronGateGuardGeeImThirstyText:
-	text_far _SaffronGateGuardGeeImThirstyText
-	text_end
+	text "わたし　まじめな　けいびいん"
+	line "はー<⋯>"
+	cont "のどが　かわいた！"
+	cont "おっと　そっちは"
+	cont "いま　つうこう　きんしだよ"
+	done
 
 SaffronGateGuardGiveDrinkText:
-	text_far _SaffronGateGuardImParchedText
+	text "あ　それは"
+	cont "おいしそうな　のみもの<⋯>"
+	cont "<⋯>　<⋯>"
+	cont "え？"
+	cont "ぼくに　くれる？"
+	cont "サンキュー！@"
 	sound_get_key_item
-	text_far _SaffronGateGuardYouCanGoOnThroughText
-	text_end
+	text_start
+
+	para "<⋯>　<⋯>"
+	cont "ゴクゴク<⋯>"
+	cont "<⋯>"
+	cont "ゴクゴク<⋯>　<⋯>"
+	cont "ヤマブキ　シティに"
+	cont "いく　なら<⋯>"
+	cont "<⋯>"
+	cont "<⋯>　<⋯>"
+	cont "とおって　いいよ"
+	cont "ジュースを"
+	cont "むこうの　ゲートの"
+	cont "けいびいんにも　わけてあげよう<⋯>"
+	done
 
 SaffronGateGuardThanksForTheDrinkText:
-	text_far _SaffronGateGuardThanksForTheDrinkText
-	text_end
+	text "あ<⋯>"
+	line "この　あいだは　どーも！"
+	done

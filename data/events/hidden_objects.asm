@@ -353,18 +353,18 @@ GameCornerHiddenObjects:
 	hidden_object  1, 13, ANY_FACING, StartSlotMachine
 	hidden_object  1, 14, ANY_FACING, StartSlotMachine
 	hidden_object  1, 15, ANY_FACING, StartSlotMachine
-	hidden_object  0,  8, COIN+10, HiddenCoins
-	hidden_object  1, 16, COIN+10, HiddenCoins
-	hidden_object  3, 11, COIN+20, HiddenCoins
-	hidden_object  3, 14, COIN+10, HiddenCoins
-	hidden_object  4, 12, COIN+10, HiddenCoins
-	hidden_object  9, 12, COIN+20, HiddenCoins
-	hidden_object  9, 15, COIN+10, HiddenCoins
-	hidden_object 16, 14, COIN+10, HiddenCoins
-	hidden_object 10, 16, COIN+10, HiddenCoins
-	hidden_object 11,  7, COIN+40, HiddenCoins
-	hidden_object 15,  8, COIN+100, HiddenCoins
-	hidden_object 12, 15, COIN+10, HiddenCoins
+	hidden_object  0,  8, COIN + 10, HiddenCoins
+	hidden_object  1, 16, COIN + 10, HiddenCoins
+	hidden_object  3, 11, COIN + 20, HiddenCoins
+	hidden_object  3, 14, COIN + 10, HiddenCoins
+	hidden_object  4, 12, COIN + 10, HiddenCoins
+	hidden_object  9, 12, COIN + 20, HiddenCoins
+	hidden_object  9, 15, COIN + 10, HiddenCoins
+	hidden_object 16, 14, COIN + 10, HiddenCoins
+	hidden_object 10, 16, COIN + 10, HiddenCoins
+	hidden_object 11,  7, COIN + 40, HiddenCoins
+	hidden_object 15,  8, COIN + 100, HiddenCoins
+	hidden_object 12, 15, COIN + 10, HiddenCoins
 	db -1 ; end
 
 CeladonHotelHiddenObjects:
@@ -443,7 +443,7 @@ SSAnne6HiddenObjects:
 	db -1 ; end
 
 SSAnne10HiddenObjects:
-	hidden_object  3,  1, HYPER_POTION, HiddenItems
+	hidden_object  0,  6, HYPER_POTION, HiddenItems
 	db -1 ; end
 
 Route10HiddenObjects:
@@ -486,7 +486,7 @@ SafariZoneWestHiddenObjects:
 	db -1 ; end
 
 SilphCo5FHiddenObjects:
-	hidden_object 12,  3, ELIXER, HiddenItems
+	hidden_object 11,  3, ELIXER, HiddenItems
 	db -1 ; end
 
 SilphCo9FHiddenObjects:
@@ -494,7 +494,7 @@ SilphCo9FHiddenObjects:
 	db -1 ; end
 
 CopycatsHouse2FHiddenObjects:
-	hidden_object  1,  1, NUGGET, HiddenItems
+	hidden_object  0,  6, NUGGET, HiddenItems
 	db -1 ; end
 
 CeruleanCave1HiddenObjects:
@@ -630,7 +630,7 @@ SilphCo11FHiddenObjects:
 	db -1 ; end
 
 Route17HiddenObjects:
-	hidden_object 15,  14, RARE_CANDY, HiddenItems
+	hidden_object 15,  15, RARE_CANDY, HiddenItems
 	hidden_object  8,  45, FULL_RESTORE, HiddenItems
 	hidden_object 17,  72, PP_UP, HiddenItems
 	hidden_object  4,  91, MAX_REVIVE, HiddenItems

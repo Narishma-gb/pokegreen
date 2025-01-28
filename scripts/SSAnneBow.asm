@@ -1,6 +1,6 @@
 SSAnneBow_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, SSAnne5TrainerHeaders
+	ld hl, SSAnneBow_TrainerHeaders
 	ld de, SSAnneBow_ScriptPointers
 	ld a, [wSSAnneBowCurScript]
 	call ExecuteCurMapScriptInTable
@@ -21,58 +21,68 @@ SSAnneBow_TextPointers:
 	dw_const SSAnneBowSailor2Text,      TEXT_SSANNEBOW_SAILOR2
 	dw_const SSAnneBowSailor3Text,      TEXT_SSANNEBOW_SAILOR3
 
-SSAnne5TrainerHeaders:
-	def_trainers 4
-SSAnne5TrainerHeader0:
-	trainer EVENT_BEAT_SS_ANNE_5_TRAINER_0, 3, SSAnneBowSailor2BattleText, SSAnneBowSailor2EndBattleText, SSAnneBowSailor2AfterBattleText
-SSAnne5TrainerHeader1:
-	trainer EVENT_BEAT_SS_ANNE_5_TRAINER_1, 3, SSAnneBowSailor3BattleText, SSAnneBowSailor3EndBattleText, SSAnneBowSailor3AfterBattleText
+	def_trainers SSAnneBow, 4
+	trainer EVENT_BEAT_SS_ANNE_5_TRAINER_0, 3, Sailor2
+	trainer EVENT_BEAT_SS_ANNE_5_TRAINER_1, 3, Sailor3
 	db -1 ; end
 
 SSAnneBowSuperNerdText:
-	text_far _SSAnneBowSuperNerdText
-	text_end
+	text "パーティも　そろそろ　おわるし"
+	line "ふねの　しゅっぱつの　じかん　だな"
+	done
 
 SSAnneBowSailor1Text:
-	text_far _SSAnneBowSailor1Text
-	text_end
+	text "まったく！"
+	line "デッキ　そうじは　らくじゃねえぜ"
+	done
 
 SSAnneBowCooltrainerMText:
-	text_far _SSAnneBowCooltrainerMText
-	text_end
+	text "うう<⋯>　きもち　わるい！"
+
+	para "<⋯>　ふなよい　したので"
+	line "かぜに　あたってるんです<⋯>"
+	done
 
 SSAnneBowSailor2Text:
 	text_asm
-	ld hl, SSAnne5TrainerHeader0
+	ld hl, SSAnneBow_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SSAnneBowSailor2BattleText:
-	text_far _SSAnneBowSailor2BattleText
-	text_end
+	text "おうおう！　"
+
+	para "ふなのりの　おれと　しょうぶだ！"
+	done
 
 SSAnneBowSailor2EndBattleText:
-	text_far _SSAnneBowSailor2EndBattleText
-	text_end
+	text "つよいな"
+	line "びっくり　したぜ"
+	prompt
 
 SSAnneBowSailor2AfterBattleText:
-	text_far _SSAnneBowSailor2AfterBattleText
-	text_end
+	text "なあ！　この　せかいに"
+	line "#は　ぜんぶで　どのくらい"
+	cont "しゅるいが　あると　おもうか？"
+	done
 
 SSAnneBowSailor3Text:
 	text_asm
-	ld hl, SSAnne5TrainerHeader1
+	ld hl, SSAnneBow_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
 
 SSAnneBowSailor3BattleText:
-	text_far _SSAnneBowSailor3BattleText
-	text_end
+	text "おい　ぼうず！"
+	line "のってて　ふなよい　しないか？"
+	done
 
 SSAnneBowSailor3EndBattleText:
-	text_far _SSAnneBowSailor3EndBattleText
-	text_end
+	text "ゆだん　したか"
+	prompt
 
 SSAnneBowSailor3AfterBattleText:
-	text_far _SSAnneBowSailor3AfterBattleText
-	text_end
+	text "おれの　おやじは　#は"
+	line "１００しゅるい　いると　いってたが"
+	cont "おれは　それ　いじょう　だと　おもう"
+	done

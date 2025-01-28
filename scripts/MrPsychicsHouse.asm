@@ -29,18 +29,28 @@ MrPsychicsHouseMrPsychicText:
 	jp TextScriptEnd
 
 .YouWantedThisText:
-	text_far _MrPsychicsHouseMrPsychicYouWantedThisText
-	text_end
+	text "<⋯>　<⋯>　わかった！"
+
+	para "これが　ほしい　のか！"
+	prompt
 
 .ReceivedTM29Text:
-	text_far _MrPsychicsHouseMrPsychicReceivedTM29Text
+	text "<PLAYER>は　エスパー　から"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
 	text_end
 
 .TM29ExplanationText:
-	text_far _MrPsychicsHouseMrPsychicTM29ExplanationText
-	text_end
+	text "<⋯>　わかってるな？"
+	line "<TM>２９は　サイコキネシス！"
+
+	para "<⋯>　うまく　いけば"
+	line "あいての　とくしゅ　のうりょくを"
+	cont "さげられる　かも　しれない！"
+	done
 
 .TM29NoRoomText:
-	text_far _MrPsychicsHouseMrPsychicTM29NoRoomText
-	text_end
+	text "もちものが　いっぱいだ！"
+	done

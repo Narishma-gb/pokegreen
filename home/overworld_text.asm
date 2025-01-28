@@ -6,24 +6,26 @@ TextScriptEnd::
 	ret
 
 ExclamationText::
-	text_far _ExclamationText
-	text_end
+	text "！"
+	done
 
 GroundRoseText::
-	text_far _GroundRoseText
-	text_end
+	text "どこかで　じめんがもりあがった！"
+	done
 
 BoulderText::
-	text_far _BoulderText
-	text_end
+	text "「かいりき」　で　うごかせるかも<⋯>"
+	done
 
 MartSignText::
-	text_far _MartSignText
-	text_end
+	text "#　グッズが　いっぱい！"
+	line "フレンドリィショップ"
+	done
 
 PokeCenterSignText::
-	text_far _PokeCenterSignText
-	text_end
+	text "#の　たいりょく　かいふく！"
+	line "#センター"
+	done
 
 PickUpItemText::
 	text_asm

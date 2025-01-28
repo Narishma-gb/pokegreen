@@ -1,6 +1,6 @@
 SSAnneB1FRooms_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, SSAnne10TrainerHeaders
+	ld hl, SSAnneB1FRooms_TrainerHeaders
 	ld de, SSAnneB1FRooms_ScriptPointers
 	ld a, [wSSAnneB1FRoomsCurScript]
 	call ExecuteCurMapScriptInTable
@@ -27,137 +27,157 @@ SSAnneB1FRooms_TextPointers:
 	dw_const PickUpItemText,              TEXT_SSANNEB1FROOMS_TM_REST
 	dw_const PickUpItemText,              TEXT_SSANNEB1FROOMS_MAX_POTION
 
-SSAnne10TrainerHeaders:
-	def_trainers
-SSAnne10TrainerHeader0:
-	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_0, 2, SSAnneB1FRoomsSailor1BattleText, SSAnneB1FRoomsSailor1EndBattleText, SSAnneB1FRoomsSailor1AfterBattleText
-SSAnne10TrainerHeader1:
-	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_1, 3, SSAnneB1FRoomsSailor2BattleText, SSAnneB1FRoomsSailor2EndBattleText, SSAnneB1FRoomsSailor2AfterBattleText
-SSAnne10TrainerHeader2:
-	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_2, 2, SSAnneB1FRoomsSailor3BattleText, SSAnneB1FRoomsSailor3EndBattleText, SSAnneB1FRoomsSailor3AfterBattleText
-SSAnne10TrainerHeader3:
-	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_3, 2, SSAnneB1FRoomsSailor4BattleText, SSAnneB1FRoomsSailor4EndBattleText, SSAnneB1FRoomsSailor4AfterBattleText
-SSAnne10TrainerHeader4:
-	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_4, 2, SSAnneB1FRoomsSailor5BattleText, SSAnneB1FRoomsSailor5EndBattleText, SSAnneB1FRoomsSailor5AfterBattleText
-SSAnne10TrainerHeader5:
-	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_5, 3, SSAnneB1FRoomsFisherBattleText, SSAnneB1FRoomsFisherEndBattleText, SSAnneB1FRoomsFisherAfterBattleText
+	def_trainers SSAnneB1FRooms
+	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_0, 2, Sailor1
+	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_1, 3, Sailor2
+	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_2, 2, Sailor3
+	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_3, 2, Sailor4
+	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_4, 2, Sailor5
+	trainer EVENT_BEAT_SS_ANNE_10_TRAINER_5, 3, Fisher
 	db -1 ; end
 
 SSAnneB1FRoomsSailor1Text:
 	text_asm
-	ld hl, SSAnne10TrainerHeader0
+	ld hl, SSAnneB1FRooms_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnneB1FRoomsSailor1BattleText:
+	text "ふなのりに"
+	line "ケンカは　つきものだ　やるか！"
+	done
+
+SSAnneB1FRoomsSailor1EndBattleText:
+	text "おし！"
+	line "いい　しょうぶ　だった"
+	prompt
+
+SSAnneB1FRoomsSailor1AfterBattleText:
+	text "ははは！"
+	line "ぼうずも　ふなのりに　ならんか？"
+	done
 
 SSAnneB1FRoomsSailor2Text:
 	text_asm
-	ld hl, SSAnne10TrainerHeader1
+	ld hl, SSAnneB1FRooms_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnneB1FRoomsSailor2BattleText:
+	text "そら　こい！"
+	line "ふなのり　だましいに　かけて　かつ"
+	done
+
+SSAnneB1FRoomsSailor2EndBattleText:
+	text "ふなのり　だましいも"
+	line "おまえには　まけた！"
+	prompt
+
+SSAnneB1FRoomsSailor2AfterBattleText:
+	text "クチバの　みなと　といえば"
+	line "つりおやじは　げんき　かなー？"
+	done
 
 SSAnneB1FRoomsSailor3Text:
 	text_asm
-	ld hl, SSAnne10TrainerHeader2
+	ld hl, SSAnneB1FRooms_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnneB1FRoomsSailor3BattleText:
+	text "ふなのり　だって"
+	line "#　ぐらい　もってるぜ！"
+	done
+
+SSAnneB1FRoomsSailor3EndBattleText:
+	text "なかなか"
+	line "やるじゃねーか"
+	prompt
+
+SSAnneB1FRoomsSailor3AfterBattleText:
+	text "おれたちの　#は"
+	line "うみに　でた　ときに"
+	cont "じぶんで　とった　もの　ばかり　だぜ"
+	done
 
 SSAnneB1FRoomsSailor4Text:
 	text_asm
-	ld hl, SSAnne10TrainerHeader3
+	ld hl, SSAnneB1FRooms_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnneB1FRoomsSailor4BattleText:
+	text "こういう　げんきな　こども"
+	line "おれは　すきだぜ！@"
+	text_end
+
+SSAnneB1FRoomsSailor4EndBattleText:
+	text "ええい！"
+	line "まけたぜ！"
+	prompt
+
+SSAnneB1FRoomsSailor4AfterBattleText:
+	text "うみの　#は"
+	line "ふかい　ところに　いるから"
+	cont "つりざおで　つり　あげるんだ！"
+	done
 
 SSAnneB1FRoomsSailor5Text:
 	text_asm
-	ld hl, SSAnne10TrainerHeader4
+	ld hl, SSAnneB1FRooms_TrainerHeader4
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnneB1FRoomsSailor5BattleText:
+	text "うっしゃー！"
+	line "まけたら　うみ　に　おとすぞー！"
+	done
+
+SSAnneB1FRoomsSailor5EndBattleText:
+	text "くー　やられた！"
+	prompt
+
+SSAnneB1FRoomsSailor5AfterBattleText:
+	text "うみに　でてると"
+	line "たまーに　クラゲ　#が"
+	cont "ながれて　くるぜ"
+	done
 
 SSAnneB1FRoomsFisherText:
 	text_asm
-	ld hl, SSAnne10TrainerHeader5
+	ld hl, SSAnneB1FRooms_TrainerHeader5
 	call TalkToTrainer
 	jp TextScriptEnd
 
+SSAnneB1FRoomsFisherBattleText:
+	text "うみのもの　とも　やまのもの　とも"
+	line "わからない　しんいり　さん！"
+
+	para "わたしが　もってるのは"
+	line "うみのもの　ばかり　です！"
+	done
+
+SSAnneB1FRoomsFisherEndBattleText:
+	text "ちっ！"
+	line "つり　のがしたよ"
+	prompt
+
+SSAnneB1FRoomsFisherAfterBattleText:
+	text "あなた　まかしたら　つりびとの"
+	line "つきびとに　しようと　おもってた"
+	done
+
+SSAnneB1FRoomsSuperNerdText:
+	text "おれの　あいぼう　ゴーリキーは"
+	line "ごっつい　ちから　もち！"
+
+	para "すごく　おもい　いわ　だって"
+	line "かいりきで　うごかせるぜ！"
+	done
+
 SSAnneB1FRoomsMachokeText:
-	text_far _SSAnneB1FRoomsMachokeText
+	text "ゴーリキー『ごおー　ごごごー@"
 	text_asm
 	ld a, MACHOKE
 	call PlayCry
 	jp TextScriptEnd
-
-SSAnneB1FRoomsSailor1BattleText:
-	text_far _SSAnneB1FRoomsSailor1BattleText
-	text_end
-
-SSAnneB1FRoomsSailor1EndBattleText:
-	text_far _SSAnneB1FRoomsSailor1EndBattleText
-	text_end
-
-SSAnneB1FRoomsSailor1AfterBattleText:
-	text_far _SSAnneB1FRoomsSailor1AfterBattleText
-	text_end
-
-SSAnneB1FRoomsSailor2BattleText:
-	text_far _SSAnneB1FRoomsSailor2BattleText
-	text_end
-
-SSAnneB1FRoomsSailor2EndBattleText:
-	text_far _SSAnneB1FRoomsSailor2EndBattleText
-	text_end
-
-SSAnneB1FRoomsSailor2AfterBattleText:
-	text_far _SSAnneB1FRoomsSailor2AfterBattleText
-	text_end
-
-SSAnneB1FRoomsSailor3BattleText:
-	text_far _SSAnneB1FRoomsSailor3BattleText
-	text_end
-
-SSAnneB1FRoomsSailor3EndBattleText:
-	text_far _SSAnneB1FRoomsSailor3EndBattleText
-	text_end
-
-SSAnneB1FRoomsSailor3AfterBattleText:
-	text_far _SSAnneB1FRoomsSailor3AfterBattleText
-	text_end
-
-SSAnneB1FRoomsSailor4BattleText:
-	text_far _SSAnneB1FRoomsSailor4BattleText
-	text_end
-
-SSAnneB1FRoomsSailor4EndBattleText:
-	text_far _SSAnneB1FRoomsSailor4EndBattleText
-	text_end
-
-SSAnneB1FRoomsSailor4AfterBattleText:
-	text_far _SSAnneB1FRoomsSailor4AfterBattleText
-	text_end
-
-SSAnneB1FRoomsSailor5BattleText:
-	text_far _SSAnneB1FRoomsSailor5BattleText
-	text_end
-
-SSAnneB1FRoomsSailor5EndBattleText:
-	text_far _SSAnneB1FRoomsSailor5EndBattleText
-	text_end
-
-SSAnneB1FRoomsSailor5AfterBattleText:
-	text_far _SSAnneB1FRoomsSailor5AfterBattleText
-	text_end
-
-SSAnneB1FRoomsFisherBattleText:
-	text_far _SSAnneB1FRoomsFisherBattleText
-	text_end
-
-SSAnneB1FRoomsFisherEndBattleText:
-	text_far _SSAnneB1FRoomsFisherEndBattleText
-	text_end
-
-SSAnneB1FRoomsFisherAfterBattleText:
-	text_far _SSAnneB1FRoomsFisherAfterBattleText
-	text_end
-
-SSAnneB1FRoomsSuperNerdText:
-	text_far _SSAnneB1FRoomsSuperNerdText
-	text_end

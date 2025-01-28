@@ -1,7 +1,7 @@
 LancesRoom_Script:
 	call LanceShowOrHideEntranceBlocks
 	call EnableAutoTextBoxDrawing
-	ld hl, LancesRoomTrainerHeaders
+	ld hl, LancesRoom_TrainerHeaders
 	ld de, LancesRoom_ScriptPointers
 	ld a, [wLancesRoomCurScript]
 	call ExecuteCurMapScriptInTable
@@ -130,28 +130,66 @@ LancesRoom_TextPointers:
 	def_text_pointers
 	dw_const LancesRoomLanceText, TEXT_LANCESROOM_LANCE
 
-LancesRoomTrainerHeaders:
-	def_trainers
-LancesRoomTrainerHeader0:
-	trainer EVENT_BEAT_LANCES_ROOM_TRAINER_0, 0, LancesRoomLanceBeforeBattleText, LancesRoomLanceEndBattleText, LancesRoomLanceAfterBattleText
+	def_trainers LancesRoom
+	trainer EVENT_BEAT_LANCES_ROOM_TRAINER_0, 0, Lance
 	db -1 ; end
 
 LancesRoomLanceText:
 	text_asm
-	ld hl, LancesRoomTrainerHeader0
+	ld hl, LancesRoom_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
-LancesRoomLanceBeforeBattleText:
-	text_far _LancesRoomLanceBeforeBattleText
-	text_end
+LancesRoomLanceBattleText:
+	text "そうか！　きみが　<PLAYER>！"
+
+	para "おれは　してんのうの　たいしょう！"
+	line "ドラゴン　つかいの　ワタルだ！"
+
+	para "しってるだろ　ドラゴンは"
+	line "せいなる　でんせつの　いきものだ！"
+
+	para "つかまえるのが　むずかしいけど"
+	line "うまく　そだてりゃ"
+	cont "つよさは　てんか　いっぴんだ"
+
+	para "からだも　じょうぶ　だし"
+	line "こてさきの　こうげきも　むださ！"
+	cont "<⋯>　さてと！"
+	cont "そろそろ　はじめよう！"
+
+	para "それとも　いまから"
+	line "シッポ　まいて　かえるかい！"
+	cont "<PLAYER>！"
+	done
 
 LancesRoomLanceEndBattleText:
-	text_far _LancesRoomLanceEndBattleText
-	text_end
+	text "うう<⋯>！"
+
+	para "くやしいが　きみの"
+	line "#の　うでは　ほんものだ！"
+	prompt
 
 LancesRoomLanceAfterBattleText:
-	text_far _LancesRoomLanceAfterBattleText
+	text "ドラゴン　ぐんだんが"
+	line "まける　なんて　しんじられない"
+	cont "<PLAYER>！"
+
+	para "これからは　きみが"
+	line "#　リーグ　チャンピオンだ！"
+	cont "<⋯>　<⋯>　<⋯>"
+	cont "<⋯>　と　いいたい　とこだが"
+
+	para "じつは　きみは　もう　ひとり"
+	line "たたかわなくては　ならない！"
+	cont "その　<TRAINER>の　なまえは<⋯>"
+
+	para "<RIVAL>だ！"
+	line "かれは<⋯>　きみ　よりも　はやく！"
+	cont "おれたち　してんのうに　かった！"
+
+	para "いまや　かれこそ　#　リーグ"
+	line "しんの　チャンピオン　なのだ！@"
 	text_asm
 	SetEvent EVENT_BEAT_LANCE
 	jp TextScriptEnd

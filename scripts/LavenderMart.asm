@@ -8,8 +8,18 @@ LavenderMart_TextPointers:
 	dw_const LavenderMartCooltrainerMText, TEXT_LAVENDERMART_COOLTRAINER_M
 
 LavenderMartBaldingGuyText:
-	text_far _LavenderMartBaldingGuyText
-	text_end
+	text "おじさんが　さがしてる　のは<⋯>"
+
+	para "#が　たたかってる　とき"
+	line "のうりょくを　いちじ　てきに"
+	cont "あげる　どうぐ　なんだが<⋯>"
+
+	para "プラスパワー　ディフェンダー"
+	line "スピーダー　スペシャルアップ<⋯>"
+
+	para "<⋯>という"
+	line "なまえ　なんだが　しらんかな？"
+	done
 
 LavenderMartCooltrainerMText:
 	text_asm
@@ -25,9 +35,15 @@ LavenderMartCooltrainerMText:
 	jp TextScriptEnd
 
 .ReviveText
-	text_far _LavenderMartCooltrainerMReviveText
-	text_end
+	text "げんきのかけらは　かった？"
+	line "ひんしじょうたいの　#を"
+	cont "げんきに　する　べんりな　どうぐさ"
+	done
 
 .NuggetText
-	text_far _LavenderMartCooltrainerMNuggetText
-	text_end
+	text "この　あいだ　やまおくで"
+	line "きんのたまを　ひろい　ましてね！"
+
+	para "つかえない　しなもの　ですが"
+	line "うったら　なんと　５０００円でした"
+	done

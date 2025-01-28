@@ -1,6 +1,6 @@
 SSAnne1FRooms_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, SSAnne8TrainerHeaders
+	ld hl, SSAnne1FRooms_TrainerHeaders
 	ld de, SSAnne1FRooms_ScriptPointers
 	ld a, [wSSAnne1FRoomsCurScript]
 	call ExecuteCurMapScriptInTable
@@ -27,113 +27,136 @@ SSAnne1FRooms_TextPointers:
 	dw_const PickUpItemText,                 TEXT_SSANNE1FROOMS_TM_BODY_SLAM
 	dw_const SSAnne1FRoomsGentleman3Text,    TEXT_SSANNE1FROOMS_GENTLEMAN3
 
-SSAnne8TrainerHeaders:
-	def_trainers
-SSAnne8TrainerHeader0:
-	trainer EVENT_BEAT_SS_ANNE_8_TRAINER_0, 2, SSAnne1FRoomsGentleman1BattleText, SSAnne1FRoomsGentleman1EndBattleText, SSAnne1FRoomsGentleman1AfterBattleText
-SSAnne8TrainerHeader1:
-	trainer EVENT_BEAT_SS_ANNE_8_TRAINER_1, 3, SSAnne1FRoomsGentleman2BattleText, SSAnne1FRoomsGentleman2EndBattleText, SSAnne1FRoomsGentleman2AfterBattleText
-SSAnne8TrainerHeader2:
-	trainer EVENT_BEAT_SS_ANNE_8_TRAINER_2, 2, SSAnne1FRoomsYoungsterBattleText, SSAnne1FRoomsYoungsterEndBattleText, SSAnne1FRoomsYoungsterAfterBattleText
-SSAnne8TrainerHeader3:
-	trainer EVENT_BEAT_SS_ANNE_8_TRAINER_3, 2, SSAnne1FRoomsCooltrainerFBattleText, SSAnne1FRoomsCooltrainerFEndBattleText, SSAnne1FRoomsCooltrainerFAfterBattleText
+	def_trainers SSAnne1FRooms
+	trainer EVENT_BEAT_SS_ANNE_8_TRAINER_0, 2, Gentleman1
+	trainer EVENT_BEAT_SS_ANNE_8_TRAINER_1, 3, Gentleman2
+	trainer EVENT_BEAT_SS_ANNE_8_TRAINER_2, 2, Youngster
+	trainer EVENT_BEAT_SS_ANNE_8_TRAINER_3, 2, CooltrainerF
 	db -1 ; end
 
 SSAnne1FRoomsGentleman1Text:
 	text_asm
-	ld hl, SSAnne8TrainerHeader0
+	ld hl, SSAnne1FRooms_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnne1FRoomsGentleman1BattleText:
+	text "わたしは　たびびと<⋯>！"
+
+	para "たびさきで　とった　#　だけが"
+	line "わたしの　ともだち"
+	done
+
+SSAnne1FRoomsGentleman1EndBattleText:
+	text "と<⋯>ともだちが<⋯>"
+	prompt
+
+SSAnne1FRoomsGentleman1AfterBattleText:
+	text "あのね！"
+	line "ともだちは　だいじに　しなさい！"
+	done
 
 SSAnne1FRoomsGentleman2Text:
 	text_asm
-	ld hl, SSAnne8TrainerHeader1
+	ld hl, SSAnne1FRooms_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnne1FRoomsGentleman2BattleText:
+	text "む　きみは？　だまって　はいって"
+	line "しつれいな　こどもだ！"
+	done
+
+SSAnne1FRoomsGentleman2EndBattleText:
+	text "ふん！"
+	line "れいぎを　しらんよ　きみは"
+	prompt
+
+SSAnne1FRoomsGentleman2AfterBattleText:
+	text "わたしは　ひとりで　いたいんだ"
+	line "でて　いって　くれ！"
+	done
 
 SSAnne1FRoomsYoungsterText:
 	text_asm
-	ld hl, SSAnne8TrainerHeader2
+	ld hl, SSAnne1FRooms_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnne1FRoomsYoungsterBattleText:
+	text "ぼくは　#　だいすきだ！"
+	line "きみも　#　やるの！"
+	done
+
+SSAnne1FRoomsYoungsterEndBattleText:
+	text "うわあ！"
+	line "つよいんだ　きみって"
+	prompt
+
+SSAnne1FRoomsYoungsterAfterBattleText:
+	text "ね　ね！"
+	line "ぼくと　ともだちに　なってよ！"
+
+	para "それでね！"
+	line "#　こうかんとか　しようよ"
+	done
 
 SSAnne1FRoomsCooltrainerFText:
 	text_asm
-	ld hl, SSAnne8TrainerHeader3
+	ld hl, SSAnne1FRooms_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
 
+SSAnne1FRoomsCooltrainerFBattleText:
+	text "あたしが　せかい　じゅうから"
+	line "あつめた　#　みてー！"
+	done
+
+SSAnne1FRoomsCooltrainerFEndBattleText:
+	text "いやーん！"
+	line "せかいの　#　なのに<⋯>"
+	prompt
+
+SSAnne1FRoomsCooltrainerFAfterBattleText:
+	text "もう<⋯>！　わたしの"
+	line "#　こんなに　しちゃって！"
+
+	para "#　センターで"
+	line "げんきに　してきて　ほしいわ！"
+	done
+
+SSAnne1FRoomsGirl1Text:
+	text "ねぇ　ボーイさん！"
+	line "わたし　ケーキが　たべたいの"
+	cont "ミルフィーユを　おねがい！"
+	done
+
+SSAnne1FRoomsMiddleAgedManText:
+	text "ふねで　かいがい　りょこう　なんて"
+	line "ゆうがで　いいよー！"
+	done
+
+SSAnne1FRoomsLittleGirlText:
+	text "あたしと　プクリンは"
+	line "ずーっと　いっしょ　なの！"
+	done
+
 SSAnne1FRoomsWigglytuffText:
-	text_far _SSAnne1FRoomsWigglytuffText
+	text "プクリン『ぷう　ぷぷうー@"
 	text_asm
 	ld a, WIGGLYTUFF
 	call PlayCry
 	jp TextScriptEnd
 
-SSAnne1FRoomsGentleman1BattleText:
-	text_far _SSAnne1FRoomsGentleman1BattleText
-	text_end
-
-SSAnne1FRoomsGentleman1EndBattleText:
-	text_far _SSAnne1FRoomsGentleman1EndBattleText
-	text_end
-
-SSAnne1FRoomsGentleman1AfterBattleText:
-	text_far _SSAnne1FRoomsGentleman1AfterBattleText
-	text_end
-
-SSAnne1FRoomsGentleman2BattleText:
-	text_far _SSAnne1FRoomsGentleman2BattleText
-	text_end
-
-SSAnne1FRoomsGentleman2EndBattleText:
-	text_far _SSAnne1FRoomsGentleman2EndBattleText
-	text_end
-
-SSAnne1FRoomsGentleman2AfterBattleText:
-	text_far _SSAnne1FRoomsGentleman2AfterBattleText
-	text_end
-
-SSAnne1FRoomsYoungsterBattleText:
-	text_far _SSAnne1FRoomsYoungsterBattleText
-	text_end
-
-SSAnne1FRoomsYoungsterEndBattleText:
-	text_far _SSAnne1FRoomsYoungsterEndBattleText
-	text_end
-
-SSAnne1FRoomsYoungsterAfterBattleText:
-	text_far _SSAnne1FRoomsYoungsterAfterBattleText
-	text_end
-
-SSAnne1FRoomsCooltrainerFBattleText:
-	text_far _SSAnne1FRoomsCooltrainerFBattleText
-	text_end
-
-SSAnne1FRoomsCooltrainerFEndBattleText:
-	text_far _SSAnne1FRoomsCooltrainerFEndBattleText
-	text_end
-
-SSAnne1FRoomsCooltrainerFAfterBattleText:
-	text_far _SSAnne1FRoomsCooltrainerFAfterBattleText
-	text_end
-
-SSAnne1FRoomsGirl1Text:
-	text_far _SSAnne1FRoomsGirl1Text
-	text_end
-
-SSAnne1FRoomsMiddleAgedManText:
-	text_far _SSAnne1FRoomsMiddleAgedManText
-	text_end
-
-SSAnne1FRoomsLittleGirlText:
-	text_far _SSAnne1FRoomsLittleGirlText
-	text_end
-
 SSAnne1FRoomsGirl2Text:
-	text_far _SSAnne1FRoomsGirl2Text
-	text_end
+	text "わたくし　こども　たちと"
+	line "せかいを　まわって　ますの　おほほ"
+	done
 
 SSAnne1FRoomsGentleman3Text:
-	text_far _SSAnne1FRoomsGentleman3Text
-	text_end
+	text "しー<⋯>！"
+	line "わたしは　こくさい　けいさつ！"
+
+	para "<ROCKET>の　わるだくみを"
+	line "おって　いる　ところだ！"
+	done

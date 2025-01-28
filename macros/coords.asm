@@ -1,10 +1,10 @@
 MACRO validate_coords
 	IF _NARG >= 4
 		IF \1 >= \3
-			fail "x coord out of range"
+			FAIL "x coord out of range"
 		ENDC
 		IF \2 >= \4
-			fail "y coord out of range"
+			FAIL "y coord out of range"
 		ENDC
 	ELSE
 		validate_coords \1, \2, SCREEN_WIDTH, SCREEN_HEIGHT

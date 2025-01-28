@@ -1,6 +1,6 @@
 Route19_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, Route19TrainerHeaders
+	ld hl, Route19_TrainerHeaders
 	ld de, Route19_ScriptPointers
 	ld a, [wRoute19CurScript]
 	call ExecuteCurMapScriptInTable
@@ -27,210 +27,222 @@ Route19_TextPointers:
 	dw_const Route19Swimmer8Text,      TEXT_ROUTE19_SWIMMER8
 	dw_const Route19SignText,          TEXT_ROUTE19_SIGN
 
-Route19TrainerHeaders:
-	def_trainers
-Route19TrainerHeader0:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_0, 4, Route19CooltrainerM1BattleText, Route19CooltrainerM1EndBattleText, Route19CooltrainerM1AfterBattleText
-Route19TrainerHeader1:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_1, 3, Route19CooltrainerM2BattleText, Route19CooltrainerM2EndBattleText, Route19CooltrainerM2AfterBattleText
-Route19TrainerHeader2:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_2, 3, Route19Swimmer1BattleText, Route19Swimmer1EndBattleText, Route19Swimmer1AfterBattleText
-Route19TrainerHeader3:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_3, 4, Route19Swimmer2BattleText, Route19Swimmer2EndBattleText, Route19Swimmer2AfterBattleText
-Route19TrainerHeader4:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_4, 4, Route19Swimmer3BattleText, Route19Swimmer3EndBattleText, Route19Swimmer3AfterBattleText
-Route19TrainerHeader5:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_5, 4, Route19Swimmer4BattleText, Route19Swimmer4EndBattleText, Route19Swimmer4AfterBattleText
-Route19TrainerHeader6:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_6, 3, Route19Swimmer5BattleText, Route19Swimmer5EndBattleText, Route19Swimmer5AfterBattleText
-Route19TrainerHeader7:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_7, 4, Route19Swimmer6BattleText, Route19Swimmer6EndBattleText, Route19Swimmer6AfterBattleText
-Route19TrainerHeader8:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_8, 4, Route19Swimmer7BattleText, Route19Swimmer7EndBattleText, Route19Swimmer7AfterBattleText
-Route19TrainerHeader9:
-	trainer EVENT_BEAT_ROUTE_19_TRAINER_9, 4, Route19Swimmer8BattleText, Route19Swimmer8EndBattleText, Route19Swimmer8AfterBattleText
+	def_trainers Route19
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_0, 4, CooltrainerM1
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_1, 3, CooltrainerM2
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_2, 3, Swimmer1
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_3, 4, Swimmer2
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_4, 4, Swimmer3
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_5, 4, Swimmer4
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_6, 3, Swimmer5
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_7, 4, Swimmer6
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_8, 4, Swimmer7
+	trainer EVENT_BEAT_ROUTE_19_TRAINER_9, 4, Swimmer8
 	db -1 ; end
 
 Route19CooltrainerM1Text:
 	text_asm
-	ld hl, Route19TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route19CooltrainerM2Text:
-	text_asm
-	ld hl, Route19TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route19Swimmer1Text:
-	text_asm
-	ld hl, Route19TrainerHeader2
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route19Swimmer2Text:
-	text_asm
-	ld hl, Route19TrainerHeader3
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route19Swimmer3Text:
-	text_asm
-	ld hl, Route19TrainerHeader4
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route19Swimmer4Text:
-	text_asm
-	ld hl, Route19TrainerHeader5
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route19Swimmer5Text:
-	text_asm
-	ld hl, Route19TrainerHeader6
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route19Swimmer6Text:
-	text_asm
-	ld hl, Route19TrainerHeader7
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route19Swimmer7Text:
-	text_asm
-	ld hl, Route19TrainerHeader8
-	call TalkToTrainer
-	jp TextScriptEnd
-
-Route19Swimmer8Text:
-	text_asm
-	ld hl, Route19TrainerHeader9
+	ld hl, Route19_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 Route19CooltrainerM1BattleText:
-	text_far _Route19CooltrainerM1BattleText
-	text_end
+	text "みずに　はいる　まえに"
+	line "じゅんび　たいそう　しなきゃ！"
+	done
 
 Route19CooltrainerM1EndBattleText:
-	text_far _Route19CooltrainerM1EndBattleText
-	text_end
+	text "たいそう　おわり！"
+	prompt
 
 Route19CooltrainerM1AfterBattleText:
-	text_far _Route19CooltrainerM1AfterBattleText
-	text_end
+	text "よしッ！　おかげで"
+	line "いい　うんどうに　なった！"
+	done
+
+Route19CooltrainerM2Text:
+	text_asm
+	ld hl, Route19_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route19CooltrainerM2BattleText:
-	text_far _Route19CooltrainerM2BattleText
-	text_end
+	text "まて　あわてるな！"
+	line "しんぞう　マヒに　なったら　どうする"
+	done
 
 Route19CooltrainerM2EndBattleText:
-	text_far _Route19CooltrainerM2EndBattleText
-	text_end
+	text "うー　さむい"
+	prompt
 
 Route19CooltrainerM2AfterBattleText:
-	text_far _Route19CooltrainerM2AfterBattleText
-	text_end
+	text "メノクラゲに　さされないよう"
+	line "きを　つけて　およげよ！"
+	done
+
+Route19Swimmer1Text:
+	text_asm
+	ld hl, Route19_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route19Swimmer1BattleText:
-	text_far _Route19Swimmer1BattleText
-	text_end
+	text "およぐの　だいすき！"
+	line "<⋯>　きみは　どうなの？"
+	done
 
 Route19Swimmer1EndBattleText:
-	text_far _Route19Swimmer1EndBattleText
-	text_end
+	text "ドッポーン！"
+	prompt
 
 Route19Swimmer1AfterBattleText:
-	text_far _Route19Swimmer1AfterBattleText
-	text_end
+	text "およぎ　なら"
+	line "うみの　#にも　まけない！"
+	done
+
+Route19Swimmer2Text:
+	text_asm
+	ld hl, Route19_TrainerHeader3
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route19Swimmer2BattleText:
-	text_far _Route19Swimmer2BattleText
-	text_end
+	text "すいへいせんの　むこう"
+	line "<⋯>　なにが　あるんだろ？"
+	done
 
 Route19Swimmer2EndBattleText:
-	text_far _Route19Swimmer2EndBattleText
-	text_end
+	text "ありゃりゃ<⋯>"
+	prompt
 
 Route19Swimmer2AfterBattleText:
-	text_far _Route19Swimmer2AfterBattleText
-	text_end
+	text "<⋯>　むこうに"
+	line "いくつか　しまが　みえるぞ！"
+	done
+
+Route19Swimmer3Text:
+	text_asm
+	ld hl, Route19_TrainerHeader4
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route19Swimmer3BattleText:
-	text_far _Route19Swimmer3BattleText
-	text_end
+	text "もぐって<⋯>　うみ　#"
+	line "とろうとしたけど　だめ　みたいだ！"
+	done
 
 Route19Swimmer3EndBattleText:
-	text_far _Route19Swimmer3EndBattleText
-	text_end
+	text "ごぼ　ごぼッ"
+	prompt
 
 Route19Swimmer3AfterBattleText:
-	text_far _Route19Swimmer3AfterBattleText
-	text_end
+	text "うみの　#は　やっぱり"
+	line "つりで　とる　しか　ないや"
+	done
+
+Route19Swimmer4Text:
+	text_asm
+	ld hl, Route19_TrainerHeader5
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route19Swimmer4BattleText:
-	text_far _Route19Swimmer4BattleText
-	text_end
+	text "あおい　うみを　みてれば"
+	line "いやな　ことも　わすれるぞ！"
+	done
 
 Route19Swimmer4EndBattleText:
-	text_far _Route19Swimmer4EndBattleText
-	text_end
+	text "いやな　まけかただ"
+	prompt
 
 Route19Swimmer4AfterBattleText:
-	text_far _Route19Swimmer4AfterBattleText
-	text_end
+	text "あおい　うみを　みて<⋯>"
+	line "いやな　ことを　わすれよう"
+	done
+
+Route19Swimmer5Text:
+	text_asm
+	ld hl, Route19_TrainerHeader6
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route19Swimmer5BattleText:
-	text_far _Route19Swimmer5BattleText
-	text_end
+	text "ま！　いい　ものに　のってるわね"
+	line "かったら　わたしに　ちょうだい！"
+	done
 
 Route19Swimmer5EndBattleText:
-	text_far _Route19Swimmer5EndBattleText
-	text_end
+	text "わたしの　まけか"
+	prompt
 
 Route19Swimmer5AfterBattleText:
-	text_far _Route19Swimmer5AfterBattleText
-	text_end
+	text "ふたごじま　まで"
+	line "まだ　ありそうだし<⋯>"
+	cont "セキチクに　かえりたいわ"
+	done
+
+Route19Swimmer6Text:
+	text_asm
+	ld hl, Route19_TrainerHeader7
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route19Swimmer6BattleText:
-	text_far _Route19Swimmer6BattleText
-	text_end
+	text "およぐの　すき　だけど"
+	line "ひやけ　するのは　いやだわ！"
+	done
 
 Route19Swimmer6EndBattleText:
-	text_far _Route19Swimmer6EndBattleText
-	text_end
+	text "くらくら<⋯>"
+	prompt
 
 Route19Swimmer6AfterBattleText:
-	text_far _Route19Swimmer6AfterBattleText
-	text_end
+	text "かれが　ふたごじま　まで"
+	line "およごうって　いったのよ"
+	done
+
+Route19Swimmer7Text:
+	text_asm
+	ld hl, Route19_TrainerHeader8
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route19Swimmer7BattleText:
-	text_far _Route19Swimmer7BattleText
-	text_end
+	text "そこの　しょうねん！"
+	line "この　うみは　きけんだ！"
+	done
 
 Route19Swimmer7EndBattleText:
-	text_far _Route19Swimmer7EndBattleText
-	text_end
+	text "あぶない　めに　あった"
+	prompt
 
 Route19Swimmer7AfterBattleText:
-	text_far _Route19Swimmer7AfterBattleText
-	text_end
+	text "あ　あしが　つった！"
+	line "ぶく<⋯>　ぶくぶく<⋯>"
+	done
+
+Route19Swimmer8Text:
+	text_asm
+	ld hl, Route19_TrainerHeader9
+	call TalkToTrainer
+	jp TextScriptEnd
 
 Route19Swimmer8BattleText:
-	text_far _Route19Swimmer8BattleText
-	text_end
+	text "みんなで　ここまで　およいで"
+	line "きたけど<⋯>　くたびれたわ"
+	done
 
 Route19Swimmer8EndBattleText:
-	text_far _Route19Swimmer8EndBattleText
-	text_end
+	text "つかれた<⋯>"
+	prompt
 
 Route19Swimmer8AfterBattleText:
-	text_far _Route19Swimmer8AfterBattleText
-	text_end
+	text "うみで　#に　のるなら"
+	line "ラプラスが　いいわ"
+	cont "おおきいから　ぬれない　もの"
+	done
 
 Route19SignText:
-	text_far _Route19SignText
-	text_end
+	text "ここは　１９ばん　すいどう"
+	line "セキチク　<⋯>　ふたごじま"
+	done

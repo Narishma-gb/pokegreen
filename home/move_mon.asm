@@ -36,10 +36,10 @@ CalcStats::
 .statsLoop
 	inc c
 	call CalcStat
-	ldh a, [hMultiplicand+1]
+	ldh a, [hMultiplicand + 1]
 	ld [de], a
 	inc de
-	ldh a, [hMultiplicand+2]
+	ldh a, [hMultiplicand + 2]
 	ld [de], a
 	inc de
 	ld a, c
@@ -73,12 +73,12 @@ CalcStat::
 .statExpLoop            ; calculates ceil(Sqrt(stat exp)) in b
 	xor a
 	ldh [hMultiplicand], a
-	ldh [hMultiplicand+1], a
+	ldh [hMultiplicand + 1], a
 	inc b               ; increment current stat exp bonus
 	ld a, b
 	cp $ff
 	jr z, .statExpDone
-	ldh [hMultiplicand+2], a
+	ldh [hMultiplicand + 2], a
 	ldh [hMultiplier], a
 	call Multiply
 	ld a, [hld]
@@ -106,7 +106,7 @@ CalcStat::
 	jr z, .getSpeedIV
 	cp $5
 	jr z, .getSpecialIV
-.getHpIV
+; getHpIV
 	push bc
 	ld a, [hl]  ; Atk IV
 	swap a
@@ -167,9 +167,9 @@ CalcStat::
 	jr nc, .noCarry2
 	inc d                     ; de = (Base + IV) * 2 + ceil(Sqrt(stat exp)) / 4
 .noCarry2
-	ldh [hMultiplicand+2], a
+	ldh [hMultiplicand + 2], a
 	ld a, d
-	ldh [hMultiplicand+1], a
+	ldh [hMultiplicand + 1], a
 	xor a
 	ldh [hMultiplicand], a
 	ld a, [wCurEnemyLevel]
@@ -177,10 +177,10 @@ CalcStat::
 	call Multiply            ; ((Base + IV) * 2 + ceil(Sqrt(stat exp)) / 4) * Level
 	ldh a, [hMultiplicand]
 	ldh [hDividend], a
-	ldh a, [hMultiplicand+1]
-	ldh [hDividend+1], a
-	ldh a, [hMultiplicand+2]
-	ldh [hDividend+2], a
+	ldh a, [hMultiplicand + 1]
+	ldh [hDividend + 1], a
+	ldh a, [hMultiplicand + 2]
+	ldh [hDividend + 2], a
 	ld a, $64
 	ldh [hDivisor], a
 	ld a, $3
@@ -192,38 +192,38 @@ CalcStat::
 	jr nz, .notHPStat
 	ld a, [wCurEnemyLevel]
 	ld b, a
-	ldh a, [hMultiplicand+2]
+	ldh a, [hMultiplicand + 2]
 	add b
-	ldh [hMultiplicand+2], a
+	ldh [hMultiplicand + 2], a
 	jr nc, .noCarry3
-	ldh a, [hMultiplicand+1]
+	ldh a, [hMultiplicand + 1]
 	inc a
-	ldh [hMultiplicand+1], a ; HP: (((Base + IV) * 2 + ceil(Sqrt(stat exp)) / 4) * Level) / 100 + Level
+	ldh [hMultiplicand + 1], a ; HP: (((Base + IV) * 2 + ceil(Sqrt(stat exp)) / 4) * Level) / 100 + Level
 .noCarry3
 	ld a, 10 ; +10 for HP stat
 .notHPStat
 	ld b, a
-	ldh a, [hMultiplicand+2]
+	ldh a, [hMultiplicand + 2]
 	add b
-	ldh [hMultiplicand+2], a
+	ldh [hMultiplicand + 2], a
 	jr nc, .noCarry4
-	ldh a, [hMultiplicand+1]
+	ldh a, [hMultiplicand + 1]
 	inc a                    ; non-HP: (((Base + IV) * 2 + ceil(Sqrt(stat exp)) / 4) * Level) / 100 + 5
-	ldh [hMultiplicand+1], a ; HP: (((Base + IV) * 2 + ceil(Sqrt(stat exp)) / 4) * Level) / 100 + Level + 10
+	ldh [hMultiplicand + 1], a ; HP: (((Base + IV) * 2 + ceil(Sqrt(stat exp)) / 4) * Level) / 100 + Level + 10
 .noCarry4
-	ldh a, [hMultiplicand+1] ; check for overflow (>999)
+	ldh a, [hMultiplicand + 1] ; check for overflow (>999)
 	cp HIGH(MAX_STAT_VALUE) + 1
 	jr nc, .overflow
 	cp HIGH(MAX_STAT_VALUE)
 	jr c, .noOverflow
-	ldh a, [hMultiplicand+2]
+	ldh a, [hMultiplicand + 2]
 	cp LOW(MAX_STAT_VALUE) + 1
 	jr c, .noOverflow
 .overflow
 	ld a, HIGH(MAX_STAT_VALUE) ; overflow: cap at 999
-	ldh [hMultiplicand+1], a
+	ldh [hMultiplicand + 1], a
 	ld a, LOW(MAX_STAT_VALUE)
-	ldh [hMultiplicand+2], a
+	ldh [hMultiplicand + 2], a
 .noOverflow
 	pop bc
 	pop de

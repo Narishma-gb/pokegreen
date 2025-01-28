@@ -2,7 +2,7 @@ TransformEffect_:
 	ld hl, wBattleMonSpecies
 	ld de, wEnemyMonSpecies
 	ld bc, wEnemyBattleStatus3
-	ld a, [wEnemyBattleStatus1]
+	ld a, [wEnemyBattleStatus1] ; bug? gets overwritten immediately
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .hitTest
@@ -98,20 +98,12 @@ TransformEffect_:
 ; 5 PP for all moves
 	ld a, [hli]
 	and a
-	jr z, .lessThanFourMoves
+	jr z, .copyStats
 	ld a, $5
 	ld [de], a
 	inc de
 	dec b
 	jr nz, .copyPPLoop
-	jr .copyStats
-.lessThanFourMoves
-; 0 PP for blank moves
-	xor a
-	ld [de], a
-	inc de
-	dec b
-	jr nz, .lessThanFourMoves
 .copyStats
 ; original (unmodified) stats and stat mods
 	pop hl
@@ -144,5 +136,8 @@ TransformEffect_:
 	jp EffectCallBattleCore
 
 TransformedText:
-	text_far _TransformedText
-	text_end
+	text "<USER>は"
+	line "@"
+	text_ram wNameBuffer
+	text "に　へんしんした！"
+	prompt

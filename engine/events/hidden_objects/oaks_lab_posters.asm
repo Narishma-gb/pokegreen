@@ -3,8 +3,9 @@ DisplayOakLabLeftPoster:
 	tx_pre_jump PushStartText
 
 PushStartText::
-	text_far _PushStartText
-	text_end
+	text "スタート　ボタンを　プシュ！"
+	line "おすと　メニューが　ひらくなり"
+	done
 
 DisplayOakLabRightPoster:
 	call EnableAutoTextBoxDrawing
@@ -21,9 +22,12 @@ DisplayOakLabRightPoster:
 	jp PrintPredefTextID
 
 SaveOptionText::
-	text_far _SaveOptionText
-	text_end
+	text "セーブするには　#　レポート"
+	line "こまめに　かくと　いいなり"
+	done
 
 StrengthsAndWeaknessesText::
-	text_far _StrengthsAndWeaknessesText
-	text_end
+	text "#は　タイプに　よって"
+	line "とくいな　タイプ"
+	cont "にがてな　タイプが　いるなり"
+	done

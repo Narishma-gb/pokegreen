@@ -16,9 +16,25 @@ CeruleanPokecenterNurseText:
 	script_pokecenter_nurse
 
 CeruleanPokecenterSuperNerdText:
-	text_far _CeruleanPokecenterSuperNerdText
-	text_end
+	text "マサキの　ヤツ！"
+
+	para "めずらしい　#を"
+	line "てに　いれる　ためには<⋯>"
+
+	para "あんな　ことも　こんな　ことも"
+	line "へいきで　するって　きいたよ！"
+	done
 
 CeruleanPokecenterGentlemanText:
-	text_far _CeruleanPokecenterGentlemanText
-	text_end
+	text "きみも"
+	line "マサキの　うわさ　きいてるか？"
+
+	para "みんなが　あいつを"
+	line "#　マニアと　よんでるよ！"
+
+	para "でも　ものを　あつめたり"
+	line "じまん　したい　きもちは"
+	cont "だれでも　ある！"
+
+	para "みんなも　うらやましいんだな！"
+	done

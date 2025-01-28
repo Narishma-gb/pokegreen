@@ -125,7 +125,7 @@ MainMenu:
 	jp SpecialEnterMap
 
 InitOptions:
-	ld a, 1 << BIT_FAST_TEXT_DELAY
+	ld a, TEXT_DELAY_FAST
 	ld [wLetterPrintingDelayFlags], a
 	ld a, TEXT_DELAY_MEDIUM
 	ld [wOptions], a
@@ -141,37 +141,31 @@ LinkMenu:
 	call SaveScreenTilesToBuffer1
 	ld hl, WhereWouldYouLikeText
 	call PrintText
-	hlcoord 5, 5
+	hlcoord 8, 10
 	ld b, $6
-	ld c, $d
+	ld c, $a
 	call TextBoxBorder
 	call UpdateSprites
-	hlcoord 7, 7
+	hlcoord 10, 12
 	ld de, CableClubOptionsText
 	call PlaceString
 	xor a
 	ld [wUnusedLinkMenuByte], a
 	ld [wCableClubDestinationMap], a
 	ld hl, wTopMenuItemY
-	ld a, 7
+	ld a, $c
 	ld [hli], a
-	assert wTopMenuItemY + 1 == wTopMenuItemX
-	ld a, 6
-	ld [hli], a
-	assert wTopMenuItemX + 1 == wCurrentMenuItem
+	ld a, $9
+	ld [hli], a ; wTopMenuItemX
 	xor a
-	ld [hli], a
+	ld [hli], a ; wCurrentMenuItem
 	inc hl
-	assert wCurrentMenuItem + 2 == wMaxMenuItem
 	ld a, 2
-	ld [hli], a
-	assert wMaxMenuItem + 1 == wMenuWatchedKeys
-	assert 2 + 1 == A_BUTTON | B_BUTTON
-	inc a
-	ld [hli], a
-	assert wMenuWatchedKeys + 1 == wLastMenuItem
+	ld [hli], a ; wMaxMenuItem
+	inc a ; A_BUTTON | B_BUTTON
+	ld [hli], a ; wMenuWatchedKeys
 	xor a
-	ld [hl], a
+	ld [hl], a ; wLastMenuItem
 .waitForInputLoop
 	call HandleMenuInput
 	and A_BUTTON | B_BUTTON
@@ -227,8 +221,8 @@ LinkMenu:
 	ld a, START_TRANSFER_INTERNAL_CLOCK
 	ldh [rSC], a
 .skipStartingTransfer
-	ld b, " "
-	ld c, " "
+	ld b, "　"
+	ld c, "　"
 	ld d, "▷"
 	ld a, [wLinkMenuSelectionSendBuffer]
 	and B_BUTTON << 2 ; was B button pressed?
@@ -245,11 +239,11 @@ LinkMenu:
 	ld c, d
 .updateCursorPosition
 	ld a, b
-	ldcoord_a 6, 7
+	ldcoord_a 9, 12
 	ld a, c
-	ldcoord_a 6, 9
+	ldcoord_a 9, 14
 	ld a, d
-	ldcoord_a 6, 11
+	ldcoord_a 9, 16
 	ld c, 40
 	call DelayFrames
 	call LoadScreenTilesFromBuffer1
@@ -289,35 +283,37 @@ LinkMenu:
 .choseCancel
 	xor a
 	ld [wMenuJoypadPollCount], a
-	vc_hook Wireless_net_stop
 	call Delay3
 	call CloseLinkConnection
 	ld hl, LinkCanceledText
-	vc_hook Wireless_net_end
 	call PrintText
 	ld hl, wStatusFlags4
 	res BIT_LINK_CONNECTED, [hl]
 	ret
 
 WhereWouldYouLikeText:
-	text_far _WhereWouldYouLikeText
-	text_end
+	text "どちらの　へやに"
+	line "いきますか？"
+	done
 
 PleaseWaitText:
-	text_far _PleaseWaitText
-	text_end
+	text "それでは　これより"
+	line "ごあんない　いたします"
+	done
 
 LinkCanceledText:
-	text_far _LinkCanceledText
-	text_end
+	text "つうしんは　キャンセル　されました"
+	done
 
 StartNewGame:
 	ld hl, wStatusFlags6
-	; Ensure debug mode is not used when starting a regular new game.
-	; Debug mode persists in saved games for both debug and non-debug builds, and is
-	; only reset here by the main menu.
+; Ensure debug mode is not used when
+; starting a regular new game.
+; Debug mode persists in saved games and
+; is only reset here by the main menu.
 	res BIT_DEBUG_MODE, [hl]
-	; fallthrough
+; fallthrough
+
 StartNewGameDebug:
 	call OakSpeech
 	ld c, 20
@@ -341,37 +337,37 @@ SpecialEnterMap::
 	jp EnterMap
 
 ContinueText:
-	db "CONTINUE"
+	db   "つづきからはじめる"
 	next ""
 	; fallthrough
 
 NewGameText:
-	db   "NEW GAME"
-	next "OPTION@"
+	db   "さいしょからはじめる"
+	next "せっていを　かえる@"
 
 CableClubOptionsText:
-	db   "TRADE CENTER"
-	next "COLOSSEUM"
-	next "CANCEL@"
+	db   "トレードセンター"
+	next "コロシアム"
+	next "やめる@"
 
 DisplayContinueGameInfo:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
 	hlcoord 4, 7
 	ld b, 8
-	ld c, 14
+	ld c, 13
 	call TextBoxBorder
 	hlcoord 5, 9
 	ld de, SaveScreenInfoText
 	call PlaceString
-	hlcoord 12, 9
+	hlcoord 13, 9
 	ld de, wPlayerName
 	call PlaceString
-	hlcoord 17, 11
+	hlcoord 14, 11
 	call PrintNumBadges
-	hlcoord 16, 13
+	hlcoord 13, 13
 	call PrintNumOwnedMons
-	hlcoord 13, 15
+	hlcoord 12, 15
 	call PrintPlayTime
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
@@ -381,25 +377,25 @@ DisplayContinueGameInfo:
 PrintSaveScreenText:
 	xor a
 	ldh [hAutoBGTransferEnabled], a
-	hlcoord 4, 0
-	ld b, $8
-	ld c, $e
+	hlcoord 5, 0
+	ld b, 8
+	ld c, 13
 	call TextBoxBorder
 	call LoadTextBoxTilePatterns
 	call UpdateSprites
-	hlcoord 5, 2
+	hlcoord 6, 2
 	ld de, SaveScreenInfoText
 	call PlaceString
-	hlcoord 12, 2
+	hlcoord 13, 2
 	ld de, wPlayerName
 	call PlaceString
-	hlcoord 17, 4
+	hlcoord 15, 4
 	call PrintNumBadges
-	hlcoord 16, 6
+	hlcoord 14, 6
 	call PrintNumOwnedMons
 	hlcoord 13, 8
 	call PrintPlayTime
-	ld a, $1
+	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	ld c, 30
 	jp DelayFrames
@@ -407,7 +403,7 @@ PrintSaveScreenText:
 PrintNumBadges:
 	push hl
 	ld hl, wObtainedBadges
-	ld b, $1
+	ld b, 1
 	call CountSetBits
 	pop hl
 	ld de, wNumSetBits
@@ -428,17 +424,17 @@ PrintPlayTime:
 	ld de, wPlayTimeHours
 	lb bc, 1, 3
 	call PrintNumber
-	ld [hl], $6d
+	ld [hl], ":"
 	inc hl
 	ld de, wPlayTimeMinutes
 	lb bc, LEADING_ZEROES | 1, 2
 	jp PrintNumber
 
 SaveScreenInfoText:
-	db   "PLAYER"
-	next "BADGES    "
-	next "#DEX    "
-	next "TIME@"
+	db   "しゅじんこう"
+	next "もっているバッジ　　　　こ"
+	next "#ずかん　　　　ひき"
+	next "プレイじかん@"
 
 DisplayOptionMenu:
 	hlcoord 0, 0
@@ -468,7 +464,6 @@ DisplayOptionMenu:
 	xor a
 	ld [wCurrentMenuItem], a
 	ld [wLastMenuItem], a
-	assert BIT_FAST_TEXT_DELAY == 0
 	inc a ; 1 << BIT_FAST_TEXT_DELAY
 	ld [wLetterPrintingDelayFlags], a
 	ld [wOptionsCancelCursorX], a
@@ -495,6 +490,7 @@ DisplayOptionMenu:
 	jr nz, .exitMenu
 	bit BIT_A_BUTTON, b
 	jr z, .checkDirectionKeys
+; A was pressed
 	ld a, [wTopMenuItemY]
 	cp 16 ; is the cursor on Cancel?
 	jr nz, .loop
@@ -518,7 +514,7 @@ DisplayOptionMenu:
 	jr z, .cursorInBattleStyle
 	cp 16 ; cursor on Cancel?
 	jr z, .loop
-.cursorInTextSpeed
+; cursorInTextSpeed
 	bit BIT_D_LEFT, b
 	jp nz, .pressedLeftInTextSpeed
 	jp .pressedRightInTextSpeed
@@ -558,6 +554,20 @@ DisplayOptionMenu:
 	ld [wTopMenuItemX], a
 	call PlaceUnfilledArrowMenuCursor
 	jp .loop
+.pressedLeftInTextSpeed
+	ld a, [wOptionsTextSpeedCursorX] ; text speed cursor X coordinate
+	cp 1
+	jr z, .updateTextSpeedXCoord
+	sub 7
+	jr .updateTextSpeedXCoord
+.pressedRightInTextSpeed
+	ld a, [wOptionsTextSpeedCursorX] ; text speed cursor X coordinate
+	cp 15
+	jr z, .updateTextSpeedXCoord
+	add 7
+.updateTextSpeedXCoord
+	ld [wOptionsTextSpeedCursorX], a ; text speed cursor X coordinate
+	jp .eraseOldMenuCursor
 .cursorInBattleAnimation
 	ld a, [wOptionsBattleAnimCursorX] ; battle animation cursor X coordinate
 	xor 1 ^ 10 ; toggle between 1 and 10
@@ -568,45 +578,21 @@ DisplayOptionMenu:
 	xor 1 ^ 10 ; toggle between 1 and 10
 	ld [wOptionsBattleStyleCursorX], a
 	jp .eraseOldMenuCursor
-.pressedLeftInTextSpeed
-	ld a, [wOptionsTextSpeedCursorX] ; text speed cursor X coordinate
-	cp 1
-	jr z, .updateTextSpeedXCoord
-	cp 7
-	jr nz, .fromSlowToMedium
-	sub 6
-	jr .updateTextSpeedXCoord
-.fromSlowToMedium
-	sub 7
-	jr .updateTextSpeedXCoord
-.pressedRightInTextSpeed
-	ld a, [wOptionsTextSpeedCursorX] ; text speed cursor X coordinate
-	cp 14
-	jr z, .updateTextSpeedXCoord
-	cp 7
-	jr nz, .fromFastToMedium
-	add 7
-	jr .updateTextSpeedXCoord
-.fromFastToMedium
-	add 6
-.updateTextSpeedXCoord
-	ld [wOptionsTextSpeedCursorX], a ; text speed cursor X coordinate
-	jp .eraseOldMenuCursor
 
 TextSpeedOptionText:
-	db   "TEXT SPEED"
-	next " FAST  MEDIUM SLOW@"
+	db   "はなしの　はやさ"
+	next "　はやい　　　　ふつう　　　　おそい@"
 
 BattleAnimationOptionText:
-	db   "BATTLE ANIMATION"
-	next " ON       OFF@"
+	db   "せんとう　アニメーション"
+	next "　じっくり　みる　　とばして　みる@"
 
 BattleStyleOptionText:
-	db   "BATTLE STYLE"
-	next " SHIFT    SET@"
+	db   "しあいの　ルール"
+	next "　いれかえタイプ　　かちぬきタイプ@"
 
 OptionMenuCancelText:
-	db "CANCEL@"
+	db "おわり@"
 
 ; sets the options variable according to the current placement of the menu cursors in the options menu
 SetOptionsFromCursorPositions:
@@ -625,7 +611,7 @@ SetOptionsFromCursorPositions:
 	ld a, [wOptionsBattleAnimCursorX] ; battle animation cursor X coordinate
 	dec a
 	jr z, .battleAnimationOn
-.battleAnimationOff
+; battleAnimationOff
 	set BIT_BATTLE_ANIMATION, d
 	jr .checkBattleStyle
 .battleAnimationOn
@@ -634,7 +620,7 @@ SetOptionsFromCursorPositions:
 	ld a, [wOptionsBattleStyleCursorX] ; battle style cursor X coordinate
 	dec a
 	jr z, .battleStyleShift
-.battleStyleSet
+; battleStyleSet
 	set BIT_BATTLE_SHIFT, d
 	jr .storeOptions
 .battleStyleShift
@@ -690,10 +676,10 @@ SetCursorPositionsFromOptions:
 ; 00: X coordinate of menu cursor
 ; 01: delay after printing a letter (in frames)
 TextSpeedOptionData:
-	db 14, TEXT_DELAY_SLOW
-	db  7, TEXT_DELAY_MEDIUM
+	db 15, TEXT_DELAY_SLOW
+	db  8, TEXT_DELAY_MEDIUM
 	db  1, TEXT_DELAY_FAST
-	db  7, -1 ; end (default X coordinate)
+	db  8, -1 ; end (default X coordinate)
 
 CheckForPlayerNameInSRAM:
 ; Check if the player name data in SRAM has a string terminator character

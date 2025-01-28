@@ -143,21 +143,20 @@ SeafoamIslandsB4F_TextPointers:
 ; Articuno is object 3, but its event flag is bit 2.
 ; This is not a problem because its sight range is 0, and
 ; trainer headers were not stored by ExecuteCurMapScriptInTable.
-	def_trainers 2
-ArticunoTrainerHeader:
-	trainer EVENT_BEAT_ARTICUNO, 0, SeafoamIslandsB4FArticunoBattleText, SeafoamIslandsB4FArticunoBattleText, SeafoamIslandsB4FArticunoBattleText
+	def_trainers SeafoamIslandsB4F, 2
+	battlemon EVENT_BEAT_ARTICUNO, Articuno
 	db -1 ; end
 
 SeafoamIslandsB4FArticunoText:
 	text_asm
-	ld hl, ArticunoTrainerHeader
+	ld hl, SeafoamIslandsB4F_TrainerHeader0
 	call TalkToTrainer
 	ld a, SCRIPT_SEAFOAMISLANDSB4F_OBJECT_MOVING3
 	ld [wSeafoamIslandsB4FCurScript], a
 	jp TextScriptEnd
 
 SeafoamIslandsB4FArticunoBattleText:
-	text_far _SeafoamIslandsB4FArticunoBattleText
+	text "ギヤーオ！@"
 	text_asm
 	ld a, ARTICUNO
 	call PlayCry
@@ -165,9 +164,11 @@ SeafoamIslandsB4FArticunoBattleText:
 	jp TextScriptEnd
 
 SeafoamIslandsB4FBouldersSignText:
-	text_far _SeafoamIslandsB4FBouldersSignText
-	text_end
+	text "ヒント　いわで　ながれを"
+	line "せきとめられるかも<⋯>"
+	done
 
 SeafoamIslandsB4FDangerSignText:
-	text_far _SeafoamIslandsB4FDangerSignText
-	text_end
+	text "キケン！"
+	line "ながれが　はやい！"
+	done

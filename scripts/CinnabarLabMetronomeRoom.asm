@@ -33,30 +33,61 @@ CinnabarLabMetronomeRoomScientist1Text:
 	jp TextScriptEnd
 
 .Text:
-	text_far _CinnabarLabMetronomeRoomScientist1Text
-	text_end
+	text "ちッちッ　ちッ！"
+	line "いい　<TM>を　つくったぜ！"
+
+	para "#に　こいつを　おしえりゃ"
+	line "たのしく　なるぜ！"
+	prompt
 
 .ReceivedTM35Text:
-	text_far _CinnabarLabMetronomeRoomScientist1ReceivedTM35Text
+	text "<PLAYER>は　けんきゅうしゃから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
 	text_end
 
 .TM35ExplanationText:
-	text_far _CinnabarLabMetronomeRoomScientist1TM35ExplanationText
-	text_end
+	text "ちッ　ちッちッ！"
+	line "これは　ゆびをふる　おと　だぜ！"
+
+	para "ゆびをふると　#は"
+	line "のうみそが　しげき　されて"
+	cont "ふだん　やらないような　わざを"
+	cont "いろいろ　くりだすぜ！"
+	done
 
 .TM35NoRoomText:
-	text_far _CinnabarLabMetronomeRoomScientist1TM35NoRoomText
-	text_end
+	text "にもつが　おおくて　もてないぞ"
+	done
 
 CinnabarLabMetronomeRoomScientist2Text:
-	text_far _CinnabarLabMetronomeRoomScientist2Text
-	text_end
+	text "そう！　イーブイは"
+	line "３しゅるいの　#に"
+	cont "しんか　する　かのうせいが　ある！"
+	done
 
 CinnabarLabMetronomeRoomPCText:
-	text_far _CinnabarLabMetronomeRoomPCText
-	text_end
+	text "<PC>に"
+	line "でんしメールが　とどいてる！"
+
+	para "<⋯>　<⋯>　<⋯>"
+
+	para "でんせつの　とり#は"
+	line "３しゅるい<⋯>　ファイヤー"
+	cont "サンダー　フリーザー<⋯>"
+	cont "しかし　どこに　いるのか"
+	cont "まだ　わかって　ません"
+
+	para "こんど　ハナダ　どうくつに"
+	line "ちょうさに　いきます"
+	cont "<⋯>　まずは　ほうこく　まで"
+	cont "#　ちょうさ　たい"
+
+	para "<⋯>　<⋯>　<⋯>"
+	done
 
 CinnabarLabMetronomeRoomAmberPipeText:
-	text_far _CinnabarLabMetronomeRoomAmberPipeText
-	text_end
+	text "コハクの　パイプが　ある！"
+	done

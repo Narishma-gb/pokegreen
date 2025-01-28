@@ -3,11 +3,11 @@ Route18Gate2F_Script:
 
 Route18Gate2F_TextPointers:
 	def_text_pointers
-	dw_const Route18Gate2FYoungsterText,       TEXT_ROUTE18GATE2F_YOUNGSTER
+	dw_const Route18Gate2FCookText,            TEXT_ROUTE18GATE2F_COOK
 	dw_const Route18Gate2FLeftBinocularsText,  TEXT_ROUTE18GATE2F_LEFT_BINOCULARS
 	dw_const Route18Gate2FRightBinocularsText, TEXT_ROUTE18GATE2F_RIGHT_BINOCULARS
 
-Route18Gate2FYoungsterText:
+Route18Gate2FCookText:
 	text_asm
 	ld a, TRADE_FOR_MARC
 	ld [wWhichTrade], a
@@ -20,8 +20,10 @@ Route18Gate2FLeftBinocularsText:
 	jp GateUpstairsScript_PrintIfFacingUp
 
 .Text:
-	text_far _Route18Gate2FLeftBinocularsText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "にしに　マサラ　タウンが　みえる"
+	done
 
 Route18Gate2FRightBinocularsText:
 	text_asm
@@ -29,5 +31,7 @@ Route18Gate2FRightBinocularsText:
 	jp GateUpstairsScript_PrintIfFacingUp
 
 .Text:
-	text_far _Route18Gate2FRightBinocularsText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "およいでる　ひとが　みえる！"
+	done

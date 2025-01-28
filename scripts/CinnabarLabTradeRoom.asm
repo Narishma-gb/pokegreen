@@ -8,8 +8,12 @@ CinnabarLabTradeRoom_TextPointers:
 	dw_const CinnabarLabTradeRoomBeautyText,    TEXT_CINNABARLABTRADEROOM_BEAUTY
 
 CinnabarLabTradeRoomSuperNerdText:
-	text_far _CinnabarLabTradeRoomSuperNerdText
-	text_end
+	text "ぼく　おつきみやまで"
+	line "カセキを　みつけましてねー！"
+
+	para "どうやら　めずらしい"
+	line "#の　カセキ　らしいんですよ"
+	done
 
 CinnabarLabTradeRoomGrampsText:
 	text_asm

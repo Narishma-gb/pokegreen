@@ -1,7 +1,7 @@
 PokemonMansion2F_Script:
 	call Mansion2CheckReplaceSwitchDoorBlocks
 	call EnableAutoTextBoxDrawing
-	ld hl, Mansion2TrainerHeaders
+	ld hl, PokemonMansion2F_TrainerHeaders
 	ld de, PokemonMansion2F_ScriptPointers
 	ld a, [wPokemonMansion2FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -65,37 +65,45 @@ PokemonMansion2F_TextPointers:
 	dw_const PokemonMansion2FDiary2Text,    TEXT_POKEMONMANSION2F_DIARY2
 	dw_const PokemonMansion2FSwitchText,    TEXT_POKEMONMANSION2F_SWITCH
 
-Mansion2TrainerHeaders:
-	def_trainers
-Mansion2TrainerHeader0:
-	trainer EVENT_BEAT_MANSION_2_TRAINER_0, 0, PokemonMansion2FSuperNerdBattleText, PokemonMansion2FSuperNerdEndBattleText, PokemonMansion2FSuperNerdAfterBattleText
+	def_trainers PokemonMansion2F
+	trainer EVENT_BEAT_MANSION_2_TRAINER_0, 0, SuperNerd
 	db -1 ; end
 
 PokemonMansion2FSuperNerdText:
 	text_asm
-	ld hl, Mansion2TrainerHeader0
+	ld hl, PokemonMansion2F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 PokemonMansion2FSuperNerdBattleText:
-	text_far _PokemonMansion2FSuperNerdBattleText
-	text_end
+	text "この　やしき　しかけが　してあって"
+	line "なかなか　すすめませんぜ！"
+	done
 
 PokemonMansion2FSuperNerdEndBattleText:
-	text_far _PokemonMansion2FSuperNerdEndBattleText
-	text_end
+	text "わーッ！"
+	line "ふろしきの　なかみが"
+	prompt
 
 PokemonMansion2FSuperNerdAfterBattleText:
-	text_far _PokemonMansion2FSuperNerdAfterBattleText
-	text_end
+	text "ひみつの　スイッチを　おすと"
+	line "ふたつの　とびらが"
+	cont "たがい　ちがいに　ひらくんでさ"
+	done
 
 PokemonMansion2FDiary1Text:
-	text_far _PokemonMansion2FDiary1Text
-	text_end
+	text "にっき　７がつ５か"
+	line "ここは　みなみアメリカの　ギアナ"
+
+	para "ジャングルの　おくちで"
+	line "しんしゅの　#を　はっけん"
+	done
 
 PokemonMansion2FDiary2Text:
-	text_far _PokemonMansion2FDiary2Text
-	text_end
+	text "にっき　７がつ１０か"
+	line "しんはっけんの　#を"
+	cont "わたしは　ミュウと　なづけた"
+	done
 
 PokemonMansion2FSwitchText:
 	text_asm
@@ -124,13 +132,15 @@ PokemonMansion2FSwitchText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _PokemonMansion2FSwitchText
-	text_end
+	text "ひみつの　スイッチが　ある！"
+
+	para "おして　みますか？"
+	done
 
 .PressedText:
-	text_far _PokemonMansion2FSwitchPressedText
-	text_end
+	text "おしてみよう！　<⋯>ポチッとな"
+	prompt
 
 .NotPressed:
-	text_far _PokemonMansion2FSwitchNotPressedText
-	text_end
+	text "おすのは　あきらめた"
+	done

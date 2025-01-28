@@ -42,13 +42,16 @@ StartSlotMachine:
 	ret
 
 GameCornerOutOfOrderText::
-	text_far _GameCornerOutOfOrderText
-	text_end
+	text "こしょう　ちゅう！"
+	line "<⋯>　ざんねん　だけど　こわれてる"
+	done
 
 GameCornerOutToLunchText::
-	text_far _GameCornerOutToLunchText
-	text_end
+	text "おしょくじ　ちゅう！"
+	line "<⋯>　の　フダが　かけてある！"
+	done
 
 GameCornerSomeonesKeysText::
-	text_far _GameCornerSomeonesKeysText
-	text_end
+	text "カギが　おいてある<⋯>"
+	line "きっと　これは　だれかの　だいだ！"
+	done

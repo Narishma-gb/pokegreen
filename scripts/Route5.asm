@@ -6,5 +6,6 @@ Route5_TextPointers:
 	dw_const Route5UndergroundPathSignText, TEXT_ROUTE5_UNDERGROUND_PATH_SIGN
 
 Route5UndergroundPathSignText:
-	text_far _Route5UndergroundPathSignText
-	text_end
+	text "ここから　ちか　つうろ"
+	line "ハナダ　シティ　<⋯>　クチバ　シティ"
+	done

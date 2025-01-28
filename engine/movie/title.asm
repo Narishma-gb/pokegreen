@@ -3,9 +3,9 @@ CopyDebugName: ; unused
 	jp CopyData
 
 PrepareTitleScreen::
-	; These debug names are already copied later in PrepareOakSpeech.
-	; Removing the unused copies below has no apparent impact.
-	; CopyDebugName can also be safely deleted afterwards.
+; These debug names are already copied later in PrepareOakSpeech.
+; Removing the unused copies below has no apparent impact.
+; CopyDebugName can also be safely deleted afterwards.
 	ld hl, DebugNewGamePlayerName
 	ld de, wPlayerName
 	call CopyDebugName
@@ -17,10 +17,8 @@ PrepareTitleScreen::
 	ld [wLetterPrintingDelayFlags], a
 	ld hl, wStatusFlags6
 	ld [hli], a
-	assert wStatusFlags6 + 1 == wStatusFlags7
-	ld [hli], a
-	assert wStatusFlags7 + 1 == wElite4Flags
-	ld [hl], a
+	ld [hli], a ; wStatusFlags7
+	ld [hl], a ; wElite4Flags
 	ld a, BANK(Music_TitleScreen)
 	ld [wAudioROMBank], a
 	ld [wAudioSavedROMBank], a
@@ -31,9 +29,8 @@ DisplayTitleScreen:
 	ldh [hAutoBGTransferEnabled], a
 	xor a
 	ldh [hTileAnimations], a
+	ld a, $90
 	ldh [hSCX], a
-	ld a, $40
-	ldh [hSCY], a
 	ld a, $90
 	ldh [hWY], a
 	call ClearScreen
@@ -41,13 +38,8 @@ DisplayTitleScreen:
 	call LoadFontTilePatterns
 	ld hl, NintendoCopyrightLogoGraphics
 	ld de, vTitleLogo2 tile 16
-	ld bc, 5 tiles
+	ld bc, 13 tiles
 	ld a, BANK(NintendoCopyrightLogoGraphics)
-	call FarCopyData2
-	ld hl, GameFreakLogoGraphics
-	ld de, vTitleLogo2 tile (16 + 5)
-	ld bc, 9 tiles
-	ld a, BANK(GameFreakLogoGraphics)
 	call FarCopyData2
 	ld hl, PokemonLogoGraphics
 	ld de, vTitleLogo
@@ -60,7 +52,7 @@ DisplayTitleScreen:
 	ld a, BANK(PokemonLogoGraphics)
 	call FarCopyData2          ; second chunk
 	ld hl, Version_GFX
-	ld de, vChars2 tile $60 + (10 tiles - (Version_GFXEnd - Version_GFX) * 2) / 2
+	ld de, vChars2 tile $60
 	ld bc, Version_GFXEnd - Version_GFX
 	ld a, BANK(Version_GFX)
 	call FarCopyDataDouble
@@ -96,47 +88,35 @@ DisplayTitleScreen:
 
 	call DrawPlayerCharacter
 
-; put a pokeball in the player's hand
-	ld hl, wShadowOAMSprite10
-	ld a, $74
-	ld [hl], a
-
 ; place tiles for title screen copyright
-	hlcoord 2, 17
-	ld de, .tileScreenCopyrightTiles
-	ld b, $10
+	hlcoord 3, 17
+	ld a, $41
+	ld b, $0D
 .tileScreenCopyrightTilesLoop
-	ld a, [de]
 	ld [hli], a
-	inc de
+	inc a
 	dec b
 	jr nz, .tileScreenCopyrightTilesLoop
 
-	jr .next
-
-.tileScreenCopyrightTiles
-	db $41,$42,$43,$42,$44,$42,$45,$46,$47,$48,$49,$4A,$4B,$4C,$4D,$4E ; ©'95.'96.'98 GAME FREAK inc.
-
-.next
 	call SaveScreenTilesToBuffer2
+	call PrintGameVersionOnTitleScreen
+	call SaveScreenTilesToBuffer1
 	call LoadScreenTilesFromBuffer2
 	call EnableLCD
 
 IF DEF(_RED)
 	ld a, STARTER1 ; which Pokemon to show first on the title screen
 ENDC
-IF DEF(_BLUE)
-	ld a, STARTER2 ; which Pokemon to show first on the title screen
+IF DEF(_GREEN)
+	ld a, STARTER3 ; which Pokemon to show first on the title screen
 ENDC
 	ld [wTitleMonSpecies], a
 	call LoadTitleMonSprite
 
 	ld a, HIGH(vBGMap0 + $300)
 	call TitleScreenCopyTileMapToVRAM
-	call SaveScreenTilesToBuffer1
 	ld a, $40
 	ldh [hWY], a
-	call LoadScreenTilesFromBuffer2
 	ld a, HIGH(vBGMap0)
 	call TitleScreenCopyTileMapToVRAM
 	ld b, SET_PAL_TITLE_SCREEN
@@ -145,93 +125,38 @@ ENDC
 	ld a, %11100100
 	ldh [rOBP0], a
 
-; make pokemon logo bounce up and down
-	ld bc, hSCY ; background scroll Y
-	ld hl, .TitleScreenPokemonLogoYScrolls
-.bouncePokemonLogoLoop
-	ld a, [hli]
-	and a
-	jr z, .finishedBouncingPokemonLogo
-	ld d, a
-	cp -3
-	jr nz, .skipPlayingSound
-	ld a, SFX_INTRO_CRASH
-	call PlaySound
-.skipPlayingSound
-	ld a, [hli]
-	ld e, a
-	call .ScrollTitleScreenPokemonLogo
-	jr .bouncePokemonLogoLoop
-
-.TitleScreenPokemonLogoYScrolls:
-; Controls the bouncing effect of the Pokemon logo on the title screen
-	db -4,16  ; y scroll amount, number of times to scroll
-	db 3,4
-	db -3,4
-	db 2,2
-	db -2,2
-	db 1,2
-	db -1,2
-	db 0      ; terminate list with 0
-
-.ScrollTitleScreenPokemonLogo:
-; Scrolls the Pokemon logo on the title screen to create the bouncing effect
-; Scrolls d pixels e times
-	call DelayFrame
-	ld a, [bc] ; background scroll Y
-	add d
-	ld [bc], a
-	dec e
-	jr nz, .ScrollTitleScreenPokemonLogo
-	ret
-
-.finishedBouncingPokemonLogo
-	call LoadScreenTilesFromBuffer1
-	ld c, 36
-	call DelayFrames
 	ld a, SFX_INTRO_WHOOSH
 	call PlaySound
 
-; scroll game version in from the right
-	call PrintGameVersionOnTitleScreen
-	ld a, SCREEN_HEIGHT_PX
-	ldh [hWY], a
-	ld d, 144
-.scrollTitleScreenGameVersionLoop
-	ld h, d
-	ld l, 64
-	call ScrollTitleScreenGameVersion
-	ld h, 0
-	ld l, 80
-	call ScrollTitleScreenGameVersion
-	ld a, d
+; Scrolls the Pocket Monsters title in from the right
+.scrollTitleScreenLogoLoop
+	call DelayFrame
+	ldh a, [hSCX]
 	add 4
-	ld d, a
-	and a
-	jr nz, .scrollTitleScreenGameVersionLoop
+	ldh [hSCX], a
+	jr nz, .scrollTitleScreenLogoLoop
+
+	ld a, $90
+	ldh [hWY], a
+	ld c, $14
+	call DelayFrames
+	call PrintGameVersionOnTitleScreen
+	call Delay3
 
 	ld a, HIGH(vBGMap1)
 	call TitleScreenCopyTileMapToVRAM
-	call LoadScreenTilesFromBuffer2
-	call PrintGameVersionOnTitleScreen
+	call LoadScreenTilesFromBuffer1
 	call Delay3
-	call WaitForSoundToFinish
 	ld a, MUSIC_TITLE_SCREEN
 	ld [wNewSoundID], a
 	call PlaySound
-	xor a
-	ld [wUnusedFlag], a
 
 ; Keep scrolling in new mons indefinitely until the user performs input.
 .awaitUserInterruptionLoop
-	ld c, 200
+	ld c, $ff
 	call CheckForUserInterruption
 	jr c, .finishedWaiting
 	call TitleScreenScrollInMon
-	ld c, 1
-	call CheckForUserInterruption
-	jr c, .finishedWaiting
-	farcall TitleScreenAnimateBallIfStarterOut
 	call TitleScreenPickNewMon
 	jr .awaitUserInterruptionLoop
 
@@ -243,7 +168,7 @@ ENDC
 	call ClearSprites
 	xor a
 	ldh [hWY], a
-	inc a
+	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
 	ld a, HIGH(vBGMap0)
@@ -257,11 +182,6 @@ ENDC
 	and D_UP | SELECT | B_BUTTON
 	cp D_UP | SELECT | B_BUTTON
 	jp z, .doClearSaveDialogue
-IF DEF(_DEBUG)
-	ld a, b
-	bit BIT_SELECT, a
-	jp nz, DebugMenu
-ENDC
 	jp MainMenu
 
 .doClearSaveDialogue
@@ -291,18 +211,35 @@ TitleScreenPickNewMon:
 
 	ld a, $90
 	ldh [hWY], a
-	ld d, 1 ; scroll out
-	farcall TitleScroll
-	ret
+	ld d, $a0
+	ld c, $c
+	jp TitleScroll
 
 TitleScreenScrollInMon:
-	ld d, 0 ; scroll in
-	farcall TitleScroll
+	ld d, 0
+	ld c, $14
+	call TitleScroll
 	xor a
 	ldh [hWY], a
 	ret
 
-ScrollTitleScreenGameVersion:
+TitleScroll:
+	ld h, d
+	ld l, $48
+	call ScrollBetween
+
+	ld h, $00
+	ld l, $88
+	call ScrollBetween
+
+	ld a, d
+	add 8
+	ld d, a
+	dec c
+	jr nz, TitleScroll
+	ret
+
+ScrollBetween:
 .wait
 	ldh a, [rLY]
 	cp l
@@ -327,7 +264,7 @@ DrawPlayerCharacter:
 	xor a
 	ld [wPlayerCharacterOAMTile], a
 	ld hl, wShadowOAM
-	lb de, $60, $5a
+	lb de, $60, $30
 	ld b, 7
 .loop
 	push de
@@ -357,18 +294,18 @@ DrawPlayerCharacter:
 ClearBothBGMaps:
 	ld hl, vBGMap0
 	ld bc, $400 * 2
-	ld a, " "
+	ld a, "　"
 	jp FillMemory
 
 LoadTitleMonSprite:
 	ld [wCurPartySpecies], a
 	ld [wCurSpecies], a
-	hlcoord 5, 10
+	hlcoord 9, 10
 	call GetMonHeader
 	jp LoadFrontSpriteByMonIndex
 
 TitleScreenCopyTileMapToVRAM:
-	ldh [hAutoBGTransferDest + 1], a
+	ld [hAutoBGTransferDest + 1], a
 	jp Delay3
 
 LoadCopyrightAndTextBoxTiles:
@@ -380,37 +317,42 @@ LoadCopyrightAndTextBoxTiles:
 LoadCopyrightTiles:
 	ld de, NintendoCopyrightLogoGraphics
 	ld hl, vChars2 tile $60
-	lb bc, BANK(NintendoCopyrightLogoGraphics), (GameFreakLogoGraphicsEnd - NintendoCopyrightLogoGraphics) / $10
+	lb bc, BANK(NintendoCopyrightLogoGraphics), (NintendoCopyrightLogoGraphicsEnd - NintendoCopyrightLogoGraphics) / $10
 	call CopyVideoData
-	hlcoord 2, 7
+	hlcoord 5, 7
 	ld de, CopyrightTextString
 	jp PlaceString
 
 CopyrightTextString:
-	db   $60,$61,$62,$61,$63,$61,$64,$7F,$65,$66,$67,$68,$69,$6A             ; ©'95.'96.'98 Nintendo
-	next $60,$61,$62,$61,$63,$61,$64,$7F,$6B,$6C,$6D,$6E,$6F,$70,$71,$72     ; ©'95.'96.'98 Creatures inc.
-	next $60,$61,$62,$61,$63,$61,$64,$7F,$73,$74,$75,$76,$77,$78,$79,$7A,$7B ; ©'95.'96.'98 GAME FREAK inc.
+	db   $60, $61, $62, $63, $6D, $6E, $6F, $70, $71, $72                ; ©1995 Nintendo
+	next $60, $61, $62, $63, $73, $74, $75, $76, $77, $78, $6B, $6C      ; ©1995 Creatures Inc.
+	next $60, $61, $62, $63, $64, $65, $66, $67, $68, $69, $6A, $6B, $6C ; ©1995 GAME FREAK Inc.
 	db   "@"
 
 INCLUDE "data/pokemon/title_mons.asm"
 
-; prints version text (red, blue)
+; prints version text (red, green)
 PrintGameVersionOnTitleScreen:
+IF DEF(_RED)
 	hlcoord 7, 8
+ENDC
+IF DEF(_GREEN)
+	hlcoord 6, 8
+ENDC
 	ld de, VersionOnTitleScreenText
 	jp PlaceString
 
 ; these point to special tiles specifically loaded for that purpose and are not usual text
 VersionOnTitleScreenText:
 IF DEF(_RED)
-	db $60,$61,$7F,$65,$66,$67,$68,$69,"@" ; "Red Version"
+	db $60, $61, $7F, $65, $66, $67, $68, $69, "@" ; "Red Version"
 ENDC
-IF DEF(_BLUE)
-	db $61,$62,$63,$64,$65,$66,$67,$68,"@" ; "Blue Version"
+IF DEF(_GREEN)
+	db $62, $63, $64, $7F, $65, $66, $67, $68, $69, "@" ; "Green Version"
 ENDC
 
 DebugNewGamePlayerName:
-	db "NINTEN@"
+	db "やまぐち@"
 
 DebugNewGameRivalName:
-	db "SONY@"
+	db "いしはら@"

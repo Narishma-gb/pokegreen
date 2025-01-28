@@ -7,8 +7,15 @@ CeladonMansionRoofHouse_TextPointers:
 	dw_const CeladonMansionRoofHouseEeveePokeballText, TEXT_CELADONMANSION_ROOF_HOUSE_EEVEE_POKEBALL
 
 CeladonMansionRoofHouseHikerText:
-	text_far _CeladonMansionRoofHouseHikerText
-	text_end
+	text "こくばんにも　かいたが<⋯>"
+	line "わしに　わからぬ　ことは　ない"
+	cont "ゲームボーイの　なかに"
+	cont "せかいが　あることも！"
+
+	para "ぜひ！　ともだちを　さそって"
+	line "#の　こうかんを"
+	cont "たのしんで　くれたまえ！"
+	done
 
 CeladonMansionRoofHouseEeveePokeballText:
 	text_asm

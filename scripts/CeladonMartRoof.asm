@@ -64,7 +64,7 @@ CeladonMartRoofScript_GiveDrinkToGirl:
 	call AddNTimes
 	dec l
 	ld b, l
-	ld c, 12
+	ld c, 7
 	hlcoord 0, 0
 	call TextBoxBorder
 	call UpdateSprites
@@ -135,52 +135,103 @@ RemoveItemByIDBank12:
 	farjp RemoveItemByID
 
 CeladonMartRoofLittleGirlGiveHerWhichDrinkText:
-	text_far _CeladonMartRoofLittleGirlGiveHerWhichDrinkText
-	text_end
+	text "どれを　あげますか？"
+	done
 
 CeladonMartRoofLittleGirlYayFreshWaterText:
-	text_far _CeladonMartRoofLittleGirlYayFreshWaterText
+	text "わーい！"
+
+	para "おいしいみず　くれるの？"
+
+	para "ごちそう　さま！"
+
+	para "おれいに　わたしの　たからもの"
+	line "これ　あげるね！@"
 	text_waitbutton
 	text_end
 
 CeladonMartRoofLittleGirlReceivedTM13Text:
-	text_far _CeladonMartRoofLittleGirlReceivedTM13Text
+	text "<PLAYER>は　おんなのこ　から"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
-	text_far _CeladonMartRoofLittleGirlTM13ExplanationText
+	text_start
+
+	para "@"
+	text_ram wStringBuffer
+	text "の　なかは"
+	line "れいとうビーム　なの！"
+
+	para "たまに　あいてを"
+	line "こおらせる　ことが　あるわ@"	
 	text_waitbutton
 	text_end
 
 CeladonMartRoofLittleGirlYaySodaPopText:
-	text_far _CeladonMartRoofLittleGirlYaySodaPopText
+	text "わーい！"
+
+	para "サイコソーダ　くれるの？"
+
+	para "ごちそうさま！"
+
+	para "おれいに　わたしの　たからもの"
+	line "これ　あげるね！@"
 	text_waitbutton
 	text_end
 
 CeladonMartRoofLittleGirlReceivedTM48Text:
-	text_far _CeladonMartRoofLittleGirlReceivedTM48Text
+	text "<PLAYER>は　おんなのこから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
-	text_far _CeladonMartRoofLittleGirlTM48ExplanationText
+	text_start
+
+	para "@"
+	text_ram wStringBuffer
+	text "の　なかは"
+	line "いわなだれ　なの！"
+
+	para "たまに　あいてを"
+	line "きぜつ　させる　ことが　あるわ@"
 	text_waitbutton
 	text_end
 
 CeladonMartRoofLittleGirlYayLemonadeText:
-	text_far _CeladonMartRoofLittleGirlYayLemonadeText
+	text "わーい！"
+
+	para "ミックスオレ　くれるの？"
+
+	para "ごちそうさま！"
+
+	para "おれいに　わたしの　たからもの"
+	line "これ　あげるね！@"
 	text_waitbutton
 	text_end
 
 CeladonMartRoofLittleGirlReceivedTM49Text:
-	text_far _CeladonMartRoofLittleGirlReceivedTM49Text
+	text "<PLAYER>は　おんなのこから"
+	line "<TM>４９を　もらった！@"
 	sound_get_item_1
-	text_far _CeladonMartRoofLittleGirlTM49ExplanationText
+	text_start
+
+	para "<TM>４９の　なかは"
+	line "トライアタック　なの！"
+
+	para "たまに　あいてを"
+	line "まひ　させる　ことが　あるわ@"
 	text_waitbutton
 	text_end
 
 CeladonMartRoofLittleGirlNoRoomText:
-	text_far _CeladonMartRoofLittleGirlNoRoomText
+	text "にもつ　いっぱいよ！@"
 	text_waitbutton
 	text_end
 
 CeladonMartRoofLittleGirlImNotThirstyText:
-	text_far _CeladonMartRoofLittleGirlImNotThirstyText
+	text "うーん！"
+	line "やっぱり　がまん　する！@"
 	text_waitbutton
 	text_end
 
@@ -216,8 +267,12 @@ CeladonMartRoof_TextPointers:
 	dw_const CeladonMartRoofCurrentFloorSignText, TEXT_CELADONMARTROOF_CURRENT_FLOOR_SIGN
 
 CeladonMartRoofSuperNerdText:
-	text_far _CeladonMartRoofSuperNerdText
-	text_end
+	text "ウチの　いもうと　あれでも"
+	line "#　<TRAINER>の　はしくれ！"
+
+	para "だけど<⋯>"
+	line "わがままで　イヤんなっちゃうよ"
+	done
 
 CeladonMartRoofLittleGirlText:
 	text_asm
@@ -242,16 +297,23 @@ CeladonMartRoofLittleGirlText:
 	jp TextScriptEnd
 
 .ImThirstyText:
-	text_far _CeladonMartRoofLittleGirlImThirstyText
-	text_end
+	text "えーん<⋯>！"
+	line "おにいちゃん！"
+	cont "ジュース　のみたいよー！"
+	done
 
 .GiveHerADrinkText:
-	text_far _CeladonMartRoofLittleGirlGiveHerADrinkText
-	text_end
+	text "えーん<⋯>！"
+	line "おにいちゃん！"
+	cont "ジュース　のみたいよー！"
+
+	para "のみものを　あげますか？"
+	done
 
 CeladonMartRoofVendingMachineText:
 	script_vending_machine
 
 CeladonMartRoofCurrentFloorSignText:
-	text_far _CeladonMartRoofCurrentFloorSignText
-	text_end
+	text "おくじょう　<⋯>　いこいの　ひろば"
+	line "　　　　　　<⋯>　じどう　はんばいき"
+	done

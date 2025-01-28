@@ -1,7 +1,7 @@
 PromptUserToPlaySlots:
 	call SaveScreenTilesToBuffer2
 	ld a, BANK(DisplayTextIDInit)
-	assert BANK(DisplayTextIDInit) == 1 << BIT_NO_AUTO_TEXT_BOX
+	ASSERT BANK(DisplayTextIDInit) == 1 << BIT_NO_AUTO_TEXT_BOX
 	ld [wAutoTextBoxDrawingControl], a ; 1 << BIT_NO_AUTO_TEXT_BOX
 	ld b, a ; BANK(DisplayTextIDInit)
 	ld hl, DisplayTextIDInit
@@ -54,8 +54,9 @@ PromptUserToPlaySlots:
 	jp CloseTextDisplay
 
 PlaySlotMachineText:
-	text_far _PlaySlotMachineText
-	text_end
+	text "スロットマシーンが　ある！"
+	line "あそびますか？"
+	done
 
 MainSlotMachineLoop:
 	call SlotMachine_PrintCreditCoins
@@ -148,29 +149,32 @@ MainSlotMachineLoop:
 	jp MainSlotMachineLoop
 
 CoinMultiplierSlotMachineText:
-	db   "×3"
-	next "×2"
-	next "×1@"
+	db   "３まい"
+	next "２まい"
+	next "１まい@"
 
 OutOfCoinsSlotMachineText:
-	text_far _OutOfCoinsSlotMachineText
-	text_end
+	text "コインが"
+	line "なくなっちゃった<⋯>"
+	done
 
 BetHowManySlotMachineText:
-	text_far _BetHowManySlotMachineText
-	text_end
+	text "コインを"
+	line "なんまい　かけますか？"
+	done
 
 StartSlotMachineText:
-	text_far _StartSlotMachineText
-	text_end
+	text "スタート！"
+	done
 
 NotEnoughCoinsSlotMachineText:
-	text_far _NotEnoughCoinsSlotMachineText
-	text_end
+	text "コインが　たりません！"
+	prompt
 
 OneMoreGoSlotMachineText:
-	text_far _OneMoreGoSlotMachineText
-	text_end
+	text "もう　１かい"
+	line "あそびますか？"
+	done
 
 SlotMachine_SetFlags:
 	ld hl, wSlotMachineFlags
@@ -402,7 +406,7 @@ SlotMachine_CheckForMatches:
 	call SlotMachine_CheckForMatch
 	jr z, .foundMatch
 	ld a, [wSlotMachineFlags]
-	and (1 << BIT_SLOTS_CAN_WIN) | (1 << BIT_SLOTS_CAN_WIN_WITH_7_OR_BAR)
+	and  (1 << BIT_SLOTS_CAN_WIN) | (1 << BIT_SLOTS_CAN_WIN_WITH_7_OR_BAR)
 	jr z, .noMatch
 	ld hl, wSlotMachineRerollCounter
 	dec [hl]
@@ -422,7 +426,7 @@ SlotMachine_CheckForMatches:
 	jp SlotMachine_CheckForMatches
 .foundMatch
 	ld a, [wSlotMachineFlags]
-	and (1 << BIT_SLOTS_CAN_WIN) | (1 << BIT_SLOTS_CAN_WIN_WITH_7_OR_BAR)
+	and  (1 << BIT_SLOTS_CAN_WIN) | (1 << BIT_SLOTS_CAN_WIN_WITH_7_OR_BAR)
 	jr z, .rollWheel3DownByOneSymbol ; roll wheel if player isn't allowed to win
 	and 1 << BIT_SLOTS_CAN_WIN_WITH_7_OR_BAR
 	jr nz, .acceptMatch
@@ -489,8 +493,11 @@ SymbolLinedUpSlotMachineText:
 	ret
 
 LinedUpText:
-	text_far _LinedUpText
-	text_end
+	text "が　そろった！"
+	line "コイン@"
+	text_ram wStringBuffer
+	text "まい　いただき！"
+	done
 
 SlotRewardPointers:
 	dw SlotReward300Func
@@ -507,20 +514,20 @@ SlotRewardPointers:
 	dw SlotReward15Text
 
 SlotReward300Text:
-	db "300@"
+	db "３００@"
 
 SlotReward100Text:
-	db "100@"
+	db "１００@"
 
 SlotReward8Text:
-	db "8@"
+	db "８@"
 
 SlotReward15Text:
-	db "15@"
+	db "１５@"
 
 NotThisTimeText:
-	text_far _NotThisTimeText
-	text_end
+	text "はずれー"
+	prompt
 
 ; compares the slot machine tiles at bc, de, and hl
 SlotMachine_CheckForMatch:
@@ -610,7 +617,7 @@ SlotReward300Func:
 	ret
 
 YeahText:
-	text_far _YeahText
+	text "やった！@"
 	text_pause
 	text_end
 
@@ -888,7 +895,7 @@ SlotMachineTiles1:
 IF DEF(_RED)
 	INCBIN "gfx/slots/red_slots_1.2bpp"
 ENDC
-IF DEF(_BLUE)
-	INCBIN "gfx/slots/blue_slots_1.2bpp"
+IF DEF(_GREEN)
+	INCBIN "gfx/slots/green_slots_1.2bpp"
 ENDC
 SlotMachineTiles1End:

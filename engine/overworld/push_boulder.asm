@@ -43,7 +43,7 @@ TryPushingBoulder::
 	jr z, .pushBoulderLeft
 	cp SPRITE_FACING_RIGHT
 	jr z, .pushBoulderRight
-.pushBoulderDown
+; pushBoulderDown
 	bit BIT_D_DOWN, b
 	ret z
 	ld de, PushBoulderDownMovementData
@@ -94,7 +94,7 @@ DoBoulderDustAnimation::
 	call DiscardButtonPresses
 	ld [wJoyIgnore], a
 	call ResetBoulderPushFlags
-	set BIT_PUSHED_BOULDER, [hl]
+	set BIT_PUSHED_BOULDER, [hl] ; [wMiscFlags]
 	ld a, [wBoulderSpriteIndex]
 	ldh [hSpriteIndex], a
 	call GetSpriteMovementByte2Pointer

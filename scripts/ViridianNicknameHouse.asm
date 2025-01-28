@@ -9,12 +9,17 @@ ViridianNicknameHouse_TextPointers:
 	dw_const ViridianNicknameHouseSpearySignText, TEXT_VIRIDIANNICKNAMEHOUSE_SPEARY_SIGN
 
 ViridianNicknameHouseBaldingGuyText:
-	text_far _ViridianNicknameHouseBaldingGuyText
-	text_end
+	text "ニックネームを　かんがえることは"
+	line "たのしい<⋯>が　むずかしい！"
+
+	para "こった　ニックネームも　いいが"
+	line "おぼえやすいのが　いちばん　やな！"
+	done
 
 ViridianNicknameHouseLittleGirlText:
-	text_far _ViridianNicknameHouseLittleGirlText
-	text_end
+	text "うちの　とうちゃんも"
+	line "#　だいすきなのよ！"
+	done
 
 ViridianNicknameHouseSpearowText:
 	text_asm
@@ -26,9 +31,10 @@ ViridianNicknameHouseSpearowText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _ViridianNicknameHouseSpearowText
-	text_end
+	text "オニチャン『チュ　チュン！"
+	done
 
 ViridianNicknameHouseSpearySignText:
-	text_far _ViridianNicknameHouseSpearySignText
-	text_end
+	text "オニスズメ"
+	line "めいめい　「オニチャン」"
+	done

@@ -36,23 +36,50 @@ VermilionOldRodHouseFishingGuruText:
 	jp TextScriptEnd
 
 .DoYouLikeToFishText:
-	text_far _VermilionOldRodHouseFishingGuruDoYouLikeToFishText
-	text_end
+	text "わしは　つりおやじ　じゃ！"
+
+	para "もう　しぬほど"
+	line "つりが　すき　なんだが"
+
+	para "きみは　つり　すき　かな？"
+	done
 
 .TakeThisText:
-	text_far _VermilionOldRodHouseFishingGuruTakeThisText
+	text "そうか！"
+	line "きみとは　きが　あいそうだ！"
+
+	para "これ　あげるから"
+	line "きみも　つり　まくりなさいよ！"
+
+	para "<PLAYER>は　つりおやじから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
-	text_far _VermilionOldRodHouseFishingGuruFishingIsAWayOfLifeText
-	text_end
+	text_start
+
+	para "つり　こそ"
+	line "おとこの　ロマン　だ！"
+
+	para "うみでも　かわでも！"
+
+	para "えんりょ　なく"
+	line "つりざおを　つかって　くれい！"
+	done
 
 .ThatsSoDisappointingText:
-	text_far _VermilionOldRodHouseFishingGuruThatsSoDisappointingText
-	text_end
+	text "なんじゃ<⋯>　がっかりだ"
+	done
 
 .HowAreTheFishBitingText:
-	text_far _VermilionOldRodHouseFishingGuruHowAreTheFishBitingText
-	text_end
+	text "やー　<PLAYER>くん！"
+
+	para "つり　まくっとる　かね！"
+	done
 
 .NoRoomText:
-	text_far _VermilionOldRodHouseFishingGuruNoRoomText
-	text_end
+	text "ありゃー！"
+
+	para "いいもの　あげようと　したのに"
+	line "にもつが　いっぱいじゃ！"
+	done

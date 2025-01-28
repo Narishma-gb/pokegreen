@@ -7,9 +7,17 @@ ViridianForestNorthGate_TextPointers:
 	dw_const ViridianForestNorthGateGrampsText,    TEXT_VIRIDIANFORESTNORTHGATE_GRAMPS
 
 ViridianForestNorthGateSuperNerdText:
-	text_far _ViridianForestNorthGateSuperNerdText
-	text_end
+	text "もりや　どうくつ　しか"
+	line "いない　#も　おおいよ"
+
+	para "いろんな　#　とるなら"
+	line "しつこく　さがしまわる　ことだね"
+	done
 
 ViridianForestNorthGateGrampsText:
-	text_far _ViridianForestNorthGateGrampsText
-	text_end
+	text "どうろの　あちこちに"
+	line "ほそい　きが　あったろ？"
+
+	para "あそこは　#の　わざで"
+	line "きって　とおれる　そうじゃ"
+	done

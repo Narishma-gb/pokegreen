@@ -13,12 +13,24 @@ CinnabarPokecenterNurseText:
 	script_pokecenter_nurse
 
 CinnabarPokecenterCooltrainerFText:
-	text_far _CinnabarPokecenterCooltrainerFText
-	text_end
+	text "しんか　キャンセル　つかってる？"
+
+	para "しんか　しようと　するのを"
+	line "とちゅうで　やめさせて"
+	cont "そのままの　かたちで"
+	cont "そだてる　テクニックよ"
+	done
 
 CinnabarPokecenterGentlemanText:
-	text_far _CinnabarPokecenterGentlemanText
-	text_end
+	text "きみには　ともだちは　いるかな？"
+
+	para "ともだちと　こうかんして"
+	line "もらった　#は"
+	cont "とても　はやく　そだつと　いう"
+
+	para "ためして　みる　かちは"
+	line "あると　おもうがね"
+	done
 
 CinnabarPokecenterLinkReceptionistText:
 	script_cable_club_receptionist

@@ -120,23 +120,17 @@ TryingToLearn:
 	push hl
 	ld hl, WhichMoveToForgetText
 	call PrintText
-	hlcoord 4, 7
-	ld b, 4
-	ld c, 14
+	hlcoord 10, 8
+	ld b, 8
+	ld c, 8
 	call TextBoxBorder
-	hlcoord 6, 8
+	hlcoord 12, 10
 	ld de, wMovesString
-	ldh a, [hUILayoutFlags]
-	set BIT_SINGLE_SPACED_LINES, a
-	ldh [hUILayoutFlags], a
 	call PlaceString
-	ldh a, [hUILayoutFlags]
-	res BIT_SINGLE_SPACED_LINES, a
-	ldh [hUILayoutFlags], a
 	ld hl, wTopMenuItemY
-	ld a, 8
+	ld a, 10
 	ld [hli], a ; wTopMenuItemY
-	ld a, 5
+	ld a, 11
 	ld [hli], a ; wTopMenuItemX
 	xor a
 	ld [hli], a ; wCurrentMenuItem
@@ -146,11 +140,7 @@ TryingToLearn:
 	ld a, A_BUTTON | B_BUTTON
 	ld [hli], a ; wMenuWatchedKeys
 	ld [hl], 0 ; wLastMenuItem
-	ld hl, hUILayoutFlags
-	set BIT_DOUBLE_SPACED_MENU, [hl]
 	call HandleMenuInput
-	ld hl, hUILayoutFlags
-	res BIT_DOUBLE_SPACED_MENU, [hl]
 	push af
 	call LoadScreenTilesFromBuffer1
 	pop af
@@ -184,43 +174,78 @@ TryingToLearn:
 	ret
 
 LearnedMove1Text:
-	text_far _LearnedMove1Text
+	text_ram wLearnMoveMonName
+	text "は　あたらしく"
+	line "@"
+	text_ram wStringBuffer
+	text "を　おぼえた！@"
 	sound_get_item_1 ; plays SFX_GET_ITEM_1 in the party menu (rare candy) and plays SFX_LEVEL_UP in battle
 	text_promptbutton
 	text_end
 
 WhichMoveToForgetText:
-	text_far _WhichMoveToForgetText
-	text_end
+	text "どの　わざを"
+	next "わすれさせたい？"
+	done
 
 AbandonLearningText:
-	text_far _AbandonLearningText
-	text_end
+	text "それでは<⋯>　@"
+	text_ram wStringBuffer
+	text "を"
+	line "おぼえるのを　あきらめますか？"
+	done
 
 DidNotLearnText:
-	text_far _DidNotLearnText
-	text_end
+	text_ram wLearnMoveMonName
+	text "は　@"
+	text_ram wStringBuffer
+	text "を"
+	line "おぼえずに　おわった！"
+	prompt
 
 TryingToLearnText:
-	text_far _TryingToLearnText
-	text_end
+	text_ram wLearnMoveMonName
+	text "は　あたらしく"
+	line "@"
+	text_ram wStringBuffer
+	text "を　おぼえたい<⋯>！"
+
+	para "しかし　@"
+	text_ram wLearnMoveMonName
+	text "は　わざを　４つ"
+	line "おぼえるので　せいいっぱいだ！"
+
+	para "@"
+	text_ram wStringBuffer
+	text "の　かわりに"
+	line "ほかの　わざを　わすれさせますか？"
+	done
 
 OneTwoAndText:
-	text_far _OneTwoAndText
+	text "１　２の　<⋯>@"
 	text_pause
 	text_asm
 	ld a, SFX_SWAP
 	call PlaySoundWaitForCurrent
-	ld hl, PoofText
+	ld hl, PoofForgotAndText
 	ret
 
-PoofText:
-	text_far _PoofText
+PoofForgotAndText:
+	text "　ポカン！@"
 	text_pause
-ForgotAndText:
-	text_far _ForgotAndText
-	text_end
+	text_start
+	
+	para "@"
+	text_ram wLearnMoveMonName
+	text "は　@"
+	text_ram wNameBuffer
+	text "の"
+	line "つかいかたを　きれいに　わすれた！"
+
+	para "そして<⋯>！"
+	prompt
 
 HMCantDeleteText:
-	text_far _HMCantDeleteText
-	text_end
+	text "それは　たいせつなわざです"
+	line "わすれさせることは　できません！"
+	prompt

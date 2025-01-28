@@ -1,7 +1,7 @@
 BrunosRoom_Script:
 	call BrunoShowOrHideExitBlock
 	call EnableAutoTextBoxDrawing
-	ld hl, BrunosRoomTrainerHeaders
+	ld hl, BrunosRoom_TrainerHeaders
 	ld de, BrunosRoom_ScriptPointers
 	ld a, [wBrunosRoomCurScript]
 	call ExecuteCurMapScriptInTable
@@ -119,30 +119,47 @@ BrunosRoom_TextPointers:
 	dw_const BrunosRoomBrunoText,            TEXT_BRUNOSROOM_BRUNO
 	dw_const BrunosRoomBrunoDontRunAwayText, TEXT_BRUNOSROOM_BRUNO_DONT_RUN_AWAY
 
-BrunosRoomTrainerHeaders:
-	def_trainers
-BrunosRoomTrainerHeader0:
-	trainer EVENT_BEAT_BRUNOS_ROOM_TRAINER_0, 0, BrunoBeforeBattleText, BrunoEndBattleText, BrunoAfterBattleText
+	def_trainers BrunosRoom
+	trainer EVENT_BEAT_BRUNOS_ROOM_TRAINER_0, 0, Bruno
 	db -1 ; end
 
 BrunosRoomBrunoText:
 	text_asm
-	ld hl, BrunosRoomTrainerHeader0
+	ld hl, BrunosRoom_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
-BrunoBeforeBattleText:
-	text_far _BrunoBeforeBattleText
-	text_end
+BrunosRoomBrunoBattleText:
+	text "おれは　してんのうの　シバ！"
 
-BrunoEndBattleText:
-	text_far _BrunoEndBattleText
-	text_end
+	para "ひとも　#も"
+	line "たたかい　きたえれば"
+	cont "どこまでも　つよくなる！"
 
-BrunoAfterBattleText:
-	text_far _BrunoAfterBattleText
-	text_end
+	para "おれは　そんな　きたえ　ぬかれた"
+	line "#と　ともに　いきてきた！"
+	cont "そして　これからもな！"
+
+	para "<PLAYER>と　いったな！"
+
+	para "おれたちの　スーパー　パワーを"
+	line "うけて　みるが　いい！"
+
+	para "ウー！　ハーッ！"
+	done
+
+BrunosRoomBrunoEndBattleText:
+	text "どうした　ことだ！"
+	line "<⋯>　おれが　まけるとは！"
+	prompt
+
+BrunosRoomBrunoAfterBattleText:
+	text "まけちまったら"
+	line "おれの　でばんは　おわりだ！"
+	cont "くそッ！　つぎに　いって　くれ！"
+	done
 
 BrunosRoomBrunoDontRunAwayText:
-	text_far _BrunosRoomBrunoDontRunAwayText
-	text_end
+	text "だれかの　こえが　きこえる<⋯>"
+	line "「にげては　ならん！」"
+	done

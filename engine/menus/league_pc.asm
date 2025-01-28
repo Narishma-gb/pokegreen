@@ -99,22 +99,25 @@ LeaguePCShowMon:
 	call GetMonHeader
 	call LoadFrontSpriteByMonIndex
 	call GBPalNormal
-	hlcoord 0, 13
+	hlcoord 2, 13
 	ld b, 2
-	ld c, $12
+	ld c, 14
 	call TextBoxBorder
-	hlcoord 1, 15
+	hlcoord 3, 15
 	ld de, HallOfFameNoText
 	call PlaceString
-	hlcoord 16, 15
+	hlcoord 5, 15
 	ld de, wHoFTeamNo
 	lb bc, 1, 3
 	call PrintNumber
 	farjp HoFDisplayMonInfo
 
 HallOfFameNoText:
-	db "HALL OF FAME No   @"
+	db "だい　　　かい　でんどういり@"
 
 AccessedHoFPCText:
-	text_far _AccessedHoFPCText
-	text_end
+	text "#リーグ　ホストと　つないだ！"
+
+	para "でんどう　いり　リスト"
+	line "かんり　システムを　よびだした！"
+	prompt

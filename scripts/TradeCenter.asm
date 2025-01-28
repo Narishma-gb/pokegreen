@@ -35,5 +35,5 @@ TradeCenter_TextPointers:
 	dw_const TradeCenterOpponentText, TEXT_TRADECENTER_OPPONENT
 
 TradeCenterOpponentText:
-	text_far _TradeCenterOpponentText
-	text_end
+	text "！"
+	done

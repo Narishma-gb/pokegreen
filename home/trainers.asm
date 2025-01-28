@@ -31,11 +31,12 @@ ExecuteCurMapScriptInTable::
 LoadGymLeaderAndCityName::
 	push de
 	ld de, wGymCityName
-	ld bc, $11
+	ld bc, 5
 	call CopyData   ; load city name
 	pop hl
 	ld de, wGymLeaderName
 	ld bc, NAME_LENGTH
+; 4 bytes is sufficient for Gym Leader Names, loading 6 causes wGymLeaderName to overwrite part of wItemList.
 	jp CopyData     ; load gym leader name
 
 ; reads specific information from trainer header (pointed to at wTrainerHeaderPtr)
@@ -117,7 +118,7 @@ TalkToTrainer::
 	ld hl, wStatusFlags7
 	set BIT_USE_CUR_MAP_SCRIPT, [hl] ; activate map script index override (index is set below)
 	ld hl, wMiscFlags
-	bit BIT_SEEN_BY_TRAINER, [hl]  ; test if player is already engaging the trainer (because the trainer saw the player)
+	bit BIT_SEEN_BY_TRAINER, [hl] ; test if player is already engaging the trainer (because the trainer saw the player)
 	ret nz
 ; if the player talked to the trainer of his own volition
 	call EngageMapTrainer
@@ -127,17 +128,10 @@ TalkToTrainer::
 
 ; checks if any trainers are seeing the player and wanting to fight
 CheckFightingMapTrainers::
-IF DEF(_DEBUG)
-	call DebugPressedOrHeldB
-	jr nz, .trainerNotEngaging
-ENDC
 	call CheckForEngagingTrainers
 	ld a, [wSpriteIndex]
 	cp $ff
 	jr nz, .trainerEngaging
-IF DEF(_DEBUG)
-.trainerNotEngaging
-ENDC
 	xor a
 	ld [wSpriteIndex], a
 	ld [wTrainerHeaderFlagBit], a
@@ -155,7 +149,7 @@ ENDC
 	ldh [hJoyHeld], a
 	call TrainerWalkUpToPlayer_Bank0
 	ld hl, wCurMapScript
-	inc [hl]      ; increment map script index (next script function is usually DisplayEnemyTrainerTextAndStartBattle)
+	inc [hl] ; increment map script index (next script function is usually DisplayEnemyTrainerTextAndStartBattle)
 	ret
 
 ; display the before battle text after the enemy trainer has walked up to the player's sprite
@@ -179,7 +173,7 @@ StartTrainerBattle::
 	ld hl, wStatusFlags4
 	set BIT_UNKNOWN_4_1, [hl]
 	ld hl, wCurMapScript
-	inc [hl]        ; increment map script index (next script function is usually EndTrainerBattle)
+	inc [hl] ; increment map script index (next script function is usually EndTrainerBattle)
 	ret
 
 EndTrainerBattle::
@@ -208,7 +202,7 @@ EndTrainerBattle::
 	call IsInArray              ; search for sprite ID
 	inc hl
 	ld a, [hl]
-	ld [wMissableObjectIndex], a               ; load corresponding missable object index and remove it
+	ld [wMissableObjectIndex], a ; load corresponding missable object index and remove it
 	predef HideObject
 .skipRemoveSprite
 	ld hl, wStatusFlags5
@@ -222,7 +216,7 @@ ResetButtonPressedAndMapScript::
 	ldh [hJoyHeld], a
 	ldh [hJoyPressed], a
 	ldh [hJoyReleased], a
-	ld [wCurMapScript], a               ; reset battle status
+	ld [wCurMapScript], a ; reset battle status
 	ret
 
 ; calls TrainerWalkUpToPlayer
@@ -364,8 +358,8 @@ PrintEndBattleText::
 GetSavedEndBattleTextPointer::
 	ld a, [wBattleResult]
 	and a
-; won battle
 	jr nz, .lostBattle
+; won battle
 	ld a, [wEndBattleWinTextPointer]
 	ld h, a
 	ld a, [wEndBattleWinTextPointer + 1]
@@ -379,7 +373,8 @@ GetSavedEndBattleTextPointer::
 	ret
 
 TrainerEndBattleText::
-	text_far _TrainerNameText
+	text_ram wNameBuffer
+	text "『@"
 	text_asm
 	call GetSavedEndBattleTextPointer
 	call TextCommandProcessor

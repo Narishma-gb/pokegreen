@@ -82,13 +82,13 @@ BillsHouseBillExitsMachineScript:
 	call DelayFrames
 	ld a, BILLSHOUSE_BILL1
 	ldh [hSpriteIndex], a
-	ld de, BillExitMachineMovement
+	ld de, .BillExitMachineMovement
 	call MoveSprite
 	ld a, SCRIPT_BILLSHOUSE_CLEANUP
 	ld [wBillsHouseCurScript], a
 	ret
 
-BillExitMachineMovement:
+.BillExitMachineMovement:
 	db NPC_MOVEMENT_DOWN
 	db NPC_MOVEMENT_RIGHT
 	db NPC_MOVEMENT_RIGHT
@@ -148,16 +148,39 @@ BillsHouseBillPokemonText:
 	jp TextScriptEnd
 
 .ImNotAPokemonText:
-	text_far _BillsHouseBillImNotAPokemonText
-	text_end
+	text "こんちわ！"
+	line "ぼく　#<⋯>！"
+	cont "<⋯>　ちゃうわい！"
+
+	para "わいは　マサキ！"
+	line "ひと　よんで　#マニアや！"
+	cont "あッ　なんや　そのめは？"
+	cont "あんさん　しんよう　してへんな"
+
+	para "ホントやで！"
+	line "じっけんに　しっぱい　して"
+	cont "#と　くっついて　もうたんや"
+
+	para "なッ！"
+	line "たすけて　くれへん？"
+	done
 
 .UseSeparationSystemText:
-	text_far _BillsHouseBillUseSeparationSystemText
-	text_end
+	text "わいが"
+	line "てんそう　マシンに　はいるさかい"
+	cont "ぶんり　プログラムを　たのむで！"
+	cont "そうや　そこの　<PC>や！"
+	done
 
 .NoYouGottaHelpText:
-	text_far _BillsHouseBillNoYouGottaHelpText
-	text_end
+	text "そんなあ<⋯>"
+	line "つめたい　こと　いわんといて"
+	cont "よッ<⋯>　いろおとこ！"
+	cont "にくいねーッ"
+	cont "だいとうりょう！"
+	cont "ほな！　オッケー　やな！"
+	cont "きまりや！"
+	prompt
 
 BillsHouseBillSSTicketText:
 	text_asm
@@ -188,22 +211,42 @@ BillsHouseBillSSTicketText:
 	jp TextScriptEnd
 
 .ThankYouText:
-	text_far _BillsHouseBillThankYouText
-	text_end
+	text "マサキ『やあー！"
+	line "おおきに　おおきに　たすかったわ！"
+
+	para "で<⋯>　あんさん！"
+	line "わての　#　コレクション"
+	cont "みに　きたの　ちゃうんか？"
+	cont "なんや　おもろないなー"
+	cont "ああ　そや！"
+
+	para "おれい　っちゅーのも"
+	line "なんやけど<⋯>　これ　やるわ！"
+	prompt
 
 .SSTicketReceivedText:
-	text_far _SSTicketReceivedText
+	text "<PLAYER>は　マサキから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_key_item
 	text_promptbutton
 	text_end
 
 .SSTicketNoRoomText:
-	text_far _SSTicketNoRoomText
-	text_end
+	text "にもつ　いっぱいで　もてへんよ"
+	done
 
 .WhyDontYouGoInsteadOfMeText:
-	text_far _BillsHouseBillWhyDontYouGoInsteadOfMeText
-	text_end
+	text "いま　クチバの　みなとに"
+	line "サントアンヌ　ごうが　きとんのや"
+	cont "#　<TRAINER>も"
+	cont "ぎょうさん　くる　らしいで"
+
+	para "チケット　もろたのは　ええんやけど"
+	line "パーティとか　すきや　ないからな"
+	cont "かわりに　いって　あそんでえな"
+	done
 
 BillsHouseBillCheckOutMyRarePokemonText:
 	text_asm
@@ -212,5 +255,9 @@ BillsHouseBillCheckOutMyRarePokemonText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _BillsHouseBillCheckOutMyRarePokemonText
-	text_end
+	text "マサキ『そや！"
+
+	para "わての　#　コレクション"
+	line "ちびっと　だけ　みせたろか？"
+	cont "わての　<PC>　みてみぃ"
+	done

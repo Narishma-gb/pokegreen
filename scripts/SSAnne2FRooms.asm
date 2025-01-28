@@ -3,7 +3,7 @@ SSAnne2FRooms_Script:
 	ld [wAutoTextBoxDrawingControl], a
 	xor a
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	ld hl, SSAnne9TrainerHeaders
+	ld hl, SSAnne2FRooms_TrainerHeaders
 	ld de, SSAnne2FRooms_ScriptPointers
 	ld a, [wSSAnne2FRoomsCurScript]
 	call ExecuteCurMapScriptInTable
@@ -32,41 +32,96 @@ SSAnne2FRooms_TextPointers:
 	dw_const SSAnne2FRoomsBrunetteGirlText, TEXT_SSANNE2FROOMS_BRUNETTE_GIRL
 	dw_const SSAnne2FRoomsBeautyText,       TEXT_SSANNE2FROOMS_BEAUTY
 
-SSAnne9TrainerHeaders:
-	def_trainers
-SSAnne9TrainerHeader0:
-	trainer EVENT_BEAT_SS_ANNE_9_TRAINER_0, 2, SSAnne2FRoomsGentleman1BattleText, SSAnne2FRoomsGentleman1EndBattleText, SSAnne2FRoomsGentleman1AfterBattleText
-SSAnne9TrainerHeader1:
-	trainer EVENT_BEAT_SS_ANNE_9_TRAINER_1, 3, SSAnne2FRoomsFisherBattleText, SSAnne2FRoomsFisherEndBattleText, SSAnne2FRoomsFisherAfterBattleText
-SSAnne9TrainerHeader2:
-	trainer EVENT_BEAT_SS_ANNE_9_TRAINER_2, 3, SSAnne2FRoomsGentleman2BattleText, SSAnne2FRoomsGentleman2EndBattleText, SSAnne2FRoomsGentleman2AfterBattleText
-SSAnne9TrainerHeader3:
-	trainer EVENT_BEAT_SS_ANNE_9_TRAINER_3, 2, SSAnne2FRoomsCooltrainerFBattleText, SSAnne2FRoomsCooltrainerFEndBattleText, SSAnne2FRoomsCooltrainerFAfterBattleText
+	def_trainers SSAnne2FRooms
+	trainer EVENT_BEAT_SS_ANNE_9_TRAINER_0, 2, Gentleman1
+	trainer EVENT_BEAT_SS_ANNE_9_TRAINER_1, 3, Fisher
+	trainer EVENT_BEAT_SS_ANNE_9_TRAINER_2, 3, Gentleman2
+	trainer EVENT_BEAT_SS_ANNE_9_TRAINER_3, 2, CooltrainerF
 	db -1 ; end
 
 SSAnne2FRoomsGentleman1Text:
 	text_asm
-	ld hl, SSAnne9TrainerHeader0
+	ld hl, SSAnne2FRooms_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnne2FRoomsGentleman1BattleText:
+	text "わかもの　との　しょうぶ　こそ"
+	line "じんせいの　たのしみ！"
+	done
+
+SSAnne2FRoomsGentleman1EndBattleText:
+	text "いい　しょうぶ！"
+	line "わかがえる　ようだ"
+	prompt
+
+SSAnne2FRoomsGentleman1AfterBattleText:
+	text "１５ねん　まえ　なら"
+	line "わたしが　かって　いた　だろう！"
+	done
 
 SSAnne2FRoomsFisherText:
 	text_asm
-	ld hl, SSAnne9TrainerHeader1
+	ld hl, SSAnne2FRooms_TrainerHeader1
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnne2FRoomsFisherBattleText:
+	text "おれが　つった"
+	line "じまんの　さかなを　みろ！"
+	done
+
+SSAnne2FRoomsFisherEndBattleText:
+	text "もう　からっぽ！"
+	prompt
+
+SSAnne2FRoomsFisherAfterBattleText:
+	text "<⋯>　パーティ？"
+
+	para "せんじょう　パーティは"
+	line "もう　おわった　ころ　じゃないかな"
+	done
 
 SSAnne2FRoomsGentleman2Text:
 	text_asm
-	ld hl, SSAnne9TrainerHeader2
+	ld hl, SSAnne2FRooms_TrainerHeader2
 	call TalkToTrainer
 	jp TextScriptEnd
 
+SSAnne2FRoomsGentleman2BattleText:
+	text "きみは<⋯>　つよい　#と"
+	line "めずらしい　#"
+	cont "どっちに　かちを　かんじるかね？"
+	done
+
+SSAnne2FRoomsGentleman2EndBattleText:
+	text "やる　ものだね！"
+	prompt
+
+SSAnne2FRoomsGentleman2AfterBattleText:
+	text "わたしは<⋯>　めずらしくて"
+	line "つよい　#が　ほしいねえ"
+	done
+
 SSAnne2FRoomsCooltrainerFText:
 	text_asm
-	ld hl, SSAnne9TrainerHeader3
+	ld hl, SSAnne2FRooms_TrainerHeader3
 	call TalkToTrainer
 	jp TextScriptEnd
+
+SSAnne2FRoomsCooltrainerFBattleText:
+	text "あら　せんじょう　パーティでは"
+	line "みかけ　なかった　けど<⋯>？"
+	done
+
+SSAnne2FRoomsCooltrainerFEndBattleText:
+	text "てかげん　してよ"
+	prompt
+
+SSAnne2FRoomsCooltrainerFAfterBattleText:
+	text "いいな　つよい　#！"
+	line "いいな<⋯>　いいな<⋯>！"
+	done
 
 SSAnne2FRoomsGentleman3Text:
 	text_asm
@@ -79,8 +134,13 @@ SSAnne2FRoomsGentleman3Text:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SSAnne2FRoomsGentleman3Text
-	text_end
+	text "せかい　じゅうを　たび　してきたが"
+	line "ねむって　ばかりの　あいつを"
+	cont "みつけたときは　ほんとに　あきれた"
+
+	para "たしか<⋯>！"
+	line "こんな　#　だった"
+	prompt
 
 SSAnne2FRoomsGentleman4Text:
 	text_asm
@@ -89,8 +149,10 @@ SSAnne2FRoomsGentleman4Text:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SSAnne2FRoomsGentleman4Text
-	text_end
+	text "にんげんを　のせて"
+	line "みずの　うえ　はしる　#"
+	cont "みたこと　ある　アルよ！"
+	done
 
 SSAnne2FRoomsGrampsText:
 	text_asm
@@ -99,8 +161,9 @@ SSAnne2FRoomsGrampsText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SSAnne2FRoomsGrampsText
-	text_end
+	text "ほそい　き　なら　#の"
+	line "いあいぎりで　きりたおせる　じゃろ"
+	done
 
 SSAnne2FRoomsGentleman5Text:
 	text_asm
@@ -109,8 +172,12 @@ SSAnne2FRoomsGentleman5Text:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SSAnne2FRoomsGentleman5Text
-	text_end
+	text "セキチク　シティ　サファリ　ゾーン"
+	line "いった　こと　あるかね？"
+
+	para "あそこは　めずらしい　#が"
+	line "たくさん　いた！"
+	done
 
 SSAnne2FRoomsLittleBoyText:
 	text_asm
@@ -119,8 +186,10 @@ SSAnne2FRoomsLittleBoyText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SSAnne2FRoomsLittleBoyText
-	text_end
+	text "パパも　ぼくも"
+	line "サファリ　ゾーン　だいすき！"
+	cont "また　あそびに　いきたいな！"
+	done
 
 SSAnne2FRoomsBrunetteGirlText:
 	text_asm
@@ -129,8 +198,10 @@ SSAnne2FRoomsBrunetteGirlText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SSAnne2FRoomsBrunetteGirlText
-	text_end
+	text "せんちょうさん　みたんだけど"
+	line "ぐあい　わるいって"
+	cont "まっさおな　かお　してたよ！"
+	done
 
 SSAnne2FRoomsBeautyText:
 	text_asm
@@ -139,53 +210,6 @@ SSAnne2FRoomsBeautyText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _SSAnne2FRoomsBeautyText
-	text_end
-
-SSAnne2FRoomsGentleman1BattleText:
-	text_far _SSAnne2FRoomsGentleman1BattleText
-	text_end
-
-SSAnne2FRoomsGentleman1EndBattleText:
-	text_far _SSAnne2FRoomsGentleman1EndBattleText
-	text_end
-
-SSAnne2FRoomsGentleman1AfterBattleText:
-	text_far _SSAnne2FRoomsGentleman1AfterBattleText
-	text_end
-
-SSAnne2FRoomsFisherBattleText:
-	text_far _SSAnne2FRoomsFisherBattleText
-	text_end
-
-SSAnne2FRoomsFisherEndBattleText:
-	text_far _SSAnne2FRoomsFisherEndBattleText
-	text_end
-
-SSAnne2FRoomsFisherAfterBattleText:
-	text_far _SSAnne2FRoomsFisherAfterBattleText
-	text_end
-
-SSAnne2FRoomsGentleman2BattleText:
-	text_far _SSAnne2FRoomsGentleman2BattleText
-	text_end
-
-SSAnne2FRoomsGentleman2EndBattleText:
-	text_far _SSAnne2FRoomsGentleman2EndBattleText
-	text_end
-
-SSAnne2FRoomsGentleman2AfterBattleText:
-	text_far _SSAnne2FRoomsGentleman2AfterBattleText
-	text_end
-
-SSAnne2FRoomsCooltrainerFBattleText:
-	text_far _SSAnne2FRoomsCooltrainerFBattleText
-	text_end
-
-SSAnne2FRoomsCooltrainerFEndBattleText:
-	text_far _SSAnne2FRoomsCooltrainerFEndBattleText
-	text_end
-
-SSAnne2FRoomsCooltrainerFAfterBattleText:
-	text_far _SSAnne2FRoomsCooltrainerFAfterBattleText
-	text_end
+	text "けっこう　おおい　らしいわ！"
+	line "ふなよい　する　ひと！"
+	done

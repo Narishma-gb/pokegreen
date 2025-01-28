@@ -1,6 +1,6 @@
 PokemonTower4F_Script:
 	call EnableAutoTextBoxDrawing
-	ld hl, PokemonTower4TrainerHeaders
+	ld hl, PokemonTower4F_TrainerHeaders
 	ld de, PokemonTower4F_ScriptPointers
 	ld a, [wPokemonTower4FCurScript]
 	call ExecuteCurMapScriptInTable
@@ -22,66 +22,69 @@ PokemonTower4F_TextPointers:
 	dw_const PickUpItemText,               TEXT_POKEMONTOWER4F_AWAKENING
 	dw_const PickUpItemText,               TEXT_POKEMONTOWER4F_HP_UP
 
-PokemonTower4TrainerHeaders:
-	def_trainers
-PokemonTower4TrainerHeader0:
-	trainer EVENT_BEAT_POKEMONTOWER_4_TRAINER_0, 2, PokemonTower4FChanneler1BattleText, PokemonTower4FChanneler1EndBattleText, PokemonTower4FChanneler1AfterBattleText
-PokemonTower4TrainerHeader1:
-	trainer EVENT_BEAT_POKEMONTOWER_4_TRAINER_1, 2, PokemonTower4FChanneler2BattleText, PokemonTower4FChanneler2EndBattleText, PokemonTower4FChanneler2AfterBattleText
-PokemonTower4TrainerHeader2:
-	trainer EVENT_BEAT_POKEMONTOWER_4_TRAINER_2, 2, PokemonTower4FChanneler3BattleText, PokemonTower4FChanneler3EndBattleText, PokemonTower4FChanneler3AfterBattleText
+	def_trainers PokemonTower4F
+	trainer EVENT_BEAT_POKEMONTOWER_4_TRAINER_0, 2, Channeler1
+	trainer EVENT_BEAT_POKEMONTOWER_4_TRAINER_1, 2, Channeler2
+	trainer EVENT_BEAT_POKEMONTOWER_4_TRAINER_2, 2, Channeler3
 	db -1 ; end
 
 PokemonTower4FChanneler1Text:
 	text_asm
-	ld hl, PokemonTower4TrainerHeader0
-	call TalkToTrainer
-	jp TextScriptEnd
-
-PokemonTower4FChanneler2Text:
-	text_asm
-	ld hl, PokemonTower4TrainerHeader1
-	call TalkToTrainer
-	jp TextScriptEnd
-
-PokemonTower4FChanneler3Text:
-	text_asm
-	ld hl, PokemonTower4TrainerHeader2
+	ld hl, PokemonTower4F_TrainerHeader0
 	call TalkToTrainer
 	jp TextScriptEnd
 
 PokemonTower4FChanneler1BattleText:
-	text_far _PokemonTower4FChanneler1BattleText
-	text_end
+	text "うぐぐ<⋯>　ゆうれいめ<⋯>"
+	line "<⋯>ケーッ！"
+	done
 
 PokemonTower4FChanneler1EndBattleText:
-	text_far _PokemonTower4FChanneler1EndBattleText
-	text_end
+	text "はっ！"
+	line "ゆ　ゆうれいは　どこじゃ"
+	prompt
 
 PokemonTower4FChanneler1AfterBattleText:
-	text_far _PokemonTower4FChanneler1AfterBattleText
-	text_end
+	text "むう<⋯>"
+	line "ゆめを　みてた　ようじゃ"
+	done
+
+PokemonTower4FChanneler2Text:
+	text_asm
+	ld hl, PokemonTower4F_TrainerHeader1
+	call TalkToTrainer
+	jp TextScriptEnd
 
 PokemonTower4FChanneler2BattleText:
-	text_far _PokemonTower4FChanneler2BattleText
-	text_end
+	text "イッ<⋯>　ショ<⋯>　ニ<⋯>"
+	line "<⋯>　ノロ<⋯>ワレ！"
+	done
 
 PokemonTower4FChanneler2EndBattleText:
-	text_far _PokemonTower4FChanneler2EndBattleText
-	text_end
+	text "<⋯>はっ！"
+	prompt
 
 PokemonTower4FChanneler2AfterBattleText:
-	text_far _PokemonTower4FChanneler2AfterBattleText
-	text_end
+	text "<⋯>どうしても　ゆうれいの"
+	line "しょうたいが　わからない<⋯>"
+	done
+
+PokemonTower4FChanneler3Text:
+	text_asm
+	ld hl, PokemonTower4F_TrainerHeader2
+	call TalkToTrainer
+	jp TextScriptEnd
 
 PokemonTower4FChanneler3BattleText:
-	text_far _PokemonTower4FChanneler3BattleText
-	text_end
+	text "フフフッ<⋯>！"
+	line "<⋯>　カテ<⋯>　ルカーッ！"
+	done
 
 PokemonTower4FChanneler3EndBattleText:
-	text_far _PokemonTower4FChanneler3EndBattleText
-	text_end
+	text "<⋯>ん　わしは？"
+	prompt
 
 PokemonTower4FChanneler3AfterBattleText:
-	text_far _PokemonTower4FChanneler3AfterBattleText
-	text_end
+	text "ふう！　#の"
+	line "さまよえる　れいよ　やすらかに<⋯>"
+	done

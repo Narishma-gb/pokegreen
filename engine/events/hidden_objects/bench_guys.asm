@@ -24,56 +24,95 @@ PrintBenchGuyText:
 INCLUDE "data/events/bench_guys.asm"
 
 ViridianCityPokecenterBenchGuyText::
-	text_far _ViridianCityPokecenterGuyText
-	text_end
+	text "#センターに　あずけると"
+	line "つかれて　うごけない"
+	cont "#も　げんきに　なるよ！"
+	done
 
 PewterCityPokecenterBenchGuyText::
-	text_far _PewterCityPokecenterGuyText
-	text_end
+	text "ほぁーひゃ<⋯>！"
+
+	para "プリンの　うたごえを　きくと<⋯>"
+	line "たいていの　#は　ねむくなる"
+
+	para "<⋯>そして"
+	line "ぼくも<⋯>ぐー<⋯>"
+	done
 
 CeruleanCityPokecenterBenchGuyText::
-	text_far _CeruleanPokecenterGuyText
-	text_end
+	text "マサキ　にいちゃん"
+	line "#　いっぱい　もってるよ！"
+
+	para "めずらしい　#も"
+	line "あつめてるって"
+	done
 
 LavenderCityPokecenterBenchGuyText::
-	text_far _LavenderPokecenterGuyText
-	text_end
+	text "カラカラの　しゅぞくは"
+	line "ほねを　かぶってる　だろ？"
+
+	para "あれが　たかく　うれるんだって"
+	done
 
 MtMoonPokecenterBenchGuyText::
-	text_far _MtMoonPokecenterBenchGuyText
-	text_end
+	text "#を　たくさん　つかまえて"
+	line "もちきれない　ときは"
+
+	para "<PC>　つうしんで"
+	line "あずけると　いいよ"
+	done
 
 RockTunnelPokecenterBenchGuyText::
-	text_far _RockTunnelPokecenterGuyText
-	text_end
+	text "シオン　タウンで"
+	line "ゆうれい　#が　でるって"
+	cont "みんな　さわいでるよ"
+	done
 
-UnusedBenchGuyText1::
-	text_far _UnusedBenchGuyText1
-	text_end
+SafariZoneWestRestHouseStoolText::
+	text "ぼくも　#とり　したいなー"
+	done
 
-UnusedBenchGuyText2::
-	text_far _UnusedBenchGuyText2
-	text_end
+SafariZoneEastRestHouseStoolText::
+	text "はしゃぎすぎて　つかれちゃった<⋯>"
+	done
 
-UnusedBenchGuyText3::
-	text_far _UnusedBenchGuyText3
-	text_end
+SafariZoneNorthRestHouseStoolText::
+	text "シルフのチーフが　サファリゾーンの"
+	line "どこかに　かくれてるんだって！"
+	done
 
 VermilionCityPokecenterBenchGuyText::
-	text_far _VermilionPokecenterGuyText
-	text_end
+	text "たしかに　レベルの　たかい"
+	line "#は　つよい　けど<⋯>"
+
+	para "#の　タイプに　よって"
+	line "にがてな　あいてが　ある　みたい"
+
+	para "ぜったいに　つよい　#は"
+	line "なかなか　いない　みたいだ"
+	done
 
 CeladonCityPokecenterBenchGuyText::
-	text_far _CeladonCityPokecenterGuyText
-	text_end
+	text "ぼくも　じてんしゃ　もってたら"
+	line "サイクリング　ロード　いきたーい！"
+	done
 
 FuchsiaCityPokecenterBenchGuyText::
-	text_far _FuchsiaCityPokecenterGuyText
-	text_end
+	text "にいちゃん"
+	line "#　ずかん　つくってる　なら"
+	cont "サファリ　ゾーン　いくと　いいよ"
+
+	para "めずらしい　#が"
+	line "たくさん　はんしょく　してるって"
+	done
 
 CinnabarIslandPokecenterBenchGuyText::
-	text_far _CinnabarPokecenterGuyText
-	text_end
+	text "しんかキャンセル　した　あとも"
+	line "#は　わざを　おぼえるよ"
+
+	para "わざを　おぼえさせて　いってから"
+	line "しんか　させるのも　コツさ"
+	done
 
 SaffronCityPokecenterBenchGuyText::
 	text_asm
@@ -86,13 +125,20 @@ SaffronCityPokecenterBenchGuyText::
 	jp TextScriptEnd
 
 SaffronCityPokecenterBenchGuyText1:
-	text_far _SaffronCityPokecenterGuyText1
-	text_end
+	text "あーあ<⋯>"
+	line "#　してんのうが　きて"
+	cont "<ROCKET>を　やっつけて"
+	cont "くれると　いいな"
+	done
 
 SaffronCityPokecenterBenchGuyText2:
-	text_far _SaffronCityPokecenterGuyText2
-	text_end
+	text "<ROCKET>　にげてったね！"
+	line "これからは　そと　あるいても"
+	cont "ちっとも　こわくない！"
+	cont "よかったね！"
+	done
 
 CeladonCityHotelText::
-	text_far _CeladonCityHotelText
-	text_end
+	text "わーい！　りょこう　だぞー！"
+	line "おねえちゃん　だいすき！"
+	done

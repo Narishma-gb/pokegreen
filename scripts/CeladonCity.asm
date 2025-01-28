@@ -26,20 +26,32 @@ CeladonCity_TextPointers:
 	dw_const CeladonCityGameCornerSignText,    TEXT_CELADONCITY_GAMECORNER_SIGN
 
 CeladonCityLittleGirlText:
-	text_far _CeladonCityLittleGirlText
-	text_end
+	text "わたしの　ドガース！"
+	line "グレンじま　で　つかまえたの！"
+	cont "おこると　どくガス　はくけど<⋯>"
+
+	para "ふだんは　いいこ　なのよ"
+	done
 
 CeladonCityGramps1Text:
-	text_far _CeladonCityGramps1Text
-	text_end
+	text "にひひ！　この　ジムは　ええ！"
+	line "おんなのこ　ばっかし　じゃ！"
+	done
 
 CeladonCityGirlText:
-	text_far _CeladonCityGirlText
-	text_end
+	text "きれいな　まちづくりが　じまんの"
+	line "タマムシに　ゲーム　コーナーが"
+	cont "できちゃって！　こまった　ものよ！"
+	done
 
 CeladonCityGramps2Text:
-	text_far _CeladonCityGramps2Text
-	text_end
+	text "トホホ<⋯>！"
+	line "スロットで　また　まけた！"
+
+	para "コインが　たまったら"
+	line "けいひんに　した　ほうが　ええと"
+	cont "わかって　おったのに<⋯>！"
+	done
 
 CeladonCityGramps3Text:
 	text_asm
@@ -65,69 +77,116 @@ CeladonCityGramps3Text:
 	jp TextScriptEnd
 
 .Text:
-	text_far _CeladonCityGramps3Text
-	text_end
+	text "やあ　やあ！"
+
+	para "わたしは　いつも　きみが"
+	line "そこを　とおるのを　みてたが"
+	cont "やっと　あう　ことが　できた！"
+
+	para "それでは　とっておきの"
+	line "これを！　きみに　あげよう！"
+	prompt
 
 .ReceivedTM41Text:
-	text_far _CeladonCityGramps3ReceivedTM41Text
+	text "<PLAYER>は　おじさんから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
 	text_end
 
 .TM41ExplanationText:
-	text_far _CeladonCityGramps3TM41ExplanationText
-	text_end
+	text "<TM>４１の　なかは"
+	line "タマゴうみ　である！"
+
+	para "これを　つかえる　#は"
+	line "１しゅるい　だけ　である！"
+
+	para "そういう　#は"
+	line "ラッキー　である！"
+	done
 
 .TM41NoRoomText:
-	text_far _CeladonCityGramps3TM41NoRoomText
-	text_end
+	text "にもつが　いっぱいだ"
+	done
 
 CeladonCityFisherText:
-	text_far _CeladonCityFisherText
-	text_end
+	text "こいつ　おれの　あいかた！"
+	line "ニョロボン！"
+
+	para "みずのいしを　あてたら"
+	line "ニョロゾ　が　しんか　したよ"
+	done
 
 CeladonCityPoliwrathText:
-	text_far _CeladonCityPoliwrathText
+	text "ニョロボン『ゲロゲーロ！@"
 	text_asm
 	ld a, POLIWRATH
 	call PlayCry
 	jp TextScriptEnd
 
 CeladonCityRocket1Text:
-	text_far _CeladonCityRocket1Text
-	text_end
+	text "なんだ　ジロジロ　みやがって！"
+	line "あっち　いかねえと　ぶんなぐるぞ！"
+	done
 
 CeladonCityRocket2Text:
-	text_far _CeladonCityRocket2Text
-	text_end
+	text "めの　まえを　チョロチョロうるせえ！"
+	line "ロケットだんを　なめるなよ！"
+	done
 
 CeladonCityTrainerTips1Text:
-	text_far _CeladonCityTrainerTips1Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "ヨクアタールは　わざの"
+	line "めいちゅう　りつ　を　あげる！"
+
+	para "クリティカッターは　わざが"
+	line "きゅうしょに　あたり　やすくなる"
+
+	para "アイテムの　おかいもとめは"
+	line "タマムシ　デパートで　どうぞ！"
+	done
 
 CeladonCitySignText:
-	text_far _CeladonCitySignText
-	text_end
+	text "ここは　タマムシ　シティ"
+	line "タマムシ　にじいろ　ゆめの　いろ"
+	done
 
 CeladonCityGymSignText:
-	text_far _CeladonCityGymSignText
-	text_end
+	text "タマムシ　シティ　#　ジム"
+	line "リーダー　エリカ"
+	cont "しぜんを　あいする　おじょうさま！"
+	done
 
 CeladonCityMansionSignText:
-	text_far _CeladonCityMansionSignText
-	text_end
+	text "タマムシ　マンション"
+	done
 
 CeladonCityDeptStoreSignText:
-	text_far _CeladonCityDeptStoreSignText
-	text_end
+	text "ほしいもの　きっと　みつかる！"
+	line "タマムシ　デパート"
+	done
 
 CeladonCityTrainerTips2Text:
-	text_far _CeladonCityTrainerTips2Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "エフェクトガードは"
+	line "ほのお　や　みず　でんき　など"
+
+	para "とくしゅな　こうげき　から"
+	line "#を　まもって　くれる！"
+
+	para "アイテムの　おかいもとめは"
+	line "タマムシ　デパートで　どうぞ！"
+	done
 
 CeladonCityPrizeExchangeSignText:
-	text_far _CeladonCityPrizeExchangeSignText
-	text_end
+	text "コインを　ビッグな　けいひんに！"
+	line "<⋯>　けいひん　こうかんじょ"
+	done
 
 CeladonCityGameCornerSignText:
-	text_far _CeladonCityGameCornerSignText
-	text_end
+	text "おとなの　あそびば！"
+	line "<⋯>　ロケット·　ゲーム　コーナー"
+	done

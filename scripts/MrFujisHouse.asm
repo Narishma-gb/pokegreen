@@ -25,12 +25,15 @@ MrFujisHouseSuperNerdText:
 	jp TextScriptEnd
 
 .MrFujiIsntHereText:
-	text_far _MrFujisHouseSuperNerdMrFujiIsntHereText
-	text_end
+	text "おっかしいなー！"
+	line "フジ　ろうじんが　いないぞ！"
+	cont "どこに　いったのかな？"
+	done
 
 .MrFujiHadBeenPrayingText:
-	text_far _MrFujisHouseSuperNerdMrFujiHadBeenPrayingText
-	text_end
+	text "フジ　ろうじん　カラカラの　れいを"
+	line "なぐさめに　いってたんだね"
+	done
 
 MrFujisHouseLittleGirlText:
 	text_asm
@@ -46,22 +49,31 @@ MrFujisHouseLittleGirlText:
 	jp TextScriptEnd
 
 .ThisIsMrFujisHouseText:
-	text_far _MrFujisHouseLittleGirlThisIsMrFujisHouseText
-	text_end
+	text "ここは　もともと"
+	line "フジ　じいちゃんの　おうち　なの"
+
+	para "じいちゃん　やさしいのよ！"
+
+	para "すてられたり　かえなくなった"
+	line "#を　あずかって"
+	cont "せわ　してるの"
+	done
 
 .PokemonAreNiceToHugText:
-	text_far _MrFujisHouseLittleGirlPokemonAreNiceToHugText
-	text_end
+	text "はあ　あったかい<⋯>！"
+	line "#って　だっこ　すると"
+	cont "あったかいんだよねー！"
+	done
 
 MrFujisHousePsyduckText:
-	text_far _MrFujisHousePsyduckText
+	text "コダック『ぐわっぱ！@"
 	text_asm
 	ld a, PSYDUCK
 	call PlayCry
 	jp TextScriptEnd
 
 MrFujisHouseNidorinoText:
-	text_far _MrFujisHouseNidorinoText
+	text "ニドリーノ『がぉーっ！@"
 	text_asm
 	ld a, NIDORINO
 	call PlayCry
@@ -91,23 +103,48 @@ MrFujisHouseMrFujiText:
 	jp TextScriptEnd
 
 .IThinkThisMayHelpYourQuestText:
-	text_far _MrFujisHouseMrFujiIThinkThisMayHelpYourQuestText
-	text_end
+	text "フジ『さて　<PLAYER>くん<⋯>"
+
+	para "#ずかん　づくりは"
+	line "#に　たいして"
+	cont "ふかい　あいじょうが　ないと"
+	cont "かんせいは　たいへん　むずかしい"
+
+	para "その　たすけに　なるか　わからんが"
+	line "これを　あなたに　さしあげよう！"
+	prompt
 
 .ReceivedPokeFluteText:
-	text_far _MrFujisHouseMrFujiReceivedPokeFluteText
+	text "<PLAYER>は　フジ　ろうじんから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_key_item
-	text_far _MrFujisHouseMrFujiPokeFluteExplanationText
-	text_end
+	text_start
+
+	para "#のふえを　ふくと"
+	line "グーグー　ねむってる　#でも"
+	cont "げんきが　わいて　とびおきる！"
+
+	para "#が　いねむり　して"
+	line "こまったら　つかって　みなさい"
+	done
 
 .PokeFluteNoRoomText:
-	text_far _MrFujisHouseMrFujiPokeFluteNoRoomText
-	text_end
+	text "にもつが　いっぱいだな"
+	done
 
 .HasMyFluteHelpedYouText:
-	text_far _MrFujisHouseMrFujiHasMyFluteHelpedYouText
-	text_end
+	text "フジ『このあいだ　さしあげた"
+	line "ふえは　やくに　たってるかな？"
+	done
 
 MrFujisHouseMrFujiPokedexText:
-	text_far _MrFujisHouseMrFujiPokedexText
-	text_end
+	text "ごうか　しょうひんが　あたる！"
+	line "げっかん　#の　とも"
+	cont "ビッグ·プレゼント！"
+
+	para "<⋯>おうぼ　ほうほうは"
+
+	para "<⋯>あら　きりとって　ある！"
+	done

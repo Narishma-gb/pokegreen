@@ -17,8 +17,13 @@ PewterMartYoungsterText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _PewterMartYoungsterText
-	text_end
+	text "インチキ　くさい　おじさんから"
+	line "なんだか　ヘンな　#を"
+	cont "かっちゃったよ！"
+
+	para "すっげー　よわいの！"
+	line "５００円も　したのに<⋯>"
+	done
 
 PewterMartSuperNerdText:
 	text_asm
@@ -27,5 +32,7 @@ PewterMartSuperNerdText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _PewterMartSuperNerdText
-	text_end
+	text "よわい　#でも"
+	line "いっしょうけんめい　そだてれば"
+	cont "いいこと　あるさ！"
+	done

@@ -1,3 +1,52 @@
+; loads tile patterns for battle animations
+LoadMoveAnimationTiles:
+	ld a, [wWhichBattleAnimTileset]
+	add a
+	add a
+	ld hl, MoveAnimationTilesPointers
+	ld e, a
+	ld d, 0
+	add hl, de
+	ld a, [hli]
+	ld [wTempTilesetNumTiles], a ; number of tiles
+	ld a, [hli]
+	ld e, a
+	ld a, [hl]
+	ld d, a ; de = address of tileset
+	ld hl, vSprites tile $31
+	ld b, BANK(MoveAnimationTiles0) ; ROM bank
+	ld a, [wTempTilesetNumTiles]
+	ld c, a ; number of tiles
+	jp CopyVideoData ; load tileset
+
+MACRO anim_tileset
+	db \1
+	dw \2
+	db -1 ; padding
+ENDM
+
+MoveAnimationTilesPointers:
+	; number of tiles, gfx pointer
+	anim_tileset 79, MoveAnimationTiles0
+	anim_tileset 79, MoveAnimationTiles1
+	anim_tileset 64, MoveAnimationTiles2
+
+MoveAnimationTiles0:
+MoveAnimationTiles2:
+	INCBIN "gfx/battle/move_anim_0.2bpp"
+
+MoveAnimationTiles1:
+	INCBIN "gfx/battle/move_anim_1.2bpp"
+
+SlotMachineTiles2:
+IF DEF(_RED)
+	INCBIN "gfx/slots/red_slots_2.2bpp"
+ENDC
+IF DEF(_GREEN)
+	INCBIN "gfx/slots/green_slots_2.2bpp"
+ENDC
+SlotMachineTiles2End:
+
 ; Draws a "frame block". Frame blocks are blocks of tiles that are put
 ; together to form frames in battle animations.
 DrawFrameBlock:
@@ -22,7 +71,7 @@ DrawFrameBlock:
 	jp z, .flipHorizontalTranslateDown ; SUBANIMTYPE_HFLIP
 	dec a
 	jr z, .flipBaseCoords              ; SUBANIMTYPE_COORDFLIP
-.noTransformation
+; noTransformation
 	ld a, [wBaseCoordY]
 	add [hl]
 	ld [de], a ; store Y
@@ -130,7 +179,7 @@ DrawFrameBlock:
 	ld a, [wNumFBTiles]
 	cp c
 	jp nz, .loop ; go back up if there are more tiles to draw
-.afterDrawingTiles
+; afterDrawingTiles
 	ld a, [wFBMode]
 	cp FRAMEBLOCKMODE_02
 	jr z, .advanceFrameBlockDestAddr ; skip delay and don't clean OAM buffer
@@ -176,16 +225,12 @@ PlayAnimation:
 	ld h, [hl]
 	ld l, a
 .animationLoop
-	vc_hook Stop_reducing_move_anim_flashing_Thunderbolt
 	ld a, [hli]
-	vc_hook_red Stop_reducing_move_anim_flashing_Reflect
-	vc_hook_blue Stop_reducing_move_anim_flashing_Self_Destruct
 	cp -1
-	vc_hook_blue Stop_reducing_move_anim_flashing_Reflect
 	jr z, .AnimationOver
 	cp FIRST_SE_ID ; is this subanimation or a special effect?
 	jr c, .playSubanimation
-.doSpecialEffect
+; doSpecialEffect
 	ld c, a
 	ld de, SpecialEffectPointers
 .searchSpecialEffectTableLoop
@@ -250,57 +295,37 @@ PlayAnimation:
 	ld a, [wAnimPalette]
 	ldh [rOBP0], a
 	call LoadMoveAnimationTiles
-	vc_hook Reduce_move_anim_flashing_Mega_Punch_Self_Destruct_Explosion
 	call LoadSubanimation
 	call PlaySubanimation
-	vc_hook_red Stop_reducing_move_anim_flashing_Mega_Punch
-	vc_hook_blue Stop_reducing_move_anim_flashing_Mega_Punch_Explosion
 	pop af
-	vc_hook_red Stop_reducing_move_anim_flashing_Blizzard
 	ldh [rOBP0], a
 .nextAnimationCommand
-	vc_hook_red Stop_reducing_move_anim_flashing_Hyper_Beam
-	vc_hook_blue Stop_reducing_move_anim_flashing_Bubblebeam_Hyper_Beam_Blizzard
 	pop hl
-	vc_hook Stop_reducing_move_anim_flashing_Guillotine
 	jr .animationLoop
 .AnimationOver
 	ret
 
 LoadSubanimation:
-	vc_hook Reduce_move_anim_flashing_Guillotine
 	ld a, [wSubAnimAddrPtr + 1]
-	vc_hook Reduce_move_anim_flashing_Mega_Kick
 	ld h, a
-	vc_hook_red Reduce_move_anim_flashing_Blizzard
 	ld a, [wSubAnimAddrPtr]
-	vc_hook_red Reduce_move_anim_flashing_Self_Destruct
 	ld l, a
 	ld a, [hli]
 	ld e, a
-	vc_hook Reduce_move_anim_flashing_Explosion
 	ld a, [hl]
-	vc_hook Reduce_move_anim_flashing_Thunderbolt
 	ld d, a ; de = address of subanimation
 	ld a, [de]
-	vc_hook_blue Reduce_move_anim_flashing_Rock_Slide
 	ld b, a
-	vc_hook Reduce_move_anim_flashing_Spore
 	and %00011111
-	vc_hook Reduce_move_anim_flashing_Bubblebeam
 	ld [wSubAnimCounter], a ; number of frame blocks
-	vc_hook_red Reduce_move_anim_flashing_Rock_Slide
-	vc_hook_blue Reduce_move_anim_flashing_Self_Destruct
 	ld a, b
 	and %11100000
 	cp SUBANIMTYPE_ENEMY << 5
-	vc_hook_blue Reduce_move_anim_flashing_Blizzard
 	jr nz, .isNotType5
-.isType5
+; isType5
 	call GetSubanimationTransform2
 	jr .saveTransformation
 .isNotType5
-	vc_hook Reduce_move_anim_flashing_Hyper_Beam
 	call GetSubanimationTransform1
 .saveTransformation
 ; place the upper 3 bits of a into bits 0-2 of a before storing
@@ -331,7 +356,6 @@ LoadSubanimation:
 ; sets the transform to SUBANIMTYPE_NORMAL if it's the player's turn
 ; sets the transform to the subanimation type if it's the enemy's turn
 GetSubanimationTransform1:
-	vc_hook Reduce_move_anim_flashing_Reflect
 	ld b, a
 	ldh a, [hWhoseTurn]
 	and a
@@ -350,55 +374,6 @@ GetSubanimationTransform2:
 	ret z
 	xor a ; SUBANIMTYPE_NORMAL << 5
 	ret
-
-; loads tile patterns for battle animations
-LoadMoveAnimationTiles:
-	ld a, [wWhichBattleAnimTileset]
-	add a
-	add a
-	ld hl, MoveAnimationTilesPointers
-	ld e, a
-	ld d, 0
-	add hl, de
-	ld a, [hli]
-	ld [wTempTilesetNumTiles], a ; number of tiles
-	ld a, [hli]
-	ld e, a
-	ld a, [hl]
-	ld d, a ; de = address of tileset
-	ld hl, vSprites tile $31
-	ld b, BANK(MoveAnimationTiles0) ; ROM bank
-	ld a, [wTempTilesetNumTiles]
-	ld c, a ; number of tiles
-	jp CopyVideoData ; load tileset
-
-MACRO anim_tileset
-	db \1
-	dw \2
-	db -1 ; padding
-ENDM
-
-MoveAnimationTilesPointers:
-	; number of tiles, gfx pointer
-	anim_tileset 79, MoveAnimationTiles0
-	anim_tileset 79, MoveAnimationTiles1
-	anim_tileset 64, MoveAnimationTiles2
-
-MoveAnimationTiles0:
-MoveAnimationTiles2:
-	INCBIN "gfx/battle/move_anim_0.2bpp"
-
-MoveAnimationTiles1:
-	INCBIN "gfx/battle/move_anim_1.2bpp"
-
-SlotMachineTiles2:
-IF DEF(_RED)
-	INCBIN "gfx/slots/red_slots_2.2bpp"
-ENDC
-IF DEF(_BLUE)
-	INCBIN "gfx/slots/blue_slots_2.2bpp"
-ENDC
-SlotMachineTiles2End:
 
 MoveAnimation:
 	push hl
@@ -425,15 +400,11 @@ MoveAnimation:
 	jr nz, .animationsDisabled
 	call ShareMoveAnimations
 	call PlayAnimation
-	vc_hook_red Stop_reducing_move_anim_flashing_Bubblebeam_Mega_Kick
-	vc_hook_blue Stop_reducing_move_anim_flashing_Spore
-	jr .next4
+	jr .next
 .animationsDisabled
 	ld c, 30
 	call DelayFrames
-.next4
-	vc_hook_red Stop_reducing_move_anim_flashing
-	vc_hook_blue Stop_reducing_move_anim_flashing_Rock_Slide_Dream_Eater
+.next
 	call PlayApplyingAttackAnimation ; shake the screen or flash the pic in and out (to show damage)
 .animationFinished
 	call WaitForSoundToFinish
@@ -571,7 +542,6 @@ SetAnimationPalette:
 .notSGB
 	ld a, $e4
 	ld [wAnimPalette], a
-	vc_hook Reduce_move_anim_flashing_Dream_Eater
 	ldh [rOBP0], a
 	ld a, $6c
 	ldh [rOBP1], a
@@ -793,24 +763,17 @@ DoRockSlideSpecialEffects:
 	ld b, 1
 	predef_jump PredefShakeScreenVertically ; shake vertically
 
-FlashScreenEveryEightFrameBlocks:
+FlashScreenEveryTwoFrameBlocks:
 	ld a, [wSubAnimCounter]
-	and 7 ; is the subanimation counter exactly 8?
-	call z, AnimationFlashScreen ; if so, flash the screen
-	ret
-
-; flashes the screen if the subanimation counter is divisible by 4
-FlashScreenEveryFourFrameBlocks:
-	ld a, [wSubAnimCounter]
-	and 3
-	call z, AnimationFlashScreen
+	srl a ; is the subanimation counter an odd value?
+	call c, AnimationFlashScreen ; if so, flash the screen
 	ret
 
 ; used for Explosion and Selfdestruct
 DoExplodeSpecialEffects:
 	ld a, [wSubAnimCounter]
 	cp 1 ; is it the end of the subanimation?
-	jr nz, FlashScreenEveryFourFrameBlocks
+	jp nz, AnimationFlashScreen
 ; if it's the end of the subanimation, make the attacking pokemon disappear
 	hlcoord 1, 5
 	jp AnimationHideMonPic ; make pokemon disappear
@@ -965,7 +928,7 @@ CallWithTurnFlipped:
 
 ; flashes the screen for an extended period (48 frames)
 AnimationFlashScreenLong:
-	ld a, 3 ; cycle through the palettes 3 times
+	ld a, 4 ; cycle through the palettes 4 times
 	ld [wFlashScreenLongCounter], a
 	ld a, [wOnSGB] ; running on SGB?
 	and a
@@ -987,7 +950,6 @@ AnimationFlashScreenLong:
 	ld [wFlashScreenLongCounter], a
 	pop hl
 	jr nz, .loop
-	vc_hook_red Stop_reducing_move_anim_flashing_Psychic
 	ret
 
 ; BG palettes
@@ -1022,17 +984,19 @@ FlashScreenLongSGB:
 	dc 3, 2, 1, 0
 	db 1 ; end
 
-; causes a delay of 2 frames for the first cycle
-; causes a delay of 1 frame for the second and third cycles
+; causes a delay of 4 frames for the first cycle, 3 frames for the second cycle, 
+; 2 frames for the third cycle and 1 frame for the fourth cycle
 FlashScreenLongDelay:
 	ld a, [wFlashScreenLongCounter]
-	cp 4 ; never true since [wFlashScreenLongCounter] starts at 3
+	cp 4
 	ld c, 4
 	jr z, .delayFrames
 	cp 3
+	ld c, 3
+	jr z, .delayFrames
+	cp 2
 	ld c, 2
 	jr z, .delayFrames
-	cp 2 ; nothing is done with this
 	ld c, 1
 .delayFrames
 	jp DelayFrames
@@ -1097,6 +1061,8 @@ SetAnimationBGPalette:
 	ldh [rBGP], a
 	ret
 
+AnimationUnusedShakeScreen:
+; Shakes the screen for a while. Unreferenced.
 	ld b, $5
 
 AnimationShakeScreenVertically:
@@ -1603,7 +1569,7 @@ _AnimationSquishMonPic:
 	call AnimCopyRowRight
 	inc hl
 .next
-	ld [hl], " "
+	ld [hl], "　"
 	pop hl
 	ld de, SCREEN_WIDTH
 	add hl, de
@@ -1723,7 +1689,7 @@ AnimationMinimizeMon:
 	ld hl, wTempPic
 	push hl
 	xor a
-	ld bc, 7 * 7 * $10
+	ld bc, 7 * 7 tiles
 	call FillMemory
 	pop hl
 	ld de, 7 * 3 * $10 + 4 * $10 + 4
@@ -1743,13 +1709,13 @@ AnimationMinimizeMon:
 
 MinimizedMonSprite:
 ; 8x5 partial tile graphic
-pusho b.X ; . = 0, X = 1
+PUSHO b.X ; . = 0, X = 1
 	db %...XX...
 	db %..XXXX..
 	db %.XXXXXX.
 	db %..XXXX..
 	db %..X..X..
-popo
+POPO
 MinimizedMonSpriteEnd:
 
 AnimationSlideMonDownAndHide:
@@ -1838,7 +1804,7 @@ _AnimationSlideMonOff:
 ; plus one instead.
 	cp $61
 	ret c
-	ld a, " "
+	ld a, "　"
 	ret
 
 .EnemyNextTile
@@ -1848,7 +1814,7 @@ _AnimationSlideMonOff:
 ; the lower right tile is in the first column to slide off the screen.
 	cp $30
 	ret c
-	ld a, " "
+	ld a, "　"
 	ret
 
 AnimationSlideMonHalfOff:
@@ -1935,7 +1901,7 @@ AnimationSubstitute:
 ; Changes the pokemon's sprite to the mini sprite
 	ld hl, wTempPic
 	xor a
-	ld bc, $310
+	ld bc, 7 * 7 tiles
 	call FillMemory
 	ldh a, [hWhoseTurn]
 	and a
@@ -2120,7 +2086,7 @@ GetMonSpriteTileMapPointerFromRowCount:
 	ldh a, [hWhoseTurn]
 	and a
 	jr nz, .enemyTurn
-	ld a, 20 * 5 + 1
+	ld a, 5 * SCREEN_WIDTH + 1
 	jr .next
 .enemyTurn
 	ld a, 12
@@ -2133,7 +2099,7 @@ GetMonSpriteTileMapPointerFromRowCount:
 	sub b
 	and a
 	jr z, .done
-	ld de, 20
+	ld de, SCREEN_WIDTH
 .loop
 	add hl, de
 	dec a
@@ -2294,7 +2260,7 @@ CopyTileIDs:
 	dec c
 	jr nz, .columnLoop
 	pop hl
-	ld bc, 20
+	ld bc, SCREEN_WIDTH
 	add hl, bc
 	pop bc
 	dec b
@@ -2309,17 +2275,12 @@ INCLUDE "data/tilemaps.asm"
 AnimationLeavesFalling:
 ; Makes leaves float down from the top of the screen. This is used
 ; in Razor Leaf's animation.
-	ldh a, [rOBP0]
-	push af
 	ld a, [wAnimPalette]
 	ldh [rOBP0], a
 	ld d, $37 ; leaf tile
 	ld a, 3 ; number of leaves
 	ld [wNumFallingObjects], a
-	call AnimationFallingObjects
-	pop af
-	ldh [rOBP0], a
-	ret
+	jp AnimationFallingObjects
 
 AnimationPetalsFalling:
 ; Makes lots of petals fall down from the top of the screen. It's used in
@@ -2408,7 +2369,7 @@ FallingObjects_UpdateOAMEntry:
 	sub b
 	ld [hli], a ; X
 	inc hl
-	ld a, 1 << OAM_X_FLIP
+	ld a, OAM_HFLIP
 .next2
 	ld [hl], a ; attribute
 	ret
@@ -2491,7 +2452,7 @@ AnimationShakeEnemyHUD:
 
 ; Copy wTileMap to VRAM such that the row below the enemy HUD (in wTileMap) is
 ; lined up with row 0 of the window.
-	ld hl, vBGMap1 - $20 * 7
+	ld hl, vBGMap1 - BG_MAP_WIDTH * 7
 	call BattleAnimCopyTileMapToVRAM
 
 ; Move the window so that the row below the enemy HUD (in BG map 0) lines up
@@ -2532,8 +2493,6 @@ AnimationShakeEnemyHUD:
 	call SaveScreenTilesToBuffer1
 	ld hl, vBGMap0
 	call BattleAnimCopyTileMapToVRAM
-	call ClearScreen
-	call Delay3
 	call LoadScreenTilesFromBuffer1
 	ld hl, vBGMap1
 	jp BattleAnimCopyTileMapToVRAM
@@ -2572,9 +2531,9 @@ ShakeEnemyHUD_ShakeBG:
 
 BattleAnimCopyTileMapToVRAM:
 	ld a, h
-	ldh [hAutoBGTransferDest + 1], a
+	ld [hAutoBGTransferDest + 1], a
 	ld a, l
-	ldh [hAutoBGTransferDest], a
+	ld [hAutoBGTransferDest], a
 	jp Delay3
 
 TossBallAnimation:

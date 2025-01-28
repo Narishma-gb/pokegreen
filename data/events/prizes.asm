@@ -4,7 +4,7 @@ PrizeDifferentMenuPtrs:
 	dw PrizeMenuTMsEntries,  PrizeMenuTMsCost
 
 NoThanksText:
-	db "NO THANKS@"
+	db "いらない@"
 
 PrizeMenuMon1Entries:
 	db ABRA
@@ -12,7 +12,7 @@ PrizeMenuMon1Entries:
 IF DEF(_RED)
 	db NIDORINA
 ENDC
-IF DEF(_BLUE)
+IF DEF(_GREEN)
 	db NIDORINO
 ENDC
 	db "@"
@@ -22,7 +22,7 @@ IF DEF(_RED)
 	bcd2 180
 	bcd2 500
 ENDC
-IF DEF(_BLUE)
+IF DEF(_GREEN)
 	bcd2 120
 	bcd2 750
 ENDC
@@ -34,7 +34,7 @@ IF DEF(_RED)
 	db DRATINI
 	db SCYTHER
 ENDC
-IF DEF(_BLUE)
+IF DEF(_GREEN)
 	db PINSIR
 	db DRATINI
 ENDC
@@ -47,7 +47,7 @@ IF DEF(_RED)
 	bcd2 5500
 	bcd2 9999
 ENDC
-IF DEF(_BLUE)
+IF DEF(_GREEN)
 	bcd2 2500
 	bcd2 4600
 	bcd2 6500

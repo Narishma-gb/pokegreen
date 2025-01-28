@@ -61,13 +61,13 @@ ViridianCityCheckGotPokedexScript:
 
 ViridianCityOldManStartCatchTrainingScript:
 	ld a, [wSprite03StateData1YPixels]
-	ldh [hSpriteScreenYCoord], a
+	ld [hSpriteScreenYCoord], a
 	ld a, [wSprite03StateData1XPixels]
-	ldh [hSpriteScreenXCoord], a
+	ld [hSpriteScreenXCoord], a
 	ld a, [wSprite03StateData2MapY]
-	ldh [hSpriteMapYCoord], a
+	ld [hSpriteMapYCoord], a
 	ld a, [wSprite03StateData2MapX]
-	ldh [hSpriteMapXCoord], a
+	ld [hSpriteMapXCoord], a
 	xor a
 	ld [wListScrollOffset], a
 
@@ -83,13 +83,13 @@ ViridianCityOldManStartCatchTrainingScript:
 	ret
 
 ViridianCityOldManEndCatchTrainingScript:
-	ldh a, [hSpriteScreenYCoord]
+	ld a, [hSpriteScreenYCoord]
 	ld [wSprite03StateData1YPixels], a
-	ldh a, [hSpriteScreenXCoord]
+	ld a, [hSpriteScreenXCoord]
 	ld [wSprite03StateData1XPixels], a
-	ldh a, [hSpriteMapYCoord]
+	ld a, [hSpriteMapYCoord]
 	ld [wSprite03StateData2MapY], a
-	ldh a, [hSpriteMapXCoord]
+	ld a, [hSpriteMapXCoord]
 	ld [wSprite03StateData2MapX], a
 	call UpdateSprites
 	call Delay3
@@ -144,8 +144,14 @@ ViridianCity_TextPointers:
 	dw_const ViridianCityOldManYouNeedToWeakenTheTargetText, TEXT_VIRIDIANCITY_OLD_MAN_YOU_NEED_TO_WEAKEN_THE_TARGET
 
 ViridianCityYoungster1Text:
-	text_far _ViridianCityYoungster1Text
-	text_end
+	text "きみが　こしに　つけてる"
+	line "その　モンスターボールは<⋯>！"
+	cont "まさしく　#だね！"
+
+	para "いつでも　#の　だしいれが"
+	line "じゆうに　できる　なんて"
+	cont "べんりな　よのなかだね"
+	done
 
 ViridianCityGambler1Text:
 	text_asm
@@ -161,12 +167,17 @@ ViridianCityGambler1Text:
 	jp TextScriptEnd
 
 .GymAlwaysClosedText:
-	text_far _ViridianCityGambler1GymAlwaysClosedText
-	text_end
+	text "いつ　きても"
+	line "この　#　ジムは　しまっとる"
+
+	para "いったい　どんな　ヤツが"
+	line "リーダーを　しとるんじゃろか？"
+	done
 
 .GymLeaderReturnedText:
-	text_far _ViridianCityGambler1GymLeaderReturnedText
-	text_end
+	text "トキワ　ジムの　リーダーが"
+	line "かえって　きたぞ！"
+	done
 
 ViridianCityYoungster2Text:
 	text_asm
@@ -186,16 +197,21 @@ ViridianCityYoungster2Text:
 	jp TextScriptEnd
 
 .YouWantToKnowAboutText:
-	text_far _ViridianCityYoungster2YouWantToKnowAboutText
-	text_end
+	text "いもむし　#には"
+	line "２しゅるい　いるって　しらない？"
+	done
 
 .OkThenText:
-	text_far ViridianCityYoungster2OkThenText
-	text_end
+	text "それなら　いいんだ！"
+	done
 
 .CaterpieAndWeedleDescriptionText:
-	text_far ViridianCityYoungster2CaterpieAndWeedleDescriptionText
-	text_end
+	text "キャタピーは　どくが　ないけど"
+	line "ビードルには　どくが　あるよ"
+
+	para "#が　さされないように"
+	line "きを　つけようね"
+	done
 
 ViridianCityGirlText:
 	text_asm
@@ -211,12 +227,19 @@ ViridianCityGirlText:
 	jp TextScriptEnd
 
 .HasntHadHisCoffeeYetText:
-	text_far _ViridianCityGirlHasntHadHisCoffeeYetText
-	text_end
+	text "あらら　じいちゃん！"
+	line "こんな　ところで　ねちゃって"
+	cont "しょーが　ないわね！"
+	cont "よいが　さめるまで　まつしかないわ"
+	done
 
 .WhenIGoShopText:
-	text_far _ViridianCityGirlWhenIGoShopText
-	text_end
+	text "ときどき　ニビシティまで"
+	line "おかいものに　いきますけど"
+
+	para "トキワのもり　って"
+	line "みちが　まがり　くねってるのよ"
+	done
 
 ViridianCityOldManSleepyText:
 	text_asm
@@ -228,8 +251,12 @@ ViridianCityOldManSleepyText:
 	jp TextScriptEnd
 
 .PrivatePropertyText:
-	text_far _ViridianCityOldManSleepyPrivatePropertyText
-	text_end
+	text "ういーっ！　ひっく<⋯>　まちやがれ！"
+	line "わしの　はなしを　きけ！"
+
+	para "<⋯>　こら！"
+	line "いくな！　と　いっとろーが！"
+	done
 
 ViridianCityFisherText:
 	text_asm
@@ -255,21 +282,35 @@ ViridianCityFisherText:
 	jp TextScriptEnd
 
 .YouCanHaveThisText:
-	text_far ViridianCityFisherYouCanHaveThisText
-	text_end
+	text "ふあー！"
+	line "ひなたぼっこ　してて"
+	cont "ねむって　しまった！"
+
+	para "<⋯>　へんな　ゆめを　みた"
+	line "スリープが　ゆめを　くっていた！"
+	cont "<⋯>およ？　ぼく　いつのまに"
+	cont "<TM>　もってるけど？"
+
+	para "うーん"
+	line "きみが　わるい！"
+	cont "これ　きみに　あげる！"
+	prompt
 
 .ReceivedTM42Text:
-	text_far _ViridianCityFisherReceivedTM42Text
+	text "<PLAYER>は　にいちゃんから"
+	line "<TM>４２を　もらった！@"
 	sound_get_item_2
 	text_end
 
 .TM42ExplanationText:
-	text_far _ViridianCityFisherTM42ExplanationText
-	text_end
+	text "<TM>４２の　なかみは<⋯>"
+	line "ゆめくい　だよ<⋯>"
+	cont "<⋯>　ぐー<⋯>"
+	done
 
 .TM42NoRoomText:
-	text_far _ViridianCityFisherTM42NoRoomText
-	text_end
+	text "にもつ　いっぱい　じゃん"
+	done
 
 ViridianCityOldManText:
 	text_asm
@@ -293,37 +334,72 @@ ViridianCityOldManText:
 	jp TextScriptEnd
 
 .HadMyCoffeeNowText:
-	text_far _ViridianCityOldManHadMyCoffeeNowText
-	text_end
+	text "うーん<⋯>"
+	line "よっぱらってた　みたいじゃ！"
+
+	para "あたまが　いたい<⋯>"
+
+	para "ときに　おいそぎ<⋯>　かな？"
+	done
 
 .KnowHowToCatchPokemonText:
-	text_far _ViridianCityOldManKnowHowToCatchPokemonText
-	text_end
+	text "ほっほう！"
+	line "#ずかん　つくっとるか"
+
+	para "なら　わしから　アドバイスじゃ！"
+	line "#を　つかまえて　しらべれば"
+	cont "じどうてきに　ページが"
+	cont "ふえて　いくんじゃよ！"
+
+	para "なんじゃー"
+	line "つかまえかたを　しらんのか！"
+
+	para "では<⋯>　わしが"
+	line "おてほんを　みせて　やるかな！"
+	done
 
 .TimeIsMoneyText:
-	text_far _ViridianCityOldManTimeIsMoneyText
-	text_end
+	text "タイム　イズ　マネー<⋯>"
+	line "<⋯>　ときは　かねなりか"
+	done
 
 ViridianCityOldManYouNeedToWeakenTheTargetText:
-	text_far _ViridianCityOldManYouNeedToWeakenTheTargetText
-	text_end
+	text "はじめの　うちは"
+	line "#を　よわらせてから"
+	cont "とるのが　コツじゃ！"
+	done
 
 ViridianCitySignText:
-	text_far _ViridianCitySignText
-	text_end
+	text "ここは　トキワシティ"
+	line "トキワは　みどり　えいえんのいろ"
+	done
 
 ViridianCityTrainerTips1Text:
-	text_far _ViridianCityTrainerTips1Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "とにかく　#を　つかまえて"
+	line "ドンドン　ふやそう！"
+	cont "<TRAINER>との　しょうぶも"
+	cont "たくさん　もってると　ゆうり！"
+	done
 
 ViridianCityTrainerTips2Text:
-	text_far _ViridianCityTrainerTips2Text
-	text_end
+	text "<⋯>　おとくな　けいじばん！"
+
+	para "#には　たいりょくの　ほか"
+	line "わざを　くりだす　げんきの　もと"
+	cont "パワーポイントが　あります"
+
+	para "わざ　ごとの　パワーポイントが"
+	line "なくなった　ときも"
+	cont "#センターで　やすませて！"
+	done
 
 ViridianCityGymSignText:
-	text_far _ViridianCityGymSignText
-	text_end
+	text "トキワ　#ジム"
+	done
 
 ViridianCityGymLockedText:
-	text_far _ViridianCityGymLockedText
-	text_end
+	text "トキワ　ジムのドアには"
+	line "カギが　かかって　いた<⋯>！"
+	done

@@ -1,3 +1,6 @@
+; Audio engine copies
+DEF NUM_AUDIO_ENG EQU 3
+
 ; pitch
 ; Audio[1|2|3]_Pitches indexes (see audio/notes.asm)
 	const_def

@@ -36,23 +36,56 @@ Route12SuperRodHouseFishingGuruText:
 	jp TextScriptEnd
 
 .DoYouLikeToFishText:
-	text_far _Route12SuperRodHouseFishingGuruDoYouLikeToFishText
-	text_end
+	text "わしは"
+	line "つりおやじの　おとうと　じゃ！"
+
+	para "もう　たまらん　ほど"
+	line "つりが　すき　なんだが"
+
+	para "きみは　つり　すき　かな？"
+	done
 
 .ReceivedSuperRodText:
-	text_far _Route12SuperRodHouseFishingGuruReceivedSuperRodText
+	text "そうか！"
+	line "きみとは　きが　あいそうだ！"
+
+	para "これ　あげるから"
+	line "きみも　つり　まくりなさいよ！"
+
+	para "<PLAYER>は　つりおやじから"
+	line "@"
+	text_ram wStringBuffer
+	text "を　もらった！@"
 	sound_get_item_1
-	text_far _Route12SuperRodHouseFishingGuruFishingWayOfLifeText
-	text_end
+	text_start
+
+	para "つり　こそ"
+	line "おとこの　ロマン　だ！"
+
+	para "うみでも　かわでも！"
+
+	para "えんりょ　なく"
+	line "つりざおを　つかって　くれい！"
+	done
 
 .ThatsDisappointingText:
-	text_far _Route12SuperRodHouseFishingGuruThatsDisappointingText
-	text_end
+	text "なんじゃ<⋯>　がっかりだ"
+	done
 
 .TryFishingText:
-	text_far _Route12SuperRodHouseFishingGuruTryFishingText
-	text_end
+	text "やー　<PLAYER>くん！"
+
+	para "すごいつりざおは"
+	line "ばしょを　かえると"
+	cont "つれる　#も　かわる！"
+
+	para "あっちこっちで"
+	line "つり　まくって　くれい！"
+	done
 
 .NoRoomText:
-	text_far _Route12SuperRodHouseFishingGuruNoRoomText
-	text_end
+	text "ありゃー！"
+
+	para "いいもの　あげようと　したのに"
+	line "にもつが　いっぱいじゃ！"
+	done

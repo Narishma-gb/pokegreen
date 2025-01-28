@@ -27,8 +27,9 @@ LoadSAV:
 	ret
 
 FileDataDestroyedText:
-	text_far _FileDataDestroyedText
-	text_end
+	text "フアイルの　データが"
+	line "こわれています！"
+	prompt
 
 LoadSAV0:
 	ld a, SRAM_ENABLE
@@ -36,9 +37,6 @@ LoadSAV0:
 	ld a, $1
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamBank], a
-; This vc_hook does not have to be in any particular location.
-; It is defined here because it refers to the same labels as the two lines below.
-	vc_hook Unknown_save_limit
 	ld hl, sGameData
 	ld bc, sGameDataEnd - sGameData
 	call SAVCheckSum
@@ -65,14 +63,15 @@ LoadSAV0:
 	ld de, wMainDataStart
 	ld bc, wMainDataEnd - wMainDataStart
 	call CopyData
-	ld hl, wCurMapTileset
-	set BIT_NO_PREVIOUS_MAP, [hl]
+	ld a, [wCurMapTileset]
+	set BIT_NO_PREVIOUS_MAP, a
+	ld [wCurMapTileset], a
 	ld hl, sSpriteData
 	ld de, wSpriteDataStart
 	ld bc, wSpriteDataEnd - wSpriteDataStart
 	call CopyData
 	ld a, [sTileAnimations]
-	ldh [hTileAnimations], a
+	ld [hTileAnimations], a
 	ld hl, sCurBoxData
 	ld de, wBoxDataStart
 	ld bc, wBoxDataEnd - wBoxDataStart
@@ -145,9 +144,8 @@ SaveSAV:
 	call SaveSAVConfirm
 	and a   ;|0 = Yes|1 = No|
 	ret nz
-	ld a, [wSaveFileStatus]
-	dec a
-	jr z, .save
+	ld c, 40
+	call DelayFrames
 	call SAVCheckRandomID
 	jr z, .save
 	ld hl, OlderFileWillBeErasedText
@@ -155,25 +153,16 @@ SaveSAV:
 	and a
 	ret nz
 .save
-	call SaveSAVtoSRAM
-	hlcoord 1, 13
-	lb bc, 4, 18
-	call ClearScreenArea
-	hlcoord 1, 14
-	ld de, NowSavingString
-	call PlaceString
-	ld c, 120
-	call DelayFrames
 	ld hl, GameSavedText
 	call PrintText
+	call SaveSAVtoSRAM
+	ld c, 10
+	call DelayFrames
 	ld a, SFX_SAVE
 	call PlaySoundWaitForCurrent
 	call WaitForSoundToFinish
 	ld c, 30
 	jp DelayFrames
-
-NowSavingString:
-	db "Now saving...@"
 
 SaveSAVConfirm:
 	call PrintText
@@ -186,16 +175,20 @@ SaveSAVConfirm:
 	ret
 
 WouldYouLikeToSaveText:
-	text_far _WouldYouLikeToSaveText
-	text_end
+	text "ここまでの　かつやくを"
+	line "#レポートに　かきこみますか？"
+	done
 
 GameSavedText:
-	text_far _GameSavedText
-	text_end
+	text "<PLAYER>は"
+	line "レポートに　しっかり　かきのこした！"
+	done
 
 OlderFileWillBeErasedText:
-	text_far _OlderFileWillBeErasedText
-	text_end
+	text "まえに　かかれた　レポートが"
+	line "きえて　しまいますが"
+	cont "うえから　かいても　いいですか？"
+	done
 
 SaveSAVtoSRAM0:
 	ld a, SRAM_ENABLE
@@ -219,7 +212,7 @@ SaveSAVtoSRAM0:
 	ld de, sCurBoxData
 	ld bc, wBoxDataEnd - wBoxDataStart
 	call CopyData
-	ldh a, [hTileAnimations]
+	ld a, [hTileAnimations]
 	ld [sTileAnimations], a
 	ld hl, sGameData
 	ld bc, sGameDataEnd - sGameData
@@ -274,8 +267,6 @@ SaveSAVtoSRAM2:
 	ret
 
 SaveSAVtoSRAM::
-	ld a, $2
-	ld [wSaveFileStatus], a
 	call SaveSAVtoSRAM0
 	call SaveSAVtoSRAM1
 	jp SaveSAVtoSRAM2
@@ -295,23 +286,6 @@ SAVCheckSum:
 	cpl
 	ret
 
-CalcIndividualBoxCheckSums:
-	ld hl, sBox1 ; sBox7
-	ld de, sBank2IndividualBoxChecksums ; sBank3IndividualBoxChecksums
-	ld b, NUM_BOXES / 2
-.loop
-	push bc
-	push de
-	ld bc, wBoxDataEnd - wBoxDataStart
-	call SAVCheckSum
-	pop de
-	ld [de], a
-	inc de
-	pop bc
-	dec b
-	jr nz, .loop
-	ret
-
 GetBoxSRAMLocation:
 ; in: a = box num
 ; out: b = box SRAM bank, hl = pointer to start of box
@@ -322,7 +296,7 @@ GetBoxSRAMLocation:
 	ld b, 2
 	jr c, .next
 	inc b
-	sub NUM_BOXES / 2
+	and $3
 .next
 	ld e, a
 	ld d, 0
@@ -334,12 +308,10 @@ GetBoxSRAMLocation:
 	ret
 
 BoxSRAMPointerTable:
-	dw sBox1 ; sBox7
-	dw sBox2 ; sBox8
-	dw sBox3 ; sBox9
-	dw sBox4 ; sBox10
-	dw sBox5 ; sBox11
-	dw sBox6 ; sBox12
+	dw sBox1 ; sBox5
+	dw sBox2 ; sBox6
+	dw sBox3 ; sBox7
+	dw sBox4 ; sBox8
 
 ChangeBox::
 	ld hl, WhenYouChangeBoxText
@@ -353,13 +325,12 @@ ChangeBox::
 	call z, EmptyAllSRAMBoxes ; if so, empty all boxes in SRAM
 	call DisplayChangeBoxMenu
 	call UpdateSprites
-	ld hl, hUILayoutFlags
-	set BIT_DOUBLE_SPACED_MENU, [hl]
 	call HandleMenuInput
-	ld hl, hUILayoutFlags
-	res BIT_DOUBLE_SPACED_MENU, [hl]
 	bit BIT_B_BUTTON, a
 	ret nz
+	ld a, SFX_SAVE
+	call PlaySoundWaitForCurrent
+	call WaitForSoundToFinish
 	call GetBoxSRAMLocation
 	ld e, l
 	ld d, h
@@ -382,14 +353,14 @@ ChangeBox::
 	call SaveSAVtoSRAM
 	ld hl, wChangeBoxSavedMapTextPointer
 	call SetMapTextPointer
-	ld a, SFX_SAVE
-	call PlaySoundWaitForCurrent
-	call WaitForSoundToFinish
 	ret
 
 WhenYouChangeBoxText:
-	text_far _WhenYouChangeBoxText
-	text_end
+	text "#　ボックスを　かえると"
+	line "どうじに　レポートが　かかれます"
+
+	para "<⋯>　それでも　いいですか？"
+	done
 
 CopyBoxToOrFromSRAM:
 ; copy an entire box from hl to de with b as the SRAM bank
@@ -410,11 +381,12 @@ CopyBoxToOrFromSRAM:
 	dec a
 	ld [hl], a
 
-	ld hl, sBox1 ; sBox7
-	ld bc, sBank2AllBoxesChecksum - sBox1
+	ld hl, sBox1 ; sBox5
+	ld bc, sBank2AllBoxesChecksum + 1 - sBox1
 	call SAVCheckSum
+	; BUG: the checked data area contains the Checksum byte at sBank2AllBoxesChecksum.
+	; This will alter the checked data when the Checksum byte is written.
 	ld [sBank2AllBoxesChecksum], a ; sBank3AllBoxesChecksum
-	call CalcIndividualBoxCheckSums
 	xor a
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamEnable], a
@@ -425,9 +397,9 @@ DisplayChangeBoxMenu:
 	ldh [hAutoBGTransferEnabled], a
 	ld a, A_BUTTON | B_BUTTON
 	ld [wMenuWatchedKeys], a
-	ld a, 11
+	ld a, NUM_BOXES - 1
 	ld [wMaxMenuItem], a
-	ld a, 1
+	ld a, 2
 	ld [wTopMenuItemY], a
 	ld a, 12
 	ld [wTopMenuItemX], a
@@ -444,37 +416,24 @@ DisplayChangeBoxMenu:
 	ld hl, ChooseABoxText
 	call PrintText
 	hlcoord 11, 0
-	ld b, 12
+	ld b, 16
 	ld c, 7
 	call TextBoxBorder
-	ld hl, hUILayoutFlags
-	set BIT_SINGLE_SPACED_LINES, [hl]
+	hlcoord 13, 2
 	ld de, BoxNames
-	hlcoord 13, 1
 	call PlaceString
-	ld hl, hUILayoutFlags
-	res BIT_SINGLE_SPACED_LINES, [hl]
 	ld a, [wCurrentBoxNum]
 	and $7f
-	cp 9
-	jr c, .singleDigitBoxNum
-	sub 9
-	hlcoord 8, 2
-	ld [hl], "1"
-	add "0"
-	jr .next
-.singleDigitBoxNum
-	add "1"
-.next
+	add "１"
 	ldcoord_a 9, 2
 	hlcoord 1, 2
 	ld de, BoxNoText
 	call PlaceString
 	call GetMonCountsForAllBoxes
-	hlcoord 18, 1
+	hlcoord 18, 2
 	ld de, wBoxMonCounts
-	ld bc, SCREEN_WIDTH
-	ld a, $c
+	ld bc, SCREEN_WIDTH * 2
+	ld a, NUM_BOXES
 .loop
 	push af
 	ld a, [de]
@@ -492,25 +451,22 @@ DisplayChangeBoxMenu:
 	ret
 
 ChooseABoxText:
-	text_far _ChooseABoxText
+	text "#　ボックスを　"
+	line "えらんでください@"
 	text_end
 
 BoxNames:
-	db   "BOX 1"
-	next "BOX 2"
-	next "BOX 3"
-	next "BOX 4"
-	next "BOX 5"
-	next "BOX 6"
-	next "BOX 7"
-	next "BOX 8"
-	next "BOX 9"
-	next "BOX10"
-	next "BOX11"
-	next "BOX12@"
+	db   "ボックス１"
+	next "ボックス２"
+	next "ボックス３"
+	next "ボックス４"
+	next "ボックス５"
+	next "ボックス６"
+	next "ボックス７"
+	next "ボックス８@"
 
 BoxNoText:
-	db "BOX No.@"
+	db "いまのボックス@"
 
 EmptyAllSRAMBoxes:
 ; marks all boxes in SRAM as empty (initialisation for the first time the
@@ -532,23 +488,20 @@ EmptyAllSRAMBoxes:
 
 EmptySRAMBoxesInBank:
 ; marks every box in the current SRAM bank as empty
-	ld hl, sBox1 ; sBox7
+	ld hl, sBox1 ; sBox5
 	call EmptySRAMBox
-	ld hl, sBox2 ; sBox8
+	ld hl, sBox2 ; sBox6
 	call EmptySRAMBox
-	ld hl, sBox3 ; sBox9
+	ld hl, sBox3 ; sBox7
 	call EmptySRAMBox
-	ld hl, sBox4 ; sBox10
-	call EmptySRAMBox
-	ld hl, sBox5 ; sBox11
-	call EmptySRAMBox
-	ld hl, sBox6 ; sBox12
+	ld hl, sBox4 ; sBox8
 	call EmptySRAMBox
 	ld hl, sBox1 ; sBox7
-	ld bc, sBank2AllBoxesChecksum - sBox1
+	ld bc, sBank2AllBoxesChecksum + 1 - sBox1
+	; BUG: the checked data area contains the Checksum byte at sBank2AllBoxesChecksum.
+	; This will alter the checked data when the Checksum byte is written.
 	call SAVCheckSum
 	ld [sBank2AllBoxesChecksum], a ; sBank3AllBoxesChecksum
-	call CalcIndividualBoxCheckSums
 	ret
 
 EmptySRAMBox:
@@ -588,17 +541,13 @@ GetMonCountsForAllBoxes:
 	ret
 
 GetMonCountsForBoxesInBank:
-	ld a, [sBox1] ; sBox7
+	ld a, [sBox1] ; sBox5
 	ld [hli], a
-	ld a, [sBox2] ; sBox8
+	ld a, [sBox2] ; sBox6
 	ld [hli], a
-	ld a, [sBox3] ; sBox9
+	ld a, [sBox3] ; sBox7
 	ld [hli], a
-	ld a, [sBox4] ; sBox10
-	ld [hli], a
-	ld a, [sBox5] ; sBox11
-	ld [hli], a
-	ld a, [sBox6] ; sBox12
+	ld a, [sBox4] ; sBox8
 	ld [hli], a
 	ret
 
@@ -606,7 +555,7 @@ SAVCheckRandomID:
 ; checks if Sav file is the same by checking player's name 1st letter
 ; and the two random numbers generated at game beginning
 ; (which are stored at wPlayerID)s
-	ld a, $0a
+	ld a, SRAM_ENABLE
 	ld [MBC1SRamEnable], a
 	ld a, $01
 	ld [MBC1SRamBankingMode], a
@@ -690,21 +639,21 @@ ClearSAV:
 	ld a, $1
 	ld [MBC1SRamBankingMode], a
 	xor a
-	call PadSRAM_FF
+	call PadSRAM
 	ld a, $1
-	call PadSRAM_FF
+	call PadSRAM
 	ld a, $2
-	call PadSRAM_FF
+	call PadSRAM
 	ld a, $3
-	call PadSRAM_FF
+	call PadSRAM
 	xor a
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamEnable], a
 	ret
 
-PadSRAM_FF:
+PadSRAM:
 	ld [MBC1SRamBank], a
 	ld hl, STARTOF(SRAM)
 	ld bc, SIZEOF(SRAM)
-	ld a, $ff
+	xor a
 	jp FillMemory

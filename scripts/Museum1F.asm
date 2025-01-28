@@ -24,7 +24,7 @@ Museum1FDefaultScript:
 	ret nz
 .continue
 	xor a
-	ldh [hJoyHeld], a
+	ld [hJoyHeld], a
 	ld a, TEXT_MUSEUM1F_SCIENTIST1
 	ldh [hTextID], a
 	jp DisplayTextID
@@ -142,40 +142,56 @@ Museum1FScientist1Text:
 	jp TextScriptEnd
 
 .ComeAgainText:
-	text_far _Museum1FScientist1ComeAgainText
-	text_end
+	text "また　きてね"
+	done
 
 .WouldYouLikeToComeInText:
-	text_far _Museum1FScientist1WouldYouLikeToComeInText
-	text_end
+	text "はいはい　こどもは　"
+	line "けんがくりょう　５０えん　です"
+
+	para "けんがく　しますか？"
+	done
 
 .ThankYouText:
-	text_far _Museum1FScientist1ThankYouText
-	text_end
+	text "はい　たしかに"
+	line "５０えん　いただき　ました！"
+	done
 
 .DontHaveEnoughMoneyText:
-	text_far _Museum1FScientist1DontHaveEnoughMoneyText
-	text_end
+	text "<⋯>あら"
+	line "おかねが　ないよ"
+	prompt
 
 .DoYouKnowWhatAmberIsText:
-	text_far _Museum1FScientist1DoYouKnowWhatAmberIsText
-	text_end
+	text "うらぐちから　タダで　はいろうなんて"
+	line "ちゃっかりもの　だね"
+
+	para "それより　きみ"
+	line "コハクって　しってる？"
+	done
 
 .TheresALabSomewhereText:
-	text_far _Museum1FScientist1TheresALabSomewhereText
-	text_end
+	text "コハクに　まじった"
+	line "むかしのいきものを　よみがえらせる"
+
+	para "そうだいな　じっけんを　どこかの"
+	line "けんきゅうじょが　してるんだって"
+	done
 
 .AmberIsFossilizedTreeSapText:
-	text_far _Museum1FScientist1AmberIsFossilizedTreeSapText
-	text_end
+	text "おおむかし　きから　でた　しるが"
+	line "カセキの　ように　かたまった　ものを"
+
+	para "コハクと　いうんだよ"
+	done
 
 .GoToOtherSideText:
-	text_far _Museum1FScientist1GoToOtherSideText
-	text_end
+	text "あちらへ　おまわりください"
+	done
 
 .TakePlentyOfTimeText:
-	text_far _Museum1FScientist1TakePlentyOfTimeText
-	text_end
+	text "ごゆっくり　どうぞ！"
+	done
 
 Museum1FGamblerText:
 	text_asm
@@ -184,8 +200,11 @@ Museum1FGamblerText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _Museum1FGamblerText
-	text_end
+	text "ありがたや！　ありがたや！"
+
+	para "りゅうじん　さまの"
+	line "ほねを　おがめる　とは！"
+	done
 
 Museum1FScientist2Text:
 	text_asm
@@ -212,21 +231,41 @@ Museum1FScientist2Text:
 	jp TextScriptEnd
 
 .TakeThisToAPokemonLabText:
-	text_far _Museum1FScientist2TakeThisToAPokemonLabText
-	text_end
+	text "しー！"
+	line "ないしょ　だけど　このコハク"
+
+	para "ポケモンの　いでんしが　のこってると"
+	line "おれは　にらんでるんだ！"
+
+	para "もし　いきかえらせたら"
+	line "#の　いちだい　はっけんだ！"
+
+	para "でも　ここの　なかまは"
+	line "おれの　いうこと　しんじないんだ"
+
+	para "⋯⋯それで"
+	line "きみに　たのみが　ある！"
+
+	para "これを　どこかの"
+	line "けんきゅうじょに　もって　いって"
+
+	para "しらべて　ほしいんだ！"
+	prompt
 
 .ReceivedOldAmberText:
-	text_far _Museum1FScientist2ReceivedOldAmberText
+	text "<PLAYER>は　おじさんから"
+	line "ひみつのコハクを　もらった！@"
 	sound_get_item_1
 	text_end
 
 .GetTheOldAmberCheckText:
-	text_far _Museum1FScientist2GetTheOldAmberCheckText
-	text_end
+	text "<⋯>しー！"
+	line "コハク　よろしく　たのむよ！"
+	done
 
 .YouDontHaveSpaceText:
-	text_far _Museum1FScientist2YouDontHaveSpaceText
-	text_end
+	text "もちものが　いっぱいだ"
+	done
 
 Museum1FScientist3Text:
 	text_asm
@@ -235,8 +274,11 @@ Museum1FScientist3Text:
 	jp TextScriptEnd
 
 .Text:
-	text_far _Museum1FScientist3Text
-	text_end
+	text "ここでは　せかいでも　めずらしい"
+	line "こだい　#の　カセキのうち"
+
+	para "２しゅるいを　てんじ　してます！"
+	done
 
 Museum1FOldAmberText:
 	text_asm
@@ -245,5 +287,6 @@ Museum1FOldAmberText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _Museum1FOldAmberText
-	text_end
+	text "こがねいろに　すき　とおった"
+	line "きれいな　コハクが　ある！"
+	done

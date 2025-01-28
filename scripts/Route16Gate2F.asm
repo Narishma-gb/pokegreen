@@ -15,8 +15,9 @@ Route16Gate2FLittleBoyText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _Route16Gate2FLittleBoyText
-	text_end
+	text "しんぴん　じてんしゃで"
+	line "かのじょと　サイクリングさ！"
+	done
 
 Route16Gate2FLittleGirlText:
 	text_asm
@@ -25,8 +26,9 @@ Route16Gate2FLittleGirlText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _Route16Gate2FLittleGirlText
-	text_end
+	text "うふふ！"
+	line "これから　サイクリングに　いくの"
+	done
 
 Route16Gate2FLeftBinocularsText:
 	text_asm
@@ -34,8 +36,10 @@ Route16Gate2FLeftBinocularsText:
 	jp GateUpstairsScript_PrintIfFacingUp
 
 .Text:
-	text_far _Route16Gate2FLeftBinocularsText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "タマムシ　デパートが　みえる！"
+	done
 
 Route16Gate2FRightBinocularsText:
 	text_asm
@@ -43,5 +47,8 @@ Route16Gate2FRightBinocularsText:
 	jp GateUpstairsScript_PrintIfFacingUp
 
 .Text:
-	text_far _Route16Gate2FRightBinocularsText
-	text_end
+	text "ぼうえんきょうを　のぞいた！"
+
+	para "むこうに　うみの　うえを　とおる"
+	line "ながーい　みちが　みえる！"
+	done

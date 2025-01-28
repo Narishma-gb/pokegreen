@@ -5,7 +5,7 @@ ChampionsRoom_Script:
 	jp CallFunctionInTable
 
 ResetRivalScript:
-	xor a ; SCENE_CHAMPIONSROOM_DEFAULT
+	xor a ; SCRIPT_CHAMPIONSROOM_DEFAULT
 	ld [wJoyIgnore], a
 	ld [wChampionsRoomCurScript], a
 	ret
@@ -259,24 +259,82 @@ ChampionsRoomRivalText:
 	jp TextScriptEnd
 
 .IntroText:
-	text_far _ChampionsRoomRivalIntroText
-	text_end
+	text "<RIVAL>『よおーッ！　<PLAYER>！"
+	line "<PLAYER>も　きたか！"
+	cont "<⋯>　はッはッ　うれしいぜ！"
+
+	para "ライバルの　おまえが　よわいと"
+	line "はりあい　ないからな！"
+
+	para "おれは　ずかん　あつめ　ながら"
+	line "かんぺきな　#を　さがした！"
+
+	para "いろんな　タイプの　#に"
+	line "かち　まくる　ような"
+	cont "コンビネーションを　さがした！"
+
+	para "<⋯>　そして　いま！"
+
+	para "おれは　#　リーグの"
+	line "ちょうてんに　いる！"
+
+	para "<PLAYER>！"
+	line "この　いみが　わかるか？"
+
+	para "<⋯>　<⋯>　<⋯>"
+	line "<⋯>　わかった！　おしえてやる！"
+
+	para "この　おれさまが！"
+	line "せかいで　いちばん！"
+	cont "つよいって　こと　なんだよ！"
+	done
 
 RivalDefeatedText:
-	text_far _RivalDefeatedText
-	text_end
+	text "<⋯>　ばかな！"
+	line "ほんとに　おわったのか！"
+	cont "ぜんりょくを　かけたのに　まけた！"
+
+	para "せっかく　#　リーグの"
+	line "ちょうてんに　たったのに　よう！"
+
+	para "もう<⋯>！"
+	line "おれさまの　てんかは　おわりかよ！"
+	cont "<⋯>　そりゃ　ないぜ！"
+	prompt
 
 RivalVictoryText:
-	text_far _RivalVictoryText
-	text_end
+	text "はーはッ！"
+	line "かった！　かった！　かった！"
+
+	para "<PLAYER>に　まける　ような"
+	line "おれさま　では　なーい！"
+
+	para "ま！　#の"
+	line "てんさい　<RIVAL>さま　あいてに"
+	cont "ここまで　よく　がんばった！"
+
+	para "ほめて　つかわす！"
+	line "はーッ！　はーはッはッ！"
+	prompt
 
 ChampionsRoomRivalAfterBattleText:
-	text_far _ChampionsRoomRivalAfterBattleText
-	text_end
+	text "なぜ<⋯>"
+	line "なぜ　まけてしまったんだ<⋯>"
+
+	para "おれの　そだてかた<⋯>"
+	line "まちがってなんか　いないはずなのに"
+
+	para "しょうが　ないぜ<⋯>"
+	line "おまえが　#　リーグ"
+	cont "しん　チャンピオンだ<⋯>！"
+
+	para "<⋯>　<⋯>　<⋯>"
+	line "<⋯>　みとめたく　ねーけど"
+	done
 
 ChampionsRoomOakText:
-	text_far _ChampionsRoomOakText
-	text_end
+	text "オーキド『<PLAYER>！"
+	done
 
 ChampionsRoomOakCongratulatesPlayerText:
 	text_asm
@@ -288,13 +346,54 @@ ChampionsRoomOakCongratulatesPlayerText:
 	jp TextScriptEnd
 
 .Text:
-	text_far _ChampionsRoomOakCongratulatesPlayerText
-	text_end
+	text "オーキド『とうとう　かったな！"
+	line "#　リーグ　せいは！"
+	cont "こころ　から　おめでとう！"
+
+	para "はじめて　@"
+	text_ram wNameBuffer
+	text "を　もらって"
+	line "#　ずかん　あつめに"
+	cont "でかけた　ころと　くらべると"
+	cont "たくましく　なったな！"
+
+	para "<⋯>　いやいや！"
+	line "<PLAYER>は　おとなに　なった！"
+	done
 
 ChampionsRoomOakDisappointedWithRivalText:
-	text_far _ChampionsRoomOakDisappointedWithRivalText
-	text_end
+	text "オーキド『<RIVAL><⋯>！"
+	line "<⋯>　ざんねんだ！"
+
+	para "おまえが　してんのうに　かったと"
+	line "きいて　ここに　とんで　きたのに"
+
+	para "#　リーグに　ついて　みたら"
+	line "おまえは　まけとった！"
+
+	para "<RIVAL>よ<⋯>！"
+	line "なぜ　まけたのか　わかるか？"
+	cont "<⋯>　<⋯>　<⋯>"
+
+	para "おまえが　#　たちへの"
+	line "しんらいと　あいじょうを"
+	cont "わすれとる　からだ！"
+
+	para "それでは　どんなに　がんばっても"
+	line "トップ　には　たてんぞ！"
+	done
 
 ChampionsRoomOakComeWithMeText:
-	text_far _ChampionsRoomOakComeWithMeText
-	text_end
+	text "オーキド『<PLAYER>！"
+
+	para "#　リーグを　せいは　したのは"
+	line "ひとりの　ちから　では　ないことを"
+	cont "<⋯>　おまえは　わかっとるな！"
+
+	para "<PLAYER>と　#の"
+	line "ぜつみょうな　コンビネーション！"
+	cont "みごと　だったぞ！"
+
+	para "それでは<⋯>　<PLAYER>！"
+	line "わたしに　ついて　きなさい！"
+	done
