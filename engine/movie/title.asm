@@ -1,4 +1,4 @@
-CopyDebugName: ; unused
+CopyDebugName:
 	ld bc, NAME_LENGTH
 	jp CopyData
 
@@ -17,8 +17,10 @@ PrepareTitleScreen::
 	ld [wLetterPrintingDelayFlags], a
 	ld hl, wStatusFlags6
 	ld [hli], a
-	ld [hli], a ; wStatusFlags7
-	ld [hl], a ; wElite4Flags
+	ASSERT wStatusFlags6 + 1 == wStatusFlags7
+	ld [hli], a
+	ASSERT wStatusFlags7 + 1 == wElite4Flags
+	ld [hl], a
 	ld a, BANK(Music_TitleScreen)
 	ld [wAudioROMBank], a
 	ld [wAudioSavedROMBank], a

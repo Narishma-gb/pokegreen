@@ -277,9 +277,8 @@ CopyTileIDsFromList_ZeroBaseTileID:
 	ld c, 0
 	predef_jump CopyTileIDsFromList
 
-PlayMoveSoundB:
-; unused
-	predef GetMoveSoundB
+PlayIntroMoveSound: ; unreferenced
+	predef GetIntroMoveSound
 	ld a, b
 	jp PlaySound
 

@@ -844,7 +844,7 @@ TradeCenter_Trade:
 	ld a, [wPartyCount]
 	dec a
 	ld [wWhichPokemon], a
-	ld a, $1
+	ld a, TRUE
 	ld [wForceEvolution], a
 	ld a, [wTradingWhichEnemyMon]
 	ld hl, wEnemyPartySpecies
