@@ -97,8 +97,8 @@ TrainerWalkUpToPlayer::
 	swap a
 	dec a
 	ld c, a             ; bc = steps yet to go to reach player
-	xor a
-	ld b, a           ; a = direction to go to
+	xor a ; NPC_MOVEMENT_DOWN
+	ld b, a
 	jr .writeWalkScript
 .facingUp
 	ld a, [wTrainerScreenY]
