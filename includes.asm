@@ -6,6 +6,7 @@ INCLUDE "macros/data.asm"
 INCLUDE "macros/code.asm"
 INCLUDE "macros/gfx.asm"
 INCLUDE "macros/coords.asm"
+INCLUDE "macros/vc.asm"
 
 INCLUDE "macros/scripts/audio.asm"
 INCLUDE "macros/scripts/maps.asm"
@@ -49,3 +50,7 @@ INCLUDE "constants/tileset_constants.asm"
 INCLUDE "constants/event_constants.asm"
 INCLUDE "constants/text_constants.asm"
 INCLUDE "constants/menu_constants.asm"
+
+IF DEF(_RED_VC) || DEF(_GREEN_VC)
+	INCLUDE "vc/vc_constants.asm"
+ENDC

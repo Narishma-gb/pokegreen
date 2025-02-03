@@ -2,7 +2,10 @@ roms := \
 	pokered.gb \
 	pokegreen.gb \
 	pokered11.gb \
-	pokegreen11.gb 
+	pokegreen11.gb
+patches := \
+	pokered11.patch \
+	pokegreen11.patch 
 
 rom_obj := \
 	audio.o \
@@ -15,10 +18,12 @@ rom_obj := \
 	gfx/sprites.o \
 	gfx/tilesets.o
 
-pokered_obj     := $(rom_obj:.o=_red.o)
-pokegreen_obj   := $(rom_obj:.o=_green.o)
-pokered11_obj   := $(rom_obj:.o=_red11.o)
-pokegreen11_obj := $(rom_obj:.o=_green11.o)
+pokered_obj        := $(rom_obj:.o=_red.o)
+pokegreen_obj      := $(rom_obj:.o=_green.o)
+pokered11_obj      := $(rom_obj:.o=_red11.o)
+pokegreen11_obj    := $(rom_obj:.o=_green11.o)
+pokered11_vc_obj   := $(rom_obj:.o=_red11_vc.o)
+pokegreen11_vc_obj := $(rom_obj:.o=_green11_vc.o)
 
 
 ### Build tools
@@ -45,10 +50,12 @@ RGBLINK ?= $(RGBDS)rgblink
 .PHONY: all red green red11 green11 clean tidy compare tools
 
 all: $(roms)
-red:     pokered.gb
-green:   pokegreen.gb
-red11:   pokered11.gb
-green11: pokegreen11.gb
+red:        pokered.gb
+green:      pokegreen.gb
+red11:      pokered11.gb
+green11:    pokegreen11.gb
+red11_vc:   pokered11.patch
+green11_vc: pokegreen11.patch
 
 clean: tidy
 	find gfx \
@@ -61,14 +68,21 @@ tidy:
 	$(RM) $(roms) \
 	      $(roms:.gb=.sym) \
 	      $(roms:.gb=.map) \
+	      $(patches) \
+	      $(patches:.patch=_vc.gb) \
+	      $(patches:.patch=_vc.sym) \
+	      $(patches:.patch=_vc.map) \
+	      $(patches:%.patch=vc/%.constants.sym) \
 	      $(pokered_obj) \
 	      $(pokegreen_obj) \
 	      $(pokered11_obj) \
 	      $(pokegreen11_obj) \
+	      $(pokered11_vc_obj) \
+	      $(pokegreen11_vc_obj) \
 	      rgbdscheck.o
 	$(MAKE) clean -C tools/
 
-compare: $(roms)
+compare: $(roms) $(patches)
 	@$(SHA1) -c roms.sha1
 
 tools:
@@ -81,10 +95,15 @@ ifeq ($(DEBUG),1)
 RGBASMFLAGS += -E
 endif
 
-$(pokered_obj):     RGBASMFLAGS += -D _RED -D _REV0
-$(pokegreen_obj):   RGBASMFLAGS += -D _GREEN -D _REV0
-$(pokered11_obj):   RGBASMFLAGS += -D _RED -D _REV1
-$(pokegreen11_obj): RGBASMFLAGS += -D _GREEN -D _REV1
+$(pokered_obj):        RGBASMFLAGS += -D _RED -D _REV0
+$(pokegreen_obj):      RGBASMFLAGS += -D _GREEN -D _REV0
+$(pokered11_obj):      RGBASMFLAGS += -D _RED -D _REV1
+$(pokegreen11_obj):    RGBASMFLAGS += -D _GREEN -D _REV1
+$(pokered11_vc_obj):   RGBASMFLAGS += -D _RED -D _REV1 -D _RED_VC
+$(pokegreen11_vc_obj): RGBASMFLAGS += -D _GREEN -D _REV1 -D _GREEN_VC
+
+%.patch: %_vc.gb %.gb vc/%.patch.template
+	tools/make_patch $*_vc.sym $^ $@
 
 rgbdscheck.o: rgbdscheck.asm
 	$(RGBASM) -o $@ $<
@@ -109,6 +128,8 @@ $(foreach obj, $(pokered_obj), $(eval $(call DEP,$(obj),$(obj:_red.o=.asm))))
 $(foreach obj, $(pokegreen_obj), $(eval $(call DEP,$(obj),$(obj:_green.o=.asm))))
 $(foreach obj, $(pokered11_obj), $(eval $(call DEP,$(obj),$(obj:_red11.o=.asm))))
 $(foreach obj, $(pokegreen11_obj), $(eval $(call DEP,$(obj),$(obj:_green11.o=.asm))))
+$(foreach obj, $(pokered11_vc_obj), $(eval $(call DEP,$(obj),$(obj:_red11_vc.o=.asm))))
+$(foreach obj, $(pokegreen11_vc_obj), $(eval $(call DEP,$(obj),$(obj:_green11_vc.o=.asm))))
 
 endif
 
@@ -116,15 +137,19 @@ endif
 %.asm: ;
 
 
-pokered_pad     = 0x00
-pokegreen_pad   = 0x00
-pokered11_pad   = 0x00
-pokegreen11_pad = 0x00
+pokered_pad        = 0x00
+pokegreen_pad      = 0x00
+pokered11_pad      = 0x00
+pokegreen11_pad    = 0x00
+pokered11_vc_pad   = 0x00
+pokegreen11_vc_pad = 0x00
 
-pokered_opt     = -sv -n 0 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON RED"
-pokegreen_opt   = -sv -n 0 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON GREEN"
-pokered11_opt   = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON RED"
-pokegreen11_opt = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON GREEN"
+pokered_opt        = -sv -n 0 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON RED"
+pokegreen_opt      = -sv -n 0 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON GREEN"
+pokered11_opt      = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON RED"
+pokegreen11_opt    = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON GREEN"
+pokered11_vc_opt   = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON RED"
+pokegreen11_vc_opt = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON GREEN"
 
 %.gb: $$(%_obj) layout.link
 	$(RGBLINK) -p $($*_pad) -d -m $*.map -n $*.sym -l layout.link -o $@ $(filter %.o,$^)

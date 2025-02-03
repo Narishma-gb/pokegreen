@@ -37,6 +37,9 @@ LoadSAV0:
 	ld a, $1
 	ld [MBC1SRamBankingMode], a
 	ld [MBC1SRamBank], a
+; This vc_hook does not have to be in any particular location.
+; It is defined here because it refers to the same labels as the two lines below.
+	vc_hook Unknown_save_limit
 	ld hl, sGameData
 	ld bc, sGameDataEnd - sGameData
 	call SAVCheckSum

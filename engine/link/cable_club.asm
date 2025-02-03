@@ -145,18 +145,21 @@ ENDC
 	ld hl, wSerialRandomNumberListBlock
 	ld de, wSerialOtherGameboyRandomNumberListBlock
 	ld bc, SERIAL_RN_PREAMBLE_LENGTH + SERIAL_RNS_LENGTH
+	vc_hook Wireless_ExchangeBytes_RNG_state_unknown_Type5
 	call Serial_ExchangeBytes
 	ld a, SERIAL_NO_DATA_BYTE
 	ld [de], a
 	ld hl, wSerialPlayerDataBlock
 	ld de, wSerialEnemyDataBlock
 	ld bc, SERIAL_PREAMBLE_LENGTH + NAME_LENGTH + 1 + PARTY_LENGTH + 1 + (PARTYMON_STRUCT_LENGTH + NAME_LENGTH * 2) * PARTY_LENGTH + 3
+	vc_hook Wireless_ExchangeBytes_party_structs
 	call Serial_ExchangeBytes
 	ld a, SERIAL_NO_DATA_BYTE
 	ld [de], a
 	ld hl, wSerialPartyMonsPatchList
 	ld de, wSerialEnemyMonsPatchList
 	ld bc, 200
+	vc_hook Wireless_ExchangeBytes_patch_lists
 	call Serial_ExchangeBytes
 	ld a, (1 << SERIAL) | (1 << TIMER) | (1 << VBLANK)
 	ldh [rIE], a
@@ -888,6 +891,7 @@ TradeCenter_Trade:
 	ld de, TradeCompleted
 	call PlaceString
 	predef SaveSAVtoSRAM2
+	vc_hook Trade_save_game_end
 	ld c, 50
 	call DelayFrames
 	xor a

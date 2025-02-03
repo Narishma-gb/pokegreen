@@ -225,8 +225,14 @@ PlayAnimation:
 	ld h, [hl]
 	ld l, a
 .animationLoop
+	vc_hook_red Stop_reducing_move_anim_flashing_Guillotine_Spore
+	vc_hook_green Stop_reducing_move_anim_flashing_Guillotine_Mega_Punch
 	ld a, [hli]
+	vc_hook_red Stop_reducing_move_anim_flashing_Mega_Punch_Mega_Kick
+	vc_hook_green Stop_reducing_move_anim_flashing_Mega_Kick
 	cp -1
+	vc_hook_red Stop_reducing_move_anim_flashing_Bubblebeam
+	vc_hook_green Stop_reducing_move_anim_flashing_Bubblebeam_Selfdestruct
 	jr z, .AnimationOver
 	cp FIRST_SE_ID ; is this subanimation or a special effect?
 	jr c, .playSubanimation
@@ -297,10 +303,16 @@ PlayAnimation:
 	call LoadMoveAnimationTiles
 	call LoadSubanimation
 	call PlaySubanimation
+	vc_hook Stop_reducing_move_anim_flashing_Reflect
 	pop af
+	vc_hook Stop_reducing_move_anim_flashing_Thunderbolt
 	ldh [rOBP0], a
 .nextAnimationCommand
+	vc_hook_red Stop_reducing_move_anim_flashing_Self_Destruct_Explosion
+	vc_hook_green Stop_reducing_move_anim_flashing_Spore_Explosion
 	pop hl
+	vc_hook_red Stop_reducing_move_anim_flashing_Blizzard_Hyper_Beam
+	vc_hook_green Stop_reducing_move_anim_flashing_Hyper_Beam
 	jr .animationLoop
 .AnimationOver
 	ret
@@ -308,18 +320,30 @@ PlayAnimation:
 LoadSubanimation:
 	ld a, [wSubAnimAddrPtr + 1]
 	ld h, a
+	vc_hook Reduce_move_anim_flashing_Self_Destruct
 	ld a, [wSubAnimAddrPtr]
+	vc_hook Reduce_move_anim_flashing_Mega_Kick
 	ld l, a
+	vc_hook Reduce_move_anim_flashing_Mega_Punch_Self_Destruct_Explosion
 	ld a, [hli]
+	vc_hook Reduce_move_anim_flashing_Blizzard
 	ld e, a
+	vc_hook Reduce_move_anim_flashing_Guillotine
 	ld a, [hl]
+	vc_hook Reduce_move_anim_flashing_Hyper_Beam
 	ld d, a ; de = address of subanimation
+	vc_hook Reduce_move_anim_flashing_Explosion
 	ld a, [de]
+	vc_hook Reduce_move_anim_flashing_Rock_Slide
 	ld b, a
+	vc_hook Reduce_move_anim_flashing_Thunderbolt
 	and %00011111
+	vc_hook Reduce_move_anim_flashing_Reflect
 	ld [wSubAnimCounter], a ; number of frame blocks
+	vc_hook Reduce_move_anim_flashing_Spore
 	ld a, b
 	and %11100000
+	vc_hook Reduce_move_anim_flashing_Bubblebeam
 	cp SUBANIMTYPE_ENEMY << 5
 	jr nz, .isNotType5
 ; isType5
@@ -446,6 +470,8 @@ ShareMoveAnimations:
 PlayApplyingAttackAnimation:
 ; Generic animation that shows after the move's individual animation
 ; Different animation depending on whether the move has an additional effect and on whose turn it is
+	vc_hook_red Stop_reducing_move_anim_flashing_Rock_Slide
+	vc_hook_green Stop_reducing_move_anim_flashing_Blizzard_Rock_Slide
 	ld a, [wAnimationType]
 	and a
 	ret z

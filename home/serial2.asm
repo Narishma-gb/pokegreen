@@ -32,6 +32,7 @@ Serial_PrintWaitingTextAndSyncAndExchangeNybble::
 	jp LoadScreenTilesFromBuffer1
 
 Serial_SyncAndExchangeNybble::
+	vc_hook Wireless_WaitLinkTransfer
 	ld a, $ff
 	ld [wSerialExchangeNybbleReceiveData], a
 .loop1
@@ -55,13 +56,25 @@ Serial_SyncAndExchangeNybble::
 	ld a, [wSerialExchangeNybbleReceiveData]
 	inc a
 	jr z, .loop1
+	vc_patch Wireless_net_delay_3
+IF DEF(_RED_VC) || DEF(_GREEN_VC)
+	ld b, 26
+ELSE
 	ld b, 10
+ENDC
+	vc_patch_end
 .loop2
 	call DelayFrame
 	call Serial_ExchangeNybble
 	dec b
 	jr nz, .loop2
+	vc_patch Wireless_net_delay_4
+IF DEF(_RED_VC) || DEF(_GREEN_VC)
+	ld b, 26
+ELSE
 	ld b, 10
+ENDC
+	vc_patch_end
 .loop3
 	call DelayFrame
 	call Serial_SendZeroByte
@@ -69,4 +82,5 @@ Serial_SyncAndExchangeNybble::
 	jr nz, .loop3
 	ld a, [wSerialExchangeNybbleReceiveData]
 	ld [wSerialSyncAndExchangeNybbleReceiveData], a
+	vc_hook Wireless_WaitLinkTransfer_ret
 	ret

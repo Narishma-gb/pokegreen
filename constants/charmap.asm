@@ -23,7 +23,7 @@
 	charmap "バ",       $19
 	charmap "ビ",       $1a
 	charmap "ブ",       $1b
-	charmap "ベ",       $3d ; graphic tile is identical to Hiragana べ
+	charmap "ベ",       $3d ; same as printing Hiragana べ
 	charmap "ボ",       $1c
 	
 	charmap "が",       $26
@@ -51,7 +51,7 @@
 	charmap "パ",       $40
 	charmap "ピ",       $41
 	charmap "プ",       $42
-	charmap "ペ",       $47 ; graphic tile is identical to Hiragana ぺ
+	charmap "ペ",       $47 ; same as printing Hiragana ぺ
 	charmap "ポ",       $43
 	charmap "ぱ",       $44
 	charmap "ぴ",       $45
