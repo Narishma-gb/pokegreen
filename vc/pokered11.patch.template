@@ -341,9 +341,9 @@ Mode = 3
 Type = 1                    
 Address = {HEx @}          
 ConditionType = 0           
-ConditionValueA = {dws_ wStringBuffer wStringBuffer+1 wStringBuffer+2 wStringBuffer+3 wSubAnimSubEntryAddr}   
-ConditionValueB = {dws_ ==            ==              ==              ==              ==                  }  
-ConditionValueC = {dws_ H_I_CHAR      H_WA_CHAR       H_NA_CHAR       H_DA_CHAR       SUB_STARBIGMOV_3    }  
+ConditionValueA = {dws_ wStringBuffer wStringBuffer+1 wStringBuffer+2 wStringBuffer+3 wSubAnimSubEntryAddr         }   
+ConditionValueB = {dws_ ==            ==              ==              ==              ==                           }  
+ConditionValueC = {dws_ H_I_CHAR      H_WA_CHAR       H_NA_CHAR       H_DA_CHAR       LOW(Subanim_1StarBigMoving+7)}  
                  
 ;No76
 ;rsm011835                         
