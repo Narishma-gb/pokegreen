@@ -38,15 +38,7 @@ DEF NUM_NPC_TRADES EQU const_value
 	const TRADE_DIALOGSET_CASUAL
 	const TRADE_DIALOGSET_POLITE
 	const TRADE_DIALOGSET_HAPPY
-
-; in game trade text pointers
-; TradeTextPointersX indexes (see engine/events/in_game_trades.asm)
-	const_def
-	const TEXT_WANNA_TRADE ; 0
-	const TEXT_NO_TRADE    ; 1
-	const TEXT_WRONG_MON   ; 2
-	const TEXT_THANKS      ; 3
-	const TEXT_AFTER_TRADE ; 4
+DEF NUM_TRADE_DIALOGSETS EQU const_value
 
 ; OaksAideScript results
 DEF OAKS_AIDE_BAG_FULL        EQU $00
