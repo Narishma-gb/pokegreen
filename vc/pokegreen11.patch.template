@@ -424,9 +424,9 @@ Mode = 3
 Type = 1                    
 Address = {HEx @}          
 ConditionType = 11           
-ConditionValueA = {dws_ wStringBuffer wStringBuffer+1 wStringBuffer+2 wStringBuffer+3 wSubAnimSubEntryAddr          wAnimationID  00  wStringBuffer wStringBuffer+1 wStringBuffer+2 wStringBuffer+3 wAnimationID}      
-ConditionValueB = {dws_ ==            ==              ==              ==              ==                            ==            ||  ==            ==              ==              ==              ==          }     
-ConditionValueC = {dws_ H_I_CHAR      H_WA_CHAR       H_NA_CHAR       H_DA_CHAR       LOW(Subanim_1StarBigMoving+7) ROCK_SLIDE    00  H_HU_CHAR     H_BU_CHAR       H_KI_CHAR       END_CHAR        BLIZZARD    }    
+ConditionValueA = {dws_ wStringBuffer wStringBuffer+1 wStringBuffer+2 wStringBuffer+3 wSubAnimSubEntryAddr      wAnimationID  00  wStringBuffer wStringBuffer+1 wStringBuffer+2 wStringBuffer+3 wAnimationID}      
+ConditionValueB = {dws_ ==            ==              ==              ==              ==                        ==            ||  ==            ==              ==              ==              ==          }     
+ConditionValueC = {dws_ H_I_CHAR      H_WA_CHAR       H_NA_CHAR       H_DA_CHAR       <Subanim_1StarBigMoving+7 ROCK_SLIDE    00  H_HU_CHAR     H_BU_CHAR       H_KI_CHAR       END_CHAR        BLIZZARD    }    
 
 ;blizzard 
 ;No131                                           
