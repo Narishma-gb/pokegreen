@@ -209,38 +209,6 @@ int parse_arg_value(const char *arg, bool absolute, const struct Symbol *symbols
 	return part == SYM_LOW ? value & 0xff : part == SYM_HIGH ? value >> 8 : value;
 }
 
-int parse_arg_header(char *arg, const struct Symbol *symbols, const char *patch_name) {
-    // arg_mask serves both as identifier and offset into arg string
-    enum { NO_MASK, MASK_LOW = 4, MASK_HIGH } arg_mask = NO_MASK;
-
-    if (arg[strlen(arg) - 1] == ')') {
-        // Try to match argument header pattern
-        char arg_hder[6] = "";
-        strncpy(arg_hder, arg, 5);
-
-        if (vstrfind(arg_hder, "HIGH(", "high(") >= 0) {
-        arg_mask = MASK_HIGH;
-        } else {
-            arg_hder[4] = '\0';
-            if (vstrfind(arg_hder, "LOW(", "low(") >= 0) {
-                arg_mask = MASK_LOW;
-            }
-        }
-
-        if (arg_mask) {
-            arg[strlen(arg) - 1] = '\0';
-        } else {
-            error_exit("Error: Invalid symbol syntax: \"%s\"\n", arg);
-        }
-    }
-
-    int value = parse_arg_value(arg + arg_mask, false, symbols, patch_name);
-    if (arg_mask) {
-        value = arg_mask == MASK_HIGH ? (value >> 8) & 0xff : value & 0xff;
-    }
-    return value;
-}
-
 void interpret_command(char *command, const struct Symbol *current_hook, const struct Symbol *symbols, struct Buffer *patches, FILE *restrict new_rom, FILE *restrict orig_rom, FILE *restrict output) {
 	// Strip all leading spaces and all but one trailing space
 	int x = 0;
@@ -326,7 +294,7 @@ void interpret_command(char *command, const struct Symbol *current_hook, const s
 			fprintf(output, command[strlen(command) - 1] == '_' ? "a%d: " : "a%d:", argc * 2);
 		}
 		for (int i = 0; i < argc; i++) {
-			int value = parse_arg_header(argv[i], symbols, current_hook->name);
+			int value = parse_arg_value(argv[i], false, symbols, current_hook->name);
 			if (value > 0xffff) {
 				error_exit("Error: Invalid value for \"%s\" argument: 0x%x\n", command, value);
 			}
@@ -390,12 +358,6 @@ struct Buffer *process_template(const char *template_filename, const char *patch
 
 	// The ROM checksum will always differ
 	buffer_append(patches, &(struct Patch){0x14e, 2});
-	// The Stadium data (see stadium.c) will always differ
-	unsigned int rom_size = (unsigned int)xfsize("", orig_rom);
-	if (rom_size == 128 * 0x4000) {
-		unsigned int stadium_size = 24 + 6 + 2 + 128 * 2 * 2;
-		buffer_append(patches, &(struct Patch){rom_size - stadium_size, stadium_size});
-	}
 
 	// Fill in the template
 	const struct Symbol *current_hook = NULL;
