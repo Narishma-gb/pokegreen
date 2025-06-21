@@ -3,7 +3,7 @@ DEF ITEM_NAME_LENGTH EQU 9
 DEF TRAINER_NAME_LENGTH EQU 11
 DEF NAME_BUFFER_LENGTH EQU 20
 
-; PrintNumber
+; PrintNumber, PrintBCDNumber
 	const_def 6
 	const BIT_LEFT_ALIGN     ; 6
 	const BIT_LEADING_ZEROES ; 7

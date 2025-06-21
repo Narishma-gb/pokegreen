@@ -154,7 +154,7 @@ VermilionGymTrashSuccessText2::
 	prompt
 
 ; unused
-VermilionGymTrashSuccesPlaySfx:
+VermilionGymTrashSuccessPlaySfx:
 	text_asm
 	call WaitForSoundToFinish
 	ld a, SFX_SWITCH

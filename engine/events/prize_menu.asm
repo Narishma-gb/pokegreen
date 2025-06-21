@@ -127,9 +127,6 @@ GetPrizeMenuId:
 ; put prices on the right side of the textbox
 	ld de, wPrize1Price
 	hlcoord 11, 4
-; reg. c:
-; [low nybble] number of bytes
-; [bits 765 = %100] space-padding (not zero-padding)
 	ld c, 2 | LEADING_ZEROES
 	call PrintBCDNumber
 	ld de, wPrize2Price
@@ -157,7 +154,7 @@ PrintPrizePrice:
 	call PlaceString
 	hlcoord 13, 1
 	ld de, wPlayerCoins
-	ld c, LEADING_ZEROES | 2
+	ld c, 2 | LEADING_ZEROES
 	call PrintBCDNumber
 	ret
 
