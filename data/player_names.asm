@@ -3,13 +3,15 @@ DefaultNamesPlayer:
 	db   "じぶんできめる"
 	next "レッド"
 	next "サトシ"
-	next "ジャック@"
+	next "ジャック"
+	db   "@"
 
 DefaultNamesRival:
 	db   "じぶんできめる"
 	next "グリーン"
 	next "シゲル"
-	next "ジョン@"
+	next "ジョン"
+	db   "@"
 ENDC
 
 IF DEF(_GREEN)
@@ -17,11 +19,13 @@ DefaultNamesPlayer:
 	db   "じぶんできめる"
 	next "グリーン"
 	next "シゲル"
-	next "ジョン@"
+	next "ジョン"
+	db   "@"
 
 DefaultNamesRival:
 	db   "じぶんできめる"
 	next "レッド"
 	next "サトシ"
-	next "ジャック@"
+	next "ジャック"
+	db   "@"
 ENDC

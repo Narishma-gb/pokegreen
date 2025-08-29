@@ -79,7 +79,7 @@ CeladonMart3FGameBoyKid1Text:
 
 CeladonMart3FGameBoyKid2Text:
 	text "やったー！"
-	
+
 	para "となりのこが　ゴーストと　ガルーラ"
 	line "こうかん　してくれるって！"
 	done
@@ -92,11 +92,11 @@ CeladonMart3FGameBoyKid3Text:
 	line "ゴースト　マニア　なのね！"
 
 	para "<⋯>　あー？"
-	
+
 	para "てんそう　されて　きた　ゴーストが"
 	line "べつの　#に！？"
 	done
-	
+
 CeladonMart3FLittleBoyText:
 	text "ひとから　もらった　#は"
 	line "アイディが　ちがうから　わかるよ"

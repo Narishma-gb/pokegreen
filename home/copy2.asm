@@ -227,12 +227,12 @@ CopyScreenTileBufferToVRAM::
 
 .setup
 	ld a, d
-	ldh [hVBlankCopyBGSource+1], a
+	ldh [hVBlankCopyBGSource + 1], a
 	call GetRowColAddressBgMap
 	ld a, l
 	ldh [hVBlankCopyBGDest], a
 	ld a, h
-	ldh [hVBlankCopyBGDest+1], a
+	ldh [hVBlankCopyBGDest + 1], a
 	ld a, c
 	ldh [hVBlankCopyBGNumRows], a
 	ld a, e

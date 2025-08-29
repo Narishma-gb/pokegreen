@@ -5,7 +5,7 @@ roms := \
 	pokegreen11.gb
 patches := \
 	pokered11.patch \
-	pokegreen11.patch 
+	pokegreen11.patch
 
 rom_obj := \
 	audio.o \

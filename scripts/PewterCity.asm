@@ -342,7 +342,7 @@ PewterCityTrainerTipsText:
 
 PewterCityPoliceNoticeSignText:
 	text "<⋯>　チラシが　はって　ある！"
-	
+
 	para "さいきん　オツキミやまで"
 	line "きちょうな　#の"
 	cont "カセキを　ぬすみ　まくる"

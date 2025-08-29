@@ -495,7 +495,7 @@ ShowPokedexDataInternal:
 	ld a, [hli]
 	ld [hld], a ; make space for the decimal point by moving the last digit forward one tile
 	ld [hl], "．"
-	
+
 ; now print the weight (weight is stored in tenths of kg internally, 2-byte long)
 	inc de
 	inc de
@@ -514,7 +514,7 @@ ShowPokedexDataInternal:
 	ld [hl], a ; store lower byte of weight in [hDexWeight + 1]
 	ld de, hDexWeight
 	hlcoord 12, 8
-	lb bc, 2, 4	
+	lb bc, 2, 4
 	call PrintNumber ; print weight
 	hlcoord 14, 8
 	ldh a, [hDexWeight + 1]

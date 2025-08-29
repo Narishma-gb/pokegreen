@@ -18,7 +18,7 @@ BenchGuyTextPointers:
 	bench_guy_text MT_MOON_POKECENTER,           SPRITE_FACING_LEFT, MtMoonPokecenterBenchGuyText
 	bench_guy_text ROCK_TUNNEL_POKECENTER,       SPRITE_FACING_LEFT, RockTunnelPokecenterBenchGuyText
 	; the next 3 entries are triggered when interacting with an empty stool at [0, 4] in each of the
-	; corresponding Safari Rest House 
+	; corresponding Safari Rest House
 	bench_guy_text SAFARI_ZONE_WEST_REST_HOUSE,  SPRITE_FACING_LEFT, SafariZoneWestRestHouseStoolText
 	bench_guy_text SAFARI_ZONE_EAST_REST_HOUSE,  SPRITE_FACING_LEFT, SafariZoneEastRestHouseStoolText
 	bench_guy_text SAFARI_ZONE_NORTH_REST_HOUSE, SPRITE_FACING_LEFT, SafariZoneNorthRestHouseStoolText

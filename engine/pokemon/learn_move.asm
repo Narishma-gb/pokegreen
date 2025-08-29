@@ -234,7 +234,7 @@ PoofForgotAndText:
 	text "　ポカン！@"
 	text_pause
 	text_start
-	
+
 	para "@"
 	text_ram wLearnMoveMonName
 	text "は　@"

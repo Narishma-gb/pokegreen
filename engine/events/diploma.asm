@@ -75,7 +75,7 @@ DisplayDiploma::
 	jp GBPalNormal
 
 AdjustToPlayerNameLength:
-; Calculate the position of the player's name, 
+; Calculate the position of the player's name,
 ; so that it ends one space before "Sama" text.
 	ld hl, wPlayerName
 	lb bc, HIGH(-1), 0

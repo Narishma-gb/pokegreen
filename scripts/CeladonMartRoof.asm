@@ -164,7 +164,7 @@ CeladonMartRoofLittleGirlReceivedTM13Text:
 	line "れいとうビーム　なの！"
 
 	para "たまに　あいてを"
-	line "こおらせる　ことが　あるわ@"	
+	line "こおらせる　ことが　あるわ@"
 	text_waitbutton
 	text_end
 

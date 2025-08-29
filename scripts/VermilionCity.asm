@@ -261,7 +261,7 @@ VermilionCityMachopText:
 
 .StompingTheLandFlatText:
 	text_start
-	
+
 	para "ワンリキーは　うなりながら"
 	line "じめんを　ならしている！"
 	done

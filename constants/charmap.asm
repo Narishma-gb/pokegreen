@@ -3,7 +3,7 @@
 ; Control characters (see home/text.asm)
 
 	charmap "<NULL>",   $00
-	
+
 	charmap "ガ",       $05
 	charmap "ギ",       $06
 	charmap "グ",       $07
@@ -19,13 +19,13 @@
 	charmap "ヅ",       $11
 	charmap "デ",       $12
 	charmap "ド",       $13
-	
+
 	charmap "バ",       $19
 	charmap "ビ",       $1a
 	charmap "ブ",       $1b
 	charmap "ベ",       $3d ; same as printing Hiragana べ
 	charmap "ボ",       $1c
-	
+
 	charmap "が",       $26
 	charmap "ぎ",       $27
 	charmap "ぐ",       $28
@@ -47,7 +47,7 @@
 	charmap "ぶ",       $3c
 	charmap "べ",       $3d
 	charmap "ぼ",       $3e
-	
+
 	charmap "パ",       $40
 	charmap "ピ",       $41
 	charmap "プ",       $42
@@ -58,7 +58,7 @@
 	charmap "ぷ",       $46
 	charmap "ぺ",       $47
 	charmap "ぽ",       $48
-	
+
 	charmap "<_CONT>",   $4b ; implements "<CONT>"
 	charmap "<SCROLL>",  $4c
 	charmap "<NEXT>",    $4e

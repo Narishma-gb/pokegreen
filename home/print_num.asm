@@ -82,7 +82,7 @@ MACRO print_digit
 	call .NextDigit
 ENDM
 
-; millions         
+; millions
 	print_digit 1000000
 .hundred_thousands print_digit 100000
 .ten_thousands     print_digit 10000

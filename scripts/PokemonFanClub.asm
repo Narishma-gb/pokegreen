@@ -44,7 +44,7 @@ PokemonFanClubPikachuFanText:
 
 .BetterText:
 	text "なにを！"
-	
+
 	para "うちの　ピカチュウの　ほうが"
 	line "その　ばいは　かわいい　わい！"
 	done

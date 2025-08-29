@@ -126,7 +126,7 @@ CheckCoords::
 	ld a, [hli]
 	cp c
 	jr nz, .loop
-.inArray
+;.inArray
 	scf
 	ret
 .notInArray

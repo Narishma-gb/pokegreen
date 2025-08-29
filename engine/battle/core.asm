@@ -3814,7 +3814,7 @@ PrintUsedMoveText:
 	jp PrintText
 
 ; This function determines the correct sentence to print for each move use,
-; first printing either UserNoText or UserWaText, then calling 
+; first printing either UserNoText or UserWaText, then calling
 ; DetermineSentenceEndTextNum to choose which sentence ending is displayed.
 ; It also handles disobedient mon text through PrintInsteadText
 UsedMoveText:

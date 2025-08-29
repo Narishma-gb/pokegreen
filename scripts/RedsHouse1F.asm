@@ -5,7 +5,7 @@ RedsHouse1F_TextPointers:
 	def_text_pointers
 	dw_const RedsHouse1FMomText, TEXT_REDSHOUSE1F_MOM
 	dw_const RedsHouse1FTVText,  TEXT_REDSHOUSE1F_TV
-	
+
 RedsHouse1FMomText:
 	text_asm
 	ld a, [wStatusFlags4]
@@ -24,7 +24,7 @@ RedsHouse1FMomText:
 	line "おとこのこは　いつか"
 	cont "たびに　でるもの　なのよ"
 	cont "うん<⋯>　テレビの　はなしよ！"
-	
+
 	para "そういえば"
 	line "となりの　オーキドはかせが"
 	cont "あなたを　よんでたわよ"
@@ -80,7 +80,7 @@ RedsHouse1FTVText:
 	text "テレビで　えいがを　やってる！"
 	line "おとこのこが　４にん"
 	cont "せんろのうえを　あるいてる<⋯>"
-	
+
 	para "<⋯>　ぼくも　もう　いかなきゃ！"
 	done
 

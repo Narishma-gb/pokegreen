@@ -100,7 +100,7 @@ ENDC
 
 IF DEF(_REV0)
 	INCLUDE "home/serial2.asm"
-ENDC	
+ENDC
 
 Serial_ExchangeByte::
 	xor a

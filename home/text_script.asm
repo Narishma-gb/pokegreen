@@ -204,7 +204,7 @@ DisplayPlayerBlackedOutText::
 PlayerBlackedOutText::
 	text "<PLAYER>の　てもとには"
 	line "たたかえる#が　もういない！"
-	
+
 	para "<PLAYER>は"
 	line "めのまえが　まっくらに　なった！"
 	prompt

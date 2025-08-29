@@ -212,7 +212,7 @@ PalletTownGirlText:
 
 PalletTownFisherText:
 	text "かがくの　ちからって　すげー！"
-	
+
 	para "いまは　<PC>つうしんで"
 	line "どうぐや　#を"
 	cont "データにして　おくれるんだと"
