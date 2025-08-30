@@ -126,7 +126,7 @@ IF DEF(_REV1)
 	xor a
 ENDC
 	ldh [hSerialSendData], a
-	ld a, START_TRANSFER_INTERNAL_CLOCK
+	ld a, SC_START | SC_INTERNAL
 	ldh [rSC], a
 	call DelayFrame
 IF DEF(_REV0)
@@ -136,11 +136,11 @@ IF DEF(_REV1)
 	xor a
 ENDC
 	ldh [hSerialSendData], a
-	ld a, START_TRANSFER_INTERNAL_CLOCK
+	ld a, SC_START | SC_INTERNAL
 	ldh [rSC], a
 .skipSendingTwoZeroBytes
 	call Delay3
-	ld a, 1 << SERIAL
+	ld a, IE_SERIAL
 	ldh [rIE], a
 	ld hl, wSerialRandomNumberListBlock
 	ld de, wSerialOtherGameboyRandomNumberListBlock
@@ -161,7 +161,7 @@ ENDC
 	ld bc, 200
 	vc_hook Wireless_ExchangeBytes_patch_lists
 	call Serial_ExchangeBytes
-	ld a, (1 << SERIAL) | (1 << TIMER) | (1 << VBLANK)
+	ld a, IE_SERIAL | IE_TIMER | IE_VBLANK
 	ldh [rIE], a
 	ld a, SFX_STOP_ALL_MUSIC
 	call PlaySound
@@ -387,7 +387,7 @@ TradeCenter_SelectMon:
 	ld [wMenuWatchMovingOutOfBounds], a
 	inc a
 	ld [wWhichTradeMonSelectionMenu], a
-	ld a, D_DOWN | D_LEFT | A_BUTTON
+	ld a, PAD_DOWN | PAD_LEFT | PAD_A
 	ld [wMenuWatchedKeys], a
 	ld a, [wEnemyPartyCount]
 	ld [wMaxMenuItem], a
@@ -399,7 +399,7 @@ TradeCenter_SelectMon:
 	call HandleMenuInput
 	and a
 	jp z, .getNewInput
-	bit BIT_A_BUTTON, a
+	bit B_PAD_A, a
 	jr z, .enemyMonMenu_ANotPressed
 ; if A button pressed
 	ld a, INIT_ENEMYOT_LIST
@@ -409,7 +409,7 @@ TradeCenter_SelectMon:
 	call TradeCenter_DisplayStats
 	jp .getNewInput
 .enemyMonMenu_ANotPressed
-	bit BIT_D_LEFT, a
+	bit B_PAD_LEFT, a
 	jr z, .enemyMonMenu_LeftNotPressed
 ; if Left pressed, switch back to the player mon menu
 	xor a ; player mon menu
@@ -430,14 +430,14 @@ TradeCenter_SelectMon:
 	ld [wCurrentMenuItem], a
 	jr .playerMonMenu
 .enemyMonMenu_LeftNotPressed
-	bit BIT_D_DOWN, a
+	bit B_PAD_DOWN, a
 	jp z, .getNewInput
 	jp .selectedCancelMenuItem ; jump if Down pressed
 .playerMonMenu
 	xor a ; player mon menu
 	ld [wWhichTradeMonSelectionMenu], a
 	ld [wMenuWatchMovingOutOfBounds], a
-	ld a, D_DOWN | D_RIGHT | A_BUTTON
+	ld a, PAD_DOWN | PAD_RIGHT | PAD_A
 	ld [wMenuWatchedKeys], a
 	ld a, [wPartyCount]
 	ld [wMaxMenuItem], a
@@ -451,7 +451,7 @@ TradeCenter_SelectMon:
 	jr nz, .playerMonMenu_SomethingPressed
 	jp .getNewInput
 .playerMonMenu_SomethingPressed
-	bit BIT_A_BUTTON, a
+	bit B_PAD_A, a
 	jr z, .playerMonMenu_ANotPressed
 	jp .chosePlayerMon ; jump if A button pressed
 ; unreachable code
@@ -461,7 +461,7 @@ TradeCenter_SelectMon:
 	call TradeCenter_DisplayStats
 	jp .getNewInput
 .playerMonMenu_ANotPressed
-	bit BIT_D_RIGHT, a
+	bit B_PAD_RIGHT, a
 	jr z, .playerMonMenu_RightNotPressed
 ; if Right pressed, switch to the enemy mon menu
 	ld a, $1 ; enemy mon menu
@@ -483,7 +483,7 @@ TradeCenter_SelectMon:
 .notPastLastEnemyMon
 	jp .enemyMonMenu
 .playerMonMenu_RightNotPressed
-	bit BIT_D_DOWN, a
+	bit B_PAD_DOWN, a
 	jr z, .getNewInput
 	jp .selectedCancelMenuItem ; jump if Down pressed
 .getNewInput
@@ -513,14 +513,14 @@ TradeCenter_SelectMon:
 .selectStatsMenuItem
 	ld a, "　"
 	ldcoord_a 11, 16
-	ld a, D_RIGHT | B_BUTTON | A_BUTTON
+	ld a, PAD_RIGHT | PAD_B | PAD_A
 	ld [wMenuWatchedKeys], a
 	ld a, 1
 	ld [wTopMenuItemX], a
 	call HandleMenuInput
-	bit BIT_D_RIGHT, a
+	bit B_PAD_RIGHT, a
 	jr nz, .selectTradeMenuItem
-	bit BIT_B_BUTTON, a
+	bit B_PAD_B, a
 	jr z, .displayPlayerMonStats
 .cancelPlayerMonChoice
 	pop af
@@ -530,14 +530,14 @@ TradeCenter_SelectMon:
 .selectTradeMenuItem
 	ld a, "　"
 	ldcoord_a 1, 16
-	ld a, D_LEFT | B_BUTTON | A_BUTTON
+	ld a, PAD_LEFT | PAD_B | PAD_A
 	ld [wMenuWatchedKeys], a
 	ld a, 11
 	ld [wTopMenuItemX], a
 	call HandleMenuInput
-	bit BIT_D_LEFT, a
+	bit B_PAD_LEFT, a
 	jr nz, .selectStatsMenuItem
-	bit BIT_B_BUTTON, a
+	bit B_PAD_B, a
 	jr nz, .cancelPlayerMonChoice
 	jr .choseTrade
 .displayPlayerMonStats
@@ -586,9 +586,9 @@ TradeCenter_SelectMon:
 	ld a, [hJoy5]
 	and a ; pressed anything?
 	jr z, .cancelMenuItem_JoypadLoop
-	bit BIT_A_BUTTON, a
+	bit B_PAD_A, a
 	jr nz, .cancelMenuItem_APressed
-	bit BIT_D_UP, a
+	bit B_PAD_UP, a
 	jr z, .cancelMenuItem_JoypadLoop
 ; if Up pressed
 	ld a, "　"

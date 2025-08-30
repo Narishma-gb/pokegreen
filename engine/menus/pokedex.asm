@@ -27,7 +27,7 @@ ShowPokedexMenu:
 	inc hl
 	ld a, 6
 	ld [hli], a ; max menu item ID
-	ld [hl], D_LEFT | D_RIGHT | B_BUTTON | A_BUTTON
+	ld [hl], PAD_LEFT | PAD_RIGHT | PAD_B | PAD_A
 	call HandlePokedexListMenu
 	jr c, .goToSideMenu ; if the player chose a pokemon from the list
 .exitPokedex
@@ -88,14 +88,14 @@ HandlePokedexSideMenu:
 	inc hl
 	ld a, 3
 	ld [hli], a ; max menu item ID
-	;ld a, A_BUTTON | B_BUTTON
+	;ld a, PAD_A | PAD_B
 	ld [hli], a ; menu watched keys (A button and B button)
 	xor a
 	ld [hli], a ; old menu item ID
 	ld [wMenuWatchMovingOutOfBounds], a
 .handleMenuInput
 	call HandleMenuInput
-	bit BIT_B_BUTTON, a
+	bit B_PAD_B, a
 	ld b, 2
 	jr nz, .exitSideMenu
 	ld a, [wCurrentMenuItem]
@@ -266,10 +266,10 @@ HandlePokedexListMenu:
 	call Delay3
 	call GBPalNormal
 	call HandleMenuInput
-	bit BIT_B_BUTTON, a
+	bit B_PAD_B, a
 	jp nz, .buttonBPressed
-; checkIfUpPressed
-	bit BIT_D_UP, a
+;.checkIfUpPressed
+	bit B_PAD_UP, a
 	jr z, .checkIfDownPressed
 .upPressed ; scroll up one row
 	ld a, [wListScrollOffset]
@@ -279,7 +279,7 @@ HandlePokedexListMenu:
 	ld [wListScrollOffset], a
 	jp .loop
 .checkIfDownPressed
-	bit BIT_D_DOWN, a
+	bit B_PAD_DOWN, a
 	jr z, .checkIfRightPressed
 ; downPressed, scroll down one row
 	ld a, [wDexMaxSeenMon]
@@ -294,7 +294,7 @@ HandlePokedexListMenu:
 	ld [wListScrollOffset], a
 	jp .loop
 .checkIfRightPressed
-	bit BIT_D_RIGHT, a
+	bit B_PAD_RIGHT, a
 	jr z, .checkIfLeftPressed
 ; rightPressed, scroll down 7 rows
 	ld a, [wDexMaxSeenMon]
@@ -312,7 +312,7 @@ HandlePokedexListMenu:
 	ld [wListScrollOffset], a
 	jp .loop
 .checkIfLeftPressed ; scroll up 7 rows
-	bit BIT_D_LEFT, a
+	bit B_PAD_LEFT, a
 	jr z, .buttonAPressed
 ; leftPressed
 	ld a, [wListScrollOffset]
@@ -382,7 +382,7 @@ ShowPokedexDataInternal:
 	ld hl, wStatusFlags2
 	set BIT_NO_AUDIO_FADE_OUT, [hl]
 	ld a, $33 ; 3/7 volume
-	ldh [rNR50], a
+	ldh [rAUDVOL], a
 	call GBPalWhiteOut ; zero all palettes
 	call ClearScreen
 	ld a, [wPokedexNum]
@@ -548,7 +548,7 @@ ShowPokedexDataInternal:
 .waitForButtonPress
 	call JoypadLowSensitivity
 	ld a, [hJoy5]
-	and A_BUTTON | B_BUTTON
+	and PAD_A | PAD_B
 	jr z, .waitForButtonPress
 	pop af
 	ldh [hTileAnimations], a
@@ -560,7 +560,7 @@ ShowPokedexDataInternal:
 	ld hl, wStatusFlags2
 	res BIT_NO_AUDIO_FADE_OUT, [hl]
 	ld a, $77 ; max volume
-	ldh [rNR50], a
+	ldh [rAUDVOL], a
 	ret
 
 HeightWeightText:

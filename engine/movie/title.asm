@@ -181,8 +181,8 @@ ENDC
 	call LoadGBPal
 	ldh a, [hJoyHeld]
 	ld b, a
-	and D_UP | SELECT | B_BUTTON
-	cp D_UP | SELECT | B_BUTTON
+	and PAD_UP | PAD_SELECT | PAD_B
+	cp PAD_UP | PAD_SELECT | PAD_B
 	jp z, .doClearSaveDialogue
 	jp MainMenu
 

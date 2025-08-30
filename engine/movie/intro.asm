@@ -92,7 +92,7 @@ PlayIntroScene:
 ; hip
 	ld a, SFX_INTRO_HIP
 	call PlaySound
-	ld a, (FightIntroFrontMon2 - FightIntroFrontMon) / LEN_2BPP_TILE
+	ld a, (FightIntroFrontMon2 - FightIntroFrontMon) / TILE_SIZE
 	ld [wIntroNidorinoBaseTile], a
 	ld de, IntroNidorinoAnimation3
 	call AnimateIntroNidorino
@@ -124,7 +124,7 @@ PlayIntroScene:
 	call CheckForUserInterruption
 	ret c
 
-	ld a, (FightIntroFrontMon2 - FightIntroFrontMon) / LEN_2BPP_TILE
+	ld a, (FightIntroFrontMon2 - FightIntroFrontMon) / TILE_SIZE
 	ld [wIntroNidorinoBaseTile], a
 	ld de, IntroNidorinoAnimation6
 	call AnimateIntroNidorino
@@ -135,7 +135,7 @@ PlayIntroScene:
 ; lunge
 	ld a, SFX_INTRO_LUNGE
 	call PlaySound
-	ld a, (FightIntroFrontMon3 - FightIntroFrontMon) / LEN_2BPP_TILE
+	ld a, (FightIntroFrontMon3 - FightIntroFrontMon) / TILE_SIZE
 	ld [wIntroNidorinoBaseTile], a
 	ld de, IntroNidorinoAnimation7
 	call AnimateIntroNidorino
@@ -194,7 +194,7 @@ InitIntroNidorinoOAM:
 	ld [hli], a ; X
 	ld a, d
 	ld [hli], a ; tile
-	ld a, OAM_BEHIND_BG
+	ld a, OAM_PRIO
 	ld [hli], a ; attributes
 	inc d
 	dec c
@@ -209,7 +209,7 @@ InitIntroNidorinoOAM:
 
 IntroClearScreen:
 	ld hl, vBGMap1
-	ld bc, BG_MAP_WIDTH * SCREEN_HEIGHT
+	ld bc, TILEMAP_WIDTH * SCREEN_HEIGHT
 	jr IntroClearCommon
 
 IntroClearMiddleOfScreen:
@@ -320,8 +320,8 @@ PlayShootingStar:
 	call LoadIntroGraphics
 	call EnableLCD
 	ld hl, rLCDC
-	res rLCDC_WINDOW_ENABLE, [hl]
-	set rLCDC_BG_TILEMAP, [hl]
+	res B_LCDC_WINDOW, [hl]
+	set B_LCDC_BG_MAP, [hl]
 	ld c, 64
 	call DelayFrames
 	farcall AnimateShootingStar
@@ -352,10 +352,10 @@ IntroDrawBlackBars:
 	ld c, SCREEN_WIDTH * 4
 	call IntroPlaceBlackTiles
 	ld hl, vBGMap1
-	ld c,  BG_MAP_WIDTH * 4
+	ld c,  TILEMAP_WIDTH * 4
 	call IntroPlaceBlackTiles
 	hlbgcoord 0, 14, vBGMap1
-	ld c,  BG_MAP_WIDTH * 4
+	ld c,  TILEMAP_WIDTH * 4
 	jp IntroPlaceBlackTiles
 
 IntroLoadPresentsTiles:

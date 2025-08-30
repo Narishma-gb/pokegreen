@@ -30,7 +30,7 @@ ENDC
 	ldh [rSB], a
 	xor a
 	ldh [hSerialReceiveData], a
-	ld a, START_TRANSFER_EXTERNAL_CLOCK
+	ld a, SC_START | SC_EXTERNAL
 ; This vc_hook causes the Virtual Console to set [hSerialConnectionStatus] to
 ; USING_INTERNAL_CLOCK, which allows the player to proceed past the link
 ; receptionist's "Please wait." It assumes that hSerialConnectionStatus is at
@@ -47,7 +47,7 @@ ENDC
 	jr z, .failedToEstablishConnection
 	ld a, ESTABLISH_CONNECTION_WITH_INTERNAL_CLOCK
 	ldh [rSB], a
-	ld a, START_TRANSFER_INTERNAL_CLOCK
+	ld a, SC_START | SC_INTERNAL
 	ldh [rSC], a
 	call DelayFrame
 	jr .establishConnectionLoop
@@ -183,6 +183,6 @@ CloseLinkConnection:
 	ldh [rSB], a
 	xor a
 	ldh [hSerialReceiveData], a
-	ld a, START_TRANSFER_EXTERNAL_CLOCK
+	ld a, SC_START | SC_EXTERNAL
 	ldh [rSC], a
 	ret

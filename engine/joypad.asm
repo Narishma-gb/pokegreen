@@ -23,7 +23,7 @@ ENDR
 	cpl
 	and %01001111
 
-	cp A_BUTTON + B_BUTTON + SELECT + START ; soft reset
+	cp PAD_BUTTONS ; soft reset
 	jr nz, .notSoftReset
 	jp TrySoftReset
 .notSoftReset

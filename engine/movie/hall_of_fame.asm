@@ -7,12 +7,12 @@ AnimateHallOfFame:
 	call LoadTextBoxTilePatterns
 	call DisableLCD
 	ld hl, vBGMap0
-	ld bc, 2 * BG_MAP_WIDTH * BG_MAP_HEIGHT
+	ld bc, 2 * TILEMAP_AREA
 	ld a, "　"
 	call FillMemory
 	call EnableLCD
 	ld hl, rLCDC
-	set rLCDC_BG_TILEMAP, [hl]
+	set B_LCDC_BG_MAP, [hl]
 	xor a
 	ld hl, wHallOfFame
 	ld bc, HOF_TEAM
@@ -88,7 +88,7 @@ AnimateHallOfFame:
 	xor a
 	ldh [hWY], a
 	ld hl, rLCDC
-	res rLCDC_BG_TILEMAP, [hl]
+	res B_LCDC_BG_MAP, [hl]
 	ret
 
 HallOfFameText:

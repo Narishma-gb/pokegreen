@@ -143,7 +143,7 @@ CheckFightingMapTrainers::
 	xor a ; EXCLAMATION_BUBBLE
 	ld [wWhichEmotionBubble], a
 	predef EmotionBubble
-	ld a, D_RIGHT | D_LEFT | D_UP | D_DOWN
+	ld a, PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	xor a
 	ldh [hJoyHeld], a
@@ -343,7 +343,7 @@ PrintEndBattleText::
 	push af
 	ld a, [wEndBattleTextRomBank]
 	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
+	ld [rROMB], a
 	push hl
 	farcall SaveTrainerName
 	ld hl, TrainerEndBattleText
@@ -351,7 +351,7 @@ PrintEndBattleText::
 	pop hl
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
+	ld [rROMB], a
 	farcall SetEnemyTrainerToStayAndFaceAnyDirection
 	jp WaitForSoundToFinish
 

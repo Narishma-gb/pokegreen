@@ -32,12 +32,12 @@ RunNPCMovementScript::
 	push af
 	ld a, [wNPCMovementScriptBank]
 	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
+	ld [rROMB], a
 	ld a, [wNPCMovementScriptFunctionNum]
 	call CallFunctionInTable
 	pop af
 	ldh [hLoadedROMBank], a
-	ld [MBC1RomBank], a
+	ld [rROMB], a
 	ret
 
 .NPCMovementScriptPointerTables
