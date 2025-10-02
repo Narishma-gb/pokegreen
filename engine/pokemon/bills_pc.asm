@@ -151,7 +151,7 @@ BillsPCMenu:
 	ld c, 9
 	call TextBoxBorder
 	ld a, [wCurrentBoxNum]
-	and $7f
+	and BOX_NUM_MASK
 	add "１"
 	ldcoord_a 18, 16
 	hlcoord 10, 16
@@ -225,7 +225,7 @@ BillsPCDeposit:
 	call RemovePokemon
 	call WaitForSoundToFinish
 	ld a, [wCurrentBoxNum]
-	and $7f
+	and BOX_NUM_MASK
 	ld hl, wBoxNumString
 	add "１"
 	ld [hli], a
@@ -543,7 +543,7 @@ JustAMomentText::
 	text "ちょっと　まってね"
 	done
 
-UnusedOpenBillsPC:
+UnusedOpenBillsPC: ; unreferenced
 	ld a, [wSpritePlayerStateData1FacingDirection]
 	cp SPRITE_FACING_UP
 	ret nz

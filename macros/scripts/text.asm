@@ -93,10 +93,10 @@ ENDM
 	const TX_NUM ; $09
 MACRO text_decimal
 ; print a big-endian decimal number.
-	 db TX_NUM
-	 dw \1 ; address to read from
-	 dn \2, \3 ; number of bytes to read, number of digits to display
- ENDM
+	db TX_NUM
+	dw \1 ; address to read from
+	dn \2, \3 ; number of bytes to read, number of digits to display
+ENDM
 
 	const TX_PAUSE ; $0a
 MACRO text_pause

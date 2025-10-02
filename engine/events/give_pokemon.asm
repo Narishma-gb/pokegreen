@@ -19,7 +19,7 @@ _GivePokemon::
 	call SetPokedexOwnedFlag
 	callfar SendNewMonToBox
 	ld a, [wCurrentBoxNum]
-	and $7f
+	and BOX_NUM_MASK
 	add "１"
 	ld hl, wStringBuffer
 	ld [hli], a

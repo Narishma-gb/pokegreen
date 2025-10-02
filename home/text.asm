@@ -113,21 +113,21 @@ PlaceNextChar::
 	jr NextChar
 
 .KanaCharacter
-	cp $60 ; non diacritic kanas
+	cp FIRST_REGULAR_TEXT_CHAR
 	jr nc, .RegularKana
+; dakuten or handakuten
+	cp "パ"
+	jr nc, .Handakuten
+; dakuten
+	cp FIRST_HIRAGANA_DAKUTEN_CHAR
+	jr nc, .HiraganaDakuten
 
-	cp "パ" ; lowest handakuten in charmap
-	jr nc, .IsHandakuten
-
-	cp $20 ; test if Katakana or Hiragana dakuten
-	jr nc, .IsHiraganaDakuten
-
-; IsKatakanaDakuten
-	add $80 ; same character without diacritic
+; katakana dakuten
+	add "カ" - "ガ"
 	jr .PlaceDakuten
 
-.IsHiraganaDakuten
-	add $90 ; same character without diacritic
+.HiraganaDakuten
+	add "か" - "が"
 
 .PlaceDakuten
 	push af
@@ -140,16 +140,16 @@ PlaceNextChar::
 	pop af
 	jr .RegularKana
 
-.IsHandakuten
-	cp "ぱ" ; lowest Hiragana handakuten in charmap
-	jr nc, .IsHiraganaHandakuten
+.Handakuten
+	cp "ぱ"
+	jr nc, .HiraganaHandakuten
 
-; IsKatakanaHandakuten
-	add $59 ; same character without diacritic
+; katakana handakuten
+	add "ハ" - "パ"
 	jr .PlaceHandakuten
 
-.IsHiraganaHandakuten
-	add $86 ; same character without diacritic
+.HiraganaHandakuten
+	add "は" - "ぱ"
 
 .PlaceHandakuten
 	push af

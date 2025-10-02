@@ -295,7 +295,7 @@ DrawPlayerCharacter:
 
 ClearBothBGMaps:
 	ld hl, vBGMap0
-	ld bc, $400 * 2
+	ld bc, 2 * TILEMAP_AREA
 	ld a, "　"
 	jp FillMemory
 

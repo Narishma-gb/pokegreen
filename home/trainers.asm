@@ -3,7 +3,7 @@ StoreTrainerHeaderPointer::
 	ld a, h
 	ld [wTrainerHeaderPtr], a
 	ld a, l
-	ld [wTrainerHeaderPtr+1], a
+	ld [wTrainerHeaderPtr + 1], a
 	ret
 
 ; executes the current map script from the function pointer array provided in de.

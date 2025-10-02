@@ -896,6 +896,7 @@ wDownscaledMonSize::
 ; FormatMovesString stores the number of moves minus one here
 wNumMovesMinusOne:: db
 
+; This union spans 20 bytes.
 UNION
 ; storage buffer for various name strings
 wNameBuffer:: ds NAME_BUFFER_LENGTH
@@ -911,7 +912,8 @@ wPayDayMoney:: ds 3
 
 NEXTU
 ; evolution data for one mon
-wEvoDataBuffer:: ds 4 * 3 + 1 ; enough for Eevee's three 4-byte evolutions and 0 terminator
+wEvoDataBuffer:: ds NUM_EVOS_IN_BUFFER * 4 + 1 ; enough for Eevee's three 4-byte evolutions and 0 terminator
+wEvoDataBufferEnd::
 
 NEXTU
 wBattleMenuCurrentPP:: db
@@ -1070,7 +1072,7 @@ wPartyMenuBlkPacket:: ds $30
 NEXTU
 	ds 29
 ; storage buffer for various strings
-wStringBuffer:: ds 20
+wStringBuffer:: ds NAME_BUFFER_LENGTH
 
 NEXTU
 	ds 29
@@ -1214,7 +1216,7 @@ wTrainerPicPointer:: dw
 	ds 1
 
 UNION
-wTempMoveNameBuffer:: ds 8
+wTempMoveNameBuffer:: ds MOVE_NAME_LENGTH
 
 NEXTU
 ; The name of the mon that is learning a move.
@@ -1228,10 +1230,10 @@ wMissableObjectCounter:: db
 
 	ds 1
 
-; 13 bytes for the letters of the opposing trainer
+; 11 bytes for the letters of the opposing trainer
 ; the name is terminated with $50 with possible
 ; unused trailing letters
-wTrainerName:: ds 11
+wTrainerName:: ds TRAINER_NAME_LENGTH
 
 ; lost battle, this is -1
 ; no battle, this is 0
@@ -1814,7 +1816,7 @@ wWestConnectionHeader::  map_connection_struct wWest
 wEastConnectionHeader::  map_connection_struct wEast
 
 ; sprite set for the current map (11 sprite picture ID's)
-wSpriteSet:: ds 11
+wSpriteSet:: ds SPRITE_SET_LENGTH
 ; sprite set ID for the current map
 wSpriteSetID:: db
 
@@ -2146,12 +2148,12 @@ wEventFlags:: flag_array NUM_EVENTS
 
 UNION
 wGrassRate:: db
-wGrassMons:: ds 10 * 2
+wGrassMons:: ds WILDDATA_LENGTH - 1
 
 	ds 8
 
 wWaterRate:: db
-wWaterMons:: ds 10 * 2
+wWaterMons:: ds WILDDATA_LENGTH - 1
 
 NEXTU
 ; linked game's trainer name
@@ -2231,19 +2233,19 @@ wBoxCount:: db
 wBoxSpecies:: ds MONS_PER_BOX + 1
 
 wBoxMons::
-; wBoxMon1 - wBoxMon20
+; wBoxMon1 - wBoxMon30
 FOR n, 1, MONS_PER_BOX + 1
 wBoxMon{d:n}:: box_struct wBoxMon{d:n}
 ENDR
 
 wBoxMonOT::
-; wBoxMon1OT - wBoxMon20OT
+; wBoxMon1OT - wBoxMon30OT
 FOR n, 1, MONS_PER_BOX + 1
 wBoxMon{d:n}OT:: ds NAME_LENGTH
 ENDR
 
 wBoxMonNicks::
-; wBoxMon1Nick - wBoxMon20Nick
+; wBoxMon1Nick - wBoxMon30Nick
 FOR n, 1, MONS_PER_BOX + 1
 wBoxMon{d:n}Nick:: ds NAME_LENGTH
 ENDR

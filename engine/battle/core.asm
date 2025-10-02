@@ -1876,7 +1876,8 @@ AnimateRetreatingPlayerMon:
 	lb bc, 7, 7
 	jp ClearScreenArea
 
-; reads player's current mon's HP into wBattleMonHP
+; Copies player's current pokemon's current HP and status into the party
+; struct data so it stays after battle or switching
 ReadPlayerMonCurHPAndStatus:
 	ld a, [wPlayerMonNumber]
 	ld hl, wPartyMon1HP
@@ -6480,7 +6481,7 @@ LoadPlayerBackPic:
 	jr nz, .loop
 	ld de, vBackPic
 	call InterlaceMergeSpriteBuffers
-	ld a, $a
+	ld a, RAMG_SRAM_ENABLE
 	ld [rRAMG], a
 	xor a
 	ld [rRAMB], a
@@ -6991,12 +6992,12 @@ _InitBattleCommon:
 	call PrintText
 	call SaveScreenTilesToBuffer1
 	call ClearScreen
-	ld a, $98
+	ld a, HIGH(vBGMap0)
 	ld [hAutoBGTransferDest + 1], a
 	ld a, $1
 	ldh [hAutoBGTransferEnabled], a
 	call Delay3
-	ld a, $9c
+	ld a, HIGH(vBGMap1)
 	ld [hAutoBGTransferDest + 1], a
 	call LoadScreenTilesFromBuffer1
 	hlcoord 9, 7

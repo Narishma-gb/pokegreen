@@ -36,7 +36,7 @@ SECTION "rst30", ROM0[$0030]
 	ds $38 - @, 0 ; unused
 
 SECTION "rst38", ROM0[$0038]
-	db $C3, $80, $F0 ; unused invalid jp to $F080 (Echo RAM)
+	jp $F080 ; invalid jump to echo RAM (unused)
 
 	ds $40 - @, 0 ; unused
 

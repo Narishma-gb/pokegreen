@@ -39,8 +39,6 @@ TextScript_BillsPC::
 	jr BankswitchAndContinue
 
 TextScript_GameCornerPrizeMenu::
-; XXX find a better name for this function
-; special_F7
 	ld b, BANK(CeladonPrizeMenu)
 	ld hl, CeladonPrizeMenu
 BankswitchAndContinue::
