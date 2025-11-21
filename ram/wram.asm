@@ -363,7 +363,7 @@ wFilteredBagItems:: ds 4
 NEXTU
 ; Saved copy of OAM for the first frame of the animation to make it easy to
 ; flip back from the second frame.
-wMonPartySpritesSavedOAM:: ds $60
+wMonPartySpritesSavedOAM:: ds OBJ_SIZE * 4 * PARTY_LENGTH
 
 NEXTU
 wTrainerCardBlkPacket:: ds $40
@@ -401,7 +401,7 @@ wAnimPalette:: db
 NEXTU
 	ds 60
 ; temporary buffer when swapping party mon data
-wSwitchPartyMonTempBuffer:: ds 44 ; party_struct size
+wSwitchPartyMonTempBuffer:: ds PARTYMON_STRUCT_LENGTH
 
 NEXTU
 	ds 120

@@ -221,15 +221,15 @@ SaveMainData:
 	ld de, sSpriteData
 	ld bc, wSpriteDataEnd - wSpriteDataStart
 	call CopyData
-	ld hl, wBoxDataStart
 
 ; this part is redundant, SaveCurrentBoxData is always called next
+	ld hl, wBoxDataStart
 	ld de, sCurBoxData
 	ld bc, wBoxDataEnd - wBoxDataStart
 	call CopyData
+
 	ld a, [hTileAnimations]
 	ld [sTileAnimations], a
-
 	ld hl, sGameData
 	ld bc, sGameDataEnd - sGameData
 	call CalcCheckSum
@@ -441,7 +441,7 @@ DisplayChangeBoxMenu:
 	call PlaceString
 	ld a, [wCurrentBoxNum]
 	and BOX_NUM_MASK
-	add "１"
+	add '１'
 	ldcoord_a 9, 2
 	hlcoord 1, 2
 	ld de, BoxNoText

@@ -3,11 +3,11 @@ TextBoxBorder::
 
 	; top row
 	push hl
-	ld a, "┌"
+	ld a, '┌'
 	ld [hli], a
-	inc a ; "─"
-	call PlaceChars
-	inc a ; "┐"
+	inc a ; '─'
+	call .PlaceChars
+	inc a ; '┐'
 	ld [hl], a
 	pop hl
 
@@ -17,11 +17,11 @@ TextBoxBorder::
 	; middle rows
 .next
 	push hl
-	ld a, "│"
+	ld a, '│'
 	ld [hli], a
-	ld a, "　"
-	call PlaceChars
-	ld [hl], "│"
+	ld a, '　'
+	call .PlaceChars
+	ld [hl], '│'
 	pop hl
 
 	ld de, SCREEN_WIDTH
@@ -30,14 +30,14 @@ TextBoxBorder::
 	jr nz, .next
 
 	; bottom row
-	ld a, "└"
+	ld a, '└'
 	ld [hli], a
-	ld a, "─"
-	call PlaceChars
-	ld [hl], "┘"
+	ld a, '─'
+	call .PlaceChars
+	ld [hl], '┘'
 	ret
 
-PlaceChars::
+.PlaceChars::
 ; Place char a c times.
 	ld d, c
 .loop
@@ -51,7 +51,7 @@ PlaceString::
 
 PlaceNextChar::
 	ld a, [de]
-	cp "@"
+	cp '@'
 	jr nz, .NotTerminator
 	ld b, h
 	ld c, l
@@ -59,7 +59,7 @@ PlaceNextChar::
 	ret
 
 .NotTerminator
-	cp "<NEXT>"
+	cp '<NEXT>'
 	jr nz, .NotNext
 	pop hl
 	ld bc, 2 * SCREEN_WIDTH
@@ -68,7 +68,7 @@ PlaceNextChar::
 	jp NextChar
 
 .NotNext
-	cp "<LINE>"
+	cp '<LINE>'
 	jr nz, .NotLine
 	pop hl
 	hlcoord 1, 16
@@ -78,30 +78,30 @@ PlaceNextChar::
 .NotLine
 
 ; Check against a dictionary
-	dict "<NULL>",    NullChar
-	dict "<SCROLL>",  _ContTextNoPause
-	dict "<_CONT>",   _ContText
-	dict "<PARA>",    Paragraph
-	dict "<PLAYER>",  PrintPlayerName
-	dict "<RIVAL>",   PrintRivalName
-	dict "#",         PlacePOKe
-	dict "<PC>",      PCChar
-	dict "<ROCKET>",  RocketChar
-	dict "<TM>",      TMChar
-	dict "<TRAINER>", TrainerChar
-	dict "<CONT>",    ContText
-	dict "<⋯>",      SixDotsChar
-	dict "<DONE>",    DoneText
-	dict "<PROMPT>",  PromptText
-	dict "<TARGET>",  PlaceMoveTargetsName
-	dict "<USER>",    PlaceMoveUsersName
+	dict '<NULL>',    NullChar
+	dict '<SCROLL>',  _ContTextNoPause
+	dict '<_CONT>',   _ContText
+	dict '<PARA>',    Paragraph
+	dict '<PLAYER>',  PrintPlayerName
+	dict '<RIVAL>',   PrintRivalName
+	dict '#',         PlacePOKe
+	dict '<PC>',      PCChar
+	dict '<ROCKET>',  RocketChar
+	dict '<TM>',      TMChar
+	dict '<TRAINER>', TrainerChar
+	dict '<CONT>',    ContText
+	dict '<⋯>',      SixDotsChar
+	dict '<DONE>',    DoneText
+	dict '<PROMPT>',  PromptText
+	dict '<TARGET>',  PlaceMoveTargetsName
+	dict '<USER>',    PlaceMoveUsersName
 
 ; Japanese diacritic symbols. The code up to .KanaCharacter does not appear
 ; to be used, since the naming screen characters are loaded as tile indexes,
 ; and ROM/RAM text strings use control characters for diacritic kana.
-	cp "゜" ; handakuten
+	cp '゜' ; handakuten
 	jr z, .PlaceDiacriticSymbol
-	cp "゛" ; dakuten
+	cp '゛' ; dakuten
 	jr nz, .KanaCharacter
 
 .PlaceDiacriticSymbol
@@ -116,22 +116,22 @@ PlaceNextChar::
 	cp FIRST_REGULAR_TEXT_CHAR
 	jr nc, .RegularKana
 ; dakuten or handakuten
-	cp "パ"
+	cp 'パ'
 	jr nc, .Handakuten
 ; dakuten
 	cp FIRST_HIRAGANA_DAKUTEN_CHAR
 	jr nc, .HiraganaDakuten
 
 ; katakana dakuten
-	add "カ" - "ガ"
+	add 'カ' - 'ガ'
 	jr .PlaceDakuten
 
 .HiraganaDakuten
-	add "か" - "が"
+	add 'か' - 'が'
 
 .PlaceDakuten
 	push af
-	ld a, "゛" ; dakuten
+	ld a, '゛' ; dakuten
 	push hl
 	ld bc, -SCREEN_WIDTH ; one line above
 	add hl, bc
@@ -141,19 +141,19 @@ PlaceNextChar::
 	jr .RegularKana
 
 .Handakuten
-	cp "ぱ"
+	cp 'ぱ'
 	jr nc, .HiraganaHandakuten
 
 ; katakana handakuten
-	add "ハ" - "パ"
+	add 'ハ' - 'パ'
 	jr .PlaceHandakuten
 
 .HiraganaHandakuten
-	add "は" - "ぱ"
+	add 'は' - 'ぱ'
 
 .PlaceHandakuten
 	push af
-	ld a, "゜" ; handakuten
+	ld a, '゜' ; handakuten
 	push hl
 	ld bc, -SCREEN_WIDTH ; one line above
 	add hl, bc
@@ -262,12 +262,12 @@ PromptText::
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jp z, .ok
-	ld a, "▼"
+	ld a, '▼'
 	ldcoord_a 18, 16
 .ok
 	call ProtectedDelay3
 	call ManualTextScroll
-	ld a, "　"
+	ld a, '　'
 	ldcoord_a 18, 16
 
 DoneText::
@@ -281,7 +281,7 @@ DoneText::
 
 Paragraph::
 	push de
-	ld a, "▼"
+	ld a, '▼'
 	ldcoord_a 18, 16
 	call ProtectedDelay3
 	call ManualTextScroll
@@ -295,13 +295,13 @@ Paragraph::
 	jp NextChar
 
 _ContText::
-	ld a, "▼"
+	ld a, '▼'
 	ldcoord_a 18, 16
 	call ProtectedDelay3
 	push de
 	call ManualTextScroll
 	pop de
-	ld a, "　"
+	ld a, '　'
 	ldcoord_a 18, 16
 _ContTextNoPause::
 	push de
@@ -326,7 +326,7 @@ ScrollTextUpOneLine::
 	dec b
 	jr nz, .copyText
 	hlcoord 1, 16
-	ld a, "　"
+	ld a, '　'
 	ld b, SCREEN_WIDTH - 2
 .clearText
 	ld [hli], a
@@ -462,12 +462,12 @@ TextCommand_PROMPT_BUTTON::
 	ld a, [wLinkState]
 	cp LINK_STATE_BATTLING
 	jp z, TextCommand_WAIT_BUTTON
-	ld a, "▼"
+	ld a, '▼'
 	ldcoord_a 18, 16 ; place down arrow in lower right corner of dialogue text box
 	push bc
 	call ManualTextScroll ; blink arrow and wait for A or B to be pressed
 	pop bc
-	ld a, "　"
+	ld a, '　'
 	ldcoord_a 18, 16 ; overwrite down arrow with blank space
 	pop hl
 	jp NextTextCommand
@@ -475,7 +475,7 @@ TextCommand_PROMPT_BUTTON::
 TextCommand_SCROLL::
 ; pushes text up two lines and sets the BC cursor to the border tile
 ; below the first character column of the text box.
-	ld a, "　"
+	ld a, '　'
 	ldcoord_a 18, 16 ; place blank space in lower right corner of dialogue text box
 	call ScrollTextUpOneLine
 	call ScrollTextUpOneLine
@@ -590,7 +590,7 @@ TextCommand_DOTS::
 	ld l, c
 
 .loop
-	ld a, "⋯"
+	ld a, '⋯'
 	ld [hli], a
 	push de
 	call Joypad

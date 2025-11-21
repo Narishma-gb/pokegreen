@@ -296,7 +296,7 @@ DrawPlayerCharacter:
 ClearBothBGMaps:
 	ld hl, vBGMap0
 	ld bc, 2 * TILEMAP_AREA
-	ld a, "　"
+	ld a, '　'
 	jp FillMemory
 
 LoadTitleMonSprite:
@@ -319,7 +319,7 @@ LoadCopyrightAndTextBoxTiles:
 LoadCopyrightTiles:
 	ld de, NintendoCopyrightLogoGraphics
 	ld hl, vChars2 tile $60
-	lb bc, BANK(NintendoCopyrightLogoGraphics), (NintendoCopyrightLogoGraphicsEnd - NintendoCopyrightLogoGraphics) / $10
+	lb bc, BANK(NintendoCopyrightLogoGraphics), (NintendoCopyrightLogoGraphicsEnd - NintendoCopyrightLogoGraphics) / TILE_SIZE
 	call CopyVideoData
 	hlcoord 5, 7
 	ld de, CopyrightTextString

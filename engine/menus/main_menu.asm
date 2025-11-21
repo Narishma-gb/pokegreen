@@ -227,9 +227,9 @@ LinkMenu:
 	ld a, SC_START | SC_INTERNAL
 	ldh [rSC], a
 .skipStartingTransfer
-	ld b, "　"
-	ld c, "　"
-	ld d, "▷"
+	ld b, '　'
+	ld c, '　'
+	ld d, '▷'
 	ld a, [wLinkMenuSelectionSendBuffer]
 	and PAD_B << 2 ; was B button pressed?
 	jr nz, .updateCursorPosition
@@ -432,7 +432,7 @@ PrintPlayTime:
 	ld de, wPlayTimeHours
 	lb bc, 1, 3
 	call PrintNumber
-	ld [hl], ":"
+	ld [hl], ':'
 	inc hl
 	ld de, wPlayTimeMinutes
 	lb bc, LEADING_ZEROES | 1, 2
@@ -677,7 +677,7 @@ SetCursorPositionsFromOptions:
 	ld e, a
 	ld d, 0
 	add hl, de
-	ld [hl], "▷"
+	ld [hl], '▷'
 	ret
 
 ; table that indicates how the 3 text speed options affect frame delays
@@ -704,7 +704,7 @@ CheckForPlayerNameInSRAM:
 	ld hl, sPlayerName
 .loop
 	ld a, [hli]
-	cp "@"
+	cp '@'
 	jr z, .found
 	dec b
 	jr nz, .loop

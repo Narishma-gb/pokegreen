@@ -40,6 +40,11 @@ RGBFIX  ?= $(RGBDS)rgbfix
 RGBGFX  ?= $(RGBDS)rgbgfx
 RGBLINK ?= $(RGBDS)rgblink
 
+RGBASMFLAGS  ?= -Weverything -Wtruncation=1
+RGBLINKFLAGS ?= -Weverything -Wtruncation=1
+RGBFIXFLAGS  ?= -Weverything
+RGBGFXFLAGS  ?= -Weverything
+
 
 ### Build targets
 
@@ -47,7 +52,18 @@ RGBLINK ?= $(RGBDS)rgblink
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
-.PHONY: all red green red11 green11 clean tidy compare tools
+.PHONY: \
+	all \
+	red \
+	green \
+	red11 \
+	green11 \
+	red11_vc \
+	green11_vc \
+	clean \
+	tidy \
+	compare \
+	tools
 
 all: $(roms)
 red:        pokered.gb
@@ -89,7 +105,7 @@ tools:
 	$(MAKE) -C tools/
 
 
-RGBASMFLAGS = -Q8 -P includes.asm -Weverything -Wtruncation=1
+RGBASMFLAGS += -Q8 -P includes.asm
 # Create a sym/map for debug purposes if `make` run with `DEBUG=1`
 ifeq ($(DEBUG),1)
 RGBASMFLAGS += -E
@@ -134,23 +150,25 @@ $(foreach obj, $(pokegreen11_vc_obj), $(eval $(call DEP,$(obj),$(obj:_green11_vc
 endif
 
 
-pokered_pad        = 0x00
-pokegreen_pad      = 0x00
-pokered11_pad      = 0x00
-pokegreen11_pad    = 0x00
-pokered11_vc_pad   = 0x00
-pokegreen11_vc_pad = 0x00
+RGBLINKFLAGS += -d
+pokered.gb:        RGBLINKFLAGS += -p 0x00
+pokegreen.gb:      RGBLINKFLAGS += -p 0x00
+pokered11.gb:      RGBLINKFLAGS += -p 0x00
+pokegreen11.gb:    RGBLINKFLAGS += -p 0x00
+pokered11_vc.gb:   RGBLINKFLAGS += -p 0x00
+pokegreen11_vc.gb: RGBLINKFLAGS += -p 0x00
 
-pokered_opt        = -sv -n 0 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON RED"
-pokegreen_opt      = -sv -n 0 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON GREEN"
-pokered11_opt      = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON RED"
-pokegreen11_opt    = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON GREEN"
-pokered11_vc_opt   = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON RED"
-pokegreen11_vc_opt = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMON GREEN"
+RGBFIXFLAGS += -sv -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03
+pokered.gb:        RGBFIXFLAGS += -p 0x00 -n 0 -t "POKEMON RED"
+pokegreen.gb:      RGBFIXFLAGS += -p 0x00 -n 0 -t "POKEMON GREEN"
+pokered11.gb:      RGBFIXFLAGS += -p 0x00 -n 1 -t "POKEMON RED"
+pokegreen11.gb:    RGBFIXFLAGS += -p 0x00 -n 1 -t "POKEMON GREEN"
+pokered11_vc.gb:   RGBFIXFLAGS += -p 0x00 -n 1 -t "POKEMON RED"
+pokegreen11_vc.gb: RGBFIXFLAGS += -p 0x00 -n 1 -t "POKEMON GREEN"
 
 %.gb: $$(%_obj) layout.link
-	$(RGBLINK) -p $($*_pad) -d -m $*.map -n $*.sym -l layout.link -o $@ $(filter %.o,$^)
-	$(RGBFIX) -p $($*_pad) $($*_opt) $@
+	$(RGBLINK) $(RGBLINKFLAGS) -l layout.link -m $*.map -n $*.sym -o $@ $(filter %.o,$^)
+	$(RGBFIX) $(RGBFIXFLAGS) $@
 
 
 ### Misc file-specific graphics rules
@@ -158,10 +176,10 @@ pokegreen11_vc_opt = -sv -n 1 -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -t "POKEMO
 gfx/battle/move_anim_0.2bpp: tools/gfx += --trim-whitespace
 gfx/battle/move_anim_1.2bpp: tools/gfx += --trim-whitespace
 
-gfx/intro/rg_nidorino_1.2bpp: rgbgfx += -Z
-gfx/intro/rg_nidorino_2.2bpp: rgbgfx += -Z
-gfx/intro/rg_nidorino_3.2bpp: rgbgfx += -Z
-gfx/intro/gengar.2bpp: rgbgfx += -Z
+gfx/intro/rg_nidorino_1.2bpp: RGBGFXFLAGS += --columns
+gfx/intro/rg_nidorino_2.2bpp: RGBGFXFLAGS += --columns
+gfx/intro/rg_nidorino_3.2bpp: RGBGFXFLAGS += --columns
+gfx/intro/gengar.2bpp: RGBGFXFLAGS += --columns
 gfx/intro/gengar.2bpp: tools/gfx += --remove-duplicates --preserve=0x19,0x76
 
 gfx/credits/the_end.2bpp: tools/gfx += --interleave --png=$<
@@ -178,12 +196,12 @@ gfx/trade/game_boy.2bpp: tools/gfx += --remove-duplicates
 ### Catch-all graphics rules
 
 %.2bpp: %.png
-	$(RGBGFX) --colors dmg=e4 $(rgbgfx) -o $@ $<
+	$(RGBGFX) --colors dmg $(RGBGFXFLAGS) -o $@ $<
 	$(if $(tools/gfx),\
 		tools/gfx $(tools/gfx) -o $@ $@ || $$($(RM) $@ && false))
 
 %.1bpp: %.png
-	$(RGBGFX) --colors dmg=e4 $(rgbgfx) --depth 1 -o $@ $<
+	$(RGBGFX) --colors dmg $(RGBGFXFLAGS) --depth 1 -o $@ $<
 	$(if $(tools/gfx),\
 		tools/gfx $(tools/gfx) --depth 1 -o $@ $@ || $$($(RM) $@ && false))
 

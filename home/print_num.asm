@@ -108,14 +108,14 @@ ENDM
 	call .PrintLeadingZero
 	jr .next
 .past
-	ld a, "０"
+	ld a, '０'
 	add c
 	ld [hl], a
 .next
 
 	call .NextDigit
 ; ones
-	ld a, "０"
+	ld a, '０'
 	add b
 	ld [hli], a
 	pop de
@@ -192,7 +192,7 @@ ENDM
 	or c
 	jr z, .PrintLeadingZero
 
-	ld a, "０"
+	ld a, '０'
 	add c
 	ld [hl], a
 	ldh [hPastLeadingZeros], a
@@ -201,7 +201,7 @@ ENDM
 .PrintLeadingZero:
 	bit BIT_LEADING_ZEROES, d
 	ret z
-	ld [hl], "０"
+	ld [hl], '０'
 	ret
 
 .NextDigit:

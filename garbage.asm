@@ -142,9 +142,9 @@ IF DEF(_REV1)
 ENDC
 
 
-SECTION "Garbage 15", ROMX
 IF DEF(_REV0)
-	db $DB, $E9, $E5, $35, $7F
+	SECTION "Garbage 15", ROMX, BANK[15]
+		db $DB, $E9, $E5, $35, $7F
 ENDC
 
 
@@ -238,10 +238,10 @@ IF DEF(_REV1)
 ENDC
 
 
-SECTION "Garbage 26", ROMX
 ; the garbage byte is $00 in REV0, same as padding byte
 IF DEF(_REV1)
-	db $FF
+	SECTION "Garbage 26", ROMX, BANK[26]
+		db $FF
 ENDC
 
 

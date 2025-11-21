@@ -424,7 +424,7 @@ DisplayFieldMoveMonMenu:
 	jr z, .reachedName
 .skipNameLoop ; skip past current name
 	ld a, [hli]
-	cp "@"
+	cp '@'
 	jr nz, .skipNameLoop
 	jr .skipNamesLoop
 .reachedName

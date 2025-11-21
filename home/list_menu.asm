@@ -66,7 +66,7 @@ DisplayListMenuIDLoop::
 	and a ; is it the Old Man battle?
 	jr z, .notOldManBattle
 ; oldManBattle
-	ld a, "▶"
+	ld a, '▶'
 	ldcoord_a 5, 4 ; place menu cursor in front of first menu entry
 	ld c, 80
 	call DelayFrames
@@ -212,7 +212,7 @@ DisplayChooseQuantityMenu::
 	ld a, [wListMenuID]
 	cp PRICEDITEMLISTMENU
 	jr nz, .printInitialQuantity
-	ld a, "円"
+	ld a, '円'
 	ldcoord_a 18, 10
 	hlcoord 8, 10
 .printInitialQuantity
@@ -419,7 +419,7 @@ PrintListMenuEntries::
 	add hl, bc
 	ld c, 3 | LEADING_ZEROES
 	call PrintBCDNumber
-	ld [hl], "円"
+	ld [hl], '円'
 .skipPrintingItemPrice
 	ld a, [wListMenuID]
 	and a ; PCPOKEMONLISTMENU?
@@ -476,7 +476,7 @@ PrintListMenuEntries::
 	push hl
 	ld bc, 9 ; 9 columns right
 	add hl, bc
-	ld a, "×"
+	ld a, '×'
 	ld [hli], a
 	ld a, [wNamedObjectIndex]
 	push af
@@ -504,7 +504,7 @@ PrintListMenuEntries::
 	cp c ; is it this item?
 	jr nz, .nextListEntry
 	dec hl
-	ld a, "▷"
+	ld a, '▷'
 	ld [hli], a
 .nextListEntry
 	ld bc, 2 * SCREEN_WIDTH ; 2 rows
@@ -515,7 +515,7 @@ PrintListMenuEntries::
 	jp nz, .loop
 	ld bc, -8
 	add hl, bc
-	ld a, "▼"
+	ld a, '▼'
 	ld [hl], a
 	ret
 .printCancelMenuItem

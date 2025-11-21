@@ -11,7 +11,7 @@ DisplayDiploma::
 	call DisableLCD
 	ld hl, CircleTile
 	ld de, vChars2 tile CIRCLE_TILE_ID
-	ld bc, $10
+	ld bc, TILE_SIZE
 	ld a, BANK(CircleTile)
 	call FarCopyData2
 	hlcoord 0, 0
@@ -81,7 +81,7 @@ AdjustToPlayerNameLength:
 	lb bc, HIGH(-1), 0
 .loop
 	ld a, [hli]
-	cp "@"
+	cp '@'
 	ret z
 	dec c
 	jr .loop

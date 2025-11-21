@@ -16,7 +16,7 @@ ChoosePlayerName:
 	ld [wNamingScreenType], a
 	call DisplayNamingScreen
 	ld a, [wStringBuffer]
-	cp "@"
+	cp '@'
 	jr z, .customName
 	call ClearScreen
 	call Delay3
@@ -50,7 +50,7 @@ ChooseRivalName:
 	ld [wNamingScreenType], a
 	call DisplayNamingScreen
 	ld a, [wStringBuffer]
-	cp "@"
+	cp '@'
 	jr z, .customName
 	call ClearScreen
 	call Delay3
@@ -201,7 +201,7 @@ GetDefaultName:
 	ld e, l
 .innerLoop
 	ld a, [hli]
-	cp "@"
+	cp '@'
 	jr nz, .innerLoop
 	ld a, b
 	cp c

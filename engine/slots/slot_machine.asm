@@ -636,7 +636,7 @@ SlotMachine_PrintWinningSymbol:
 	inc a
 	ld [hl], a
 	hlcoord 18, 16
-	ld [hl], "▼"
+	ld [hl], '▼'
 	ret
 
 SlotMachine_SubtractBetFromPlayerCoins:

@@ -20,10 +20,10 @@ _GivePokemon::
 	callfar SendNewMonToBox
 	ld a, [wCurrentBoxNum]
 	and BOX_NUM_MASK
-	add "１"
+	add '１'
 	ld hl, wStringBuffer
 	ld [hli], a
-	ld [hl], "@"
+	ld [hl], '@'
 	ld hl, SentToBoxText
 	call PrintText
 	scf

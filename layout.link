@@ -103,6 +103,7 @@ ROMX $E
 	"Garbage 14"
 ROMX $F
 	"Battle Core"
+	; Rev.0: "Garbage 15"
 ROMX $10
 	"bank10"
 	"Garbage 16"
@@ -158,7 +159,7 @@ ROMX $1A
 	"Version GFX"
 	"Tilesets 2"
 	"Battle Engine 12"
-	"Garbage 26"
+	; Rev.1: "Garbage 26"
 ROMX $1B
 	"Tilesets 3"
 ROMX $1C

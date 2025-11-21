@@ -20,7 +20,7 @@ GetMonName::
 	ld bc, NAME_LENGTH - 1
 	call CopyData
 	ld hl, wNameBuffer + NAME_LENGTH - 1
-	ld [hl], "@"
+	ld [hl], '@'
 	pop de
 	pop af
 	ldh [hLoadedROMBank], a
@@ -78,7 +78,7 @@ GetMachineName::
 ; now get the machine number and convert it to text
 	ld a, [wNamedObjectIndex]
 	sub TM01 - 1
-	ld b, "０"
+	ld b, '０'
 .FirstDigit
 	sub 10
 	jr c, .SecondDigit
@@ -91,11 +91,11 @@ GetMachineName::
 	ld [de], a
 	inc de
 	pop af
-	ld b, "０"
+	ld b, '０'
 	add b
 	ld [de], a
 	inc de
-	ld a, "@"
+	ld a, '@'
 	ld [de], a
 	pop af
 	ld [wNamedObjectIndex], a

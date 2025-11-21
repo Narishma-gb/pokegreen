@@ -11,7 +11,7 @@ HallOfFamePC:
 	ld bc, ($20 tiles) / 2
 	call ZeroMemory
 	ld hl, vChars2 tile $7e
-	ld bc, 1 tiles
+	ld bc, TILE_SIZE
 	ld a, $ff ; solid black
 	call FillMemory
 	hlcoord 0, 0
@@ -171,7 +171,7 @@ FillFourRowsWithBlack:
 FillMiddleOfScreenWithWhite:
 	hlcoord 0, 4
 	ld bc, SCREEN_WIDTH * 10
-	ld a, "　"
+	ld a, '　'
 	jp FillMemory
 
 CreditsDelay:
@@ -257,7 +257,7 @@ Credits:
 	call FillMiddleOfScreenWithWhite
 	ld de, TheEndGfx
 	ld hl, vChars2 tile $60
-	lb bc, BANK(TheEndGfx), (TheEndGfxEnd - TheEndGfx) / $10
+	lb bc, BANK(TheEndGfx), (TheEndGfxEnd - TheEndGfx) / TILE_SIZE
 	call CopyVideoData
 	hlcoord 4, 8
 	ld de, TheEndUpperTextString

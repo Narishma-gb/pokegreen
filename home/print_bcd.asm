@@ -29,7 +29,7 @@ PrintBCDNumber::
 	jr nz, .skipRightAlignmentAdjustment
 	dec hl ; if the string is right-aligned, it needs to be moved back one space
 .skipRightAlignmentAdjustment
-	ld [hl], "０"
+	ld [hl], '０'
 	call PrintLetterDelay
 	inc hl
 .done
@@ -41,7 +41,7 @@ PrintBCDDigit::
 	jr z, .zeroDigit
 	res BIT_LEADING_ZEROES, b ; unset to indicate that a nonzero digit has been reached
 .outputDigit
-	add "０"
+	add '０'
 	ld [hli], a
 	jp PrintLetterDelay
 .zeroDigit

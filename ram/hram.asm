@@ -8,7 +8,6 @@ hSoftReset:: db
 
 UNION
 hBaseTileID:: ; base tile ID to which offsets are added
-hDexWeight::
 hWarpDestinationMap::
 hOAMTile::
 hROMBankTemp::
@@ -29,6 +28,9 @@ hHalveItemPrices::
 
 NEXTU
 hItemPrice:: ds 3 ; BCD number
+
+NEXTU
+hDexWeight:: dw
 
 NEXTU
 hSlideAmount:: db

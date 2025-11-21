@@ -281,13 +281,13 @@ ENDC
 	jr nz, .unpatchEnemyMonsLoop
 IF DEF(_REV0)
 	ld a, [wPlayerName]
-	cp "A"
+	cp 'A'
 	jr nz, .checkEnemyName
 	ld de, .MyString
 	jr .displayErrorText
 .checkEnemyName
 	ld a, [wLinkEnemyTrainerName]
-	cp "A"
+	cp 'A'
 	jr nz, .continue
 	ld de, .PartnersString
 .displayErrorText
@@ -511,7 +511,7 @@ TradeCenter_SelectMon:
 	ld a, 16
 	ld [wTopMenuItemY], a
 .selectStatsMenuItem
-	ld a, "　"
+	ld a, '　'
 	ldcoord_a 11, 16
 	ld a, PAD_RIGHT | PAD_B | PAD_A
 	ld [wMenuWatchedKeys], a
@@ -528,7 +528,7 @@ TradeCenter_SelectMon:
 	call LoadScreenTilesFromBuffer1
 	jp .playerMonMenu
 .selectTradeMenuItem
-	ld a, "　"
+	ld a, '　'
 	ldcoord_a 1, 16
 	ld a, PAD_LEFT | PAD_B | PAD_A
 	ld [wMenuWatchedKeys], a
@@ -576,10 +576,10 @@ TradeCenter_SelectMon:
 	ld l, a
 	ld a, [wMenuCursorLocation + 1]
 	ld h, a
-	ld a, "　"
+	ld a, '　'
 	ld [hl], a
 .cancelMenuItem_Loop
-	ld a, "▶" ; filled arrow cursor
+	ld a, '▶' ; filled arrow cursor
 	ldcoord_a 1, 16
 .cancelMenuItem_JoypadLoop
 	call JoypadLowSensitivity
@@ -591,14 +591,14 @@ TradeCenter_SelectMon:
 	bit B_PAD_UP, a
 	jr z, .cancelMenuItem_JoypadLoop
 ; if Up pressed
-	ld a, "　"
+	ld a, '　'
 	ldcoord_a 1, 16
 	ld a, [wPartyCount]
 	dec a
 	ld [wCurrentMenuItem], a
 	jp .playerMonMenu
 .cancelMenuItem_APressed
-	ld a, "▷" ; unfilled arrow cursor
+	ld a, '▷' ; unfilled arrow cursor
 	ldcoord_a 1, 16
 	ld a, $f
 	ld [wSerialExchangeNybbleSendData], a
@@ -648,7 +648,7 @@ TradeCenter_PlaceSelectedEnemyMonMenuCursor:
 	hlcoord 12, 3
 	ld bc, 2 * SCREEN_WIDTH
 	call AddNTimes
-	ld [hl], "▷" ; cursor
+	ld [hl], '▷' ; cursor
 	ret
 
 TradeCenter_DisplayStats:
@@ -983,7 +983,7 @@ CableClub_TextBoxBorder:
 	push hl
 	ld a, $7b ; border left vertical line tile
 	ld [hli], a
-	ld a, "　"
+	ld a, '　'
 	call CableClub_DrawHorizontalLine
 	ld [hl], $77 ; border right vertical line tile
 	pop hl
@@ -1010,5 +1010,5 @@ CableClub_DrawHorizontalLine:
 LoadTrainerInfoTextBoxTiles:
 	ld de, TrainerInfoTextBoxTileGraphics
 	ld hl, vChars2 tile $76
-	lb bc, BANK(TrainerInfoTextBoxTileGraphics), (TrainerInfoTextBoxTileGraphicsEnd - TrainerInfoTextBoxTileGraphics) / $10
+	lb bc, BANK(TrainerInfoTextBoxTileGraphics), (TrainerInfoTextBoxTileGraphicsEnd - TrainerInfoTextBoxTileGraphics) / TILE_SIZE
 	jp CopyVideoData

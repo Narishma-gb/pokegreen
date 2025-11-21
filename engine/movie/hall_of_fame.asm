@@ -8,7 +8,7 @@ AnimateHallOfFame:
 	call DisableLCD
 	ld hl, vBGMap0
 	ld bc, 2 * TILEMAP_AREA
-	ld a, "　"
+	ld a, '　'
 	call FillMemory
 	call EnableLCD
 	ld hl, rLCDC
@@ -227,7 +227,7 @@ HoFDisplayPlayerStats:
 	ld de, wPlayTimeHours
 	lb bc, 1, 3
 	call PrintNumber
-	ld [hl], ":"
+	ld [hl], ':'
 	inc hl
 	ld de, wPlayTimeMinutes
 	lb bc, LEADING_ZEROES | 1, 2
@@ -239,7 +239,7 @@ HoFDisplayPlayerStats:
 	ld de, wPlayerMoney
 	ld c, 3 | LEADING_ZEROES
 	call PrintBCDNumber
-	ld [hl], "円"
+	ld [hl], '円'
 	ld hl, DexSeenOwnedText
 	call HoFPrintTextAndDelay
 	ld hl, DexRatingText
