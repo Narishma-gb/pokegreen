@@ -150,21 +150,15 @@ $(foreach obj, $(pokegreen11_vc_obj), $(eval $(call DEP,$(obj),$(obj:_green11_vc
 endif
 
 
-RGBLINKFLAGS += -d
-pokered.gb:        RGBLINKFLAGS += -p 0x00
-pokegreen.gb:      RGBLINKFLAGS += -p 0x00
-pokered11.gb:      RGBLINKFLAGS += -p 0x00
-pokegreen11.gb:    RGBLINKFLAGS += -p 0x00
-pokered11_vc.gb:   RGBLINKFLAGS += -p 0x00
-pokegreen11_vc.gb: RGBLINKFLAGS += -p 0x00
+RGBLINKFLAGS += -d -p 0
 
-RGBFIXFLAGS += -sv -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03
-pokered.gb:        RGBFIXFLAGS += -p 0x00 -n 0 -t "POKEMON RED"
-pokegreen.gb:      RGBFIXFLAGS += -p 0x00 -n 0 -t "POKEMON GREEN"
-pokered11.gb:      RGBFIXFLAGS += -p 0x00 -n 1 -t "POKEMON RED"
-pokegreen11.gb:    RGBFIXFLAGS += -p 0x00 -n 1 -t "POKEMON GREEN"
-pokered11_vc.gb:   RGBFIXFLAGS += -p 0x00 -n 1 -t "POKEMON RED"
-pokegreen11_vc.gb: RGBFIXFLAGS += -p 0x00 -n 1 -t "POKEMON GREEN"
+RGBFIXFLAGS += -sv -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -p 0
+pokered.gb:        RGBFIXFLAGS += -n 0 -t "POKEMON RED"
+pokegreen.gb:      RGBFIXFLAGS += -n 0 -t "POKEMON GREEN"
+pokered11.gb:      RGBFIXFLAGS += -n 1 -t "POKEMON RED"
+pokegreen11.gb:    RGBFIXFLAGS += -n 1 -t "POKEMON GREEN"
+pokered11_vc.gb:   RGBFIXFLAGS += -n 1 -t "POKEMON RED"
+pokegreen11_vc.gb: RGBFIXFLAGS += -n 1 -t "POKEMON GREEN"
 
 %.gb: $$(%_obj) layout.link
 	$(RGBLINK) $(RGBLINKFLAGS) -l layout.link -m $*.map -n $*.sym -o $@ $(filter %.o,$^)
