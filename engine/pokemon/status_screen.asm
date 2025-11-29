@@ -313,7 +313,7 @@ StatusScreen2:
 	ld b, a ; Number of blank moves
 	hlcoord 11, 10
 	ld de, SCREEN_WIDTH * 2
-	ld a, 'P'
+	ld a, 'Ｐ'
 	call StatusScreen_PrintPP ; Print "PP"
 	ld a, b
 	and a

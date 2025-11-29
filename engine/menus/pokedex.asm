@@ -564,8 +564,8 @@ ShowPokedexDataInternal:
 	ret
 
 HeightWeightText:
-	db   "たかさ　　？？？m"
-	next "おもさ　　？？？kg@"
+	db   "たかさ　　？？？ｍ"
+	next "おもさ　　？？？ｋｇ@"
 
 PokeText:
 	db "#@"

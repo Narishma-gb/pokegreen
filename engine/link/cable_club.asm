@@ -281,13 +281,13 @@ ENDC
 	jr nz, .unpatchEnemyMonsLoop
 IF DEF(_REV0)
 	ld a, [wPlayerName]
-	cp 'A'
+	cp 'Ａ'
 	jr nz, .checkEnemyName
 	ld de, .MyString
 	jr .displayErrorText
 .checkEnemyName
 	ld a, [wLinkEnemyTrainerName]
-	cp 'A'
+	cp 'Ａ'
 	jr nz, .continue
 	ld de, .PartnersString
 .displayErrorText
