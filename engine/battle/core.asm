@@ -137,7 +137,7 @@ StartBattle:
 	inc a
 	ld [wFirstMonsNotOutYet], a
 	ld hl, wEnemyMon1HP
-	ld bc, wEnemyMon2 - wEnemyMon1 - 1
+	ld bc, PARTYMON_STRUCT_LENGTH - 1
 	ld d, $3
 .findFirstAliveEnemyMonLoop
 	inc d
@@ -771,7 +771,7 @@ FaintEnemyPokemon:
 	jr z, .wild
 	ld a, [wEnemyMonPartyPos]
 	ld hl, wEnemyMon1HP
-	ld bc, wEnemyMon2 - wEnemyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	xor a
 	ld [hli], a
@@ -913,7 +913,7 @@ AnyEnemyPokemonAliveCheck:
 	ld b, a
 	xor a
 	ld hl, wEnemyMon1HP
-	ld de, wEnemyMon2 - wEnemyMon1
+	ld de, PARTYMON_STRUCT_LENGTH
 .nextPokemon
 	or [hl]
 	inc hl
@@ -1235,17 +1235,17 @@ SlideDownFaintedMonPic:
 	push af
 	set BIT_NO_TEXT_DELAY, a
 	ld [wStatusFlags5], a
-	ld b, 7 ; number of times to slide
+	ld b, PIC_HEIGHT ; number of times to slide
 .slideStepLoop ; each iteration, the mon is slid down one row
 	push bc
 	push de
 	push hl
-	ld b, 6 ; number of rows
+	ld b, PIC_HEIGHT - 1 ; number of rows
 .rowLoop
 	push bc
 	push hl
 	push de
-	ld bc, $7
+	ld bc, PIC_WIDTH
 	call CopyData
 	pop de
 	pop hl
@@ -1277,7 +1277,8 @@ SlideDownFaintedMonPic:
 	ret
 
 SevenSpacesText:
-	db "　　　　　　　@"
+	ds PIC_WIDTH, '　'
+	db "@"
 
 ; slides the player or enemy trainer off screen
 ; a is the number of tiles to slide it horizontally (always 9 for the player trainer or 8 for the enemy trainer)
@@ -1289,7 +1290,7 @@ SlideTrainerPicOffScreen:
 .slideStepLoop ; each iteration, the trainer pic is slid one tile left/right
 	push bc
 	push hl
-	ld b, 7 ; number of rows
+	ld b, PIC_HEIGHT ; number of rows
 .rowLoop
 	push hl
 	ldh a, [hSlideAmount]
@@ -1378,7 +1379,7 @@ EnemySendOut:
 	ld a, b
 	ld [wWhichPokemon], a
 	push bc
-	ld bc, wEnemyMon2 - wEnemyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	pop bc
 	inc hl
@@ -1390,7 +1391,7 @@ EnemySendOut:
 .next3
 	ld a, [wWhichPokemon]
 	ld hl, wEnemyMon1Level
-	ld bc, wEnemyMon2 - wEnemyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld a, [hl]
 	ld [wCurEnemyLevel], a
@@ -1516,7 +1517,7 @@ AnyPartyAlive::
 	ld e, a
 	xor a
 	ld hl, wPartyMon1HP
-	ld bc, wPartyMon2 - wPartyMon1 - 1
+	ld bc, PARTYMON_STRUCT_LENGTH - 1
 .partyMonsLoop
 	or [hl]
 	inc hl
@@ -1532,7 +1533,7 @@ AnyPartyAlive::
 HasMonFainted:
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1HP
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld a, [hli]
 	or [hl]
@@ -1686,16 +1687,16 @@ GotAwayText:
 ; copies from party data to battle mon data when sending out a new player mon
 LoadBattleMonFromParty:
 	ld a, [wWhichPokemon]
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	ld hl, wPartyMon1Species
 	call AddNTimes
 	ld de, wBattleMonSpecies
 	ld bc, wBattleMonDVs - wBattleMonSpecies
 	call CopyData
-	ld bc, wPartyMon1DVs - wPartyMon1OTID
+	ld bc, MON_DVS - MON_OTID
 	add hl, bc
 	ld de, wBattleMonDVs
-	ld bc, wPartyMon1PP - wPartyMon1DVs
+	ld bc, MON_PP - MON_DVS
 	call CopyData
 	ld de, wBattleMonPP
 	ld bc, NUM_MOVES
@@ -1737,16 +1738,16 @@ ENDC
 ; copies from enemy party data to current enemy mon data when sending out a new enemy mon
 LoadEnemyMonFromParty:
 	ld a, [wWhichPokemon]
-	ld bc, wEnemyMon2 - wEnemyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	ld hl, wEnemyMons
 	call AddNTimes
 	ld de, wEnemyMonSpecies
 	ld bc, wEnemyMonDVs - wEnemyMonSpecies
 	call CopyData
-	ld bc, wEnemyMon1DVs - wEnemyMon1OTID
+	ld bc, MON_DVS - MON_OTID
 	add hl, bc
 	ld de, wEnemyMonDVs
-	ld bc, wEnemyMon1PP - wEnemyMon1DVs
+	ld bc, MON_PP - MON_DVS
 	call CopyData
 	ld de, wEnemyMonPP
 	ld bc, NUM_MOVES
@@ -1876,17 +1877,17 @@ AnimateRetreatingPlayerMon:
 	lb bc, 7, 7
 	jp ClearScreenArea
 
-; Copies player's current pokemon's current HP and status into the party
+; Copies player's current pokemon's current HP, party pos, and status into the party
 ; struct data so it stays after battle or switching
 ReadPlayerMonCurHPAndStatus:
 	ld a, [wPlayerMonNumber]
 	ld hl, wPartyMon1HP
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld d, h
 	ld e, l
 	ld hl, wBattleMonHP
-	ld bc, $4               ; 2 bytes HP, 1 byte unknown (unused?), 1 byte status
+	ld bc, MON_STATUS + 1 - MON_HP ; also copies party pos in-between HP and status
 	jp CopyData
 
 DrawHUDsAndHPBars:
@@ -2541,7 +2542,7 @@ MoveSelectionMenu:
 .relearnmenu
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Moves
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 .copymoves
 	ld de, wMoves
@@ -2841,12 +2842,12 @@ SwapMovesInMenu:
 .swapMovesInPartyMon
 	ld hl, wPartyMon1Moves
 	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	push hl
 	call .swapBytes ; swap moves
 	pop hl
-	ld bc, wPartyMon1PP - wPartyMon1Moves
+	ld bc, MON_PP - MON_MOVES
 	add hl, bc
 	call .swapBytes ; swap move PP
 	xor a
@@ -4070,7 +4071,7 @@ CheckForDisobedience:
 ; compare the mon's original trainer ID with the player's ID to see if it was traded
 .checkIfMonIsTraded
 	ld hl, wPartyMon1OTID
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	ld a, [wPlayerMonNumber]
 	call AddNTimes
 	ld a, [wPlayerID]
@@ -4291,7 +4292,7 @@ GetDamageVarsForPlayerAttack:
 	push bc
 	ld hl, wPartyMon1Attack
 	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	pop bc
 	jr .scaleStats
@@ -4323,7 +4324,7 @@ GetDamageVarsForPlayerAttack:
 	push bc
 	ld hl, wPartyMon1Special
 	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	pop bc
 ; if either the offensive or defensive stat is too large to store in a byte, scale both stats by dividing them by 4
@@ -4397,7 +4398,7 @@ GetDamageVarsForEnemyAttack:
 ; in the case of a critical hit, reset the player's defense and the enemy's attack to their base values
 	ld hl, wPartyMon1Defense
 	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld a, [hli]
 	ld b, a
@@ -4429,7 +4430,7 @@ GetDamageVarsForEnemyAttack:
 ; in the case of a critical hit, reset the player's and enemy's specials to their base values
 	ld hl, wPartyMon1Special
 	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld a, [hli]
 	ld b, a
@@ -4492,7 +4493,7 @@ GetEnemyMonStat:
 	ld b, $0
 	add hl, bc
 	ld a, [wEnemyMonPartyPos]
-	ld bc, wEnemyMon2 - wEnemyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld a, [hli]
 	ldh [hMultiplicand + 1], a
@@ -5295,7 +5296,7 @@ IncrementMovePP:
 	jr z, .updatePP
 	ld a, [wEnemyMonPartyPos] ; value for enemy turn
 .updatePP
-	ld bc, wEnemyMon2 - wEnemyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	inc [hl] ; increment PP in the party memory location
 	ret
@@ -6313,7 +6314,7 @@ LoadEnemyMonData:
 ; if it's a trainer battle, copy moves from enemy party data
 	ld hl, wEnemyMon1Moves
 	ld a, [wWhichPokemon]
-	ld bc, wEnemyMon2 - wEnemyMon1
+	ld bc, PARTYMON_STRUCT_LENGTH
 	call AddNTimes
 	ld bc, NUM_MOVES
 	call CopyData
@@ -6460,7 +6461,7 @@ LoadPlayerBackPic:
 	ld [hl], d ; OAM Y
 	inc hl
 	ld [hl], e ; OAM X
-	ld a, $8 ; height of tile
+	ld a, TILE_HEIGHT
 	add d ; increase Y by height of tile
 	ld d, a
 	inc hl
@@ -6474,7 +6475,7 @@ LoadPlayerBackPic:
 	ldh a, [hOAMTile]
 	add $4 ; increase tile number by 4
 	ldh [hOAMTile], a
-	ld a, $8 ; width of tile
+	ld a, TILE_WIDTH
 	add e ; increase X by width of tile
 	ld e, a
 	dec b
@@ -6489,7 +6490,7 @@ LoadPlayerBackPic:
 	ld de, sSpriteBuffer1
 	ldh a, [hLoadedROMBank]
 	ld b, a
-	ld c, 7 * 7
+	ld c, PIC_SIZE
 	call CopyVideoData
 	xor a
 	ld [rRAMG], a
@@ -6953,15 +6954,7 @@ InitWildBattle:
 	ld [hli], a   ; write front sprite pointer
 	ld [hl], b
 	ld hl, wEnemyMonNick  ; set name to "ゆうれい"
-	ld a, 'ゆ'
-	ld [hli], a
-	ld a, 'う'
-	ld [hli], a
-	ld a, 'れ'
-	ld [hli], a
-	ld a, 'い'
-	ld [hli], a
-	ld [hl], '@'
+	ld_hli_a_string "ゆうれい@"
 	ld a, [wCurPartySpecies]
 	push af
 	ld a, MON_GHOST

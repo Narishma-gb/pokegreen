@@ -1,59 +1,59 @@
 ; base data struct members (see data/pokemon/base_stats/*.asm)
 RSRESET
-DEF BASE_DEX_NO      RB                      ; $00
-DEF BASE_STATS       RB NUM_STATS            ; $01
+DEF BASE_DEX_NO      rb
+DEF BASE_STATS       rb NUM_STATS
 RSSET BASE_STATS
-DEF BASE_HP          RB                      ; $01
-DEF BASE_ATK         RB                      ; $02
-DEF BASE_DEF         RB                      ; $03
-DEF BASE_SPD         RB                      ; $04
-DEF BASE_SPC         RB                      ; $05
-DEF BASE_TYPES       RW                      ; $06
+DEF BASE_HP          rb
+DEF BASE_ATK         rb
+DEF BASE_DEF         rb
+DEF BASE_SPD         rb
+DEF BASE_SPC         rb
+DEF BASE_TYPES       rw
 RSSET BASE_TYPES
-DEF BASE_TYPE_1      RB                      ; $06
-DEF BASE_TYPE_2      RB                      ; $07
-DEF BASE_CATCH_RATE  RB                      ; $08
-DEF BASE_EXP         RB                      ; $09
-DEF BASE_PIC_SIZE    RB                      ; $0a
-DEF BASE_FRONTPIC    RW                      ; $0b
-DEF BASE_BACKPIC     RW                      ; $0d
-DEF BASE_MOVES       RB NUM_MOVES            ; $0f
-DEF BASE_GROWTH_RATE RB                      ; $13
-DEF BASE_TMHM        RB (NUM_TM_HM + 7) / 8  ; $14
+DEF BASE_TYPE_1      rb
+DEF BASE_TYPE_2      rb
+DEF BASE_CATCH_RATE  rb
+DEF BASE_EXP         rb
+DEF BASE_PIC_SIZE    rb
+DEF BASE_FRONTPIC    rw
+DEF BASE_BACKPIC     rw
+DEF BASE_MOVES       rb NUM_MOVES
+DEF BASE_GROWTH_RATE rb
+DEF BASE_TMHM        rb (NUM_TM_HM + 7) / 8
                      rb_skip
-DEF BASE_DATA_SIZE EQU _RS                   ; $1C
+DEF BASE_DATA_SIZE EQU _RS
 
 ; party_struct members (see macros/ram.asm)
 RSRESET
-DEF MON_SPECIES    RB              ; $00
-DEF MON_HP         RW              ; $01
-DEF MON_BOX_LEVEL  RB              ; $03
-DEF MON_STATUS     RB              ; $04
-DEF MON_TYPE       RW              ; $05
+DEF MON_SPECIES    rb
+DEF MON_HP         rw
+DEF MON_BOX_LEVEL  rb
+DEF MON_STATUS     rb
+DEF MON_TYPE       rw
 RSSET MON_TYPE
-DEF MON_TYPE1      RB              ; $05
-DEF MON_TYPE2      RB              ; $06
-DEF MON_CATCH_RATE RB              ; $07
-DEF MON_MOVES      RB NUM_MOVES    ; $08
-DEF MON_OTID       RW              ; $0c
-DEF MON_EXP        RB 3            ; $0e
-DEF MON_HP_EXP     RW              ; $11
-DEF MON_ATK_EXP    RW              ; $13
-DEF MON_DEF_EXP    RW              ; $15
-DEF MON_SPD_EXP    RW              ; $17
-DEF MON_SPC_EXP    RW              ; $19
-DEF MON_DVS        RW              ; $1b
-DEF MON_PP         RB NUM_MOVES    ; $1d
-DEF BOXMON_STRUCT_LENGTH EQU _RS   ; $21
-DEF MON_LEVEL      RB              ; $21
-DEF MON_STATS      RW NUM_STATS    ; $22
+DEF MON_TYPE1      rb
+DEF MON_TYPE2      rb
+DEF MON_CATCH_RATE rb
+DEF MON_MOVES      rb NUM_MOVES
+DEF MON_OTID       rw
+DEF MON_EXP        rb 3
+DEF MON_HP_EXP     rw
+DEF MON_ATK_EXP    rw
+DEF MON_DEF_EXP    rw
+DEF MON_SPD_EXP    rw
+DEF MON_SPC_EXP    rw
+DEF MON_DVS        rw
+DEF MON_PP         rb NUM_MOVES
+DEF BOXMON_STRUCT_LENGTH EQU _RS ; $21
+DEF MON_LEVEL      rb
+DEF MON_STATS      rw NUM_STATS
 RSSET MON_STATS
-DEF MON_MAXHP      RW              ; $22
-DEF MON_ATK        RW              ; $24
-DEF MON_DEF        RW              ; $26
-DEF MON_SPD        RW              ; $28
-DEF MON_SPC        RW              ; $2A
-DEF PARTYMON_STRUCT_LENGTH EQU _RS ; $2C
+DEF MON_MAXHP      rw
+DEF MON_ATK        rw
+DEF MON_DEF        rw
+DEF MON_SPD        rw
+DEF MON_SPC        rw
+DEF PARTYMON_STRUCT_LENGTH EQU _RS ; $2c
 
 DEF PARTY_LENGTH EQU 6
 

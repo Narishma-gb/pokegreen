@@ -31,7 +31,7 @@ ExecuteCurMapScriptInTable::
 LoadGymLeaderAndCityName::
 	push de
 	ld de, wGymCityName
-	ld bc, 5
+	ld bc, GYM_CITY_LENGTH
 	call CopyData   ; load city name
 	pop hl
 	ld de, wGymLeaderName
