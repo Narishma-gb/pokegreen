@@ -189,7 +189,7 @@ DisplayIntroNameTextBox:
 .namestring
 	db "なまえこうほ@"
 
-INCLUDE "data/player_names.asm"
+INCLUDE "data/player/names.asm"
 
 GetDefaultName:
 ; a = name index
@@ -215,7 +215,7 @@ GetDefaultName:
 	ld bc, NAME_BUFFER_LENGTH
 	jp CopyData
 
-INCLUDE "data/player_names_list.asm"
+INCLUDE "data/player/names_list.asm"
 
 LinkMenuEmptyText:
 	text_end

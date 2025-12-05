@@ -54,7 +54,6 @@ DrawHP_:
 	pop de
 	ret
 
-; Predef 0x37
 StatusScreen:
 	call LoadMonData
 	ld a, [wMonDataLocation]
@@ -67,7 +66,7 @@ StatusScreen:
 	ld hl, wLoadedMonHPExp - 1
 	ld de, wLoadedMonStats
 	ld b, $1
-	call CalcStats ; Recalculate stats
+	call CalcStats
 .DontRecalculate
 	ld hl, wStatusFlags2
 	set BIT_NO_AUDIO_FADE_OUT, [hl]
@@ -156,7 +155,7 @@ StatusScreen:
 	ld de, wLoadedMonOTID
 	lb bc, LEADING_ZEROES | 2, 5
 	call PrintNumber ; ID Number
-	ld d, $0
+	ld d, STATUS_SCREEN_STATS_BOX
 	call PrintStatsBox
 	call Delay3
 	call GBPalNormal
@@ -231,41 +230,42 @@ PTile: INCBIN "gfx/font/P.1bpp"
 
 PrintStatsBox:
 	ld a, d
-	and a ; a is 0 from the status screen
-	jr nz, .DifferentBox
+	ASSERT STATUS_SCREEN_STATS_BOX == 0
+	and a
+	jr nz, .LevelUpStatsBox ; battle or Rare Candy
 	hlcoord 0, 8
 	ld b, 8
 	ld c, 8
-	call TextBoxBorder ; Draws the box
-	hlcoord 1, 10 ; Start printing stats from here
-	ld bc, $5 ; Number offset
+	call TextBoxBorder
+	hlcoord 1, 10
+	ld bc, 5 ; 5 columns right
 	jr .PrintStats
-.DifferentBox
+.LevelUpStatsBox
 	hlcoord 9, 2
 	ld b, 8
 	ld c, 9
 	call TextBoxBorder
 	hlcoord 11, 4
-	ld bc, $4
+	ld bc, 4 ; 4 columns right
 .PrintStats
 	push bc
 	push hl
-	ld de, StatsText
+	ld de, .StatsText
 	call PlaceString
 	pop hl
 	pop bc
 	add hl, bc
 	ld de, wLoadedMonAttack
 	lb bc, 2, 3
-	call PrintStat
+	call .PrintStat
 	ld de, wLoadedMonDefense
-	call PrintStat
+	call .PrintStat
 	ld de, wLoadedMonSpeed
-	call PrintStat
+	call .PrintStat
 	ld de, wLoadedMonSpecial
 	jp PrintNumber
 
-PrintStat:
+.PrintStat:
 	push hl
 	call PrintNumber
 	pop hl
@@ -273,7 +273,7 @@ PrintStat:
 	add hl, de
 	ret
 
-StatsText:
+.StatsText:
 	db   "こうげき"
 	next "ぼうぎょ"
 	next "すばやさ"
@@ -307,10 +307,10 @@ StatusScreen2:
 	call PlaceString ; Print moves
 	ld a, [wNumMovesMinusOne]
 	inc a
-	ld c, a
-	ld a, $4
+	ld c, a ; number of known moves
+	ld a, NUM_MOVES
 	sub c
-	ld b, a ; Number of blank moves
+	ld b, a ; number of blank moves
 	hlcoord 11, 10
 	ld de, SCREEN_WIDTH * 2
 	ld a, 'Ｐ'
@@ -370,7 +370,7 @@ StatusScreen2:
 	pop bc
 	inc b
 	ld a, b
-	cp $4
+	cp NUM_MOVES
 	jr nz, .PrintPP
 .PPDone
 	hlcoord 9, 3
