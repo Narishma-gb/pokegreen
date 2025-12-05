@@ -16069,8 +16069,8 @@ WRAM0 bank #0:
 	         $cd05 = wLuckySlotHiddenObjectIndex
 	         $cd05 = wEnemyBideAccumulatedDamage
 	         $cd0f = wVermilionDockTileMapBufferEnd
-	         $cd0f = wInGameTradeGiveMonSpecies
 	         $cd0f = wPlayerMonUnmodifiedLevel
+	         $cd0f = wInGameTradeGiveMonSpecies
 	         $cd0f = wMiscBattleDataEnd
 	         $cd10 = wPlayerMonUnmodifiedMaxHP
 	         $cd10 = wInGameTradeTextPointerTablePointer
@@ -16147,8 +16147,8 @@ WRAM0 bank #0:
 	         $cd3d = wMoveDownSmallStarsOAMCount
 	         $cd3d = wStoppingWhichSlotMachineWheel
 	         $cd3d = wFieldMoves
-	         $cd3d = wCoordIndex
 	         $cd3d = wHoFTeamIndex
+	         $cd3d = wCoordIndex
 	         $cd3d = wDayCareStartLevel
 	         $cd3d = wBoxMonCounts
 	         $cd3d = wSavedY
@@ -18088,8 +18088,8 @@ HRAM bank #0:
 	         $ffdc = hOaksAideRewardItem
 	         $ffdc = hGymGateAnswer
 	         $ffdc = hItemToRemoveIndex
-	         $ffdd = hPlayerXCoord
 	         $ffdd = hOaksAideNumMonsOwned
+	         $ffdd = hPlayerXCoord
 	         $ffe0 = hBackupGymGateIndex
 	         $ffe0 = hUnlockedSilphCoDoors
 	         $ffe1 = hStartTileID

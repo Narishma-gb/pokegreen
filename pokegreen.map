@@ -16102,15 +16102,15 @@ WRAM0 bank #0:
 	         $cd3d = wPlayerSpinWhileMovingUpOrDownAnimDeltaY
 	         $cd3d = wTempSCX
 	         $cd3d = wMoveDownSmallStarsOAMCount
+	         $cd3d = wStoppingWhichSlotMachineWheel
 	         $cd3d = wFieldMoves
-	         $cd3d = wCoordIndex
 	         $cd3d = wHoFTeamIndex
+	         $cd3d = wCoordIndex
 	         $cd3d = wDayCareStartLevel
 	         $cd3d = wBoxMonCounts
 	         $cd3d = wSavedY
 	         $cd3d = wTrainerSpriteOffset
 	         $cd3d = wPlayerCharacterOAMTile
-	         $cd3d = wStoppingWhichSlotMachineWheel
 	         $cd3d = wWereAnyMonsAsleep
 	         $cd3d = wFallingObjectsMovementData
 	         $cd3e = wNumCreditsMonsDisplayed
