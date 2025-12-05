@@ -76,10 +76,10 @@ ENDM
 
 ; dangerous, only use when HL is guaranteed to be the desired value
 ;\1 = event index
-;MACRO CheckEventForceReuseHL
-;	DEF event_byte = ((\1) / 8)
-;	bit (\1) % 8, [hl]
-;ENDM
+MACRO CheckEventForceReuseHL
+	DEF event_byte = ((\1) / 8)
+	bit (\1) % 8, [hl]
+ENDM
 
 ;\1 = event index
 ;\2 = event index of the last event used before the branch
@@ -110,12 +110,12 @@ MACRO CheckAndResetEvent
 ENDM
 
 ;\1 = event index
-;MACRO CheckAndSetEventA
-;	ld a, [wEventFlags + ((\1) / 8)]
-;	bit (\1) % 8, a
-;	set (\1) % 8, a
-;	ld [wEventFlags + ((\1) / 8)], a
-;ENDM
+MACRO CheckAndSetEventA
+	ld a, [wEventFlags + ((\1) / 8)]
+	bit (\1) % 8, a
+	set (\1) % 8, a
+	ld [wEventFlags + ((\1) / 8)], a
+ENDM
 
 ;\1 = event index
 MACRO CheckAndResetEventA
@@ -191,22 +191,22 @@ ENDM
 
 ;\1 = event index
 ;\2 = event index of the last event used before the branch
-;MACRO ResetEventAfterBranchReuseHL
-;	DEF event_byte = ((\2) / 8)
-;	IF event_byte != ((\1) / 8)
-;		DEF event_byte = ((\1) / 8)
-;		ld hl, wEventFlags + event_byte
-;	ENDC
-;
-;	res (\1) % 8, [hl]
-;ENDM
+MACRO ResetEventAfterBranchReuseHL
+	DEF event_byte = ((\2) / 8)
+	IF event_byte != ((\1) / 8)
+		DEF event_byte = ((\1) / 8)
+		ld hl, wEventFlags + event_byte
+	ENDC
+
+	res (\1) % 8, [hl]
+ENDM
 
 ; dangerous, only use when HL is guaranteed to be the desired value
 ;\1 = event index
-;MACRO ResetEventForceReuseHL
-;	DEF event_byte = ((\1) / 8)
-;	res (\1) % 8, [hl]
-;ENDM
+MACRO ResetEventForceReuseHL
+	DEF event_byte = ((\1) / 8)
+	res (\1) % 8, [hl]
+ENDM
 
 ;\1 = event index
 ;\2 = event index
@@ -358,27 +358,27 @@ MACRO CheckBothEventsSet
 		ENDC
 		and (1 << ((\1) % 8)) | (1 << ((\2) % 8))
 		cp (1 << ((\1) % 8)) | (1 << ((\2) % 8))
-;	ELSE
-;		; This case doesn't happen in the original ROM.
-;		IF ((\1) % 8) == ((\2) % 8)
-;			push hl
-;			ld a, [wEventFlags + ((\1) / 8)]
-;			ld hl, wEventFlags + ((\2) / 8)
-;			and [hl]
-;			cpl
-;			bit ((\1) % 8), a
-;			pop hl
-;		ELSE
-;			push bc
-;			ld a, [wEventFlags + ((\1) / 8)]
-;			and (1 << ((\1) % 8))
-;			ld b, a
-;			ld a, [wEventFlags + ((\2) / 8)]
-;			and (1 << ((\2) % 8))
-;			or b
-;			cp (1 << ((\1) % 8)) | (1 << ((\2) % 8))
-;			pop bc
-;		ENDC
+	ELSE
+		; This case doesn't happen in the original ROM.
+		IF ((\1) % 8) == ((\2) % 8)
+			push hl
+			ld a, [wEventFlags + ((\1) / 8)]
+			ld hl, wEventFlags + ((\2) / 8)
+			and [hl]
+			cpl
+			bit ((\1) % 8), a
+			pop hl
+		ELSE
+			push bc
+			ld a, [wEventFlags + ((\1) / 8)]
+			and (1 << ((\1) % 8))
+			ld b, a
+			ld a, [wEventFlags + ((\2) / 8)]
+			and (1 << ((\2) % 8))
+			or b
+			cp (1 << ((\1) % 8)) | (1 << ((\2) % 8))
+			pop bc
+		ENDC
 	ENDC
 ENDM
 
@@ -393,33 +393,33 @@ MACRO CheckEitherEventSet
 			ld a, [wEventFlags + ((\1) / 8)]
 		ENDC
 		and (1 << ((\1) % 8)) | (1 << ((\2) % 8))
-;	ELSE
-;		; This case doesn't happen in the original ROM.
-;		IF ((\1) % 8) == ((\2) % 8)
-;			push hl
-;			ld a, [wEventFlags + ((\1) / 8)]
-;			ld hl, wEventFlags + ((\2) / 8)
-;			or [hl]
-;			bit ((\1) % 8), a
-;			pop hl
-;		ELSE
-;			push bc
-;			ld a, [wEventFlags + ((\1) / 8)]
-;			and (1 << ((\1) % 8))
-;			ld b, a
-;			ld a, [wEventFlags + ((\2) / 8)]
-;			and (1 << ((\2) % 8))
-;			or b
-;			pop bc
-;		ENDC
+	ELSE
+		; This case doesn't happen in the original ROM.
+		IF ((\1) % 8) == ((\2) % 8)
+			push hl
+			ld a, [wEventFlags + ((\1) / 8)]
+			ld hl, wEventFlags + ((\2) / 8)
+			or [hl]
+			bit ((\1) % 8), a
+			pop hl
+		ELSE
+			push bc
+			ld a, [wEventFlags + ((\1) / 8)]
+			and (1 << ((\1) % 8))
+			ld b, a
+			ld a, [wEventFlags + ((\2) / 8)]
+			and (1 << ((\2) % 8))
+			or b
+			pop bc
+		ENDC
 	ENDC
 ENDM
 
 ; for handling fixed event bits when custom events are inserted/removed
 ;\1 = event index
 ;\2 = fixed flag bit
-;MACRO AdjustEventBit
-;	IF ((\1) % 8) != (\2)
-;		add ((\1) % 8) - (\2)
-;	ENDC
-;ENDM
+MACRO AdjustEventBit
+	IF ((\1) % 8) != (\2)
+		add ((\1) % 8) - (\2)
+	ENDC
+ENDM

@@ -99,7 +99,7 @@ CinnabarGymOpenGateScript:
 	jp z, CinnabarGymResetScripts
 	ld a, [wTrainerHeaderFlagBit]
 	ldh [hGymGateIndex], a
-;	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
+	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
 	ld c, a
 	ld b, FLAG_TEST
 	EventFlagAddress hl, EVENT_BEAT_CINNABAR_GYM_TRAINER_0
@@ -114,14 +114,14 @@ CinnabarGymOpenGateScript:
 .no_sound
 	ld a, [wTrainerHeaderFlagBit]
 	ldh [hGymGateIndex], a
-;	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
+	AdjustEventBit EVENT_BEAT_CINNABAR_GYM_TRAINER_0, 2
 	ld c, a
 	ld b, FLAG_SET
 	EventFlagAddress hl, EVENT_BEAT_CINNABAR_GYM_TRAINER_0
 	call CinnabarGymFlagAction
 	ld a, [wTrainerHeaderFlagBit]
 	sub $2
-;	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
+	AdjustEventBit EVENT_CINNABAR_GYM_GATE0_UNLOCKED, 0
 	ld c, a
 	ld b, FLAG_SET
 	EventFlagAddress hl, EVENT_CINNABAR_GYM_GATE0_UNLOCKED

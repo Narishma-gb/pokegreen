@@ -40,9 +40,11 @@ BluesHouseDaisySittingText:
 	ld a, HS_TOWN_MAP
 	ld [wMissableObjectIndex], a
 	predef HideObject
+	; bug: the Town Map is hidden before checking the result of GiveItem
 	lb bc, TOWN_MAP, 1
 	call GiveItem
 	jr nc, .bag_full
+
 	ld hl, GotMapText
 	call PrintText
 	SetEvent EVENT_GOT_TOWN_MAP

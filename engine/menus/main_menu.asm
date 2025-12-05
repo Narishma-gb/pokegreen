@@ -125,7 +125,7 @@ MainMenu:
 	jp SpecialEnterMap
 
 InitOptions:
-	ld a, TEXT_DELAY_FAST
+	ld a, 1 << BIT_FAST_TEXT_DELAY
 	ld [wLetterPrintingDelayFlags], a
 	ld a, TEXT_DELAY_MEDIUM
 	ld [wOptions], a
@@ -315,10 +315,8 @@ LinkCanceledText:
 
 StartNewGame:
 	ld hl, wStatusFlags6
-; Ensure debug mode is not used when
-; starting a regular new game.
-; Debug mode persists in saved games and
-; is only reset here by the main menu.
+; Ensure debug mode is not used when starting a regular new game.
+; Debug mode persists in saved games and is only reset here by the main menu.
 	res BIT_DEBUG_MODE, [hl]
 ; fallthrough
 

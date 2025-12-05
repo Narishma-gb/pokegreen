@@ -57,18 +57,18 @@ MACRO text_bcd
 ENDM
 
 	const TX_MOVE ; $03
-;MACRO text_move
-;	db TX_MOVE
-;	dw \1 ; address of the new location
-;ENDM
+MACRO text_move
+	db TX_MOVE
+	dw \1 ; address of the new location
+ENDM
 
 	const TX_BOX ; $04
-;MACRO text_box
-;; draw box
-;	db TX_BOX
-;	dw \1 ; address of upper left corner
-;	db \2, \3 ; height, width
-;ENDM
+MACRO text_box
+; draw box
+	db TX_BOX
+	dw \1 ; address of upper left corner
+	db \2, \3 ; height, width
+ENDM
 
 	const TX_LOW ; $05
 MACRO text_low
@@ -81,9 +81,9 @@ MACRO text_promptbutton
 ENDM
 
 	const TX_SCROLL ; $07
-;MACRO text_scroll
-;	db TX_SCROLL
-;ENDM
+MACRO text_scroll
+	db TX_SCROLL
+ENDM
 
 	const TX_START_ASM ; $08
 MACRO text_asm
@@ -112,10 +112,10 @@ DEF TX_SOUND_LEVEL_UP EQU TX_SOUND_GET_ITEM_1
 DEF sound_level_up EQUS "sound_get_item_1"
 
 	const TX_DOTS ; $0c
-;MACRO text_dots
-;	db TX_DOTS
-;	db \1 ; number of ellipses to draw
-;ENDM
+MACRO text_dots
+	db TX_DOTS
+	db \1 ; number of ellipses to draw
+ENDM
 
 	const TX_WAIT_BUTTON ; $0d
 MACRO text_waitbutton
@@ -123,14 +123,14 @@ MACRO text_waitbutton
 ENDM
 
 	const TX_SOUND_POKEDEX_RATING ; $0e
-;MACRO sound_pokedex_rating
-;	db TX_SOUND_POKEDEX_RATING
-;ENDM
+MACRO sound_pokedex_rating
+	db TX_SOUND_POKEDEX_RATING
+ENDM
 
 	const TX_SOUND_GET_ITEM_1_DUPLICATE ; $0f
-;MACRO sound_get_item_1_duplicate
-;	db TX_SOUND_GET_ITEM_1_DUPLICATE
-;ENDM
+MACRO sound_get_item_1_duplicate
+	db TX_SOUND_GET_ITEM_1_DUPLICATE
+ENDM
 
 	const TX_SOUND_GET_ITEM_2 ; $10
 MACRO sound_get_item_2
@@ -163,9 +163,9 @@ MACRO sound_cry_pidgeot
 ENDM
 
 	const TX_SOUND_CRY_DEWGONG ; $16
-;MACRO sound_cry_dewgong
-;	db TX_SOUND_CRY_DEWGONG
-;ENDM
+MACRO sound_cry_dewgong
+	db TX_SOUND_CRY_DEWGONG
+ENDM
 
 	const_next $50
 
