@@ -1534,7 +1534,7 @@
 01:67a9 KanaInputText
 01:67b0 PrintNicknameAndUnderscores
 01:67d0 PrintNicknameAndUnderscores.placeUnderscoreLoop
-01:67ea PrintNicknameAndUnderscores.emptySpacesRemaining
+01:67ea PrintNicknameAndUnderscores.placeRaisedUnderscore
 01:67f2 DakutensAndHandakutens
 01:6806 Dakutens
 01:6857 Handakutens
@@ -3427,7 +3427,7 @@
 04:5e17 StartMenu_Item.exitMenu
 04:5e23 StartMenu_Item.choseItem
 04:5e68 StartMenu_Item.useOrTossItem
-04:5e8b StartMenu_Item.notBicycle2
+04:5e8b StartMenu_Item.notBicycle
 04:5eba StartMenu_Item.useItem_closeMenu
 04:5ecb StartMenu_Item.useItem_partyMenu
 04:5ee7 StartMenu_Item.partyMenuNotDisplayed
@@ -6991,7 +6991,7 @@
 0f:68d4 MoveHitTest.calcHitChance
 0f:68e4 MoveHitTest.doAccuracyCheck
 0f:68eb MoveHitTest.moveMissed
-0f:6900 MoveHitTest.playerTurn2
+0f:6900 MoveHitTest.playerTurn
 0f:6906 CalcHitChance
 0f:6921 CalcHitChance.next
 0f:6930 CalcHitChance.loop
@@ -7090,7 +7090,6 @@
 0f:7126 ApplyBadgeStatBoosts.applyBoostToStat
 0f:7149 LoadHudAndHpBarAndStatusTilePatterns
 0f:714c LoadHudTilePatterns
-0f:7152 LoadHudTilePatterns.lcdDisabled
 0f:716e LoadHudTilePatterns.lcdEnabled
 0f:7186 PrintEmptyString
 0f:718c PrintEmptyString.emptyString
@@ -12058,8 +12057,8 @@
 1b:7ef0 Underground_Block
 1c:4000 HallOfFamePC
 1c:4058 HallOfFamePC.loop
-1c:4061 FadeInCreditsText
-1c:4066 FadeInCreditsText.loop
+1c:4061 FadeInCredits
+1c:4066 FadeInCredits.loop
 1c:4072 DisplayCreditsMon
 1c:40bc DisplayCreditsMon.scrollLoop1
 1c:40c4 DisplayCreditsMon.scrollLoop2
@@ -12069,7 +12068,7 @@
 1c:4101 ScrollCreditsMonLeft_SetSCX.loop
 1c:4107 HoFGBPalettes
 1c:410b CreditsCopyTileMapToVRAM
-1c:4118 ZeroMemory
+1c:4118 ShiftFontColorIndex
 1c:4122 FillFourRowsWithBlack
 1c:412a FillMiddleOfScreenWithWhite
 1c:4135 CreditsDelay
@@ -13322,7 +13321,7 @@
 1e:4d3f PlayAnimation.nextAnimationCommand
 1e:4d42 PlayAnimation.AnimationOver
 1e:4d43 LoadSubanimation
-1e:4d62 LoadSubanimation.isNotType5
+1e:4d62 LoadSubanimation.isNotTypeEnemy
 1e:4d65 LoadSubanimation.saveTransformation
 1e:4d7a LoadSubanimation.loop
 1e:4d7e LoadSubanimation.storeSubentryAddr

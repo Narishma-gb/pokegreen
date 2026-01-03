@@ -1538,7 +1538,7 @@
 01:674f KanaInputText
 01:6756 PrintNicknameAndUnderscores
 01:6776 PrintNicknameAndUnderscores.placeUnderscoreLoop
-01:6790 PrintNicknameAndUnderscores.emptySpacesRemaining
+01:6790 PrintNicknameAndUnderscores.placeRaisedUnderscore
 01:6798 DakutensAndHandakutens
 01:67ac Dakutens
 01:67fd Handakutens
@@ -3437,7 +3437,7 @@
 04:5e17 StartMenu_Item.exitMenu
 04:5e23 StartMenu_Item.choseItem
 04:5e68 StartMenu_Item.useOrTossItem
-04:5e8b StartMenu_Item.notBicycle2
+04:5e8b StartMenu_Item.notBicycle
 04:5eba StartMenu_Item.useItem_closeMenu
 04:5ecb StartMenu_Item.useItem_partyMenu
 04:5ee7 StartMenu_Item.partyMenuNotDisplayed
@@ -7012,7 +7012,7 @@
 0f:68db MoveHitTest.calcHitChance
 0f:68eb MoveHitTest.doAccuracyCheck
 0f:68f2 MoveHitTest.moveMissed
-0f:6907 MoveHitTest.playerTurn2
+0f:6907 MoveHitTest.playerTurn
 0f:690d CalcHitChance
 0f:6928 CalcHitChance.next
 0f:6937 CalcHitChance.loop
@@ -7111,7 +7111,6 @@
 0f:712c ApplyBadgeStatBoosts.applyBoostToStat
 0f:714f LoadHudAndHpBarAndStatusTilePatterns
 0f:7152 LoadHudTilePatterns
-0f:7157 LoadHudTilePatterns.lcdDisabled
 0f:7173 LoadHudTilePatterns.lcdEnabled
 0f:718b PrintEmptyString
 0f:7191 PrintEmptyString.emptyString
@@ -12082,8 +12081,8 @@
 1b:7ef0 Underground_Block
 1c:4000 HallOfFamePC
 1c:4058 HallOfFamePC.loop
-1c:4061 FadeInCreditsText
-1c:4066 FadeInCreditsText.loop
+1c:4061 FadeInCredits
+1c:4066 FadeInCredits.loop
 1c:4072 DisplayCreditsMon
 1c:40bc DisplayCreditsMon.scrollLoop1
 1c:40c4 DisplayCreditsMon.scrollLoop2
@@ -12093,7 +12092,7 @@
 1c:4101 ScrollCreditsMonLeft_SetSCX.loop
 1c:4107 HoFGBPalettes
 1c:410b CreditsCopyTileMapToVRAM
-1c:4118 ZeroMemory
+1c:4118 ShiftFontColorIndex
 1c:4122 FillFourRowsWithBlack
 1c:412a FillMiddleOfScreenWithWhite
 1c:4135 CreditsDelay
@@ -13367,7 +13366,7 @@
 1e:4d53 LoadSubanimation.VC_Reduce_move_anim_flashing_Reflect
 1e:4d56 LoadSubanimation.VC_Reduce_move_anim_flashing_Spore
 1e:4d59 LoadSubanimation.VC_Reduce_move_anim_flashing_Bubblebeam
-1e:4d62 LoadSubanimation.isNotType5
+1e:4d62 LoadSubanimation.isNotTypeEnemy
 1e:4d65 LoadSubanimation.saveTransformation
 1e:4d7a LoadSubanimation.loop
 1e:4d7e LoadSubanimation.storeSubentryAddr

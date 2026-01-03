@@ -1567,7 +1567,7 @@ ROMX bank #1:
 	         $674e = KanaInputText
 	         $6755 = PrintNicknameAndUnderscores
 	         $6775 = PrintNicknameAndUnderscores.placeUnderscoreLoop
-	         $678f = PrintNicknameAndUnderscores.emptySpacesRemaining
+	         $678f = PrintNicknameAndUnderscores.placeRaisedUnderscore
 	         $6797 = DakutensAndHandakutens
 	         $67ab = Dakutens
 	         $67fc = Handakutens
@@ -3488,7 +3488,7 @@ ROMX bank #4:
 	         $5e17 = StartMenu_Item.exitMenu
 	         $5e23 = StartMenu_Item.choseItem
 	         $5e68 = StartMenu_Item.useOrTossItem
-	         $5e8b = StartMenu_Item.notBicycle2
+	         $5e8b = StartMenu_Item.notBicycle
 	         $5eba = StartMenu_Item.useItem_closeMenu
 	         $5ecb = StartMenu_Item.useItem_partyMenu
 	         $5ee7 = StartMenu_Item.partyMenuNotDisplayed
@@ -7136,7 +7136,7 @@ ROMX bank #15:
 	         $68db = MoveHitTest.calcHitChance
 	         $68eb = MoveHitTest.doAccuracyCheck
 	         $68f2 = MoveHitTest.moveMissed
-	         $6907 = MoveHitTest.playerTurn2
+	         $6907 = MoveHitTest.playerTurn
 	         $690d = CalcHitChance
 	         $6928 = CalcHitChance.next
 	         $6937 = CalcHitChance.loop
@@ -7235,7 +7235,6 @@ ROMX bank #15:
 	         $712c = ApplyBadgeStatBoosts.applyBoostToStat
 	         $714f = LoadHudAndHpBarAndStatusTilePatterns
 	         $7152 = LoadHudTilePatterns
-	         $7157 = LoadHudTilePatterns.lcdDisabled
 	         $7173 = LoadHudTilePatterns.lcdEnabled
 	         $718b = PrintEmptyString
 	         $7191 = PrintEmptyString.emptyString
@@ -12292,8 +12291,8 @@ ROMX bank #28:
 	SECTION: $4000-$7ff7 ($3ff8 bytes) ["bank1C"]
 	         $4000 = HallOfFamePC
 	         $4058 = HallOfFamePC.loop
-	         $4061 = FadeInCreditsText
-	         $4066 = FadeInCreditsText.loop
+	         $4061 = FadeInCredits
+	         $4066 = FadeInCredits.loop
 	         $4072 = DisplayCreditsMon
 	         $40bc = DisplayCreditsMon.scrollLoop1
 	         $40c4 = DisplayCreditsMon.scrollLoop2
@@ -12303,7 +12302,7 @@ ROMX bank #28:
 	         $4101 = ScrollCreditsMonLeft_SetSCX.loop
 	         $4107 = HoFGBPalettes
 	         $410b = CreditsCopyTileMapToVRAM
-	         $4118 = ZeroMemory
+	         $4118 = ShiftFontColorIndex
 	         $4122 = FillFourRowsWithBlack
 	         $412a = FillMiddleOfScreenWithWhite
 	         $4135 = CreditsDelay
@@ -13565,8 +13564,8 @@ ROMX bank #30:
 	         $4caf = DrawFrameBlock.advanceFrameBlockDestAddr
 	         $4cb7 = DrawFrameBlock.done
 	         $4cb8 = PlayAnimation
-	         $4ccd = PlayAnimation.VC_Stop_reducing_move_anim_flashing_Guillotine_Spore
 	         $4ccd = PlayAnimation.animationLoop
+	         $4ccd = PlayAnimation.VC_Stop_reducing_move_anim_flashing_Guillotine_Spore
 	         $4cce = PlayAnimation.VC_Stop_reducing_move_anim_flashing_Mega_Punch_Mega_Kick
 	         $4cd0 = PlayAnimation.VC_Stop_reducing_move_anim_flashing_Bubblebeam
 	         $4cda = PlayAnimation.searchSpecialEffectTableLoop
@@ -13592,7 +13591,7 @@ ROMX bank #30:
 	         $4d53 = LoadSubanimation.VC_Reduce_move_anim_flashing_Reflect
 	         $4d56 = LoadSubanimation.VC_Reduce_move_anim_flashing_Spore
 	         $4d59 = LoadSubanimation.VC_Reduce_move_anim_flashing_Bubblebeam
-	         $4d62 = LoadSubanimation.isNotType5
+	         $4d62 = LoadSubanimation.isNotTypeEnemy
 	         $4d65 = LoadSubanimation.saveTransformation
 	         $4d7a = LoadSubanimation.loop
 	         $4d7e = LoadSubanimation.storeSubentryAddr
@@ -15208,8 +15207,8 @@ WRAM0 bank #0:
 	         $c16a = wSprite06StateData1YAdjusted
 	         $c16b = wSprite06StateData1XAdjusted
 	         $c16c = wSprite06StateData1CollisionData
-	         $c170 = wSprite06StateData1End
 	         $c170 = wSprite07StateData1PictureID
+	         $c170 = wSprite06StateData1End
 	         $c170 = wSprite07StateData1
 	         $c171 = wSprite07StateData1MovementStatus
 	         $c172 = wSprite07StateData1ImageIndex
@@ -15223,9 +15222,9 @@ WRAM0 bank #0:
 	         $c17a = wSprite07StateData1YAdjusted
 	         $c17b = wSprite07StateData1XAdjusted
 	         $c17c = wSprite07StateData1CollisionData
-	         $c180 = wSprite07StateData1End
-	         $c180 = wSprite08StateData1
 	         $c180 = wSprite08StateData1PictureID
+	         $c180 = wSprite08StateData1
+	         $c180 = wSprite07StateData1End
 	         $c181 = wSprite08StateData1MovementStatus
 	         $c182 = wSprite08StateData1ImageIndex
 	         $c183 = wSprite08StateData1YStepVector
@@ -15239,8 +15238,8 @@ WRAM0 bank #0:
 	         $c18b = wSprite08StateData1XAdjusted
 	         $c18c = wSprite08StateData1CollisionData
 	         $c190 = wSprite09StateData1PictureID
-	         $c190 = wSprite08StateData1End
 	         $c190 = wSprite09StateData1
+	         $c190 = wSprite08StateData1End
 	         $c191 = wSprite09StateData1MovementStatus
 	         $c192 = wSprite09StateData1ImageIndex
 	         $c193 = wSprite09StateData1YStepVector
@@ -15253,9 +15252,9 @@ WRAM0 bank #0:
 	         $c19a = wSprite09StateData1YAdjusted
 	         $c19b = wSprite09StateData1XAdjusted
 	         $c19c = wSprite09StateData1CollisionData
-	         $c1a0 = wSprite09StateData1End
-	         $c1a0 = wSprite10StateData1
 	         $c1a0 = wSprite10StateData1PictureID
+	         $c1a0 = wSprite10StateData1
+	         $c1a0 = wSprite09StateData1End
 	         $c1a1 = wSprite10StateData1MovementStatus
 	         $c1a2 = wSprite10StateData1ImageIndex
 	         $c1a3 = wSprite10StateData1YStepVector
@@ -15540,8 +15539,8 @@ WRAM0 bank #0:
 	         $c2ed = wSprite14StateData2PictureID
 	         $c2ee = wSprite14StateData2ImageBaseOffset
 	         $c2f0 = wSprite14StateData2End
-	         $c2f0 = wSprite15StateData2WalkAnimationCounter
 	         $c2f0 = wSprite15StateData2
+	         $c2f0 = wSprite15StateData2WalkAnimationCounter
 	         $c2f2 = wSprite15StateData2YDisplacement
 	         $c2f3 = wSprite15StateData2XDisplacement
 	         $c2f4 = wSprite15StateData2MapY
@@ -16127,7 +16126,6 @@ WRAM0 bank #0:
 	         $cd3d = wOptionsTextSpeedCursorX
 	         $cd3d = wTrainerInfoTextBoxWidthPlus1
 	         $cd3d = wPlayerSpinInPlaceAnimFrameDelay
-	         $cd3d = wHiddenObjectFunctionArgument
 	         $cd3d = wCanPlaySlots
 	         $cd3d = wWhichTownMapLocation
 	         $cd3d = wFlyAnimUsingCoordList
@@ -16146,6 +16144,7 @@ WRAM0 bank #0:
 	         $cd3d = wTempSCX
 	         $cd3d = wMoveDownSmallStarsOAMCount
 	         $cd3d = wStoppingWhichSlotMachineWheel
+	         $cd3d = wHiddenObjectFunctionArgument
 	         $cd3d = wFieldMoves
 	         $cd3d = wHoFTeamIndex
 	         $cd3d = wCoordIndex
@@ -16158,7 +16157,6 @@ WRAM0 bank #0:
 	         $cd3d = wFallingObjectsMovementData
 	         $cd3d = wBattleTransitionCircleScreenQuadrantY
 	         $cd3e = wNumCreditsMonsDisplayed
-	         $cd3e = wTrainerInfoTextBoxWidth
 	         $cd3e = wTrainerEngageDistance
 	         $cd3e = wPlayerSpinWhileMovingUpOrDownAnimMaxY
 	         $cd3e = wPlayerSpinInPlaceAnimFrameDelayDelta
@@ -16174,19 +16172,20 @@ WRAM0 bank #0:
 	         $cd3e = wSlotMachineWheel1Offset
 	         $cd3e = wRivalStarterBallSpriteIndex
 	         $cd3e = wBadgeNameTile
+	         $cd3e = wTrainerInfoTextBoxWidth
 	         $cd3e = wHoFPartyMonIndex
 	         $cd3e = wOptionsBattleAnimCursorX
 	         $cd3f = wJigglypuffFacingDirections
 	         $cd3f = wBadgeOrFaceTiles
-	         $cd3f = wTrainerInfoTextBoxNextRowOffset
 	         $cd3f = wPlayerSpinWhileMovingUpOrDownAnimFrameDelay
 	         $cd3f = wPlayerSpinInPlaceAnimFrameDelayEndValue
 	         $cd3f = wSlotMachineWheel2Offset
 	         $cd3f = wHUDUnusedTopTile
 	         $cd3f = wFlyAnimBirdSpriteImageIndex
 	         $cd3f = wNameOfPlayerMonToBeTraded
-	         $cd3f = wDayCareTotalCost
 	         $cd3f = wHoFMonLevel
+	         $cd3f = wDayCareTotalCost
+	         $cd3f = wTrainerInfoTextBoxNextRowOffset
 	         $cd3f = wTrainerFacingDirection
 	         $cd3f = wHiddenObjectIndex
 	         $cd3f = wOptionsBattleStyleCursorX
@@ -16264,16 +16263,16 @@ WRAM0 bank #0:
 	         $cee4 = wLearningMovesFromDayCare
 	         $cee4 = wTownMapCoords
 	         $cee4 = wHPBarMaxHP
-	         $cee4 = wChangeMonPicEnemyTurnSpecies
 	         $cee4 = wBuffer
 	         $cee4 = wNamingScreenNameLength
 	         $cee4 = wEvoOldSpecies
+	         $cee4 = wChangeMonPicEnemyTurnSpecies
 	         $cee5 = wChangeMonPicPlayerTurnSpecies
 	         $cee5 = wEvoNewSpecies
 	         $cee5 = wNamingScreenSubmitName
 	         $cee6 = wAlphabetCase
-	         $cee6 = wHPBarOldHP
 	         $cee6 = wEvoMonTileOffset
+	         $cee6 = wHPBarOldHP
 	         $cee7 = wEvoCancelled
 	         $cee8 = wHPBarNewHP
 	         $cee8 = wNamingScreenLetter
@@ -16593,8 +16592,8 @@ WRAM0 bank #0:
 	         $d0ef = wListCount
 	         $d0f0 = wLinkState
 	         $d0f1 = wTwoOptionMenuID
-	         $d0f2 = wOutOfBattleBlackout
 	         $d0f2 = wChosenMenuItem
+	         $d0f2 = wOutOfBattleBlackout
 	         $d0f3 = wMenuExitMethod
 	         $d0f4 = wGymGateTileBlock
 	         $d0f4 = wWhichPewterGuy
