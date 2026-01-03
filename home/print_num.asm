@@ -84,10 +84,14 @@ ENDM
 
 ; millions
 	print_digit 1000000
-.hundred_thousands print_digit 100000
-.ten_thousands     print_digit 10000
-.thousands         print_digit 1000
-.hundreds          print_digit 100
+.hundred_thousands
+	print_digit 100000
+.ten_thousands
+	print_digit 10000
+.thousands
+	print_digit 1000
+.hundreds
+	print_digit 100
 
 .tens
 	ld c, 0

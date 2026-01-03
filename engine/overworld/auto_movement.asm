@@ -1,5 +1,5 @@
 PlayerStepOutFromDoor::
-	ld hl, wStatusFlags5 ; should this be wMovementFlags?
+	ld hl, wStatusFlags5
 	res BIT_UNKNOWN_5_1, [hl]
 	call IsPlayerStandingOnDoorTile
 	jr nc, .notStandingOnDoor

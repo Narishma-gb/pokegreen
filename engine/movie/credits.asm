@@ -6,10 +6,10 @@ HallOfFamePC:
 	call DisableLCD
 	ld hl, vFont
 	ld bc, ($80 tiles) / 2
-	call ZeroMemory
+	call ShiftFontColorIndex
 	ld hl, vChars2 tile $60
 	ld bc, ($20 tiles) / 2
-	call ZeroMemory
+	call ShiftFontColorIndex
 	ld hl, vChars2 tile $7e
 	ld bc, TILE_SIZE
 	ld a, $ff ; solid black
@@ -40,7 +40,7 @@ HallOfFamePC:
 	jr nz, .loop
 	ret
 
-FadeInCreditsText:
+FadeInCredits:
 	ld hl, HoFGBPalettes
 	ld b, 4
 .loop
@@ -152,15 +152,18 @@ CreditsCopyTileMapToVRAM:
 	ldh [hAutoBGTransferEnabled], a
 	jp Delay3
 
-ZeroMemory:
-; zero bc bytes at hl
+ShiftFontColorIndex:
+; Zero every second byte at hl, writing a total of bc bytes.
+; When used on VRAM font characters that contain only black and white shades,
+; it shifts the color index: black -> light gray, allowing palette-controlled
+; text fade-in during the Credits roll, while the black bars remain solid.
 	ld [hl], 0
 	inc hl
 	inc hl
 	dec bc
 	ld a, b
 	or c
-	jr nz, ZeroMemory
+	jr nz, ShiftFontColorIndex
 	ret
 
 FillFourRowsWithBlack:
@@ -238,12 +241,12 @@ Credits:
 	pop de
 	jr .nextCreditsCommand
 .fadeInTextAndShowMon
-	call FadeInCreditsText
+	call FadeInCredits
 .showTextAndShowMon
 	call CreditsDelay
 	jp DisplayCreditsMon
 .fadeInText
-	call FadeInCreditsText
+	call FadeInCredits
 .showText
 	jp CreditsDelay
 .showCopyrightText
@@ -265,7 +268,7 @@ Credits:
 	hlcoord 4, 9
 	ld de, TheEndLowerTextString
 	call PlaceString
-	jp FadeInCreditsText
+	jp FadeInCredits
 
 TheEndUpperTextString:
 ; "T H E  E N D"

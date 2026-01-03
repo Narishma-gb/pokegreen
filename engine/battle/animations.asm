@@ -71,7 +71,7 @@ DrawFrameBlock:
 	jp z, .flipHorizontalTranslateDown ; SUBANIMTYPE_HFLIP
 	dec a
 	jr z, .flipBaseCoords              ; SUBANIMTYPE_COORDFLIP
-; noTransformation
+; no transformation
 	ld a, [wBaseCoordY]
 	add [hl]
 	ld [de], a ; store Y
@@ -179,7 +179,7 @@ DrawFrameBlock:
 	ld a, [wNumFBTiles]
 	cp c
 	jp nz, .loop ; go back up if there are more tiles to draw
-; afterDrawingTiles
+; after drawing tiles
 	ld a, [wFBMode]
 	cp FRAMEBLOCKMODE_02
 	jr z, .advanceFrameBlockDestAddr ; skip delay and don't clean OAM buffer
@@ -236,7 +236,7 @@ PlayAnimation:
 	jr z, .AnimationOver
 	cp FIRST_SE_ID ; is this subanimation or a special effect?
 	jr c, .playSubanimation
-; doSpecialEffect
+; do Special Effect
 	ld c, a
 	ld de, SpecialEffectPointers
 .searchSpecialEffectTableLoop
@@ -345,11 +345,11 @@ LoadSubanimation:
 	and %11100000
 	vc_hook Reduce_move_anim_flashing_Bubblebeam
 	cp SUBANIMTYPE_ENEMY << 5
-	jr nz, .isNotType5
-; isType5
+	jr nz, .isNotTypeEnemy
+; subanim type enemy
 	call GetSubanimationTransform2
 	jr .saveTransformation
-.isNotType5
+.isNotTypeEnemy
 	call GetSubanimationTransform1
 .saveTransformation
 ; place the upper 3 bits of a into bits 0-2 of a before storing
@@ -1087,8 +1087,8 @@ SetAnimationBGPalette:
 	ldh [rBGP], a
 	ret
 
-AnimationUnusedShakeScreen:
-; Shakes the screen for a while. Unreferenced.
+AnimationUnusedShakeScreen: ; unreferenced
+; Shakes the screen for a while.
 	ld b, $5
 
 AnimationShakeScreenVertically:

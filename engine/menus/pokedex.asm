@@ -105,7 +105,7 @@ HandlePokedexSideMenu:
 	jr z, .choseCry
 	dec a
 	jr z, .choseArea
-; choseQuit
+; chose Quit
 	ld b, 1
 .exitSideMenu
 	pop af
@@ -268,7 +268,7 @@ HandlePokedexListMenu:
 	call HandleMenuInput
 	bit B_PAD_B, a
 	jp nz, .buttonBPressed
-;.checkIfUpPressed
+; check if Up pressed
 	bit B_PAD_UP, a
 	jr z, .checkIfDownPressed
 .upPressed ; scroll up one row
@@ -281,7 +281,7 @@ HandlePokedexListMenu:
 .checkIfDownPressed
 	bit B_PAD_DOWN, a
 	jr z, .checkIfRightPressed
-; downPressed, scroll down one row
+; Down pressed, scroll down one row
 	ld a, [wDexMaxSeenMon]
 	cp 7
 	jp c, .loop ; can't if the list is shorter than 7
@@ -296,7 +296,7 @@ HandlePokedexListMenu:
 .checkIfRightPressed
 	bit B_PAD_RIGHT, a
 	jr z, .checkIfLeftPressed
-; rightPressed, scroll down 7 rows
+; Right pressed, scroll down 7 rows
 	ld a, [wDexMaxSeenMon]
 	cp 7
 	jp c, .loop ; can't if the list is shorter than 7
@@ -314,7 +314,7 @@ HandlePokedexListMenu:
 .checkIfLeftPressed ; scroll up 7 rows
 	bit B_PAD_LEFT, a
 	jr z, .buttonAPressed
-; leftPressed
+; Left pressed
 	ld a, [wListScrollOffset]
 	sub 7
 	ld [wListScrollOffset], a

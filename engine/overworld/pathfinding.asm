@@ -93,7 +93,7 @@ CalcPositionOfPlayerRelativeToNPC:
 	ld a, [hli] ; NPC sprite screen Y position in pixels
 	call CalcDifference
 	jr nc, .NPCSouthOfOrAlignedWithPlayer
-; NPCNorthOfPlayer
+; NPC north of player
 	push hl
 	ld hl, hNPCPlayerRelativePosFlags
 	bit BIT_PLAYER_LOWER_Y, [hl]
@@ -121,7 +121,7 @@ CalcPositionOfPlayerRelativeToNPC:
 	ld a, [hl] ; NPC sprite screen X position in pixels
 	call CalcDifference
 	jr nc, .NPCEastOfOrAlignedWithPlayer
-; NPCWestOfPlayer
+; NPC west of player
 	push hl
 	ld hl, hNPCPlayerRelativePosFlags
 	bit BIT_PLAYER_LOWER_X, [hl]
