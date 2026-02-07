@@ -7201,7 +7201,7 @@
 0f:7838 UpdateStatDone.notMinimize
 0f:784d UpdateStatDone.applyBadgeBoostsAndStatusPenalties
 0f:785f RestoreOriginalStatModifier
-0f:7861 PrintNothingHappenedText
+0f:7861 PrintNoEffectText
 0f:7867 MonsStatsRoseText
 0f:7881 MonsStatsRoseText.playerTurn
 0f:7888 GreatlyRoseText
@@ -7313,9 +7313,9 @@
 0f:7f12 HealEffect
 0f:7f1a TransformEffect
 0f:7f22 ReflectLightScreenEffect
-0f:7f2a NothingHappenedText
-0f:7f3a PrintNoEffectText
-0f:7f40 NoEffectText
+0f:7f2a NoEffectText
+0f:7f3a PrintNothingHappenedText
+0f:7f40 NothingHappenedText
 0f:7f4e ConditionalPrintButItFailed
 0f:7f53 PrintButItFailedText_
 0f:7f59 ButItFailedText
