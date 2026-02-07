@@ -376,7 +376,7 @@ StatModifierUpEffect:
 	inc b ; increment corresponding stat mod
 	ld a, $d
 	cp b ; can't raise stat past +6 ($d or 13)
-	jp c, PrintNothingHappenedText
+	jp c, PrintNoEffectText
 	ld a, [de]
 	cp ATTACK_UP1_EFFECT + $8 ; is it a +2 effect?
 	jr c, .ok
@@ -515,8 +515,8 @@ RestoreOriginalStatModifier:
 	pop hl
 	dec [hl]
 
-PrintNothingHappenedText:
-	ld hl, NothingHappenedText
+PrintNoEffectText:
+	ld hl, NoEffectText
 	jp PrintText
 
 MonsStatsRoseText:
@@ -715,7 +715,7 @@ CantLowerAnymore:
 	ld a, [de]
 	cp ATTACK_DOWN_SIDE_EFFECT
 	ret nc
-	ld hl, NothingHappenedText
+	ld hl, NoEffectText
 	jp PrintText
 
 MoveMissed:
@@ -1305,7 +1305,7 @@ LeechSeedEffect:
 
 SplashEffect:
 	call PlayCurrentMoveAnimation
-	jp PrintNoEffectText
+	jp PrintNothingHappenedText
 
 DisableEffect:
 	call MoveHitTest
@@ -1415,15 +1415,18 @@ TransformEffect:
 ReflectLightScreenEffect:
 	jpfar ReflectLightScreenEffect_
 
-NothingHappenedText:
+; In the international versions, this text has been swapped with NothingHappenedText.
+; In Japanese, using Splash in battle prints a "NothingHappened" text, while trying
+; to lower or raise stats past minimum/maximum prints a "NoEffect" text.
+NoEffectText:
 	text "しかし　こうかが　なかった！"
 	prompt
 
-PrintNoEffectText:
-	ld hl, NoEffectText
+PrintNothingHappenedText:
+	ld hl, NothingHappenedText
 	jp PrintText
 
-NoEffectText:
+NothingHappenedText:
 	text "しかし　なにもおこらない"
 	prompt
 

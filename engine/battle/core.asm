@@ -2056,16 +2056,15 @@ GetBattleHealthBarColor:
 	ld b, SET_PAL_BATTLE
 	jp RunPaletteCommand
 
-; center's mon's name on the battle screen
-; if the name is 1 or 2 letters long, it is printed 2 spaces more to the right than usual
-; (i.e. for names longer than 4 letters)
-; if the name is 3 or 4 letters long, it is printed 1 space more to the right than usual
-; (i.e. for names longer than 4 letters)
+; center mon name and level on the HUD
+; if the name is 5 chars long, print at the leftmost position
+; if the name is 3 or 4 chars long, print 1 space to the right
+; if the name is 1 or 2 chars long, print 2 spaces to the right
 CenterMonName:
 	push de
 	inc hl
 	inc hl
-	ld b, $2
+	ld b, 2
 .loop
 	inc de
 	ld a, [de]

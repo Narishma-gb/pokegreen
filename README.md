@@ -1,6 +1,6 @@
 # Japanese Pokémon Red and Green
 
-This is a disassembly of ポケットモンスター　赤・緑, based on pret [**pokered**](https://github.com/pret/pokered) full decompilation.
+This is a disassembly of ポケットモンスター　赤・緑.
 
 It builds the following ROMs:
 
@@ -13,7 +13,14 @@ It builds the following ROMs:
 
 To set up the repository, see [**INSTALL.md**](INSTALL.md).
 
+## Credits
+
+All the repository structure, ASM files, tools and build scripts originate from pret [**pokered**][pokered]. The latest additions to pokered get regularly merged into pokegreen.
 
 ## See also
 
+- [**Symbols**][symbols]
 - **Wiki** (WIP)
+
+[pokered]: https://github.com/pret/pokered
+[symbols]: https://github.com/Narishma-gb/pokegreen/tree/symbols
