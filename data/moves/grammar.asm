@@ -1,17 +1,20 @@
-SentenceEndMoveSets:
-; set 0
+; Used by GetMoveGrammar (see engine/battle/used_move_text.asm)
+; Each move is given an identifier for what usedmovetext to use (0-4).
+
+MoveGrammar:
+; 0: "[mon]は　<LINE>[move]を　つかった！"
 	db SWORDS_DANCE
 	db GROWTH
 	db 0 ; end set
 
-; set 1
+; 1: "[mon]は　<LINE>[move]した！"
 	db RECOVER
 	db BIDE
 	db SELFDESTRUCT
 	db AMNESIA
 	db 0 ; end set
 
-; set 2
+; 2: "[mon]は　<LINE>[move]を　した！"
 	db MEDITATE
 	db AGILITY
 	db TELEPORT
@@ -20,7 +23,7 @@ SentenceEndMoveSets:
 	db BARRAGE
 	db 0 ; end set
 
-; set 3
+; 3: "[mon]の　<LINE>[move]　こうげき！"
 	db POUND
 	db SCRATCH
 	db VICEGRIP
@@ -69,4 +72,6 @@ SentenceEndMoveSets:
 	db SUBSTITUTE
 	db 0 ; end set
 
+; 4: "[mon]の　<LINE>[move]！"
+; Any move not listed above uses this grammar.
 	db -1 ; end

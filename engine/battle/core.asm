@@ -3187,7 +3187,7 @@ PlayerCanExecuteChargingMove:
 	                    ; resulting in the Pokemon being invulnerable for the whole battle
 	res INVULNERABLE, [hl]
 PlayerCanExecuteMove:
-	call PrintUsedMoveText
+	call DisplayUsedMoveText
 	ld hl, DecrementPP
 	ld de, wPlayerSelectedMove ; pointer to the move just used
 	ld b, BANK(DecrementPP)
@@ -3811,136 +3811,7 @@ HandleSelfConfusionDamage:
 	ldh [hWhoseTurn], a
 	jp ApplyDamageToPlayerPokemon
 
-PrintUsedMoveText:
-	ld hl, UsedMoveText
-	jp PrintText
-
-; This function determines the correct sentence to print for each move use,
-; first printing either UserNoText or UserWaText, then calling
-; DetermineSentenceEndTextNum to choose which sentence ending is displayed.
-; It also handles disobedient mon text through PrintInsteadText
-UsedMoveText:
-	text "<USER>@"
-	text_asm
-	ldh a, [hWhoseTurn]
-	and a
-	ld a, [wPlayerMoveNum]
-	ld hl, wPlayerUsedMove
-	jr z, .playerTurn
-	ld a, [wEnemyMoveNum]
-	ld hl, wEnemyUsedMove
-.playerTurn
-	ld [hl], a
-	ld [wMoveGrammar], a
-	call DetermineSentenceEndTextNum
-	ld a, [wMonIsDisobedient]
-	and a
-	ld hl, UserWaText
-	ret nz
-	ld a, [wMoveGrammar] ; sentence end num
-	cp 3
-	ld hl, UserWaText
-	ret c
-	ld hl, UserNoText
-	ret
-
-UserNoText:
-	text "の　@"
-	text_asm
-	jr PrintInsteadText
-
-UserWaText:
-	text "は　@"
-	text_asm
-	; fall through
-
-PrintInsteadText:
-	ld a, [wMonIsDisobedient]
-	and a
-	jr z, PrintMoveAndSentenceEnd
-	ld hl, InsteadText
-	ret
-
-InsteadText:
-	text "めいれいをむしして@"
-	text_asm
-	; fall through
-
-PrintMoveAndSentenceEnd:
-	ld hl, MoveAndSentenceEndText
-	ret
-
-MoveAndSentenceEndText:
-	text_start
-	line "@"
-	text_ram wStringBuffer
-	text_asm
-	ld hl, SentenceEndPointerTable
-	ld a, [wMoveGrammar] ; sentence end num
-	add a
-	push bc
-	ld b, $0
-	ld c, a
-	add hl, bc
-	pop bc
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ret
-
-SentenceEndPointerTable:
-	dw SentenceEnd1Text
-	dw SentenceEnd2Text
-	dw SentenceEnd3Text
-	dw SentenceEnd4Text
-	dw SentenceEnd5Text
-
-SentenceEnd1Text:
-	text "を　つかった！"
-	done
-
-SentenceEnd2Text:
-	text "を　した！"
-	done
-
-SentenceEnd3Text:
-	text "した！"
-	done
-
-SentenceEnd4Text:
-	text "　こうげき！"
-	done
-
-SentenceEnd5Text:
-	text "！"
-	done
-
-; Input: [wMoveGrammar] = move ID
-; Output: [wMoveGrammar] = index 0-4 into SentenceEndPointerTable
-; Determines what the sentence end text will be, depending on the move being used
-DetermineSentenceEndTextNum:
-	push bc
-	ld a, [wMoveGrammar] ; move ID
-	ld c, a
-	ld b, $0
-	ld hl, SentenceEndMoveSets
-.loop
-	ld a, [hli]
-	cp $ff
-	jr z, .done
-	cp c
-	jr z, .done
-	and a
-	jr nz, .loop
-	inc b
-	jr .loop
-.done
-	ld a, b
-	ld [wMoveGrammar], a
-	pop bc
-	ret
-
-INCLUDE "data/moves/grammar.asm"
+INCLUDE "engine/battle/used_move_text.asm"
 
 PrintMoveFailureText:
 	ld de, wPlayerMoveEffect
@@ -5742,7 +5613,7 @@ EnemyCanExecuteChargingMove:
 EnemyCanExecuteMove:
 	xor a
 	ld [wMonIsDisobedient], a
-	call PrintUsedMoveText
+	call DisplayUsedMoveText
 	ld a, [wEnemyMoveEffect]
 	ld hl, ResidualEffects1
 	ld de, $1

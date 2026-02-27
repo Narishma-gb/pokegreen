@@ -15,7 +15,7 @@ To set up the repository, see [**INSTALL.md**](INSTALL.md).
 
 ## Credits
 
-All the repository structure, ASM files, tools and build scripts originate from pret [**pokered**][pokered]. The latest additions to pokered get regularly merged into pokegreen.
+The whole repository structure, most ASM files, tools and build scripts originate from pret [**pokered**][pokered].
 
 ## See also
 

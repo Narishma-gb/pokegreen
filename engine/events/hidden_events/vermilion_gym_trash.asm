@@ -9,7 +9,7 @@ VermilionGymTrashText::
 
 GymTrashScript:
 	call EnableAutoTextBoxDrawing
-	ld a, [wHiddenObjectFunctionArgument]
+	ld a, [wHiddenEventFunctionArgument]
 	ld [wGymTrashCanIndex], a
 
 ; Don't do the trash can puzzle if it's already been done.

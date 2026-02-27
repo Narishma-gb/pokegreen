@@ -37,8 +37,8 @@ BluesHouseDaisySittingText:
 .give_town_map
 	ld hl, BluesHouseDaisyOfferMapText
 	call PrintText
-	ld a, HS_TOWN_MAP
-	ld [wMissableObjectIndex], a
+	ld a, TOGGLE_TOWN_MAP
+	ld [wToggleableObjectIndex], a
 	predef HideObject
 	; bug: the Town Map is hidden before checking the result of GiveItem
 	lb bc, TOWN_MAP, 1

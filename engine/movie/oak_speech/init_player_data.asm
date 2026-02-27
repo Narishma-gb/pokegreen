@@ -42,7 +42,7 @@ DEF START_MONEY EQU $3000
 	xor a
 	call FillMemory ; clear all game progress flags
 
-	jp InitializeMissableObjectsFlags
+	jp InitializeToggleableObjectsFlags
 
 InitializeEmptyList:
 	xor a ; count

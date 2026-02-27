@@ -42,7 +42,7 @@ INCLUDE "engine/events/display_pokedex.asm"
 SECTION "bank3", ROMX
 
 INCLUDE "engine/joypad.asm"
-INCLUDE "data/maps/hide_show_data.asm"
+INCLUDE "data/maps/toggleable_objects.asm"
 INCLUDE "engine/overworld/field_move_messages.asm"
 INCLUDE "engine/items/inventory.asm"
 INCLUDE "data/maps/songs.asm"
@@ -57,7 +57,7 @@ INCLUDE "engine/items/item_effects.asm"
 INCLUDE "engine/menus/draw_badges.asm"
 INCLUDE "engine/overworld/update_map.asm"
 INCLUDE "engine/overworld/cut.asm"
-INCLUDE "engine/overworld/missable_objects.asm"
+INCLUDE "engine/overworld/toggleable_objects.asm"
 INCLUDE "engine/overworld/push_boulder.asm"
 INCLUDE "engine/pokemon/add_mon.asm"
 INCLUDE "engine/flag_action.asm"
@@ -67,12 +67,12 @@ INCLUDE "engine/movie/oak_speech/init_player_data.asm"
 INCLUDE "engine/items/get_bag_item_quantity.asm"
 INCLUDE "engine/overworld/pathfinding.asm"
 INCLUDE "engine/gfx/hp_bar.asm"
-INCLUDE "engine/events/hidden_objects/bookshelves.asm"
-INCLUDE "engine/events/hidden_objects/indigo_plateau_statues.asm"
-INCLUDE "engine/events/hidden_objects/book_or_sculpture.asm"
-INCLUDE "engine/events/hidden_objects/elevator.asm"
-INCLUDE "engine/events/hidden_objects/town_map.asm"
-INCLUDE "engine/events/hidden_objects/pokemon_stuff.asm"
+INCLUDE "engine/events/hidden_events/bookshelves.asm"
+INCLUDE "engine/events/hidden_events/indigo_plateau_statues.asm"
+INCLUDE "engine/events/hidden_events/book_or_sculpture.asm"
+INCLUDE "engine/events/hidden_events/elevator.asm"
+INCLUDE "engine/events/hidden_events/town_map.asm"
+INCLUDE "engine/events/hidden_events/pokemon_stuff.asm"
 
 
 SECTION "Move Names", ROMX
@@ -134,16 +134,16 @@ INCLUDE "engine/movie/oak_speech/clear_save.asm"
 INCLUDE "engine/events/elevator.asm"
 
 
-SECTION "Hidden Objects 1", ROMX
+SECTION "Hidden Events 1", ROMX
 
 INCLUDE "engine/menus/oaks_pc.asm"
-INCLUDE "engine/events/hidden_objects/new_bike.asm"
-INCLUDE "engine/events/hidden_objects/oaks_lab_posters.asm"
-INCLUDE "engine/events/hidden_objects/safari_game.asm"
-INCLUDE "engine/events/hidden_objects/cinnabar_gym_quiz.asm"
-INCLUDE "engine/events/hidden_objects/magazines.asm"
-INCLUDE "engine/events/hidden_objects/bills_house_pc.asm"
-INCLUDE "engine/events/hidden_objects/oaks_lab_email.asm"
+INCLUDE "engine/events/hidden_events/new_bike.asm"
+INCLUDE "engine/events/hidden_events/oaks_lab_posters.asm"
+INCLUDE "engine/events/hidden_events/safari_game.asm"
+INCLUDE "engine/events/hidden_events/cinnabar_gym_quiz.asm"
+INCLUDE "engine/events/hidden_events/magazines.asm"
+INCLUDE "engine/events/hidden_events/bills_house_pc.asm"
+INCLUDE "engine/events/hidden_events/oaks_lab_email.asm"
 
 
 SECTION "Bill's PC", ROMX
@@ -227,9 +227,9 @@ SECTION "Pokédex Rating", ROMX
 INCLUDE "engine/events/pokedex_rating.asm"
 
 
-SECTION "Hidden Objects Core", ROMX
+SECTION "Hidden Events Core", ROMX
 
-INCLUDE "engine/overworld/hidden_objects.asm"
+INCLUDE "engine/overworld/hidden_events.asm"
 
 
 SECTION "Screen Effects", ROMX
@@ -249,13 +249,13 @@ INCLUDE "engine/battle/init_battle_variables.asm"
 INCLUDE "engine/battle/move_effects/paralyze.asm"
 
 
-SECTION "Hidden Objects 2", ROMX
+SECTION "Hidden Events 2", ROMX
 
 INCLUDE "engine/events/card_key.asm"
 INCLUDE "engine/events/prize_menu.asm"
-INCLUDE "engine/events/hidden_objects/school_notebooks.asm"
-INCLUDE "engine/events/hidden_objects/fighting_dojo.asm"
-INCLUDE "engine/events/hidden_objects/indigo_plateau_hq.asm"
+INCLUDE "engine/events/hidden_events/school_notebooks.asm"
+INCLUDE "engine/events/hidden_events/fighting_dojo.asm"
+INCLUDE "engine/events/hidden_events/indigo_plateau_hq.asm"
 
 
 SECTION "Battle Engine 9", ROMX
@@ -290,14 +290,14 @@ SECTION "Starter Dex", ROMX
 INCLUDE "engine/events/starter_dex.asm"
 
 
-SECTION "Hidden Objects 3", ROMX
+SECTION "Hidden Events 3", ROMX
 
 INCLUDE "engine/pokemon/set_types.asm"
-INCLUDE "engine/events/hidden_objects/reds_room.asm"
-INCLUDE "engine/events/hidden_objects/route_15_binoculars.asm"
-INCLUDE "engine/events/hidden_objects/museum_fossils.asm"
-INCLUDE "engine/events/hidden_objects/school_blackboard.asm"
-INCLUDE "engine/events/hidden_objects/vermilion_gym_trash.asm"
+INCLUDE "engine/events/hidden_events/reds_room.asm"
+INCLUDE "engine/events/hidden_events/route_15_binoculars.asm"
+INCLUDE "engine/events/hidden_events/museum_fossils.asm"
+INCLUDE "engine/events/hidden_events/school_blackboard.asm"
+INCLUDE "engine/events/hidden_events/vermilion_gym_trash.asm"
 
 
 SECTION "Cinnabar Lab Fossils", ROMX
@@ -305,12 +305,12 @@ SECTION "Cinnabar Lab Fossils", ROMX
 INCLUDE "engine/events/cinnabar_lab.asm"
 
 
-SECTION "Hidden Objects 4", ROMX
+SECTION "Hidden Events 4", ROMX
 
-INCLUDE "engine/events/hidden_objects/gym_statues.asm"
-INCLUDE "engine/events/hidden_objects/bench_guys.asm"
-INCLUDE "engine/events/hidden_objects/blues_room.asm"
-INCLUDE "engine/events/hidden_objects/pokecenter_pc.asm"
+INCLUDE "engine/events/hidden_events/gym_statues.asm"
+INCLUDE "engine/events/hidden_events/bench_guys.asm"
+INCLUDE "engine/events/hidden_events/blues_room.asm"
+INCLUDE "engine/events/hidden_events/pokecenter_pc.asm"
 
 
 SECTION "Version GFX", ROMX
