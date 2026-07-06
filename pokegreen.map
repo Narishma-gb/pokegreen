@@ -5343,7 +5343,7 @@ ROMX bank #8:
 	         $6f35 = SFX_Battle_34
 	         $6f3e = SFX_Battle_35
 	         $6f44 = SFX_Battle_36
-	         $6f4d = SFX_Silph_Scope
+	         $6f4d = SFX_Trainer_Appeared
 	SECTION: $6f50-$6f8e ($003f bytes) ["Music Headers 2"]
 	         $6f50 = Music_GymLeaderBattle
 	         $6f59 = Music_TrainerBattle
@@ -5384,7 +5384,7 @@ ROMX bank #8:
 	         $706f = SFX_Tink_2_Ch5
 	         $7080 = SFX_Heal_HP_2_Ch5
 	         $708f = SFX_Heal_Ailment_2_Ch5
-	         $70a4 = SFX_Silph_Scope_Ch5
+	         $70a4 = SFX_Trainer_Appeared_Ch5
 	         $70bf = SFX_Ball_Toss_Ch5
 	         $70c8 = SFX_Ball_Toss_Ch6
 	         $70cf = SFX_Ball_Poof_Ch5
