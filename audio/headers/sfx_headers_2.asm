@@ -63,4 +63,4 @@
 	audio_header SFX_Battle_34,          5, 6, 8
 	audio_header SFX_Battle_35,          5, 6
 	audio_header SFX_Battle_36,          5, 6, 8
-	audio_header SFX_Silph_Scope,        5
+	audio_header SFX_Trainer_Appeared,   5
