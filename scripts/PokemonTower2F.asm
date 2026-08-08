@@ -18,6 +18,10 @@ PokemonTower2F_ScriptPointers:
 	dw_const PokemonTower2FRivalExitsScript,    SCRIPT_POKEMONTOWER2F_RIVAL_EXITS
 
 PokemonTower2FDefaultScript:
+IF DEF(_DEBUG)
+	call DebugPressedOrHeldB
+	ret nz
+ENDC
 	CheckEvent EVENT_BEAT_POKEMON_TOWER_RIVAL
 	ret nz
 	ld hl, PokemonTower2FRivalEncounterEventCoords

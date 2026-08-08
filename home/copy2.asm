@@ -173,7 +173,11 @@ CheckForUserInterruption::
 	jr z, .input
 
 	ldh a, [hJoy5]
+IF DEF(_DEBUG)
+	and PAD_START | PAD_SELECT | PAD_A
+ELSE
 	and PAD_START | PAD_A
+ENDC
 	jr nz, .input
 
 	dec c
