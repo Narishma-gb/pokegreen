@@ -22,3 +22,15 @@ CopyData::
 	or b
 	jr nz, CopyData
 	ret
+
+ClearBytes::
+; clear bc bytes of data starting from de
+.loop
+	xor a
+	ld [de], a
+	inc de
+	dec bc
+	ld a, c
+	or b
+	jr nz, .loop
+	ret

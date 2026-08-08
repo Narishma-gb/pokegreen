@@ -28,15 +28,13 @@ ROM0
 	org $0060
 	"joypad"
 	org $0068
-	"Garbage Header"
+	"High Home"
 	org $100
 	"Header"
 	org $150
 	"Home"
-	"Garbage 0"
 ROMX $1
 	"bank1"
-	"Garbage 1"
 ROMX $2
 	"Audio Engine 1"
 	"Music 1"
@@ -44,33 +42,27 @@ ROMX $2
 	"Sound Effect Headers 1"
 	"Music Headers 1"
 	"Sound Effects 1"
-	"Garbage 2"
 ROMX $3
 	"bank3"
-	"Garbage 3"
 ROMX $4
 	"Move Names"
 	"Font Graphics"
 	"Start Menu"
 	"NPC Sprites 1"
 	"Battle Engine 1"
-	"Garbage 4"
 ROMX $5
 	"NPC Sprites 2"
 	"Battle Engine 2"
-	"Garbage 5"
 ROMX $6
 	"Maps 1"
 	"Play Time"
 	"Maps 2"
 	"Doors and Ledges"
-	"Garbage 6"
 ROMX $7
 	"Maps 3"
 	"Clear Save"
 	"Maps 4"
 	"Hidden Events 1"
-	"Garbage 7"
 ROMX $8
 	"Bill's PC"
 	"Audio Engine 2"
@@ -82,89 +74,71 @@ ROMX $8
 ROMX $9
 	"Pics 1"
 	"Battle Engine 3"
-	"Garbage 9"
 ROMX $A
 	"Pics 2"
 	"Battle Engine 4"
-	"Garbage 10"
 ROMX $B
 	"Pics 3"
 	"Battle Engine 5"
-	"Garbage 11"
 ROMX $C
 	"Pics 4"
 	"Battle Engine 6"
-	"Garbage 12"
 ROMX $D
 	"Pics 5"
 	"Slot Machines"
 ROMX $E
 	"Battle Engine 7"
-	"Garbage 14"
 ROMX $F
 	"Battle Core"
-	; Rev.0: "Garbage 15"
 ROMX $10
 	"bank10"
-	"Garbage 16"
 ROMX $11
 	"Maps 5"
 	"Pokédex Rating"
 	"Maps 6"
 	"Hidden Events Core"
-	"Garbage 17"
 ROMX $12
 	"Maps 7"
 	"Screen Effects"
 	"Maps 8"
-	"Garbage 18"
 ROMX $13
 	"Trainer Pics"
 	"Maps 9"
 	"Predefs"
-	"Garbage 19"
 ROMX $14
 	"Maps 10"
 	"Battle Engine 8"
 	"Hidden Events 2"
-	"Garbage 20"
 ROMX $15
 	"Maps 11"
 	"Battle Engine 9"
 	"Diploma"
 	"Trainer Sight"
-	"Garbage 21"
 ROMX $16
 	"Maps 12"
 	"Battle Engine 10"
 	"Maps 13"
 	"Battle Engine 11"
-	"Garbage 22"
 ROMX $17
 	"Maps 14"
 	"Starter Dex"
 	"Maps 15"
 	"Hidden Events 3"
-	"Garbage 23"
 ROMX $18
 	"Maps 16"
 	"Cinnabar Lab Fossils"
 	"Maps 17"
 	"Hidden Events 4"
-	"Garbage 24"
 ROMX $19
 	"Tilesets 1"
-	"Garbage 25"
 ROMX $1A
 	"Version GFX"
 	"Tilesets 2"
 	"Battle Engine 12"
-	; Rev.1: "Garbage 26"
 ROMX $1B
 	"Tilesets 3"
 ROMX $1C
 	"bank1C"
-	"Garbage 28"
 ROMX $1D
 	"Maps 18"
 	"Itemfinder 1"
@@ -172,17 +146,14 @@ ROMX $1D
 	"Vending Machine"
 	"Maps 20"
 	"Itemfinder 2"
-	"Garbage 29"
 ROMX $1E
 	"bank1E"
-	"Garbage 30"
 ROMX $1F
 	"Audio Engine 3"
 	"Music 3"
 	"Sound Effect Headers 3"
 	"Music Headers 3"
 	"Sound Effects 3"
-	"Garbage 31"
 WRAM0
 	"Audio RAM"
 	org $c100

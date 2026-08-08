@@ -397,7 +397,7 @@ LoadSGB:
 	ld de, ChrTrnPacket
 	ld hl, SGBBorderGraphics
 	call CopyGfxToSuperNintendoVRAM
-	xor a
+	ld a, 2
 	ld [wCopyingSGBTileData], a
 	ld de, PctTrnPacket
 	ld hl, BorderPalettes
@@ -503,10 +503,15 @@ CopyGfxToSuperNintendoVRAM:
 	ld de, vChars1
 	ld a, [wCopyingSGBTileData]
 	and a
-	jr z, .notCopyingTileData
+	jr z, .standardCopy
+	dec a
+	jr z, .borderTiles
+	call CopySGBTilemapPals
+	jr .next
+.borderTiles
 	call CopySGBBorderTiles
 	jr .next
-.notCopyingTileData
+.standardCopy
 	ld bc, 256 tiles
 	call CopyData
 .next
@@ -580,6 +585,37 @@ CopySGBBorderTiles:
 
 	dec b
 	jr nz, .tileLoop
+	ret
+
+CopySGBTilemapPals:
+	ld bc, (6 + SCREEN_WIDTH + 6) * 5 * 2
+	call CopyData
+	ld b, SCREEN_HEIGHT
+.loop
+	push bc
+	ld bc, 6 * 2
+	call CopyData
+	ld bc, SCREEN_WIDTH * 2
+	call ClearBytes
+	ld bc, 6 * 2
+	call CopyData
+	pop bc
+	dec b
+	jr nz, .loop
+	ld bc, (6 + SCREEN_WIDTH + 6) * 5 * 2
+	call CopyData
+	ld bc, $100
+	call ClearBytes
+	ld c, 3
+.pal_loop
+	push bc
+	ld bc, 4 * COLOR_SIZE
+	call CopyData
+	ld bc, 12 * COLOR_SIZE
+	call ClearBytes
+	pop bc
+	dec c
+	jr nz, .pal_loop
 	ret
 
 INCLUDE "data/sgb/sgb_packets.asm"

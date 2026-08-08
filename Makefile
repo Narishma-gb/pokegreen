@@ -9,7 +9,6 @@ patches := \
 
 rom_obj := \
 	audio.o \
-	garbage.o \
 	home.o \
 	main.o \
 	maps.o \
@@ -98,8 +97,8 @@ tidy:
 	      rgbdscheck.o
 	$(MAKE) clean -C tools/
 
-compare: $(roms) $(patches)
-	@$(SHA1) -c roms.sha1
+# compare: $(roms) $(patches)
+# 	@$(SHA1) -c roms.sha1
 
 tools:
 	$(MAKE) -C tools/
@@ -185,6 +184,9 @@ gfx/tilesets/%.2bpp: tools/gfx += --trim-whitespace
 gfx/tilesets/reds_house.2bpp: tools/gfx += --preserve=0x48
 
 gfx/trade/game_boy.2bpp: tools/gfx += --remove-duplicates
+
+gfx/sgb/green_border.sgb.tilemap: gfx/sgb/green_border.tilemap ; tr < $< -d '\000' > $@
+gfx/sgb/red_border.sgb.tilemap: gfx/sgb/red_border.tilemap ; tr < $< -d '\000' > $@
 
 
 ### Catch-all graphics rules

@@ -5,6 +5,7 @@ INCLUDE "macros/farcall.asm"
 INCLUDE "macros/data.asm"
 INCLUDE "macros/code.asm"
 INCLUDE "macros/gfx.asm"
+INCLUDE "macros/sgb.asm"
 INCLUDE "macros/coords.asm"
 INCLUDE "macros/vc.asm"
 

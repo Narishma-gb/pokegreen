@@ -4,6 +4,11 @@ NULL::
 INCLUDE "home/header.asm"
 
 
+SECTION "High Home", ROM0
+
+INCLUDE "data/sgb/sgb_packets2.asm"
+
+
 SECTION "Home", ROM0
 
 INCLUDE "home/start.asm"
