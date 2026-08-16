@@ -42,11 +42,9 @@
 00:02cc FarCopyDataDouble.loop
 00:02dd CopyVideoData
 00:02f9 CopyVideoData.loop
-00:02fe CopyVideoData.done
 00:030e CopyVideoData.keepgoing
 00:031b CopyVideoDataDouble
 00:0337 CopyVideoDataDouble.loop
-00:033c CopyVideoDataDouble.done
 00:034c CopyVideoDataDouble.keepgoing
 00:0359 CheckForUserInterruption
 00:0372 CheckForUserInterruption.input
@@ -605,7 +603,6 @@
 00:26d7 LoadCurrentMapView.rowInnerLoop
 00:26f5 LoadCurrentMapView.noCarry
 00:26fd LoadCurrentMapView.noCarry2
-00:2706 LoadCurrentMapView.adjustForYCoordWithinTileBlock
 00:2710 LoadCurrentMapView.adjustForXCoordWithinTileBlock
 00:271a LoadCurrentMapView.copyToVisibleAreaBuffer
 00:271f LoadCurrentMapView.rowLoop2
@@ -719,7 +716,6 @@
 00:2e51 HandlePartyMenuInput
 00:2e9e HandlePartyMenuInput.noPokemonChosen
 00:2ea3 HandlePartyMenuInput.swappingPokemon
-00:2ea7 HandlePartyMenuInput.cancelSwap
 00:2ebb HandlePartyMenuInput.handleSwap
 00:2ecb DrawPartyMenu
 00:2ed0 RedrawPartyMenu
@@ -1592,7 +1588,6 @@
 01:6bc7 DisplayPokemartDialogue_.loop
 01:6c02 DisplayPokemartDialogue_.sellMenu
 01:6c23 DisplayPokemartDialogue_.sellMenuLoop
-01:6c4b DisplayPokemartDialogue_.confirmItemSale
 01:6c97 DisplayPokemartDialogue_.skipSettingFlag1
 01:6ca3 DisplayPokemartDialogue_.unsellableItem
 01:6cac DisplayPokemartDialogue_.bagEmpty
@@ -11955,7 +11950,7 @@
 18:7999 SilphCo11FSilphPresidentText.NoRoomText
 18:79a7 SilphCo11FBeautyText
 18:79e6 SilphCo11FGiovanniText
-18:7a51 SilphCo10FGiovanniILostAgainText
+18:7a51 SilphCo11FGiovanniILostAgainText
 18:7a66 SilphCo11FGiovanniYouRuinedOurPlansText
 18:7ad6 SilphCo11FRocket1Text
 18:7ae0 SilphCo11FRocket1BattleText
@@ -11965,8 +11960,8 @@
 18:7b23 SilphCo11FRocket2BattleText
 18:7b3a SilphCo11FRocket2EndBattleText
 18:7b45 SilphCo11FRocket2AfterBattleText
-18:7b64 SilphCo10FPorygonText
-18:7b73 SilphCo10FPorygonText.Text
+18:7b64 SilphCo11FPorygonText
+18:7b73 SilphCo11FPorygonText.Text
 18:7b88 SilphCo11F_Object
 18:7bd0 SilphCo11F_Blocks
 18:7c21 GymStatues
@@ -13305,7 +13300,6 @@
 1e:4c1a DrawFrameBlock.flipHorizontalAndVertical
 1e:4c49 DrawFrameBlock.storeFlags1
 1e:4c4f DrawFrameBlock.flipHorizontalTranslateDown
-1e:4c6d DrawFrameBlock.enableHorizontalFlip
 1e:4c71 DrawFrameBlock.disableHorizontalFlip
 1e:4c73 DrawFrameBlock.storeFlags2
 1e:4c75 DrawFrameBlock.nextTile
