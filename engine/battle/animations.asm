@@ -165,7 +165,7 @@ DrawFrameBlock:
 	ld a, [hli]
 	bit B_OAM_XFLIP, a
 	jr nz, .disableHorizontalFlip
-.enableHorizontalFlip
+; enable horizontal flip
 	set B_OAM_XFLIP, a
 	jr .storeFlags2
 .disableHorizontalFlip
@@ -2485,7 +2485,7 @@ AnimationShakeEnemyHUD:
 ; with the top row of the window on the screen. This makes it so that the window
 ; covers everything below the enemy HD with a copy that looks just like what
 ; was there before.
-	ld a, 7 * 8
+	ld a, 7 * TILE_HEIGHT
 	ldh [hWY], a
 
 ; Write OAM entries so that the copy of the back pic from the top of this

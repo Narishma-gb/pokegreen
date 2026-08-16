@@ -53,7 +53,7 @@ EraseType2Text:
 	ld [hl], a ; erase the Handakuten in  タイプ
 	inc bc ; SCREEN_WIDTH - 2
 	add hl, bc
-	ld bc, 5
+	ld bc, CHARLEN("タイプ２／")
 	jp FillMemory
 
 PrintMoveType:

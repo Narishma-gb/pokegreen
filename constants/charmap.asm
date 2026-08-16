@@ -203,7 +203,7 @@
 	charmap "ャ", $ad
 	charmap "ュ", $ae
 	charmap "ョ", $af
-	charmap "ィ", $b0  ; Katakana small "イ"
+	charmap "ィ", $b0 ; Katakana small "イ"
 
 	charmap "あ", $b1
 	charmap "い", $b2

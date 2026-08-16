@@ -261,8 +261,8 @@ SilphCo11FGiovanniStartBattleScript:
 	ld hl, wStatusFlags3
 	set BIT_TALKED_TO_TRAINER, [hl]
 	set BIT_PRINT_END_BATTLE_TEXT, [hl]
-	ld hl, SilphCo10FGiovanniILostAgainText
-	ld de, SilphCo10FGiovanniILostAgainText
+	ld hl, SilphCo11FGiovanniILostAgainText
+	ld de, SilphCo11FGiovanniILostAgainText
 	call SaveEndBattleTextPointers
 	ldh a, [hSpriteIndex]
 	ld [wSpriteIndex], a
@@ -379,7 +379,7 @@ SilphCo11FGiovanniText:
 	line "いたいめに　あって　もらうぞ！"
 	done
 
-SilphCo10FGiovanniILostAgainText:
+SilphCo11FGiovanniILostAgainText:
 	text "はぐ！"
 	line "この　おれが　まける　なんて！"
 	prompt
@@ -440,7 +440,7 @@ SilphCo11FRocket2AfterBattleText:
 	line "くれぐれも　きを　つけな"
 	done
 
-SilphCo10FPorygonText: ; unreferenced
+SilphCo11FPorygonText: ; unreferenced
 	text_asm
 	ld hl, .Text
 	call PrintText
