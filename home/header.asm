@@ -49,7 +49,7 @@ SECTION "vblank", ROM0[$0040]
 	ds $48 - @, 0 ; unused
 
 SECTION "lcd", ROM0[$0048]
-	rst $38
+	jp LCD
 
 	ds $50 - @, 0 ; unused
 
@@ -66,7 +66,6 @@ SECTION "serial", ROM0[$0058]
 SECTION "joypad", ROM0[$0060]
 	reti
 
-	ds $68 - @, 0 ; unused
 
 SECTION "Header", ROM0[$0100]
 

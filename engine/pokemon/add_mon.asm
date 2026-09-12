@@ -100,6 +100,7 @@ _AddPartyMon::
 	push bc
 	call FlagAction
 	pop bc
+	farcall SGBAddCaughtMon
 	ld hl, wPokedexSeen
 	call FlagAction
 
@@ -322,6 +323,7 @@ _AddEnemyMonToPlayerParty::
 	call SkipFixedLengthTextEntries
 	ld bc, NAME_LENGTH
 	call CopyData    ; write new mon's nickname (from an enemy mon)
+	farcall SGBAddCaughtMon
 	ld a, [wCurPartySpecies]
 	ld [wPokedexNum], a
 	predef IndexToPokedex

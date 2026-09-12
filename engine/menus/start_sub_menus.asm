@@ -25,6 +25,9 @@ StartMenu_Pokemon::
 	jr nc, .chosePokemon
 .exitMenu
 	call GBPalWhiteOutWithDelay3
+	ld a, 1
+	ld [wSGBReloadTileset], a
+	callfar ReloadSGBBorder
 	call RestoreScreenTilesAndReloadTilePatterns
 	call LoadGBPal
 	jp RedisplayStartMenu

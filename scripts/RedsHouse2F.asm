@@ -23,5 +23,12 @@ RedsHouse2FNoopScript:
 
 RedsHouse2F_TextPointers:
 	def_text_pointers
+	dw_const RedsHouse2FRocketText, TEXT_REDSHOUSE2F_ROCKET1
 
-	text_end ; unused
+RedsHouse2FRocketText:
+	text "！@"
+	text_asm
+	ld a, [wSGBBorderOption]
+	xor 1
+	ld [wSGBBorderOption], a
+	jp TextScriptEnd

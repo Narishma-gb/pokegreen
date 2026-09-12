@@ -47,6 +47,9 @@ OakSpeech:
 	ld a, MUSIC_ROUTES2
 	call PlayMusic
 	call ClearScreen
+	callfar NewGameInitBorderParty
+	callfar ReloadSGBBorder
+	call LoadFontTilePatterns
 	call LoadTextBoxTilePatterns
 	call PrepareOakSpeech
 	predef InitPlayerData2

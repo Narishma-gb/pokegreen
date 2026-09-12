@@ -5,6 +5,7 @@ HandleMidJump::
 
 EnterMap::
 ; Load a new map.
+	callfar ReloadSGBBorder
 	ld a, PAD_BUTTONS | PAD_CTRL_PAD
 	ld [wJoyIgnore], a
 	call LoadMapData

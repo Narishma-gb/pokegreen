@@ -1,9 +1,6 @@
 SECTION "bank1", ROMX
 
 INCLUDE "data/sprites/facings.asm"
-INCLUDE "data/pokemon/mew.asm"
-INCLUDE "data/items/prices.asm"
-INCLUDE "data/items/names.asm"
 INCLUDE "data/text/unused_names.asm"
 INCLUDE "engine/gfx/sprite_oam.asm"
 INCLUDE "engine/gfx/oam_dma.asm"
@@ -75,11 +72,6 @@ INCLUDE "engine/events/hidden_events/town_map.asm"
 INCLUDE "engine/events/hidden_events/pokemon_stuff.asm"
 
 
-SECTION "Move Names", ROMX
-
-INCLUDE "data/moves/names.asm"
-
-
 SECTION "Font Graphics", ROMX
 
 INCLUDE "gfx/font.asm"
@@ -105,6 +97,18 @@ INCLUDE "engine/battle/move_effects/conversion.asm"
 INCLUDE "engine/battle/move_effects/haze.asm"
 INCLUDE "engine/battle/get_trainer_name.asm"
 INCLUDE "engine/math/random.asm"
+
+
+SECTION "Predefs", ROMX
+
+INCLUDE "engine/events/give_pokemon.asm"
+INCLUDE "engine/predefs.asm"
+INCLUDE "engine/sgb/caught_mon.asm"
+
+
+SECTION "Battle Core 2", ROMX
+
+INCLUDE "engine/battle/core2.asm"
 
 
 SECTION "Battle Engine 2", ROMX
@@ -144,11 +148,6 @@ INCLUDE "engine/events/hidden_events/cinnabar_gym_quiz.asm"
 INCLUDE "engine/events/hidden_events/magazines.asm"
 INCLUDE "engine/events/hidden_events/bills_house_pc.asm"
 INCLUDE "engine/events/hidden_events/oaks_lab_email.asm"
-
-
-SECTION "Bill's PC", ROMX
-
-INCLUDE "engine/pokemon/bills_pc.asm"
 
 
 SECTION "Battle Engine 3", ROMX
@@ -191,7 +190,6 @@ INCLUDE "engine/slots/game_corner_slots.asm"
 SECTION "Battle Engine 7", ROMX
 
 INCLUDE "data/pokemon/base_stats.asm"
-INCLUDE "data/pokemon/names.asm"
 INCLUDE "data/pokemon/cries.asm"
 INCLUDE "data/moves/moves.asm"
 INCLUDE "engine/battle/trainer_ai.asm"
@@ -235,12 +233,6 @@ INCLUDE "engine/overworld/hidden_events.asm"
 SECTION "Screen Effects", ROMX
 
 INCLUDE "engine/gfx/screen_effects.asm"
-
-
-SECTION "Predefs", ROMX
-
-INCLUDE "engine/events/give_pokemon.asm"
-INCLUDE "engine/predefs.asm"
 
 
 SECTION "Battle Engine 8", ROMX
@@ -335,7 +327,6 @@ INCLUDE "engine/battle/battle_transitions.asm"
 INCLUDE "engine/items/town_map.asm"
 INCLUDE "engine/gfx/mon_icons.asm"
 INCLUDE "engine/events/in_game_trades.asm"
-INCLUDE "engine/gfx/palettes.asm"
 INCLUDE "engine/menus/save.asm"
 
 
@@ -368,3 +359,30 @@ INCLUDE "data/battle_anims/frame_blocks.asm"
 INCLUDE "engine/movie/evolution.asm"
 INCLUDE "engine/overworld/elevator.asm"
 INCLUDE "engine/items/tm_prices.asm"
+
+
+SECTION "SGB Border", ROMX
+
+INCLUDE "engine/gfx/palettes.asm"
+INCLUDE "engine/sgb/snes_transfer.asm"
+INCLUDE "engine/sgb/border.asm"
+INCLUDE "engine/sgb/decompress.asm"
+INCLUDE "data/sgb/sgb_border.asm"
+
+INCLUDE "data/pokemon/sgb_palettes/sgb_cards_colormap.asm"
+INCLUDE "data/pokemon/sgb_palettes/sgb_cards_palettes.asm"
+INCLUDE "data/pokemon/sgb_palettes/sgb_cards_pointers.asm"
+
+
+SECTION "bank21", ROMX
+
+INCLUDE "data/pokemon/mew.asm"
+INCLUDE "data/pokemon/names.asm"
+INCLUDE "data/moves/names.asm"
+INCLUDE "data/items/prices.asm"
+INCLUDE "data/items/names.asm"
+
+
+SECTION "Bill's PC", ROMX
+
+INCLUDE "engine/pokemon/bills_pc.asm"

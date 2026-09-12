@@ -9,11 +9,11 @@ patches := \
 
 rom_obj := \
 	audio.o \
-	garbage.o \
 	home.o \
 	main.o \
 	maps.o \
 	ram.o \
+	gfx/cards.o \
 	gfx/pics.o \
 	gfx/sprites.o \
 	gfx/tilesets.o
@@ -77,6 +77,7 @@ clean: tidy
 	find gfx \
 	     \( -iname '*.1bpp' \
 	        -o -iname '*.2bpp' \
+	        -o -iname "*.lz" \
 	        -o -iname '*.pic' \) \
 	     -delete
 
@@ -97,9 +98,6 @@ tidy:
 	      $(pokegreen11_vc_obj) \
 	      rgbdscheck.o
 	$(MAKE) clean -C tools/
-
-compare: $(roms) $(patches)
-	@$(SHA1) -c roms.sha1
 
 tools:
 	$(MAKE) -C tools/
@@ -152,7 +150,7 @@ endif
 
 RGBLINKFLAGS += -d -p 0
 
-RGBFIXFLAGS += -sv -k 01 -l 0x33 -m MBC1+RAM+BATTERY -r 03 -p 0
+RGBFIXFLAGS += -sv -k 01 -l 0x33 -m MBC3+RAM+BATTERY -r 03 -p 0
 pokered.gb:        RGBFIXFLAGS += -n 0 -t "POKEMON RED"
 pokegreen.gb:      RGBFIXFLAGS += -n 0 -t "POKEMON GREEN"
 pokered11.gb:      RGBFIXFLAGS += -n 1 -t "POKEMON RED"
@@ -166,6 +164,8 @@ pokegreen11_vc.gb: RGBFIXFLAGS += -n 1 -t "POKEMON GREEN"
 
 
 ### Misc file-specific graphics rules
+
+RGBGFXPALS ?= --colors dmg
 
 gfx/battle/move_anim_0.2bpp: tools/gfx += --trim-whitespace
 gfx/battle/move_anim_1.2bpp: tools/gfx += --trim-whitespace
@@ -184,13 +184,20 @@ gfx/slots/green_slots_1.2bpp: tools/gfx += --trim-whitespace
 gfx/tilesets/%.2bpp: tools/gfx += --trim-whitespace
 gfx/tilesets/reds_house.2bpp: tools/gfx += --preserve=0x48
 
+gfx/pokemon/sgb/%.2bpp: RGBGFXPALS = --colors dmg=63
+
+gfx/sgb/%.2bpp: tools/gfx += --trim-whitespace --preserve=0x49
+
 gfx/trade/game_boy.2bpp: tools/gfx += --remove-duplicates
 
 
 ### Catch-all graphics rules
 
+%.lz: %
+	tools/lzcompress -- $< $@
+
 %.2bpp: %.png
-	$(RGBGFX) --colors dmg $(RGBGFXFLAGS) -o $@ $<
+	$(RGBGFX) $(RGBGFXPALS) $(RGBGFXFLAGS) -o $@ $<
 	$(if $(tools/gfx),\
 		tools/gfx $(tools/gfx) -o $@ $@ || $$($(RM) $@ && false))
 

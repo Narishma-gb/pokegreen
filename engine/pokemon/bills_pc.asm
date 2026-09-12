@@ -232,6 +232,9 @@ BillsPCDeposit:
 	ld [hl], '@'
 	ld hl, MonWasStoredText
 	call PrintText
+	ld a, 2
+	ld [wSGBReloadTileset], a
+	farcall ReloadSGBBorder
 	jp BillsPCMenu
 
 BillsPCWithdraw:
@@ -269,6 +272,9 @@ BillsPCWithdraw:
 	call WaitForSoundToFinish
 	ld hl, MonIsTakenOutText
 	call PrintText
+	ld a, 2
+	ld [wSGBReloadTileset], a
+	farcall ReloadSGBBorder
 	jp BillsPCMenu
 
 BillsPCRelease:

@@ -4,6 +4,12 @@ NULL::
 INCLUDE "home/header.asm"
 
 
+SECTION "High Home", ROM0
+
+INCLUDE "home/timer.asm"
+INCLUDE "home/stat.asm"
+
+
 SECTION "Home", ROM0
 
 INCLUDE "home/start.asm"
@@ -21,7 +27,6 @@ INCLUDE "home/init.asm"
 INCLUDE "home/vblank.asm"
 INCLUDE "home/fade.asm"
 INCLUDE "home/serial.asm"
-INCLUDE "home/timer.asm"
 INCLUDE "home/audio.asm"
 INCLUDE "home/update_sprites.asm"
 

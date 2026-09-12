@@ -9,10 +9,12 @@ MainMenu:
 	jr nc, .mainMenuLoop
 
 	predef TryLoadSaveFile
+	callfar LoadSaveRedrawBorder
 
 .mainMenuLoop
 	ld c, 20
 	call DelayFrames
+	callfar ReloadSGBBorder
 	xor a ; LINK_STATE_NONE
 	ld [wLinkState], a
 	ld hl, wPartyAndBillsPCSavedMenuItem
@@ -107,6 +109,7 @@ MainMenu:
 .pressedA
 	call GBPalWhiteOutWithDelay3
 	call ClearScreen
+	callfar ReloadSGBBorder
 	ld a, PLAYER_DIR_DOWN
 	ld [wPlayerDirection], a
 	ld c, 10

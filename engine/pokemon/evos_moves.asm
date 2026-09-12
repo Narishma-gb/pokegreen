@@ -209,6 +209,7 @@ Evolution_PartyMonLoop: ; loop over party mons
 	ld [wPokedexNum], a
 	xor a
 	ld [wMonDataLocation], a
+	callfar SGBAddCaughtMonEvo
 	call LearnMoveFromLevelUp
 	pop hl
 	predef SetPartyMonTypes

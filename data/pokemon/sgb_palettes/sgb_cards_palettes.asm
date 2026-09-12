@@ -1,0 +1,1115 @@
+; first 2 colors: palette 0
+; last 2 colors: palette 1
+
+SGBBorderMonCardPalettes:
+	table_width PAL_SIZE
+
+; NO_MON
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; RHYDON
+	RGB 13, 11, 16
+	RGB 21, 21, 21
+	RGB 13, 11, 16
+	RGB 21, 21, 21
+
+; KANGASKHAN
+	RGB 17, 10,  4
+	RGB 31, 18,  9
+	RGB 17, 10,  4
+	RGB 31, 18,  9
+
+; NIDORAN_M
+	RGB 20,  5, 12
+	RGB 28, 16, 25
+	RGB 20,  5, 12
+	RGB 28, 16, 25
+
+; CLEFAIRY
+	RGB 23,  5,  6
+	RGB 31, 20, 20
+	RGB 23,  5,  6
+	RGB 31, 20, 20
+
+; SPEAROW
+	RGB 24,  4,  2
+	RGB 31, 22, 14
+	RGB 24,  4,  2
+	RGB 31, 22, 14
+
+; VOLTORB
+	RGB 25,  6,  0
+	RGB 31, 16, 17
+	RGB 25,  6,  0
+	RGB 19, 23, 31
+
+; NIDOKING
+	RGB 17,  0, 26
+	RGB 25, 14, 31
+	RGB 17,  0, 26
+	RGB 25, 14, 31
+
+; SLOWBRO
+	RGB 31, 11, 11
+	RGB 31, 27, 15
+	RGB 12, 12, 12
+	RGB 23, 23, 23
+
+; IVYSAUR
+	RGB  0, 12,  6
+	RGB  0, 19, 13
+	RGB  0, 12,  6
+	RGB 25, 17,  3
+
+; EXEGGUTOR
+	RGB  7, 18,  0
+	RGB 31, 27,  5
+	RGB 20, 10,  3
+	RGB 30, 23,  5
+
+; LICKITUNG
+	RGB 31,  9,  8
+	RGB 31, 21, 21
+	RGB 31,  9,  8
+	RGB 31, 20, 12
+
+; EXEGGCUTE
+	RGB 18,  8,  6
+	RGB 31, 15, 12
+	RGB 18,  8,  6
+	RGB 31, 15, 12
+
+; GRIMER
+	RGB 15,  7, 19
+	RGB 27, 18, 30
+	RGB 15,  7, 19
+	RGB 27, 18, 30
+
+; GENGAR
+	RGB 10, 12, 13
+	RGB 18, 21, 23
+	RGB 10, 12, 13
+	RGB 31, 11,  6
+
+; NIDORAN_F
+	RGB  8,  8, 24
+	RGB 19, 23, 31
+	RGB  8,  8, 24
+	RGB 19, 23, 31
+
+; NIDOQUEEN
+	RGB  6,  5, 23
+	RGB 10, 18, 31
+	RGB  6,  5, 23
+	RGB 10, 18, 31
+
+; CUBONE
+	RGB 20, 10,  3
+	RGB 18, 20, 27
+	RGB 20, 10,  3
+	RGB 29, 23, 10
+
+; RHYHORN
+	RGB 13, 11, 16
+	RGB 21, 21, 21
+	RGB 13, 11, 16
+	RGB 21, 21, 21
+
+; LAPRAS
+	RGB  5,  8, 19
+	RGB 12, 19, 31
+	RGB  5,  8, 19
+	RGB 12, 19, 31
+
+; ARCANINE
+	RGB 26, 12,  0
+	RGB 28, 27, 10
+	RGB 31,  0,  0
+	RGB 28, 27, 10
+
+; MEW
+	RGB 31,  7, 12
+	RGB 31, 18, 24
+	RGB  0, 10, 31
+	RGB 31, 18, 24
+
+; GYARADOS
+	RGB  3,  9, 14
+	RGB 12, 18, 31
+	RGB 15,  3,  0
+	RGB 31, 14, 16
+
+; SHELLDER
+	RGB 13, 11, 15
+	RGB 24, 21, 25
+	RGB 31, 13, 13
+	RGB 24, 21, 25
+
+; TENTACOOL
+	RGB  0, 11, 22
+	RGB 16, 22, 31
+	RGB 31,  5,  6
+	RGB 16, 22, 31
+
+; GASTLY
+	RGB 15,  8, 16
+	RGB 26, 18, 27
+	RGB 26, 10,  8
+	RGB 26, 18, 27
+
+; SCYTHER
+	RGB  4, 16,  4
+	RGB 17, 31,  4
+	RGB  4, 16,  4
+	RGB 17, 31,  4
+
+; STARYU
+	RGB 19,  3,  6
+	RGB 31, 20,  0
+	RGB 25,  3,  2
+	RGB 31, 16,  8
+
+; BLASTOISE
+	RGB  2,  6, 19
+	RGB 11, 18, 31
+	RGB 12,  6,  3
+	RGB 27, 20, 10
+
+; PINSIR
+	RGB 21, 10,  3
+	RGB 17, 23, 10
+	RGB 21, 10,  3
+	RGB 31, 19,  8
+
+; TANGELA
+	RGB  4,  8, 18
+	RGB 15, 21, 29
+	RGB  4,  8, 18
+	RGB 15, 21, 29
+
+; $1f
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $20
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; GROWLITHE
+	RGB 26, 12,  0
+	RGB 28, 27, 10
+	RGB 31,  0,  0
+	RGB 28, 27, 10
+
+; ONIX
+	RGB 10, 10, 14
+	RGB 20, 20, 24
+	RGB 10, 10, 14
+	RGB 20, 20, 24
+
+; FEAROW
+	RGB 30,  3,  0
+	RGB 31, 24,  2
+	RGB 30,  3,  0
+	RGB 31, 24,  2
+
+; PIDGEY
+	RGB 26,  9,  3
+	RGB 30, 25,  1
+	RGB 26,  9,  3
+	RGB 30, 25,  1
+
+; SLOWPOKE
+	RGB 31, 11, 11
+	RGB 31, 21, 21
+	RGB 31, 11, 11
+	RGB 31, 27, 15
+
+; KADABRA
+	RGB 19, 11,  6
+	RGB 31, 30,  0
+	RGB 19, 11,  6
+	RGB 21, 21, 21
+
+; GRAVELER
+	RGB 10, 13, 12
+	RGB 20, 23, 22
+	RGB 10, 13, 12
+	RGB 20, 23, 22
+
+; CHANSEY
+	RGB 27,  5,  7
+	RGB 31, 15, 20
+	RGB 27,  5,  7
+	RGB 31, 15, 20
+
+; MACHOKE
+	RGB 11, 11, 14
+	RGB 18, 18, 22
+	RGB 31,  0,  0
+	RGB 18, 18, 22
+
+; MR_MIME
+	RGB 28,  6,  4
+	RGB 31, 17, 19
+	RGB 28,  6,  4
+	RGB 31, 17, 19
+
+; HITMONLEE
+	RGB 21, 13,  3
+	RGB 29, 23, 10
+	RGB 21, 13,  3
+	RGB 29, 23, 10
+
+; HITMONCHAN
+	RGB 23,  3,  3
+	RGB 31, 21, 13
+	RGB 22,  3, 25
+	RGB 31, 21, 13
+
+; ARBOK
+	RGB 26,  1,  5
+	RGB 30, 16, 24
+	RGB 26,  1,  5
+	RGB 30, 16, 24
+
+; PARASECT
+	RGB 23,  6,  3
+	RGB 31, 20, 11
+	RGB 23,  6,  3
+	RGB 31, 20, 11
+
+; PSYDUCK
+	RGB 19, 17,  0
+	RGB 31, 31,  0
+	RGB 19, 17,  0
+	RGB 31, 31,  0
+
+; DROWZEE
+	RGB 21, 19,  0
+	RGB 31, 30,  0
+	RGB 21, 19,  0
+	RGB 31, 30,  0
+
+; GOLEM
+	RGB 10, 13, 12
+	RGB 26, 25, 15
+	RGB 31,  0,  0
+	RGB 26, 25, 15
+
+; $32
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; MAGMAR
+	RGB 28,  6,  0
+	RGB 31, 27,  0
+	RGB 28,  6,  0
+	RGB 31, 27,  0
+
+; $34
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; ELECTABUZZ
+	RGB 19, 11,  0
+	RGB 31, 27,  0
+	RGB 19, 11,  0
+	RGB 31, 27,  0
+
+; MAGNETON
+	RGB 11, 11, 20
+	RGB 20, 20, 26
+	RGB 11, 11, 20
+	RGB 20, 20, 26
+
+; KOFFING
+	RGB 10,  7, 14
+	RGB 21, 13, 28
+	RGB 21,  4,  7
+	RGB 21, 13, 28
+
+; $38
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; MANKEY
+	RGB 22,  9,  5
+	RGB 28, 20, 17
+	RGB 22,  9,  5
+	RGB 28, 20, 17
+
+; SEEL
+	RGB 11, 11, 20
+	RGB 20, 20, 26
+	RGB 31, 11, 10
+	RGB 29, 26, 14
+
+; DIGLETT
+	RGB 15,  7,  0
+	RGB 24, 17,  5
+	RGB 23,  3,  0
+	RGB 24, 17,  5
+
+; TAUROS
+	RGB 17,  9,  0
+	RGB 31, 18,  7
+	RGB 17,  9,  0
+	RGB 14, 16, 20
+
+; $3d
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $3e
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $3f
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; FARFETCHD
+	RGB 20, 12,  9
+	RGB 31, 29, 13
+	RGB  7, 20,  6
+	RGB 21, 31, 17
+
+; VENONAT
+	RGB 12,  5, 18
+	RGB 24, 15, 28
+	RGB 12,  5, 18
+	RGB 24, 15, 28
+
+; DRAGONITE
+	RGB 27, 11,  0
+	RGB 31, 23,  7
+	RGB 27, 11,  0
+	RGB 13, 22, 16
+
+; $43
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $44
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $45
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; DODUO
+	RGB 26, 16,  4
+	RGB 29, 26, 14
+	RGB 26, 16,  4
+	RGB 29, 26, 14
+
+; POLIWAG
+	RGB 11, 11, 18
+	RGB 20, 20, 27
+	RGB 11, 11, 18
+	RGB 31, 17, 14
+
+; JYNX
+	RGB 30,  6,  1
+	RGB 29, 13, 15
+	RGB 30,  6,  1
+	RGB 31, 21,  0
+
+; MOLTRES
+	RGB 30,  6,  0
+	RGB 30, 25,  0
+	RGB 30,  6,  0
+	RGB 30, 25,  0
+
+; ARTICUNO
+	RGB  5, 13, 24
+	RGB 13, 27, 29
+	RGB  5, 13, 24
+	RGB 13, 27, 29
+
+; ZAPDOS
+	RGB 20,  6,  0
+	RGB 29, 27,  0
+	RGB 20,  6,  0
+	RGB 29, 27,  0
+
+; DITTO
+	RGB 15,  2, 10
+	RGB 26,  9, 21
+	RGB 15,  2, 10
+	RGB 26,  9, 21
+
+; MEOWTH
+	RGB 19, 10,  0
+	RGB 29, 28,  7
+	RGB 31,  0,  0
+	RGB 29, 28,  7
+
+; KRABBY
+	RGB 25,  6,  0
+	RGB 31, 16, 17
+	RGB 25,  6,  0
+	RGB 31, 16, 17
+
+; $4f
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $50
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $51
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; VULPIX
+	RGB 25,  6,  0
+	RGB 31, 17, 13
+	RGB 25,  6,  0
+	RGB 31, 17, 13
+
+; NINETALES
+	RGB 23, 12,  3
+	RGB 28, 26,  0
+	RGB 23, 12,  3
+	RGB 28, 26,  0
+
+; PIKACHU
+	RGB 27,  7,  0
+	RGB 30, 24,  4
+	RGB 27,  7,  0
+	RGB 30, 24,  4
+
+; RAICHU
+	RGB 29, 16,  0
+	RGB 30, 26,  3
+	RGB 29, 16,  0
+	RGB 30, 26,  3
+
+; $56
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $57
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; DRATINI
+	RGB  6, 11, 15
+	RGB 17, 19, 24
+	RGB  6, 11, 15
+	RGB 17, 19, 24
+
+; DRAGONAIR
+	RGB  2,  4, 26
+	RGB  9, 19, 30
+	RGB  2,  4, 26
+	RGB  9, 19, 30
+
+; KABUTO
+; Kabuto is a special case, it uses these colors plus color index 1,
+; because one set of tiles does not contain White
+	RGB 14,  6,  0
+	RGB 29, 18,  0
+	RGB 14,  6,  0
+	RGB 29, 18,  0
+
+; KABUTOPS
+	RGB 19, 12,  0
+	RGB 31, 22, 13
+	RGB 19, 12,  0
+	RGB 16, 25, 12
+
+; HORSEA
+	RGB  4,  7, 22
+	RGB 12, 19, 31
+	RGB  4,  7, 22
+	RGB 25, 26,  3
+
+; SEADRA
+	RGB  4,  7, 22
+	RGB 12, 19, 31
+	RGB  4,  7, 22
+	RGB 12, 19, 31
+
+; $5e
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $5f
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; SANDSHREW
+	RGB 23, 14,  0
+	RGB 31, 25,  7
+	RGB 23, 14,  0
+	RGB 31, 25,  7
+
+; SANDSLASH
+	RGB 25, 10,  0
+	RGB 31, 25,  7
+	RGB 25, 10,  0
+	RGB 31, 25,  7
+
+; OMANYTE
+	RGB  0, 15, 25
+	RGB 22, 21, 14
+	RGB  0, 15, 25
+	RGB 11, 26, 29
+
+; OMASTAR
+	RGB  0, 15, 25
+	RGB 22, 21, 14
+	RGB  0, 15, 25
+	RGB 11, 26, 29
+
+; JIGGLYPUFF
+	RGB 22,  6, 11
+	RGB 31, 16, 19
+	RGB 13,  2, 21
+	RGB 31, 16, 19
+
+; WIGGLYTUFF
+	RGB 22,  6, 11
+	RGB 31, 16, 19
+	RGB 13,  5, 19
+	RGB 31, 16, 19
+
+; EEVEE
+	RGB 12,  7,  0
+	RGB 25, 16,  4
+	RGB 12,  7,  0
+	RGB 25, 16,  4
+
+; FLAREON
+	RGB 31,  6,  0
+	RGB 31, 27,  0
+	RGB 31,  6,  0
+	RGB 31, 27,  0
+
+; JOLTEON
+	RGB 15, 10,  0
+	RGB 31, 26,  0
+	RGB 15, 10,  0
+	RGB 31, 26,  0
+
+; VAPOREON
+	RGB  4,  6, 14
+	RGB 10, 18, 29
+	RGB  4,  6, 14
+	RGB 31, 28,  7
+
+; MACHOP
+	RGB 12, 12, 13
+	RGB 19, 19, 21
+	RGB 31,  0,  0
+	RGB 19, 19, 21
+
+; ZUBAT
+	RGB 10,  5, 26
+	RGB 14, 15, 30
+	RGB 10,  5, 26
+	RGB 14, 15, 30
+
+; EKANS
+	RGB 21,  4,  7
+	RGB 30, 16, 24
+	RGB 21,  4,  7
+	RGB 30, 16, 24
+
+; PARAS
+	RGB 23,  6,  3
+	RGB 31, 20, 11
+	RGB 23,  6,  3
+	RGB 31, 20, 11
+
+; POLIWHIRL
+	RGB 11, 11, 18
+	RGB 20, 20, 27
+	RGB 11, 11, 18
+	RGB 20, 20, 27
+
+; POLIWRATH
+	RGB 11, 11, 18
+	RGB 20, 20, 27
+	RGB 11, 11, 18
+	RGB 20, 20, 27
+
+; WEEDLE
+	RGB 25,  6,  7
+	RGB 29, 25,  0
+	RGB 25,  6,  7
+	RGB 29, 25,  0
+
+; KAKUNA
+	RGB 18, 12,  0
+	RGB 28, 24,  0
+	RGB 18, 12,  0
+	RGB 28, 24,  0
+
+; BEEDRILL
+	RGB 21,  7,  0
+	RGB 30, 27,  0
+	RGB 21,  7,  0
+	RGB 30, 27,  0
+
+; $73
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; DODRIO
+	RGB 26, 16,  4
+	RGB 29, 26, 14
+	RGB 26, 16,  4
+	RGB 29, 26, 14
+
+; PRIMEAPE
+	RGB 22,  9,  5
+	RGB 28, 20, 17
+	RGB 22,  9,  5
+	RGB 15, 15, 15
+
+; DUGTRIO
+	RGB 15,  7,  0
+	RGB 24, 17,  5
+	RGB 23,  3,  0
+	RGB 24, 17,  5
+
+; VENOMOTH
+	RGB 17,  7, 16
+	RGB 27, 17, 29
+	RGB 17,  7, 16
+	RGB 27, 17, 29
+
+; DEWGONG
+	RGB 11, 11, 20
+	RGB 20, 20, 26
+	RGB 11, 11, 20
+	RGB 20, 20, 26
+
+; $79
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $7a
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; CATERPIE
+	RGB  3, 17,  0
+	RGB 23, 27,  5
+	RGB  3, 17,  0
+	RGB 23, 27,  5
+
+; METAPOD
+	RGB  7, 18,  0
+	RGB 23, 27,  5
+	RGB  7, 18,  0
+	RGB 23, 27,  5
+
+; BUTTERFREE
+	RGB 31,  0,  1
+	RGB 31, 15,  0
+	RGB  9,  8, 18
+	RGB 11, 13, 31
+
+; MACHAMP
+	RGB  9, 12, 13
+	RGB 18, 21, 22
+	RGB 31,  0,  0
+	RGB 18, 21, 22
+
+; $7f
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; GOLDUCK
+	RGB 13, 15, 27
+	RGB 26, 25,  7
+	RGB 13, 15, 27
+	RGB 31,  0,  0
+
+; HYPNO
+	RGB 21, 15,  5
+	RGB 31, 30,  0
+	RGB 21, 15,  5
+	RGB 19, 23, 31
+
+; GOLBAT
+	RGB 10,  5, 26
+	RGB 15, 15, 30
+	RGB 10,  5, 26
+	RGB 15, 15, 30
+
+; MEWTWO
+	RGB 13,  7, 20
+	RGB 28, 23, 28
+	RGB 20,  5, 18
+	RGB 28, 23, 28
+
+; SNORLAX
+	RGB  5,  6, 14
+	RGB 31, 27,  9
+	RGB 28,  6,  2
+	RGB 31, 27,  9
+
+; MAGIKARP
+	RGB 31,  7,  0
+	RGB 29, 28,  4
+	RGB 31,  7,  0
+	RGB 31, 14, 12
+
+; $86
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $87
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; MUK
+	RGB 15,  7, 19
+	RGB 27, 18, 30
+	RGB 15,  7, 19
+	RGB 27, 18, 30
+
+; $89
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; KINGLER
+	RGB 25,  6,  0
+	RGB 31, 16, 17
+	RGB 25,  6,  0
+	RGB 31, 16, 17
+
+; CLOYSTER
+	RGB 14, 11, 16
+	RGB 25, 21, 26
+	RGB 14, 11, 16
+	RGB 25, 21, 26
+
+; $8c
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; ELECTRODE
+	RGB 25,  6,  0
+	RGB 31, 15, 12
+	RGB 25,  6,  0
+	RGB 19, 23, 31
+
+; CLEFABLE
+	RGB 20,  8,  4
+	RGB 31, 14, 18
+	RGB 20,  8,  4
+	RGB 31, 14, 18
+
+; WEEZING
+	RGB 10,  7, 14
+	RGB 21, 13, 28
+	RGB 21,  4,  7 ; unused
+	RGB 21, 13, 28
+
+; PERSIAN
+	RGB 19, 10,  0
+	RGB 29, 28,  7
+	RGB 31,  0,  0
+	RGB 29, 28,  7
+
+; MAROWAK
+	RGB 20, 10,  3
+	RGB 18, 20, 27
+	RGB 20, 10,  3
+	RGB 29, 23, 10
+
+; $92
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; HAUNTER
+	RGB 15,  8, 16
+	RGB 26, 18, 27
+	RGB 14,  9, 15
+	RGB 31, 13, 13
+
+; ABRA
+	RGB 19, 11,  6
+	RGB 31, 30,  0
+	RGB 19, 11,  6
+	RGB 31, 30,  0
+
+; ALAKAZAM
+	RGB 19, 11,  6
+	RGB 31, 30,  0
+	RGB 19, 11,  6
+	RGB 21, 21, 21
+
+; PIDGEOTTO
+	RGB 28,  6,  1
+	RGB 30, 21,  0
+	RGB 28,  6,  1
+	RGB 30, 21,  0
+
+; PIDGEOT
+	RGB 28,  6,  1
+	RGB 26, 23,  0
+	RGB 28,  6,  1
+	RGB 26, 23,  0
+
+; STARMIE
+	RGB 15,  8, 16
+	RGB 31, 17,  0
+	RGB 25,  3,  2
+	RGB 31, 16,  8
+
+; BULBASAUR
+	RGB 26,  1,  0
+	RGB  0, 19, 13
+	RGB  0,  9,  0
+	RGB  0, 19, 13
+
+; VENUSAUR
+	RGB 26,  1,  0
+	RGB  0, 19, 13
+	RGB  5, 15,  0
+	RGB  0, 19, 13
+
+; TENTACRUEL
+	RGB  0, 11, 22
+	RGB 16, 22, 31
+	RGB 31,  5,  6
+	RGB 16, 22, 31
+
+; $9c
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; GOLDEEN
+	RGB 29,  3,  0
+	RGB 30, 16,  4
+	RGB 29,  3,  0
+	RGB 30, 16,  4
+
+; SEAKING
+	RGB 31,  5,  0
+	RGB 29, 17,  5
+	RGB 31,  5,  0
+	RGB 29, 17,  5
+
+; $9f
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $a0
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $a1
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $a2
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; PONYTA
+	RGB 31,  0,  0
+	RGB 27, 26, 11
+	RGB 31,  0,  0
+	RGB 31, 29,  0
+
+; RAPIDASH
+	RGB 31,  0,  0
+	RGB 27, 26, 11
+	RGB 31,  0,  0
+	RGB 31, 29,  0
+
+; RATTATA
+	RGB 21,  4,  7
+	RGB 30, 16, 24
+	RGB 21,  4,  7
+	RGB 30, 16, 24
+
+; RATICATE
+	RGB 27,  7,  0
+	RGB 30, 24,  7
+	RGB 27,  7,  0
+	RGB 30, 24,  7
+
+; NIDORINO
+	RGB 21,  3, 15
+	RGB 31, 15, 24
+	RGB 21,  3, 15
+	RGB 31, 15, 24
+
+; NIDORINA
+	RGB  8,  8, 24
+	RGB 19, 23, 31
+	RGB  8,  8, 24
+	RGB 19, 23, 31
+
+; GEODUDE
+	RGB 10, 13, 12
+	RGB 20, 23, 22
+	RGB 10, 13, 12
+	RGB 20, 23, 22
+
+; PORYGON
+	RGB  2, 10, 17
+	RGB 29, 12, 13
+	RGB  2, 10, 17
+	RGB  5, 23, 31
+
+; AERODACTYL
+	RGB  8,  6, 15
+	RGB 20, 18, 31
+	RGB 17,  3, 25
+	RGB 20, 18, 31
+
+; $ac
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; MAGNEMITE
+	RGB 11, 11, 20
+	RGB 20, 20, 26
+	RGB 31,  0,  0
+	RGB 20, 20, 26
+
+; $ae
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; $af
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; CHARMANDER
+	RGB 26,  0,  0
+	RGB 31, 17,  1
+	RGB 26,  0,  0
+	RGB 31, 17,  1
+
+; SQUIRTLE
+	RGB  0, 16, 31
+	RGB 26, 23,  0
+	RGB  0, 16, 31
+	RGB 14, 27, 31
+
+; CHARMELEON
+	RGB 26,  4,  0
+	RGB 31, 17,  1
+	RGB 26,  4,  0
+	RGB 31, 17,  1
+
+; WARTORTLE
+	RGB  0, 16, 31
+	RGB 29, 23,  0
+	RGB  0, 16, 31
+	RGB 14, 27, 31
+
+; CHARIZARD
+	RGB 26,  4,  0
+	RGB 31, 17,  1
+	RGB 26,  4,  0
+	RGB 31, 17,  1
+
+; $b5
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; FOSSIL_KABUTOPS
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; FOSSIL_AERODACTYL
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; MON_GHOST
+REPT 4
+	RGB  0,  0,  0
+ENDR
+
+; ODDISH
+	RGB  7, 18,  0
+	RGB 22, 28,  2
+	RGB  4,  8, 14
+	RGB 31,  6,  0
+
+; GLOOM
+	RGB 28,  4,  0
+	RGB 30, 19, 15
+	RGB  4,  8, 14
+	RGB 19, 20, 31
+
+; VILEPLUME
+	RGB 28,  4,  0
+	RGB 30, 19, 15
+	RGB  4,  8, 14
+	RGB 19, 20, 31
+
+; BELLSPROUT
+	RGB 11, 20,  0
+	RGB 26, 29,  7
+	RGB 31, 11,  8
+	RGB 26, 29,  7
+
+; WEEPINBELL
+	RGB 11, 20,  0
+	RGB 26, 29,  7
+	RGB 31, 11,  8
+	RGB 26, 29,  7
+
+; VICTREEBEL
+	RGB 11, 20,  0
+	RGB 29, 31,  9
+	RGB 31, 11,  8
+	RGB 29, 31,  9
+
+	assert_table_length NUM_POKEMON_INDEXES + 1

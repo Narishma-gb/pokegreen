@@ -37,6 +37,9 @@ DEF START_MONEY EQU $3000
 	ld a, HIGH(START_MONEY)
 	ld [wPlayerMoney + 1], a
 
+	ld a, 1
+	ld [wSGBBorderOption], a
+
 	ld hl, wGameProgressFlags
 	ld bc, wGameProgressFlagsEnd - wGameProgressFlags
 	xor a

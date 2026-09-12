@@ -1,12 +1,10 @@
-SECTION "VRAM", VRAM
+SECTION "VRAM Tiles", VRAM
 
 UNION
 ; generic
 vChars0:: ds $80 tiles
 vChars1:: ds $80 tiles
 vChars2:: ds $80 tiles
-vBGMap0:: ds TILEMAP_AREA
-vBGMap1:: ds TILEMAP_AREA
 
 NEXTU
 ; battle/menu
@@ -29,5 +27,21 @@ vTitleLogo::  ds $80 tiles
 vTitleLogo2:: ds 30 tiles
 
 ENDU
+
+
+SECTION "VRAM Tilemap 0", VRAM
+
+; vBGMap0:: ds TILEMAP_AREA
+vBGMap0:: ds TILEMAP_WIDTH * 22
+
+
+SECTION UNION "VRAM Tilemap 0_2", VRAM
+
+	ds TILEMAP_WIDTH * 10
+
+
+SECTION "VRAM Tilemap 1", VRAM
+
+vBGMap1:: ds TILEMAP_AREA
 
 ENDSECTION

@@ -16,6 +16,7 @@ _GivePokemon::
 	ld a, [wCurPartySpecies]
 	ld [wEnemyMonSpecies2], a
 	callfar LoadEnemyMonData
+	call SGBAddCaughtMon
 	call SetPokedexOwnedFlag
 	callfar SendNewMonToBox
 	ld a, [wCurrentBoxNum]
@@ -34,6 +35,7 @@ _GivePokemon::
 	and a
 	ret
 .addToParty
+	call SGBAddCaughtMon
 	call SetPokedexOwnedFlag
 	call AddPartyMon
 	ld a, 1

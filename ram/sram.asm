@@ -1,10 +1,20 @@
 SECTION "Sprite Buffers", SRAM
 
+UNION
 sSpriteBuffer0:: ds SPRITEBUFFERSIZE
 sSpriteBuffer1:: ds SPRITEBUFFERSIZE
 sSpriteBuffer2:: ds SPRITEBUFFERSIZE
 
 	ds $100
+
+NEXTU
+sLZBuffer:: ds 6 * 4 tiles
+
+	ds $10
+
+sSGBTilemapBackup:: ds TILEMAP_AREA
+
+ENDU
 
 sHallOfFame:: ds HOF_TEAM * HOF_TEAM_CAPACITY
 

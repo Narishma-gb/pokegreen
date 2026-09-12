@@ -1552,7 +1552,7 @@ wSavedTileAnimations:: db
 
 wDamage:: dw
 
-	ds 2
+wLZAddress:: dw
 
 wRepelRemainingSteps:: db
 
@@ -2051,7 +2051,16 @@ wRoute18Gate1FCurScript:: db
 	ds 78
 wGameProgressFlagsEnd::
 
-	ds 56
+wLastCaughtList:: ds 6
+wForceBorderRedraw:: db
+
+; $00 = last 6 caught
+; $01 = party
+wSGBBorderOption:: db
+wLastPartyDrawn:: ds PARTY_LENGTH
+wSGBReloadTileset:: db
+
+	ds 41
 
 wObtainedHiddenItemsFlags:: flag_array MAX_HIDDEN_ITEMS
 
